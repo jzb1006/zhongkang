@@ -1,8 +1,8 @@
 <template>
   <div class="product-list">
     <div class="hot_item border" :key="index" v-for="(item,index) in list" >
-      <router-link :to="'/productDetail/'+item.goods_id+'/'+item.ins_id" tag="a">
-        <a href="#/" class="link-info router-link-exact-active router-link-active"><img :src="getImgUrl()+item.goods_thumb" class="hot_pic lazy">
+      <router-link :to="{name:'productDetail',params:{id:item.goods_id,ins_id:item.institution_id}}" tag="a" class="link-info router-link-exact-active router-link-active">
+        <img :src="getImgUrl()+item.goods_thumb" class="hot_pic lazy">
           <div class="hot_text">
             <h3>{{item.goods_name}}</h3>
             <h4>{{item.doctor_name}} {{item.ins_name}}</h4>
@@ -17,7 +17,7 @@
               </div>
             </div>
           </div>
-        </a>
+       
         <div class="bar"></div>
       </router-link>
     </div>

@@ -26,7 +26,6 @@
     }
 </script>
 <style scoped>
-@import "../../assets/css/Base.css";
 .noresult {
   padding-top: 3rem;
   background-color: #fff;

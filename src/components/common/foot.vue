@@ -2,19 +2,19 @@
        
         <div id="foot">
             <tabbar>
-                <tabbar-item selected link="/home/productList">
+                <tabbar-item selected link="/HProductList">
                     <span slot="icon" class="zk-icon-shouye icon"></span>
                     <span slot="label">首页</span>
                 </tabbar-item>
-                <tabbar-item link='/home/hospitalList'>
+                <tabbar-item link='/hospitalList'>
                     <span slot="icon" class="zk-icon-organization icon"></span>
                     <span slot="label">机构</span>
                 </tabbar-item>
-                <tabbar-item link='/home/doctorList'>
+                <tabbar-item link='/doctorList'>
                     <span slot="icon" class="zk-icon-nanxingmale100 icon"></span>
                     <span slot="label">医生</span>
                 </tabbar-item>
-                <tabbar-item link="/home/productList">
+                <tabbar-item link="/HProductList">
                     <span slot="icon" class="zk-icon-project-o icon"></span>
                     <span slot="label">项目</span>
                 </tabbar-item>
@@ -38,7 +38,6 @@
     }
 </script>
 <style>
-    @import "../../assets/css/Base.css";
     #foot {
         position: fixed;
         width: 100%;

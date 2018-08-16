@@ -1,11 +1,43 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <transition :name="transitionName">
+      <router-view class="child-view"></router-view>
+    </transition>
+    <foot></foot>
   </div>
 </template>
 
 <script>
+  import foot from "@/components/common/foot.vue";
+  export default {
+    data() {
+      return {
+        transitionName: 'slide-left'
+      }
+    },
+    components: {
+      foot,
+    },
 
+    watch: {
+      '$route' (to, from) {
+        let routersArr = sessionStorage.getItem('routers') && sessionStorage.getItem('routers').split(',') || [];
+        if (routersArr.length == 0) {
+          routersArr.push(from.path)
+          routersArr.push(to.path);
+        } else {
+          if (routersArr.indexOf(to.path) != -1) {
+            this.transitionName = 'slide-right'
+            routersArr.splice(routersArr.indexOf(to.path) + 1, 100)
+          } else {
+            this.transitionName = 'slide-left'
+            routersArr.push(to.path)
+          }
+        }
+        sessionStorage.setItem('routers', routersArr.join(','))
+      }
+    }
+  }
 </script>
 
 <style>

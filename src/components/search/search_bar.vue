@@ -74,7 +74,7 @@ import {mapState,mapGetters} from 'vuex'
   }
 </script>
 <style scoped>
-  @import "../../assets/css/Base.css";
+ 
  .search-wrapper {
   display: -webkit-flex;
   display: -ms-flexbox;

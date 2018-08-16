@@ -4,7 +4,7 @@
             <div class="page-title">
                 {{title}}
             </div>
-            <!-- <div class="curr-location">广州</div> -->
+            <div class="curr-location">{{address}}</div>
             <router-link :to="{name:'Search'}" class="show-search" v-show="iconShow">
                <i class="icon iconfont zk-icon-sousuo"></i>
             </router-link>
@@ -15,7 +15,19 @@
     </div>
 </template>
 <script>
+import {mapState} from 'vuex'
+import BMap from '@/api/BMap';
 export default {
+    data(){
+      return {
+        //   address:''
+      }
+    },
+    computed:{
+      ...mapState({
+          address:state=>state.BMap.city
+      })
+    },
     props:{
         title:{
             default:''
@@ -23,6 +35,14 @@ export default {
         iconShow:{
             default:false
         }
+    },
+    methods:{
+      $_ajax_location(){
+           BMap.addressDetail(this) 
+      }
+    },
+    mounted(){
+      this.$_ajax_location();
     }
     
 }
@@ -62,14 +82,13 @@ export default {
     text-align: center;
 }
 .-widget-top-bar .show-search {
-    right: 44px;
+        right: 0.2rem;
     width: 44px;
 }
 
 
 .-widget-top-bar .curr-location, .-widget-top-bar .show-search, .-widget-top-bar .show-user {
     top: 0.35rem;
-    right: 0.9rem;
     height: 0.3rem;
     line-height: 0.3rem;
     z-index: 4001;

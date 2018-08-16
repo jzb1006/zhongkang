@@ -293,7 +293,7 @@
 </script>
 <style lang="less">
     @import '~vux/src/styles/close';
-    @import "../../assets/css/Base.css";
+    
     .weui-switch:before,
     .weui-switch-cp__box:before {
         background-color: #ff5370!important;

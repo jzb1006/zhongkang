@@ -104,7 +104,6 @@ import Alert from "@/components/decorate/alert.vue";
     }
 </script>
 <style>
-    @import "../../assets/css/Base.css";
     .weui-cells__title{
         font-size: 0.3rem!important;
     }

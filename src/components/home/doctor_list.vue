@@ -3,19 +3,22 @@
         <!-- 头部 -->
          <searchBar :title="'医生'" :iconShow="true"></searchBar>
          <doctor :list="doctorList"></doctor>
+          <Loading v-show="loadinging"></Loading>
          <LoadMore :state='hasMore' :isLoading='isBusy'  @loadmore="$_ajax_docList"></LoadMore>
     </div>
 </template>
 <script>
  import doctor from '@/components/doctor/list.vue'
  import LoadMore from '@/components/loadMore/index.vue'
+ import Loading from "@/components/decorate/loading.vue";
  import searchBar from '@/components/home/search_bar.vue'
  import api from '@/api/home';
 export default {
     components:{
         doctor,
         LoadMore,
-        searchBar
+        searchBar,
+        Loading
     },
     data(){
         return{
@@ -24,7 +27,8 @@ export default {
             isBusy:false,
             ins_info:[],
             page:1,
-            num_list:5
+            num_list:5,
+            loadinging:true
         }
     },
     computed:{
@@ -56,10 +60,12 @@ export default {
                    self.ins_info = result.data.institution_info
                }
                self.isBusy=false;
-               console.log(self.result);
+               self.loadinging=false
            }).catch(error=>{
+                self.loadinging=false
                console.log(error)
            })
+           
        }
     },
     mounted(){
@@ -68,5 +74,5 @@ export default {
 }
 </script>
 <style>
-@import "../../assets/css/Base.css";
+
 </style>

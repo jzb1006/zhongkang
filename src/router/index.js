@@ -2,14 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 
-import Search from '@/search.vue'
+import Search from '@/components/search/search.vue'
 import productDetail from '@/components/product/detail.vue'
 import mycart from '@/components/shopping/mycart_checkout.vue'
 import pay from '@/components/shopping/pay.vue'
 import orderList from '@/components/order/order_list.vue'
-import orderAll from '@/components/order/all.vue'
-import orderPayNo from '@/components/order/pay_no.vue'
-import orderPayYes from '@/components/order/pay_yes.vue'
 import login from '@/components/user/login.vue'
 import orderDetail from '@/components/order/order_detail.vue'
 import applyRefund from '@/components/order/apply_refund.vue'
@@ -19,16 +16,15 @@ import hospitalDetail from '@/components/hospital/detail.vue'
 import insAlbum from '@/components/hospital/ins_album.vue'
 import ins_imgList from '@/components/hospital/img_list.vue'
 import ins_licence from '@/components/hospital/licence.vue'
-
 import docList from '@/components/hospital/doc_list.vue'
+import Map from '@/components/hospital/to_Map.vue'
+
 import productList from '@/components/common/product_list.vue'
 import docAlbum from '@/components/doctor/doc_album.vue'
 import doc_imgList from '@/components/doctor/img_list.vue'
 import doc_licence from '@/components/doctor/licence.vue'
 import doctorDetail from '@/components/doctor/detail.vue'
 
-
-import home from '@/components/home/index.vue'
 import HProductList from '@/components/home/product_list.vue'
 import HDoctorList from '@/components/home/doctor_list.vue'
 import HHospitalList from '@/components/home/hospital_list.vue'
@@ -39,7 +35,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect:'/home/productList'
+      redirect:'/HProductList'
     },
     {
       path: '/search',
@@ -72,19 +68,6 @@ export default new Router({
       path: '/orderList',
       name: 'orderList',
       component: orderList,
-      children: [{
-          path: '/orderList/All',
-          component: orderAll
-        },
-        {
-          path: '/orderList/PayNo',
-          component: orderPayNo
-        },
-        {
-          path: '/orderList/PayYes',
-          component: orderPayYes
-        },
-      ]
     },
     {
       path: '/orderDetail/:orderSn',
@@ -165,23 +148,43 @@ export default new Router({
 
       ]
     },
+    // {
+    //   path: '/home',
+    //   name: 'home',
+    //   component: home,
+    //   children: [{
+    //     path: '/home/productList',
+    //     component: HProductList
+    //   },
+    //   {
+    //     path: '/home/doctorList',
+    //     component: HDoctorList
+    //   },
+    //   {
+    //     path: '/home/hospitalList',
+    //     component: HHospitalList
+    //   },
+    // ]
+    // },
     {
-      path: '/home',
-      name: 'home',
-      component: home,
-      children: [{
-        path: '/home/productList',
-        component: HProductList
-      },
-      {
-        path: '/home/doctorList',
-        component: HDoctorList
-      },
-      {
-        path: '/home/hospitalList',
-        component: HHospitalList
-      },
-    ]
+      path: '/doctorList',
+      name: 'doctorList',
+      component: HDoctorList
     },
+    {
+      path: '/HProductList',
+      name: 'HProductList',
+      component: HProductList
+    },
+    {
+      path: '/hospitalList',
+      name: 'hospitalList',
+      component: HHospitalList
+    },
+    {
+      path: '/Map/:lat/:lon/:name/:address',
+      name: 'Map',
+      component: Map
+    }
   ]
 })

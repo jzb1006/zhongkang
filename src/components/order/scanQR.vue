@@ -188,7 +188,7 @@
     }
 </script>
 <style>
-    @import "../../assets/css/Base.css";
+  
     .weui-cell {
         padding-top: 0.2rem!important;
         padding-bottom: 0.2rem!important;

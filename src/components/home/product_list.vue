@@ -2,12 +2,14 @@
     <div id="product_list">
         <searchBar :title="'众康医疗'" :iconShow="true"></searchBar>
         <product :list="result"></product>
+         <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_index"></LoadMore>
     </div>
 </template>
 <script>
     import foot from "@/components/common/foot.vue";
     import product from '@/components/product/list.vue'
+    import Loading from "@/components/decorate/loading.vue";
     import LoadMore from '@/components/loadMore/index.vue'
     import searchBar from '@/components/home/search_bar.vue'
     import api from "../../api/home";
@@ -22,7 +24,8 @@
                 page: 1,
                 num_list: 5,
                 hasMore: 0,
-                isBusy: false
+                isBusy: false,
+                loadinging:true
             }
         },
         components: {
@@ -31,7 +34,8 @@
             foot,
             product,
             LoadMore,
-            searchBar
+            searchBar,
+            Loading
         },
         methods: {
             $_ajax_index() {
@@ -41,18 +45,19 @@
                     page: this.page++,
                     num_list: this.num_list
                 }).then(res => {
-                    console.log(res)
                     var result = res.data.data;
                     var error_code = res.data.error_code;
                     if (error_code == 0) {
                         self.hasMore = result.hasMore;
-                        if (result.goods) {
-                            self.result = self.result.concat(result.goods);
+                        if (result.goods_info) {
+                            self.result = self.result.concat(result.goods_info);
                         }
                     }
+                    self.loadinging=false
                     this.isBusy = false;
                 }).catch(error => {
                     console.log(error)
+                    self.loadinging=false
                 })
             }
         },

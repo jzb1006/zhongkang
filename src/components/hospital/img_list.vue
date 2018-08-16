@@ -118,7 +118,6 @@ import api from "../../api/hospital";
     }
 </script>
 <style>
-   @import "../../assets/css/Base.css";
    #img_list{
            padding: 0.3rem 0.2rem;
    }

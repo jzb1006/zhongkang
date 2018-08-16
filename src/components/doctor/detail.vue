@@ -152,7 +152,6 @@
     }
 </script>
 <style>
-    @import "../../assets/css/Base.css";
     .weui-cells {
         font-size: 0.3rem!important;
         padding: 0 0.2rem!important;

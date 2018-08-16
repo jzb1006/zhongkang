@@ -106,7 +106,6 @@ import api from "../../api/doctor";
     }
 </script>
 <style>
-   @import "../../assets/css/Base.css";
    #img_list{
            padding: 0.3rem 0.2rem;
    }

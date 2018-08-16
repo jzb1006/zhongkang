@@ -1730,7 +1730,7 @@
     }
 </script>
 <style scoped>
-    @import "../../assets/css/Base.css";
+    
     .itembox {
         background-color: #f3f7f7;
     }

@@ -180,7 +180,6 @@
     }
 </script>
 <style scoped>
-    @import "../../assets/css/Base.css";
     .navbar {
         height: 1rem;
         line-height: 1rem;

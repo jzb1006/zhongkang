@@ -1,7 +1,7 @@
 <template>
     <div id="product-item" >
         <div v-if="expert_item_list.length>0" :key="y" v-for="(i,y) in expert_item_list">
-            <span :key="index" v-for="(item,index) in item_arr()" v-if="i[0]==item">{{i[1]}}&nbsp;</span>
+            <span :key="index" v-for="(item,index) in getItems" v-if="i[0]==item">{{i[1]}}&nbsp;</span>
         </div>
     </div>
 </template>
@@ -46,11 +46,17 @@
                 request: true
             }
         },
-        methods:{
-            item_arr(){
-                return this.items.split(',')
-            }
-        }
+        computed:{
+          getItems(){
+              try{
+                  return this.items.split(',')
+              }
+              catch(e){
+                  return []
+              }
+             
+          }
+        },
     }
 </script>
 <style scoped>

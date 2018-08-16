@@ -51,7 +51,6 @@
     }
 </script>
 <style>
-    @import "../../assets/css/Base.css";
     #tab {
         margin: 0.1rem 0;
         padding: 0 0.5rem;
