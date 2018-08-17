@@ -12,6 +12,10 @@ export default {
     get_ins_photo(params={}){
         return ajax.get('hospital.php?action=get_ins_picture',{params})
     },
+    //搜索所有
+    ajaxSearch(module = 'index',params={}){
+        return ajax.get(`hospital.php?action=${module}`, {params});
+    },
     
     //图片前缀
     imgPrifix(){

@@ -1,3 +1,18 @@
+/* 主流浏览器清除浮动 */
+.clearfix::after {
+  display: block;
+  clear: both;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  content: ".";
+}
+/* IE6/7 清除浮动 */
+.clearfix{
+zoom:1;
+}
+
+
 a,
 ins {
   text-decoration: none;

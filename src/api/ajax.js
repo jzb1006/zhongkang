@@ -20,6 +20,12 @@ export const ajax2 = Axios.create({
   },
   timeout: 3000,
 })
+
+export const ajax3 = Axios.create({
+  baseURL:'/m',
+  headers: { 'content-type': 'application/x-www-form-urlencoded'},
+  timeout:30000,
+})
 export const qs = Qs;
 
 //相片网址前缀

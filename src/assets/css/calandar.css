@@ -1,0 +1,31 @@
+.weui-cells {
+    font-size: .35rem!important;
+}
+
+.inline-calendar th {
+    font-size: .5rem !important;
+}
+
+.inline-calendar td > span.vux-calendar-each-date {
+    width: auto!important;
+    height: auto!important;
+    font-size: 0.4rem!important;
+    line-height: .6rem!important;
+}
+
+.vux-prev-icon, .vux-next-icon {
+    width: .3rem!important;
+    height: .3rem!important;
+}
+
+.inline-calendar a {
+    top: 0.3rem!important;
+}
+.vux-next-icon {
+    top: 0.3rem!important;
+}
+
+.calendar-header {
+    line-height: .9rem !important;
+    font-size: .6rem !important;
+}
