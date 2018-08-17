@@ -16,7 +16,6 @@ export default {
             self.$store.dispatch('changeAddress', result.address);
             self.$store.dispatch('changeLatitude', result.point.lat);
             self.$store.dispatch('changeLongitude', result.point.lng);
-            console.log(result);
           }
         });
       }

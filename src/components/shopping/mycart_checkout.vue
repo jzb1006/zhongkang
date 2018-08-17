@@ -184,7 +184,7 @@
     }
 </script>
 <style scoped>
-    @import "../../assets/css/Base.css";
+    
     #empty {
         position: absolute;
         top: 32%;

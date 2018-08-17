@@ -6,7 +6,7 @@
 		var a, b = f.querySelector('meta[name="viewport"]');
 		c = e.devicePixelRatio || 1;
 		a = 1 / c;
-		g.setAttribute("data-dpr", c);
+		g.setAttribute("data-dpr",1);
 		a = "width=device-width, initial-scale=" + a + ", minimum-scale=" + a + ", maximum-scale=" + a + ", user-scalable=no";
 		b ? b.setAttribute("content", a) : (b = f.createElement("meta"), b.setAttribute("name", "viewport"), b.setAttribute("content", a), (f.head || g.firstElementChild).appendChild(b))
 	})();
@@ -15,7 +15,7 @@
 				var a = g.clientWidth;
 				600 < a / c && (a = 600 * c);
 				k = Math.floor(a / 750 * 100);
-				g.style.fontSize = k + "px"
+				g.style.fontSize = 0+'px';
 			};
 		e.addEventListener("orientationchange" in e ? "orientationchange" : "resize", function() {
 			d && clearTimeout(d);
@@ -40,4 +40,3 @@
 		return b
 	}
 })(window, window.FT || (window.FT = {}));
-

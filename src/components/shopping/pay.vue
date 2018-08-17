@@ -121,7 +121,7 @@ import { setInterval, setTimeout } from 'timers';
 .weui-toast{
     min-height: 1.5rem!important;
   }
-  @import "../../assets/css/Base.css";
+  
   .moneyBox {
     display: flex;
     align-items: center;
