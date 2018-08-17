@@ -2,7 +2,7 @@
        
         <div id="foot">
             <tabbar>
-                <tabbar-item selected link="/HProductList">
+                <tabbar-item selected link="/home/diaryList">
                     <span slot="icon" class="zk-icon-shouye icon"></span>
                     <span slot="label">首页</span>
                 </tabbar-item>

@@ -35,7 +35,49 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect:'/HProductList'
+      redirect:'/home/diaryList'
+    },
+    {
+      path: '/diary/diaryBackdrop.vue',
+      name: 'diaryBackdrop',
+      component: ()=> import('@/components/diary/diary_children/diary_backdrop.vue'),
+    },
+    {
+      path:'/diary/diaryDetail',
+      name:"diaryDetail",
+      component: ()=> import('./../components/diary/diary_children/diary_children/diary_detail.vue'),
+    
+    },
+    {
+      path:'/diary/diaryBackdropList',
+      name:"diaryBackdropList",
+      component: ()=> import('./../components/diary/diary_children/diary_backdrop_list.vue'),
+    
+    },
+    {
+      path:'/diary/diaryCreateDiary',
+      name:"diaryCreateDiary",
+      component: ()=> import('./../components/diary/diary_children/diary_children/diary_create_diary.vue'),
+    },
+    {
+      path:'/diary/diaryCreateBackdrop',
+      name:"diaryCreateBackdrop",
+      component: ()=> import('./../components/diary/diary_children/diary_children/diary_create_backdrop.vue'),
+    },
+    {
+      path:'/diary/diaryUpdateBasic',
+      name:"diaryUpdateBasic",
+      component: ()=> import('./../components/diary/diary_children/diary_children/diary_update_basic.vue'),
+    },
+    {
+      path:'/diary/diaryReward',
+      name:"diaryReward",
+      component: ()=> import('./../components/diary/diary_children/diary_children/diary_reward.vue'),
+    },
+    {
+      path:'/diary/diarySelItem',
+      name:"diarySelItem",
+      component: ()=> import('./../components/diary/diary_children/diary_children/diary_children/diary_sel_item.vue'),
     },
     {
       path: '/search',
@@ -175,6 +217,11 @@ export default new Router({
       path: '/HProductList',
       name: 'HProductList',
       component: HProductList
+    },
+    {
+      path: '/home/diaryList',
+      name: 'diaryList',
+      component: ()=> import('@/components/diary/diary_list.vue'),
     },
     {
       path: '/hospitalList',
