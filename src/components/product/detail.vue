@@ -132,6 +132,7 @@
                 goods_api.addCard({
                     goods: goods
                 }).then(res => {
+                    console.log(res.data);
                     var result = res.data;
                     var code = result.error + '';
                     var msg = result.message

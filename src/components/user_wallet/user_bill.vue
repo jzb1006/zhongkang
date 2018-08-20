@@ -1,7 +1,7 @@
 <template>
 	<div class="bill">
 		<top title="账单"></top>
-		<div class="content">
+		<div class="content_bill">
 		    <div class="head">
 		        <div class="type">
 		             <span class="span">交易类型:</span>
@@ -185,13 +185,11 @@ export default {
 </script>
 
 <style scoped>
-	.content{
+	.content_bill{
 		font-size: .33rem;
 		text-align: center;
 	}
 	.head{
-		/*margin-bottom: 1rem;*/
-		/*background: #ccc;*/
 		padding-bottom:0.3rem;
 	}
 	.billrecord{
@@ -262,72 +260,4 @@ export default {
 		text-align: center!important;
 	}
 </style> -->
-<style>
-	.weui-cell:after{
-		content:'';
-		display: block;
-		clear: both;
-	}
-    .weui-cell{
-        display: block!important;
-        padding-right:0.5rem!important;
-        padding-left:0!important;
-    }
-    .vux-cell-bd{
-        float:left!important;
-        width:35%;
-        padding-top:0.1rem;
-        padding-left:0.1rem;
-		box-sizing: border-box!important;
-    }
-    .vux-cell-primary{
-        display: block!important;
-        border:2px solid #ccc;
-        padding:0.15rem 0 0.15rem 0.15rem !important;
-        text-align: left!important;
-        background:#fff!important;
-        float:right!important;
-        width:65%!important;
-		box-sizing: border-box!important;
-    }
-	/*.weui-cell{
-		padding:0 1rem!important;
-	}
-	.weui-cell__ft{
-		margin-left:.1rem;
-		border:2px solid #ccc;
-		padding:0.2rem ;
-		text-align: left!important;
-	}*/
-	.weui-cells {
-		font-size: .35rem!important;
-	}
 
-	.inline-calendar th {
-		font-size: .5rem !important;
-	}
-
-	.inline-calendar td > span.vux-calendar-each-date {
-		width: auto!important;
-		height: auto!important;
-		font-size: 0.4rem!important;
-		line-height: 0.6rem!important;
-	}
-
-	.vux-prev-icon, .vux-next-icon {
-		width: .3rem!important;
-		height: .3rem!important;
-	}
-
-	.inline-calendar a {
-		top: 0.3rem!important;
-	}
-	.vux-next-icon {
-		top: 0.3rem!important;
-	}
-
-	.calendar-header {
-		line-height: .9rem !important;
-		font-size: .6rem !important;
-	}
-</style>

@@ -11,8 +11,7 @@
 			 </div>	
 		</div>
 		<div class="div2 meone">
-		     <!-- <input type="button" value="下一步" @click="recharge" :class="classObject"> -->
-			 <a href="http://192.168.0.108/m/pay.php?action=pay&pay_id=3&order_sn=122651449222&subject=充值&order_amount=1" target="_black" @click="recharge_two">下一步</a>
+		     <input type="button" value="下一步" @click="recharge" :class="classObject">
 		</div>
   	</div>
 </template> 
@@ -24,8 +23,7 @@ export default {
     name: 'recharge',
     data(){
     	return{
-			amount:''
-			// order_sn:'11111222'
+    		amount:''
     	}
     },
     computed:{
@@ -61,15 +59,13 @@ export default {
 	    	if(window.confirm('您充值的金额为'+amount+'元,确定吗？')){
 	    		var order_sn=new Date().getTime();
 	        	var subject="充值";
-	            api.ajaxPayGet('pay',{'pay_id':'3','order_sn':order_sn,'subject':subject,'order_amount':amount}).then(res=>{
-	            	// if(res.data.error==3){
-	            	// 	alert(res.data.message);
-	            	// 	this.$router.push('/login');
-	            	// }else{
-	            	// 	this.$router.go(-1);
-					// }
-					// console.log('s');
-					console.log(res.data);
+	            api.ajaxWalletPost('chongzhi',{'WIDout_trade_no':order_sn,'WIDsubject':subject,'WIDtotal_amount':amount}).then(res=>{
+	            	if(res.data.error==3){
+	            		alert(res.data.message);
+	            		this.$router.push('/login');
+	            	}else{
+	            		this.$router.go(-1);
+	            	}
 	            	
 	            }).catch(error=>{
 	            	console.log(error);
@@ -78,10 +74,7 @@ export default {
 	         }else{
 	            return false;
 	         }
-		},
-		recharge_two(){
-			 this.$router.push('/home/balance');
-		}
+    	}
     },
 	components:{
 		top

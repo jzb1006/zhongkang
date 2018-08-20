@@ -36,7 +36,10 @@
       <!-- 微信外使用 -->
       <div class="notweixin" style="">
         <p class="payTip">订单已生成，请在半小时内完成支付</p>
-        <div style="text-align: center;"> <button class="payBtn" id="zhibao" @click="fastpay()">确认支付</button></div>
+        <div style="text-align: center;"> 
+          <button class="payBtn" id="zhibao" @click="fastpay()">确认支付</button>
+          <!-- <a href="http://192.168.0.108/m/pay.php?action=pay&pay_id=3&order_sn=152112292985&subject=支付报&order_amount=1" target="_black">确认支付</a> -->
+          </div>
       </div>
     </div>
   </div>
