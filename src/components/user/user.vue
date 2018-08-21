@@ -2,7 +2,7 @@
   <div id="hello">
     <div class="meCenter">
         <div class="setup">
-            <span @click="toSetup"><img src="../../assets/img/user/setup.png"></span>
+            <span @click="toSetup"><i class="zk-icon-shezhi2"></i></span>
         </div>
         <div class="mainInfo">
             <div class="headImg"><img v-bind:src="headimgurl"></div>
@@ -57,6 +57,7 @@ export default {
     },
   	mounted(){
         api.ajaxuserGet().then(res=>{
+           console.log(res);
            let data=res.data.userinfo;
            this.$store.dispatch('changeUserinfo',data);
            this.nickname=this.getNickname(data);
@@ -133,5 +134,8 @@ export default {
   }
   .top{
     margin-top: 0.25rem;
+  }
+  .zk-icon-shezhi2{
+    font-size:.6rem;
   }
 </style>
