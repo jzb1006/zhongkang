@@ -1,11 +1,9 @@
 <template>
     <div id="diary_backdrop_list">
         <div class="top">
-            <p class="title">
-                <span class="back" @click="$router.back(-1)">
-                    <x-icon type="ios-arrow-back" class="ios-arrow-back" size=".5rem"></x-icon></span>我的日记本</p>
+            <top title="我的日记本"></top>
             <p class="create_backdrop">
-                <span>❤</span>
+                <span><i class="zk-icon-xinaixin"></i></span>
                 <router-link :to="{name:'diaryCreateBackdrop'}">
                     新建日记本
                 </router-link>
@@ -15,15 +13,15 @@
         <ul class="backdrop_list">
             <li class="backdrop" v-for="backdrop in backdropList">
                 <router-link :to="{name:'diaryBackdrop',query:{bid:backdrop.id}}" tag="a">
-                    <div class="b_left">
-                        <p class="jisuan" v-for="count in diaryCount[backdrop.id]">{{count}}篇/{{backdrop.total_comment}}❤</p>
+                    <div class="b_left"> 
+                        <p class="jisuan" v-for="count in diaryCount[backdrop.id]">{{count}} 篇 / {{backdrop.total_comment}} <i class="zk-icon-xinaixin"></i></p>
                         <p class="item" v-for="(cid,index) in formatCid(backdrop.goods_cate_ids)" v-if="index == '0'">{{itemName[cid].cat_name}}</p>
                         <p class="time">{{backdrop.add_time}}</p>
                     </div>
                 </router-link>
                 <div class="b_right">
                     <router-link :to="{name:'diaryUpdateBasic',query:{bid:backdrop.id}}" tag="a">
-                        <span class="setting"><x-icon type="settings" size=".5rem"></x-icon></span>
+                        <span class="setting"><i class="zk-icon-shezhi"></i></span>
                     </router-link>
                     <span class="writeDiary">
                         <router-link :to="{name:'diaryCreateDiary',query:{bid:backdrop.id}}">
@@ -39,6 +37,7 @@
 <script>
 import api from "./../../../api/diary";
 import Loading from "@/widget/loading";
+import top from "@/components/decorate/top_back_title.vue";
 export default {
     data() {
         return {
@@ -47,6 +46,9 @@ export default {
             diaryCount: []
         };
     },
+    components:{
+        top
+    },
     methods: {
         $_ajax_backdropList: function() {
             var self = this;
@@ -54,6 +56,9 @@ export default {
                 self.backdropList = res.data.backdrop;
                 self.itemName = res.data.item_name;
                 self.diaryCount = res.data.diary_count;
+                Loading.stop();
+            })
+            .catch(error => {
                 Loading.stop();
             });
         },
@@ -81,7 +86,7 @@ export default {
     z-index: 999;
 }
 #diary_backdrop_list .top p.title {
-    font-size: .5rem;
+    font-size: .35rem;
     text-align: center;
     padding: 0.3rem;
     color: #fff;
@@ -93,7 +98,7 @@ export default {
 #diary_backdrop_list .top p.create_backdrop {
     text-align: center;
     padding: 0.4rem;
-    font-size: 0.4rem;
+    font-size: 0.35rem;
     font-weight: 550;
     box-shadow: 2px 2px 2px #ccc;
     background-color: #faebd778;
@@ -110,7 +115,7 @@ export default {
 }
 .backdrop_list .backdrop .b_left {
     float: left;
-    width: 3rem;
+    width: 2.8rem;
     height: 4.5rem;
     padding-left: .3rem;
     background-color: rgb(255, 83, 112);
@@ -124,10 +129,10 @@ export default {
 }
 .backdrop_list .backdrop .b_left p.jisuan {
     margin-top: 1.5rem;
-    font-size: 0.4rem;
+    font-size: 0.3rem;
 }
 .backdrop_list .backdrop .b_left p.item {
-    font-size: .5rem;
+    font-size: .4rem;
     margin: .2rem 0
 }
 

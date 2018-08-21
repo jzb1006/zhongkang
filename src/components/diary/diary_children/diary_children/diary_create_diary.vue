@@ -2,13 +2,11 @@
     <div id="diary_create_diary">
         <div class="create_diary" v-for="backdrop in backdropList">
             <p class="top">
-                <span class="back" @click="$router.back(-1)">
-                    <x-icon type="ios-arrow-back" class="ios-arrow-back" size=".5rem"></x-icon>
-                </span>写日记
+                <top title="写日记"></top>
                 <span class="submit" @click="submit()">发表</span>
             </p>
             <p class="status clearfix">{{isPublic}}
-                <span class="gou" @click="changeStatus()" :class="{activeStatus:status == true}">√</span>
+                <span class="gou" @click="changeStatus()" :class="{activeStatus:status == true}"><i class="zk-icon-gou"></i></span>
             </p>
             <div class="date">
                 <group>
@@ -37,6 +35,7 @@ import Upload from "@/components/public/upload.vue";
 import api from "@/api/diary";
 import apiUp from "@/api/upload";
 import Bus from "@/assets/bus.js";
+import top from "@/components/decorate/top_back_title.vue";
 
 import { Datetime, Group } from "vux";
 export default {
@@ -62,7 +61,8 @@ export default {
     components: {
         Upload,
         Datetime,
-        Group
+        Group,
+        top
     },
     watch:{
         'day':function(){
@@ -241,24 +241,6 @@ export default {
     }
 };
 </script>
-<style>
-.weui-cell {
-    font-size: 0.35rem !important;
-}
-
-#datePicker {
-    width: 3rem !important;
-    font-size: 0.3rem !important;
-}
-.vdp-datepicker__calendar {
-    width: 7rem !important;
-}
-
-.vdp-datepicker__calendar .cell {
-    height: 1rem !important;
-    line-height: 1rem;
-}
-</style>
 
 <style scoped>
 .ios-arrow-back{
@@ -277,19 +259,20 @@ export default {
     padding: 0 15px;
 }
 #diary_create_diary .top {
-    font-size: 0.4rem;
+    font-size: 0.35rem; 
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background-color: rgba(255, 83, 112,.8);
     z-index: 999;
 }
 #diary_create_diary .top .back {
     float: left;
 }
 #diary_create_diary .top .submit {
-    float: right;
+    position: absolute;
+    right: .3rem;
+    top: .3rem;
 }
 
 #diary_create_diary .date {
@@ -298,11 +281,11 @@ export default {
 }
 #diary_create_diary .date p.day {
     text-align: center;
-    font-size: 0.4rem;
+    font-size: 0.35rem;
 }
 #diary_create_diary .date p.item {
     text-align: center;
-    font-size: 0.4rem;
+    font-size: 0.35rem;
 }
 
 input.upfile {
@@ -328,14 +311,13 @@ p.status .gou {
     float: right;
 }
 p.status span {
-    padding: 0.1rem 0.5rem;
+    padding: 0 0.5rem .1rem;
     border: 1px solid #17a2b8;
 }
 p.top {
     font-size: 0.4rem;
     text-align: center;
     position: relative;
-    padding: 0.2rem;
     margin-bottom: 0;
     color: #fff;
 }
@@ -343,7 +325,7 @@ p.top {
     width: 100%;
     min-height: 2rem;
     max-height: 10rem;
-    font-size: 0.4rem;
+    font-size: 0.35rem;
     margin: 0.5rem 0;
     border: 1px solid rgb(255, 83, 112);
 }

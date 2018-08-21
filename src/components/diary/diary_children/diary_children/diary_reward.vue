@@ -1,8 +1,6 @@
 <template>
     <div id="diary_reward">
-        <p class="top">
-            <span class="back" @click="$router.back(-1)">
-                <x-icon type="ios-arrow-back" class="ios-arrow-back" size=".5rem"></x-icon></span> 奖励</p>
+        <top title="奖励"></top>
         <ul class="guide clearfix">
             <li class="item" :class="{active:showPage == 'standard'}" @click="changShow('standard')">奖励标准</li>
             <li class="item" :class="{active:showPage == 'flow'}" @click="changShow('flow')">申请流程</li>
@@ -104,6 +102,7 @@
     </div>
 </template>
 <script>
+import top from "@/components/decorate/top_back_title.vue";
 export default {
     data() {
         return {
@@ -114,6 +113,9 @@ export default {
         changShow(data) {
             this.showPage = data;
         }
+    },
+    components:{
+        top
     }
 };
 </script>
@@ -136,7 +138,6 @@ export default {
     float: left;
 }
 ul.guide {
-    margin-top: 1.3rem;
     font-size: .3rem;
     list-style: none;
     padding: 0;
