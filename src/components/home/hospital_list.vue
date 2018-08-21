@@ -39,36 +39,33 @@ export default {
             return this.ins_info["name"];
         }
     },
-    methods: {
-        $_ajax_docList() {
-            var self = this;
-            this.isBusy = true;
-            api
-                .institution_list({
-                    id: this.ind_id,
-                    page: this.page++,
-                    num_list: this.num_list
-                })
-                .then(res => {
-                    var result = res.data;
-                    var errcode = result.error_code;
-                    var msg = result.msg;
-                    self.hasMore = result.data.hasMore;
-                    var doc_team = result.data.institution;
-                    if (errcode == 0) {
-                        if (doc_team) {
-                            self.result = self.result.concat(doc_team);
-                        }
-                        self.ins_info = result.data.institution_info;
-                    }
-                    self.isBusy = false;
-                    self.loadinging = false;
-                })
-                .catch(error => {
-                    self.loadinging = false;
-                    console.log(error);
-                });
-        }
+    methods:{
+       $_ajax_docList(){
+             var self = this;
+             this.isBusy = true
+           api.institution_list({
+               id:this.ind_id,
+               page:this.page++,
+               num_list:this.num_list
+           }).then(res=>{
+               var result = res.data;
+               var errcode = result.error_code;
+               var msg = result.msg;
+               self.hasMore = result.data.hasMore;
+               var doc_team = result.data.institution;
+               if(errcode==0){
+                   if(doc_team){
+                      self.result = self.result.concat(doc_team);
+                   }   
+                   self.ins_info = result.data.institution_info
+               }
+               self.isBusy=false;
+               self.loadinging=false
+           }).catch(error=>{
+                self.loadinging=false
+               console.log(error)
+           })
+       }
     },
     mounted() {
         this.$_ajax_docList();

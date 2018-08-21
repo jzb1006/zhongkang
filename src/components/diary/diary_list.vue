@@ -110,6 +110,8 @@ export default {
             })
             .catch(error => {
                 Loading.stop();
+            }).catch(err=>{
+                Loading.stop();
             });
         },
         getImgUrl() {

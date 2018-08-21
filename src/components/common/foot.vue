@@ -18,7 +18,7 @@
                     <span slot="icon" class="zk-icon-project-o icon"></span>
                     <span slot="label">项目</span>
                 </tabbar-item>
-                <tabbar-item>
+                <tabbar-item @click.native="toUser">
                     <span slot="icon" class="zk-icon-iconfonticon5 icon"></span>
                     <span slot="label">个人中心</span>
                 </tabbar-item>
@@ -30,7 +30,13 @@
         Tabbar,
         TabbarItem
     } from 'vux'
+    import common from '../../widget/lib/user'
     export default {
+        methods:{
+            toUser(){
+                common.checkLogin(this,'/home/user');
+            }
+        },
         components: {
             Tabbar,
             TabbarItem,
