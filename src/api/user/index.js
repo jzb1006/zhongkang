@@ -5,7 +5,7 @@ export default {
         // params=qs.stringify(params);
         return ajax.get(`login_register.php?action=${module}`, {params});
     },
-    ajaxpost(module = '',params={}){
+    ajaxpost(module ='',params={}){
         console.log(params);
         params=qs.stringify(params);
         return ajax.post(`login_register.php?action=${module}`, params);
@@ -14,7 +14,7 @@ export default {
         params=qs.stringify(params);
         return ajax.post(`user.php?action=${module}`, params);
     },
-    ajaxuserGet(module = '',params={}){
+    ajaxuserGet(module = 'index',params={}){
         // params=qs.stringify(params);
         return ajax.get(`user.php?act=${module}`, {params});
     },

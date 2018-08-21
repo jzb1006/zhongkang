@@ -2,7 +2,7 @@
   <div id="hello">
     <div class="meCenter">
         <div class="setup">
-            <span @click="toSetup"><i class="zk-icon-shezhi2"></i></span>
+            <i class="zk-icon-Setup Setup_icon"  @click="toSetup"></i>
         </div>
         <div class="mainInfo">
             <div class="headImg"><img v-bind:src="headimgurl"></div>
@@ -135,7 +135,11 @@ export default {
   .top{
     margin-top: 0.25rem;
   }
-  .zk-icon-shezhi2{
+  .Setup_icon{
+    display: block;
+    position:absolute;
+    top:.1rem;
+    right:.1rem;
     font-size:.6rem;
   }
 </style>
