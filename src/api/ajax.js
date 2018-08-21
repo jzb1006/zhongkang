@@ -4,7 +4,7 @@ import Axios from 'axios';
 import Qs from 'qs';
 console.log(1);
 export const ajax = Axios.create({
-  baseURL: 'http://192.168.0.108/m/',
+  baseURL: 'http://localhost/m/',
   //增加这个是为了解决后端接收不到post数据的问题。
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
@@ -24,13 +24,13 @@ export const ajax2 = Axios.create({
 export const ajax3 = Axios.create({
   baseURL:'/m',
   headers: { 'content-type': 'application/x-www-form-urlencoded'},
-  timeout:30000,
+  timeout:3000,
 })
 export const qs = Qs;
 
 //相片网址前缀
 
-export const img_prifix = "http://192.168.0.108/"
+export const img_prifix = "http://localhost/"
 
 
 export default ajax;

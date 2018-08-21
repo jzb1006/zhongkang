@@ -54,7 +54,7 @@ export default {
                 self.backdropList = res.data.backdrop;
                 self.s_uid = res.data.s_uid;
                 self.p_uid = res.data.b_uid;
-            });
+            })
         },
         getImgUrl() {
             return api.imgUrl();
@@ -85,14 +85,14 @@ export default {
     margin-bottom: .3rem;
 }
 #backdrop_formerly p.title {
-    font-size: 0.4rem;
+    font-size: 0.35rem;
     font-weight: 550;
     margin-bottom: .3rem;
 }
 #backdrop_formerly > div.container .img{
     display: flex;
     justify-content: space-around;
-    height: 3.3rem;
+    height: 3rem;
     overflow: hidden;
 }
 #backdrop_formerly .img_wrapper img {
@@ -112,7 +112,7 @@ div.enlarge_img {
 div.enlarge_img p.enlarge_tip {
     margin-top: 1rem;
     color: #fff;
-    font-size: 0.5rem;
+    font-size: 0.4rem;
 }
 div.enlarge_img > img.img_enlarge {
     width: 80%;

@@ -2,11 +2,11 @@
     <div id="fileShow">
         <div class="media_list">
             <div class="wrapper" v-for="url in fileUrl" v-if="checkImgType(url)">
-                <span class="del" @click="delFile(url)">x</span>
+                <span class="del" @click="delFile(url)"><i class="zk-icon-guanbi"></i></span>
                 <img :src="getFileUrl()+url">
             </div>
             <div class="wrapper" v-else>
-                <span class="del" @click="delFile(url)">x</span>
+                <span class="del" @click="delFile(url)"><i class="zk-icon-guanbi"></i></span>
                 <video :src="getFileUrl()+url" controls="controls"></video>
             </div>
         </div>
@@ -86,12 +86,13 @@ img {
 }
 .media_list .wrapper {
     position: relative;
+    padding: 0 .2rem;
 }
 .media_list .wrapper span.del {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    padding: 0.3rem;
+    padding: 0.2rem;
     color: #fff;
     border-radius: 1rem;
     z-index: 111;

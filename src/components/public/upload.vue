@@ -168,6 +168,7 @@ export default {
 #upload .tishi{
     display: inline-block;
     padding: .1rem .2rem;
+    font-size: .35rem;
     border: 1px solid rgb(255, 83, 112);
 }
 input.upfile {

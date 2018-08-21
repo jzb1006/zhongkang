@@ -1,8 +1,9 @@
 <template>
     <div id="diary_updata_basic">
         <p class="top">
-            <span class="back" @click="$router.back(-1)">
-                <x-icon type="ios-arrow-back" class="ios-arrow-back" size=".5rem"></x-icon></span>修改日记本
+            <top title="修改日记本"></top>
+            <!-- <span class="back" @click="$router.back(-1)">
+                <i class="zk-icon-fanhui"></i></span>修改日记本 -->
                     <span class="submit" @click="submit_backdrop()">完成</span>
         </p>
         <div class="pic">
@@ -18,7 +19,7 @@
                 <span class="a_item">
                     <i v-for="item in chooseItem">{{item.name}}</i>
                 </span>
-                <span class="badge_r"><x-icon type="ios-arrow-forward" size=".5rem"></x-icon></span>
+                <span class="badge_r"><i class="zk-icon-fanhui1"></i></span>
             </li>
             <li class="sel_time">
                 <group>
@@ -52,10 +53,8 @@
     </div>
 </template>
 <script>
-// import Datepicker from "vuejs-datepicker";
 import Loading from "@/widget/loading";
-// import moment from "moment";
-// import { en, zh } from "vuejs-datepicker/dist/locale";
+import top from "@/components/decorate/top_back_title.vue";
 import Upload from "@/components/public/upload";
 import diarySelItem from "./diary_children/diary_sel_item";
 import Bus from "@/assets/bus.js";
@@ -65,11 +64,6 @@ import { Group, Calendar} from 'vux'
 export default {
     data() {
         return {
-            // zh: zh,
-            // disabledDates: {
-            //     to: new Date(1900),
-            //     from: new Date()
-            // },
             day: "", //日期
             chooseItem: [], //选择的项目
             institutionList: [],
@@ -228,7 +222,8 @@ export default {
         // Datepicker,
         Upload,
         diarySelItem,
-         Group, Calendar
+         Group, Calendar,
+         top
     },
     mounted() {
         Loading.run();
@@ -249,8 +244,9 @@ export default {
 #show_institution {
     position: absolute;
     /* top: 2rem; */
-    left: 4rem;
-    width: 12rem;
+    left: 2.35rem;
+    width: 4.52rem;
+    font-size: .35rem;
     max-height: 5rem;
     overflow-x: hidden;
     border: 1px dotted #000;
@@ -263,14 +259,15 @@ export default {
 }
 #show_institution > div p {
     margin: 0;
-    padding: 0.3rem 0.4rem;
+    padding: 0.2rem 0.1rem;
+    font-size:.3rem;
 }
 
 #show_doctor {
     position: absolute;
     /* top: 2rem; */
-    left: 4rem;
-    width: 12rem;
+    left: 2.35rem;
+    width: 4.52rem;
     max-height: 5rem;
     overflow-x: hidden;
     border: 1px dotted #000;
@@ -283,7 +280,8 @@ export default {
 }
 #show_doctor > div p {
     margin: 0;
-    padding: 0.3rem 0.4rem;
+    padding: 0.2rem 0.1rem;
+    font-size:.3rem;
 }
 span.time {
     position: absolute;
@@ -302,9 +300,10 @@ span.time {
     left: 0;
     right: 0;
     color: #fff;
-    font-size: .4rem;
+    font-size: .35rem;
     text-align: center;
-    padding: 0.3rem;
+    padding: 0;
+    margin:0;
     border-bottom: 1px solid #ccc;
     background-color: rgb(255, 83, 112);
     z-index: 999;
@@ -314,7 +313,9 @@ span.time {
     float: left;
 }
 #diary_updata_basic p.top span.submit{
-    float: right;
+    position: absolute;
+    top: .3rem;
+    right: .3rem;
 }
 #diary_updata_basic div.pic{
     margin-top: 1.5rem;
@@ -325,6 +326,7 @@ span.time {
     font-size: 0.4rem;
 }
 #diary_updata_basic div.pic p.tip span {
+    font-size: 0.3rem;
     padding: 0.1rem 0.4rem;
     border: 1px solid #ccc;
     color: #fff;
@@ -345,6 +347,7 @@ span.time {
 #diary_updata_basic .info li{
     padding: .3rem .2rem;
     border:1px solid #ccc;
+    font-size: .3rem;
 }
 #diary_updata_basic .info li.sel_item  .a_item{
     display: inline-block;
@@ -356,6 +359,7 @@ span.time {
 #diary_updata_basic .info li.sel_item  .a_item i{
     padding: .1rem;
     border: 1px solid #ccc;
+    font-size: .28rem;  
 }
 #diary_updata_basic .info li.sel_item .badge_r{
     float: right;
