@@ -241,7 +241,7 @@ export default {
 };
 </script>
 <style>
-@import url('./../../../../assets/css/calandar.css');
+/* @import url('./../../../../assets/css/calandar.css'); */
 </style>
 
 <style scoped>

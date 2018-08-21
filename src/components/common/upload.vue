@@ -2,7 +2,7 @@
     <div id="upload">
         <span class="btn btn-sm btn-outline-info position-relative span">
         <form id="form1" enctype="multipart/form-data">
-            <input type="file" name="sf_upfile" @change="changeFile($event)" class="position-absolute upfile btn btn-sm btn-outline-info">{{tit}}
+            <input type="file" name="sf_upfile" @change="changeFile($event)" class="position-absolute upfile btn btn-sm btn-outline-info"><slot></slot>
         </form>
         </span>
         <fileShow :file-url="fileUrls" v-if="sign!='headimg'"></fileShow>
@@ -19,7 +19,6 @@ export default {
     data(){
         return{
             fileUrls:[],
-            tit:'修改头像',
             // imgMaxNum:3,
             // videoMaxNum:1,
             // fileType:2,// 1：只是图片 2：只是视频 3：图片，视频混合
@@ -197,15 +196,32 @@ export default {
         /*display: inline;
         border: 1px solid #ccc;
         padding:20px;}*/
-    
-    .upfile{
+    #upload {
+    position: relative;
+    font-size: .4rem;
+    text-align: center;
+    }
+    #upload .tishi{
+    display: inline-block;
+    padding: .1rem .2rem;
+    border: 1px solid rgb(255, 83, 112);
+    }
+    input.upfile {
+    position: absolute;
+    height: .6rem;
+    width: 3.5rem;
+    opacity: 0;
+    left: 2rem;
+    top: 0;
+    }
+    /* .upfile{
         position: absolute;
         width:3.1rem;
         height: 2rem;
         opacity:0;
         left:-.1rem;
         top:-.1rem;
-    }
+    } */
 </style>
 
 

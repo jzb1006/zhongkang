@@ -346,10 +346,11 @@
         background-color: #FFF;
         border-top: 1px solid #ececec;
         width: 100%;
-        height: 1rem;
+        height: 1.05rem;
         text-align: center;
         position: fixed;
         left: 0;
+        z-index: 9999;
         bottom: 0;
     }
     .order-footer .order-info {
@@ -408,7 +409,6 @@
 
 .payBtn, .pay_list li {
     border: 0;
-    height: 1rem;
 }
 .pay_list .r {
     float: right;

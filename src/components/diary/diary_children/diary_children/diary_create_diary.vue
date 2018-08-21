@@ -241,24 +241,6 @@ export default {
     }
 };
 </script>
-<style>
-.weui-cell {
-    font-size: 0.35rem !important;
-}
-
-#datePicker {
-    width: 3rem !important;
-    font-size: 0.3rem !important;
-}
-.vdp-datepicker__calendar {
-    width: 7rem !important;
-}
-
-.vdp-datepicker__calendar .cell {
-    height: 1rem !important;
-    line-height: 1rem;
-}
-</style>
 
 <style scoped>
 .ios-arrow-back{

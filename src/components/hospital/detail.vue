@@ -93,7 +93,7 @@
                         <img :src="imgPrifix()+item['url']">
                     </li>
                     <li>
-                         <router-link :to="{name:'imgList',params:{ins_id:ins_id,tab:1}}" class="chinese">
+                         <router-link :to="{name:'InsImgList',params:{ins_id:ins_id,tab:1}}" class="chinese">
                        
                                 <span>查看更多</span>
                                 <span class="english">View More</span>
@@ -518,14 +518,6 @@
         -webkit-overflow-scrolling: touch;
         padding: 0.70rem 0.30rem 0.30rem 0;
     }
-    .main section.business-box ul.imgs,
-    .main section.teacher-box ul.teacher {
-        width: 100%;
-        white-space: nowrap;
-        overflow-x: scroll;
-        overflow-y: hidden;
-        box-sizing: border-box;
-    }
     .main section.teacher-box ul.teacher li {
         display: inline-block;
         width: 2.50rem;
@@ -534,7 +526,6 @@
         border-radius: 0.10rem;
         position: relative;
         padding-top: 1.00rem;
-        margin-left: 0.30rem;
         vertical-align: top;
     }
     .main section.teacher-box ul.teacher li .img-box {
@@ -574,8 +565,8 @@
 .main section.business-box ul.imgs, .main section.teacher-box ul.teacher {
     width: 100%;
     white-space: nowrap;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    /* overflow-x: scroll;
+    overflow-y: hidden; */
     box-sizing: border-box;
 }
 

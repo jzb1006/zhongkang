@@ -27,7 +27,7 @@ export default {
 	methods: {
         email_verification(){
             let Email=this.email;
-            let url="http://localhost:8080/#/retrievePassword";
+            let url=api.imgUrl()+"m/dist/#/retrievePassword";
             const reg_email=/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
             if(Email==''){
                 alert('邮箱不能为空');

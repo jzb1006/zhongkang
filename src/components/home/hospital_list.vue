@@ -42,7 +42,7 @@ export default {
     },
     methods:{
        $_ajax_docList(){
-            var self = this;
+             var self = this;
              this.isBusy = true
            api.institution_list({
                id:this.ind_id,
@@ -61,7 +61,7 @@ export default {
                    self.ins_info = result.data.institution_info
                }
                self.isBusy=false;
-                self.loadinging=false
+               self.loadinging=false
            }).catch(error=>{
                 self.loadinging=false
                console.log(error)
