@@ -1,9 +1,8 @@
 <template>
     <div id="diary_create_backdrop">
         <p class="top">
-            <span class="back" @click="$router.back(-1)">
-                <x-icon type="ios-arrow-back" class="ios-arrow-back" size=".5rem"></x-icon></span>新建日记本
-                    <span class="submit" @click="submit_backdrop()">完成</span>
+            <top title="新建日记本"></top>
+            <span class="submit" @click="submit_backdrop()">完成</span>
         </p>
         <div class="pic">
             <div class="text-center m-1">
@@ -18,16 +17,14 @@
                 <span class="a_item">
                     <i v-for="item in chooseItem">{{item.name}}</i>
                 </span>
-                <span class="badge_r"><x-icon type="ios-arrow-forward" size=".5rem"></x-icon></span>
+                <span class="badge_r">
+                    <x-icon type="ios-arrow-forward" size=".5rem"></x-icon>
+                </span>
             </li>
             <li class="sel_time">
                 <group>
                     <calendar v-model="day" title="选择时间" disable-future></calendar>
                 </group>
-                <!-- <Datepicker :format="customFormatter" :language="zh" :disabledDates="disabledDates" v-model="day" id="datePicker"></Datepicker>
-                <span class="badge_l">
-                    <x-icon type="ios-arrow-back" class="ios-arrow-back" size=".5rem"></x-icon> </span>
-                <span class="time">请选择手术时间</span> -->
             </li>
             <li class="sel_institution">
                 <span>请输入医院</span>
@@ -52,26 +49,18 @@
     </div>
 </template>
 <script>
-// import Datepicker from "vuejs-datepicker";
-// import moment from "moment";
-// import { en, zh } from "vuejs-datepicker/dist/locale";
 import Upload from "@/components/public/upload";
 import diarySelItem from "./diary_children/diary_sel_item";
 import Bus from "@/assets/bus.js";
 import apiH from "@/api/hospital";
 import api from "@/api/diary";
-import { Group, Calendar} from 'vux'
+import { Group, Calendar } from "vux";
+import top from "@/components/decorate/top_back_title.vue";
 
 export default {
     data() {
         return {
-            // zh: zh,
-            // disabledDates: {
-            //     to: new Date(1900),
-            //     from: new Date()
-            // },
-            // day: new Date(), //日期
-            day:'TODAY',
+            day: "TODAY",
             chooseItem: [], //选择的项目
             institutionList: [],
             doctorList: [],
@@ -85,10 +74,6 @@ export default {
         };
     },
     methods: {
-        // customFormatter(date) {
-        //     this.day = moment(date).format("YYYY-MM-DD");
-        //     return moment(date).format("YYYY-MM-DD");
-        // },
         show_items() {
             Bus.$emit("changeSelItem", true);
         },
@@ -188,7 +173,7 @@ export default {
 
             return true;
         },
-                dpr() {
+        dpr() {
             (function(e, l) {
                 var c,
                     k,
@@ -221,11 +206,11 @@ export default {
         }
     },
     components: {
-        // Datepicker,
         Upload,
         diarySelItem,
         Group,
         Calendar,
+        top
     },
     mounted() {
         this.dpr();
@@ -235,17 +220,15 @@ export default {
         Bus.$on("changeUrls", res => {
             this.backdrop_img = res;
         });
-        // this.$_ajax_institution();
-        // this.$_ajax_doctor();
     }
 };
 </script>
 <style>
-/* @import url('./../../../../assets/css/calandar.css'); */
+@import url("./../../../../assets/css/calandar.css");
 </style>
 
 <style scoped>
-.ios-arrow-back{
+.ios-arrow-back {
     fill: #fff;
 }
 .inline-calendar td > span.vux-calendar-each-date {
@@ -264,7 +247,7 @@ export default {
 
 #show_institution {
     position: absolute;
-    font-size: .3rem;
+    font-size: 0.3rem;
     /* top: 2rem; */
     left: 2.37rem;
     width: 4.5rem;
@@ -285,7 +268,7 @@ export default {
 
 #show_doctor {
     position: absolute;
-    font-size: .3rem;
+    font-size: 0.3rem;
     /* top: 2rem; */
     left: 2.37rem;
     width: 4.5rem;
@@ -310,84 +293,85 @@ span.time {
 }
 #diary_create_backdrop p.top {
     position: fixed;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     right: 0;
-    color:#fff;
-    font-size: .4rem;
+    color: #fff;
+    font-size: 0.4rem;
     text-align: center;
-    padding: 0.3rem;
     border-bottom: 1px solid #ccc;
-    background-color:rgba(255, 83, 112,.7);
+    background-color: rgba(255, 83, 112, 0.7);
     z-index: 555;
 }
 
-#diary_create_backdrop p.top span.back{
+#diary_create_backdrop p.top span.back {
     float: left;
 }
-#diary_create_backdrop p.top span.submit{
-    float: right;
+#diary_create_backdrop p.top span.submit {
+    position: absolute;
+    top: .3rem;
+    right: .3rem;
+    font-size: .35rem;
 }
 #diary_create_backdrop div.pic p.tip {
     margin-top: 1rem;
     text-align: center;
-    font-size: 0.4rem;
+    font-size: 0.3rem;
 }
 #diary_create_backdrop div.pic p.tip span {
     padding: 0.1rem 0.4rem;
     border: 1px solid #ccc;
     color: #fff;
     border-radius: 1rem;
-    background-color:rgba(255, 83, 112,.7);
+    background-color: rgba(255, 83, 112, 0.7);
 }
 #diary_create_backdrop div.pic {
-    margin-top:1.1rem;
+    margin-top: 1.1rem;
     padding-bottom: 0.3rem;
     border: 1px solid #ccc;
     box-shadow: 0 5px 2px #ccc;
 }
-#diary_create_backdrop .info{
-    font-size: .35rem;
-    margin-top: .5rem;
-    padding: 0 .3rem;
+#diary_create_backdrop .info {
+    font-size: 0.35rem;
+    margin-top: 0.5rem;
+    padding: 0 0.3rem;
     margin-bottom: 1.5rem;
 }
-#diary_create_backdrop .info li{
-    padding: .3rem .2rem;
-    border:1px solid #ccc;
+#diary_create_backdrop .info li {
+    padding: 0.3rem 0.2rem;
+    border: 1px solid #ccc;
 }
-#diary_create_backdrop .info li.sel_item  .a_item{
+#diary_create_backdrop .info li.sel_item .a_item {
     display: inline-block;
     width: 3rem;
-    margin-left: .5rem;
+    margin-left: 0.5rem;
     text-align: right;
     overflow: hidden;
 }
-#diary_create_backdrop .info li.sel_item  .a_item i{
-    padding: .1rem;
+#diary_create_backdrop .info li.sel_item .a_item i {
+    padding: 0.1rem;
     border: 1px solid #ccc;
 }
-#diary_create_backdrop .info li.sel_item .badge_r{
+#diary_create_backdrop .info li.sel_item .badge_r {
     float: right;
 }
-#diary_create_backdrop .info li.sel_time{
+#diary_create_backdrop .info li.sel_time {
     position: relative;
     padding-top: 0;
 }
-input{
+input {
     width: 4.5rem;
-    height: .5rem;
-    font-size: .3rem;
+    height: 0.5rem;
+    font-size: 0.3rem;
     border: 1px solid rgb(255, 83, 112);
 }
-#datePicker{
+#datePicker {
     width: 4rem;
-    height: .5rem;
+    height: 0.5rem;
     border: 1px solid #000;
-
 }
 .vdp-datepicker * {
     box-sizing: border-box;
-    font-size: .5rem;
+    font-size: 0.5rem;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
 	<div id="backdrop_content">
         <p class="top clearfix">变美过程
-            <span class="see_v" @click="seeOnlyVideo">只看视频</span>
+            <span class="see_v" @click="seeOnlyVideo">{{videoMessage}}</span>
         </p>
 		<div class="list">
-			<div class="list_content" v-for="(diary,index) in diaryList">
+			<div class="list_content" v-for="(diary,index) in diaryList" :class="{hiddenNow:mediaList[diary.id].type == hiddenNum}">
 				<div class="check_status" v-if="s_uid == p_uid">
 					<div v-if="diary.check_status == '0'">
 						<img src="./../../../../static/images/no.png" alt="" />
@@ -20,7 +20,7 @@
 					</div>
 				</div>
 				<p class="time">
-					<x-icon type="ios-time" class="ios-time" size=".5rem"></x-icon> {{diary.course_time}}
+					<i class="zk-icon-shijian"></i> {{diary.course_time}}
 					<em>第{{diaryNum - index}}篇日记</em>
 				</p>
 				<router-link :to="{name:'diaryDetail',query:{bid:bid,did:diary.id}}" tag="div">
@@ -40,10 +40,10 @@
 						<p v-else>媒体类型错误！！！无法显示</p>
 						<div class="other clearfix">
 							<div class="row-5">
-								浏览-{{diary.view_count}}
+								<i class="zk-icon-liulan"></i>-{{diary.view_count}}
 							</div>
 							<div class="row-5">
-								点赞-{{diary.favor}}
+								<i class="zk-icon-dianzan"></i>-{{diary.favor}}
 							</div>
 						</div>
 					</div>
@@ -75,10 +75,9 @@ export default {
             page: 0,
             isBusy:false,
             hasMore:0,
+            hiddenNum:0,
+            videoMessage:"只看视频",
         };
-    },
-    computed: {
-        
     },
     components:{
         LoadMore
@@ -86,6 +85,7 @@ export default {
     methods: {
         $_ajax_getBackdrop: function() {
             var self = this;
+            this.isBusy = true;
             this.bid = this.$route.query.bid;
             self.page = self.page + 1;
             let arr = {
@@ -96,6 +96,7 @@ export default {
 
             api.ajaxSearch("diary_detail_basic", arr).then(res => {
                 console.log(res.data);
+                
                 this.hasMore = res.data.hasMore;
                 self.backdropList = Object.assign(
                     self.backdropList,
@@ -114,6 +115,10 @@ export default {
                 }
                 self.s_uid = res.data.s_uid;
                 self.p_uid = res.data.b_uid;
+                self.isBusy = false;
+                Loading.stop();
+            })
+            .catch(error => {
                 Loading.stop();
             });
         },
@@ -149,7 +154,8 @@ export default {
             return days;
         },
         seeOnlyVideo() {
-            this.onlyVideo = !this.seeOnlyVideo;
+            this.hiddenNum = this.hiddenNum == 1? 0 : 1;
+            this.videoMessage = this.videoMessage == '只看视频' ? '查看全部' : '只看视频';
         },
         getScrollTop: function() {
             var scrollTop = 0;
@@ -167,49 +173,13 @@ export default {
     mounted() {
         Loading.run();
         this.$_ajax_getBackdrop();
-
-        // var self = this;
-        // let sw = true;
-        // window.addEventListener("scroll", function() {
-        //     if (
-        //         self.getScrollTop() + window.innerHeight >=
-        //         document.body.offsetHeight
-        //     ) {
-        //         if (sw) {
-        //             self.page++;
-        //             sw = false;
-        //             let arr = {
-        //                 page: self.page,
-        //                 num_list: 3,
-        //                 bid: self.bid
-        //             };
-        //             api.ajaxSearch("diary_detail_basic", arr).then(res => {
-        //                 if (res.data.diary.length > 0) {
-        //                     self.backdropList = Object.assign(
-        //                         self.backdropList,
-        //                         res.data.backdrop[0]
-        //                     );
-        //                     self.diaryList = self.diaryList.concat(
-        //                         res.data.diary
-        //                     );
-        //                     self.mediaList = Object.assign(
-        //                         self.mediaList,
-        //                         res.data.diary_media
-        //                     );
-        //                     self.diaryNum = res.data.total_tt;
-        //                     sw = true;
-        //                 } else {
-        //                     self.page--;
-        //                     sw = false;
-        //                 }
-        //             });
-        //         }
-        //     }
-        // });
     }
 };
 </script>
 <style scoped>
+.hiddenNow{
+    display: none;
+}
 .ios-time{
     fill: rgba(255, 83, 112,.7);
 }
@@ -245,7 +215,7 @@ div.check_status > div > p {
     padding: 0 15px;
 }
 #backdrop_content .top{
-    font-size: .4rem;
+    font-size: .35rem;
     font-weight: 550;
     padding: .2rem;
     background-color: rgb(255, 83, 112);;
@@ -267,13 +237,13 @@ div.check_status > div > p {
 }
 
 #backdrop_content .list .list_content p.time em {
-    font-size: 0.35rem;
+    font-size: 0.3rem;
     color: #ccc;
 }
 
 #backdrop_content .list .list_content .timeLine{
     position: relative;
-    padding: 0.1rem .2rem;
+    /* padding: 0.1rem .2rem; */
     margin: 0 .2rem;
     margin-bottom: .8rem;
     border: 1px solid #ccc;
@@ -283,11 +253,11 @@ div.check_status > div > p {
 #backdrop_content .list .list_content .timeLine p.title {
     font-size: 0.35rem;
     font-weight: 550;
-    margin: .1rem 0;
+    margin: .1rem;
 }
 #backdrop_content .list .list_content .timeLine p.content {
-    font-size: 0.35rem;
-    margin: .1rem 0;
+    font-size: 0.3rem;
+    margin: .1rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -304,9 +274,8 @@ div.check_status > div > p {
     padding: 0.15rem;
     color: #fff;
     font-size: 0.35rem;
-    background: -mos-linear-gradient(rgb(255, 83, 112), rgb(13, 95, 150));
-    background: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 83, 112)), to(rgb(13, 95, 150)));
-    background: linear-gradient(rgb(255, 83, 112), rgb(13, 95, 150));
+    background: #72dacf;
+    border: 1px solid rgb(255, 83, 112);
     border-radius: 1rem;
 }
 

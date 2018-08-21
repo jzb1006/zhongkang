@@ -2,7 +2,7 @@
     <div id="diarySelItem" :style="{height:clientHeight}" v-show="status">
         <p class="top">
             <span class="badge_l" @click="close()">
-                <x-icon type="ios-arrow-back" size=".5rem"></x-icon></span>选择项目
+                <i class="zk-icon-fanhui"></i></span>选择项目
                     <span class="submit" @click="sel_Ok()">完成</span>
         </p>
         <p class="title">从目录选取</p>
@@ -117,7 +117,7 @@ export default {
 }
 .detail_btn {
     display: inline-block;
-    font-size: 0.35rem;
+    font-size: 0.3rem;
     padding: 0.1rem 0.2rem;
     margin-right: 0.2rem;
     color: #fff;
@@ -130,7 +130,7 @@ export default {
     display: inline-block;
     padding: 0.1rem 0.2rem;
     border-radius: 1rem;
-    font-size: 0.4rem;
+    font-size: 0.3rem;
     color: #fff;
     background-color: #17a2b8 !important;
 }
@@ -150,7 +150,7 @@ export default {
 }
 #diarySelItem .top{
     color: #fff;
-    font-size: .4rem;
+    font-size: .35rem;
     text-align: center;
     padding: 0.3rem;
     background-color: rgb(255, 83, 112);
@@ -166,8 +166,8 @@ export default {
     background-color: #17a2b8 !important;
 }
 #diarySelItem p.title {
-    padding: .1rem 0;
-    font-size: .5rem;
+    padding: .2rem 0;
+    font-size: .4rem;
 }
 #diarySelItem  span.tip {
     color: #fff;
@@ -192,7 +192,7 @@ export default {
     background-color: #ccc;
 }
 #diarySelItem ul.sel_item > li.item1_selected{
-    background-color: rgb(255, 83, 112);
+    background-color: #fff;
 }
 #diarySelItem ul.sel {
     list-style: none;

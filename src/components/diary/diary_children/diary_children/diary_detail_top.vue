@@ -1,14 +1,7 @@
 <template>
 	<div id="detail_top">
+        <top title="美丽内容"></top>
 		<div v-for="backdrop in backdropList">
-			<div class="top">
-				<p class="title">
-					内容
-					<span class="back" @click="back()">
-						<x-icon type="ios-arrow-back" class="ios-arrow-back" size=".5rem"></x-icon></span>
-				</p>
-			</div>
-
 			<div class="head">
                 <div class="headImg">
                     <img src="http://img2.imgtn.bdimg.com/it/u=1409135023,2233259101&fm=27&gp=0.jpg " alt="" />
@@ -37,6 +30,7 @@
 </template>
 <script>
 import api from "@/api/diary";
+import top from "@/components/decorate/top_back_title.vue";
 export default {
     data() {
         return {
@@ -49,6 +43,9 @@ export default {
         };
     },
     props: ["bid"],
+    components:{
+        top
+    },
     methods: {
         $_ajax_getBackdrop: function() {
             var self = this;
@@ -93,7 +90,7 @@ export default {
 }
 #detail_top .top p {
     text-align: center;
-    font-size: .5rem;
+    font-size: .4rem;
     margin-bottom: 0;
 }
 #detail_top .top span{
@@ -101,13 +98,13 @@ export default {
 }
 #detail_top .head {
     position: relative;
-    height: 2rem;
+    height: 1.2rem;
 }
 #detail_top .head span.time {
     position: absolute;
-    left: 1.8rem;
+    left: 1.5rem;
     font-size: 0.3rem;
-    top: 1.2rem;
+    top: 1.1rem;
     color: #796e6e;
 }
 #detail_top .head .headImg {
@@ -115,7 +112,7 @@ export default {
     width: 1rem;
     height: 1rem;
     overflow: hidden;
-    left: 0.1rem;
+    left: 0.3rem;
     top: 0.5rem;
     border-radius: 50%;
     background-color: #ddd;
@@ -127,8 +124,8 @@ export default {
 }
 #detail_top .head .user_name {
     position: absolute;
-    left: 1.5rem;
-    top: 0.4rem;
+    left: 1.2rem;
+    top: 0.5rem;
     padding: 0.1rem 0.3rem;
     font-size: 0.35rem;
     font-weight: 500;
@@ -142,12 +139,14 @@ export default {
     padding: 0.1rem .3rem;
 }
 #detail_top .other .info {
+    font-size: .3rem;
     padding: 0.2rem;
     overflow: hidden;
     border: 1px solid #ccc;
     box-shadow: 5px 5px 5px #ccc;
 }
 #detail_top .other .info span.icon_institution,#detail_top .other .info span.icon_doctor{
+    font-size: .3rem;
     padding: .2rem;
     border-radius: 1rem;
     color: #fff;
@@ -164,7 +163,7 @@ export default {
 }
 p.see_diary {
     text-align: center;
-    font-size: 0.35rem;
+    font-size: 0.3rem;
     font-weight: 550;
     padding: 0;
     margin: 0;

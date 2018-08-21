@@ -11,7 +11,9 @@ import "./assets/css/Base.css";
 import "./assets/css/routeAnimate.css";
 import VueTextareaAutosize from 'vue-textarea-autosize'
 import VueLazyload from 'vue-lazyload'  //引入这个懒加载插件
+import { Toast } from 'vux'
 
+Vue.component('toast', Toast)
 Vue.use(VueTextareaAutosize)
 
 Vue.use(VueLazyload, {

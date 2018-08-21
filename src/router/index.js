@@ -29,6 +29,18 @@ import HProductList from '@/components/home/product_list.vue'
 import HDoctorList from '@/components/home/doctor_list.vue'
 import HHospitalList from '@/components/home/hospital_list.vue'
 
+import FMain from '@/components/Fang/FMain.vue'
+import FFooter from '@/components/Fang/FFooter.vue'
+import FItem from '@/components/Fang/FContent/FItem.vue'
+import FTreatMethods from '@/components/Fang/FContent/FTreatMethods.vue'
+import FResource from '@/components/Fang/FContent/FResource.vue'
+import FBrand from '@/components/Fang/FContent/FBrand.vue'
+import FProduct from '@/components/Fang/FContent/FProduct.vue'
+import FOther from '@/components/Fang/FContent/FOther.vue'
+import FExpert from '@/components/Fang/FContent/FOther/FExpert.vue'
+import FHospital from '@/components/Fang/FContent/FOther/FHospital.vue'
+import FNursing from '@/components/Fang/FContent/FOther/FNursing.vue'
+
 import login from '@/components/user/login.vue'
 import register from '@/components/user/register.vue'
 import forgetPassword from '@/components/user/forget_password.vue'
@@ -57,6 +69,61 @@ export default new Router({
     {
       path: '/',
       redirect:'/home/diaryList'
+    },
+    {
+      path: '/FMain',
+      name: 'FMain',
+      component : FMain,
+      redirect:'/FMain/FItem',
+      children:[{
+        path:'/FMain/FItem',
+        name:'FItem',
+        component:FItem
+      },
+      {
+        path:'/FMain/FTreatMethods',
+        name:'FTreatMethods',
+        component:FTreatMethods
+      },
+      {
+        path:'/FMain/FResource',
+        name:'FResource',
+        component:FResource
+      },
+      {
+        path:'/FMain/FBrand',
+        name:'FBrand',
+        component:FBrand
+      },
+      {
+        path:'/FMain/FProduct',
+        name:'FProduct',
+        component:FProduct
+      },
+      {
+        path:'/FMain/FOther',
+        name:'FOther',
+        component:FOther,
+        redirect:'/FMain/FOther/FNursing',
+        children:[
+          {
+            path:'/FMain/FOther/FNursing',
+            name:"FNursing",
+            component:FNursing,
+          },
+          {
+            path:'/FMain/FOther/FHospital',
+            name:"FHospital",
+            component:FHospital,
+          },
+          {
+            path:'/FMain/FOther/FExpert',
+            name:"FExpert",
+            component:FExpert,
+          }
+        ]
+      }
+    ]
     },
     {
       path: '/diary/diaryBackdrop.vue',

@@ -24,7 +24,7 @@ export const ajax2 = Axios.create({
 export const ajax3 = Axios.create({
   baseURL:'/m',
   headers: { 'content-type': 'application/x-www-form-urlencoded'},
-  timeout:30000,
+  timeout:3000,
 })
 export const qs = Qs;
 
