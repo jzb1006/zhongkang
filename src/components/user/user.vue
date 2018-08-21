@@ -57,6 +57,7 @@ export default {
     },
   	mounted(){
         api.ajaxuserGet().then(res=>{
+           console.log(res);
            let data=res.data.userinfo;
            this.$store.dispatch('changeUserinfo',data);
            this.nickname=this.getNickname(data);
