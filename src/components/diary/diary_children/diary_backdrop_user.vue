@@ -1,11 +1,8 @@
 <template>
 	<div id="diary_backdrop_user">
+        <top title="美丽日记"></top>
 		<div v-for="backhead in backdropList">
 			<div class="up">
-                <p class="top clearfix">
-                    <span class= "back" @click="back()"><x-icon type="ios-arrow-back" class="ios-arrow-back" size=".5rem"></x-icon></span>
-                    <span class= "share"><x-icon type="share" class="ios-share" size=".5rem"></x-icon></span>
-                </p>
                 <div class="img_head">
                     <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1533273277404&di=d78a241adf8856cce368e47dfdd443bd&imgtype=0&src=http%3A%2F%2Fcartoon.zwbk.org%2FImageUploadTK%2F63465674081115625094991290213.jpg">
                 </div>
@@ -37,7 +34,7 @@
 						<router-link :to="{name:'diaryReward'}" tag="div">
                             <p> 
                                 查看日记奖励
-                                <x-icon type="ios-arrow-forward" class="ios-arrow-forward" size=".5rem"></x-icon>
+                               <i class="zk-icon-fanhui1 icon_right badge"></i>
                             </p>
 							
 						</router-link>
@@ -50,6 +47,7 @@
 
 <script>
 import api from "@/api/diary";
+import top from "@/components/decorate/top_back_title.vue";
 export default {
     data() {
         return {
@@ -62,6 +60,9 @@ export default {
         };
     },
     props: ["bid"],
+    components:{
+        top,
+    },
     methods: {
         $_ajax_getBackdrop: function() {
             var self = this;
@@ -90,15 +91,6 @@ export default {
 </script>
 <style scoped>
 /* 图标颜色 */
-.ios-arrow-forward{
-    float: right;
-}
-.ios-arrow-back{
-    fill: #fff;
-}
-.ios-share{
-    fill: #fff;
-}
 .col_4{
     width: 40%;
 }
@@ -160,7 +152,7 @@ export default {
         top: 2.2rem;
         left: 3rem;
         display: inline-block;
-        font-size:.4rem;
+        font-size:.3rem;
         color: #fff;
         padding: .1rem 1rem;
         border: 1px solid rgba(255, 83, 112,.7);
@@ -172,7 +164,7 @@ export default {
     }
     #diary_backdrop_user .down .info > div{
         float: left;
-        font-size: .4rem;
+        font-size: .35rem;
         text-align: center;
         margin-top: .3rem;
     }

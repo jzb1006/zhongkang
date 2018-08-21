@@ -17,18 +17,18 @@
 			<div class="bottom">
 				<div class="bottom_see clearfix">
 					<div class="col_4">
-						<span>浏览-{{diary.view_count}}</span>
+						<span><i class="zk-icon-liulan"></i>-{{diary.view_count}}</span>
 					</div>
 					<div class="col_4">
-						<span>点赞-{{diary.favor}}</span>
+						<span><i class="zk-icon-dianzan"></i>-{{diary.favor}}</span>
 					</div>
 					<div class="col_4">
-						<span>品论-{{commentNum}}</span>
+						<span><i class="zk-icon-edit"></i>-{{commentNum}}</span>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="footer" @click="favor()">
+		<div class="footer" @click="favor()" v-if="username">
             <div class="click_zan">
                 赞
             </div>
@@ -48,6 +48,7 @@ export default {
             did: "",
             mediaList: [],
             footer_in:false,
+            username:"",
         };
     },
     components: {
@@ -62,10 +63,14 @@ export default {
                 .ajaxSearch("diary_detail_diary", { did: this.did })
                 .then(res => {
                     console.log(res);
-                    this.diaryContent = res.data.diary;
-                    this.mediaList = res.data.media;
+                    self.diaryContent = res.data.diary;
+                    self.mediaList = res.data.media;
+                    self.username = res.data.my_name[0].user_name;
                     Loading.stop();
                     // this.commentNum = res.data.comment_num.count(comment_ID);
+                })
+                .catch(error=>{
+                    Loading.stop();
                 });
         },
         getImgUrl() {
@@ -136,18 +141,21 @@ export default {
     font-size: .35rem;
 }
 #diary_detail {
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
 }
-.media_list video,
+#diary_detail .media_list{
+    padding: 0 .2rem;
+}
+#diary_detail .media_list video,
 img {
     width: 100%;
     height: 100%;
 }
-.content p {
+#diary_detail .content p {
     margin: .3rem;
-    font-size: 0.4rem;
+    font-size: 0.35rem;
 }
-.icon_days span {
+#diary_detail .icon_days span {
     color: #fff;
     font-size: 0.4rem;
     display: inline-block;
@@ -156,20 +164,21 @@ img {
     border-radius: 2rem;
     background-color: #ff8ea3;
 }
-.bottom {
+#diary_detail .bottom {
     margin-bottom: 2rem;
+    padding: .2rem 0;
 }
-.bottom p {
+#diary_detail .bottom p {
     margin: 0;
     padding: 0.3rem 0;
     font-size: 0.8rem;
     font-weight: 600;
 }
-.bottom .row span {
+#diary_detail .bottom .row span {
     font-size: 0.7rem;
     color: #aac;
 }
-div.footer {
+#diary_detail div.footer {
     position: fixed;
     right: .5rem;
     bottom: 2.5rem;
@@ -178,11 +187,11 @@ div.footer {
     font-size: 0.4rem;
     background-color: rgb(255, 83, 112)
 }
-div.footer .click_zan{
+#diary_detail div.footer .click_zan{
     color:#fff;
 }
 
-footer_in{
+#diary_detail .footer_in{
     background-color: chocolate;
     color: #ff8ea3;
 }

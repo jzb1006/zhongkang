@@ -4,7 +4,9 @@
             <router-link :to="{name:'diaryBackdropList'}">
             <span>写日记</span>
             </router-link>
+             <router-link :to="{name:'FMain'}">
             <span>医导</span>
+             </router-link>
         </p>
     </div>
 
