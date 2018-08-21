@@ -1,51 +1,56 @@
-import {ajax,qs,ajax2} from '../ajax';
+import {ajax,qs,ajax2,img_prifix} from '../ajax';
 export default {
 
-    ajax(module = 'index',params={}){
-        params=qs.stringify(params);
+    ajax(module = '',params={}){
+        // params=qs.stringify(params);
         return ajax.get(`login_register.php?action=${module}`, {params});
     },
-    ajaxpost(module = 'index',params={}){
+    ajaxpost(module = '',params={}){
         console.log(params);
         params=qs.stringify(params);
         return ajax.post(`login_register.php?action=${module}`, params);
     },
-    ajaxuserPost(module = 'index',params={}){
+    ajaxuserPost(module = '',params={}){
         params=qs.stringify(params);
         return ajax.post(`user.php?action=${module}`, params);
     },
-    ajaxuserGet(module = 'index',params={}){
+    ajaxuserGet(module = '',params={}){
         // params=qs.stringify(params);
         return ajax.get(`user.php?act=${module}`, {params});
     },
-    ajaxWalletGet(module='index',params={}){
+    ajaxWalletGet(module='',params={}){
         return ajax.get(`wallet.php?act=${module}`,{params});
     },
-    ajaxWalletPost(module='index',params={}){
+    ajaxWalletPost(module='',params={}){
         params=qs.stringify(params);
         return ajax.post(`wallet.php?action=${module}`,params);
     },
-    ajaxSetupGet(module = 'index',params={}){
+    ajaxSetupGet(module = '',params={}){
         // console.log(params);
-        params=qs.stringify(params);
+        // params=qs.stringify(params);
         return ajax.get(`setup.php?act=${module}`, params);
     },
-    ajaxSetupPost(module = 'index',params={}){
+    ajaxSetupPost(module = '',params={}){
         // console.log(params);
         params=qs.stringify(params);
         return ajax.post(`setup.php?action=${module}`, params);
     },
-    ajaxOrderGet(module='index',params={}){
+    ajaxOrderGet(module='',params={}){
         return ajax.get(`order.php?act=${module}`, {params});
     },
-    ajaxPayPost(module = 'index',params={}){
+    ajaxPayGet(module = '',params={}){
+        // console.log(params);
+        // params=qs.stringify(params);
+        return ajax.get(`pay.php?action=${module}`, {params});
+    },
+    ajaxBalancePost(module = '',params={}){
         // console.log(params);
         params=qs.stringify(params);
-        return ajax.post(`pay.php?action=${module}`, params);
+        return ajax.post(`setup.php?action=${module}`, params);
     },
     //相片网址前缀
     imgUrl(){
-        return "http://localhost/"
+        return img_prifix;
     }
     
 }

@@ -54,7 +54,6 @@ export default {
 </script>
 
 <style scoped>
-    @import "../../assets/css/Base.css";
     .content{
         margin-top:0.2rem;
         font-size:0.35rem;

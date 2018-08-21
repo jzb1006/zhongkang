@@ -5,7 +5,7 @@
             <div class="item distance">
                 <!-- <div class="left">修改头像</div> -->
                 <div class="left"><img class="headimg" v-bind:src="nopre"></div>    
-                <Upload :img-max-num = 1 :video-max-num= 1 :file-type=1 :sign="sign"></Upload> 
+                <Upload :img-max-num = 1 :video-max-num= 1 :file-type=1 :sign="sign"><span class="text">修改头像</span></Upload> 
             </div>
             <div class="item">
                 <span class="left">昵称:</span>
@@ -162,67 +162,19 @@ export default {
     }
 }
 </script>
-<style>
-    .weui-cell{
-        display: block!important;
-        padding-right:0!important;
-        padding-left:0!important;
-    }
-    .vux-cell-bd{
-        float:left!important;
-        width:35%;
-        padding-top:0.1rem;
-        padding-left:0.1rem;
-        box-sizing:border-box!important;
-    }
-    .vux-cell-primary{
-        display: block!important;
-        border:2px solid #ccc;
-        padding:0.15rem 0 0.15rem 0.15rem !important;
-        text-align: left!important;
-        background:#fff!important;
-        float:right!important;
-        width:65%!important;
-        box-sizing:border-box!important;
-    }
-    .weui-cells {
-        font-size: .35rem!important;
-    }
-
-    .inline-calendar th {
-        font-size: .5rem !important;
-    }
-
-    .inline-calendar td > span.vux-calendar-each-date {
-        width: auto!important;
-        height: auto!important;
-        font-size: 0.4rem!important;
-        line-height: 1rem!important;
-    }
-
-    .vux-prev-icon, .vux-next-icon {
-        width: .3rem!important;
-        height: .3rem!important;
-    }
-
-    .inline-calendar a {
-        top: 0.3rem!important;
-    }
-    .vux-next-icon {
-        top: 0.3rem!important;
-    }
-
-    .calendar-header {
-        line-height: .9rem !important;
-        font-size: .6rem !important;
-    }
-</style>   
 <style scoped>
-    .distance>>>.position-relative{
+    /* .distance>>>.position-relative{
         padding:0.2rem;
         width:3.1rem;
         font-size: .35rem;
         float:right;
+    } */
+    .text{
+        display:inline-block;
+        background:#ddd;
+        padding:0.08rem;
+        border:1px solid #ccc;
+        margin-top:.1rem;
     }
     .content{
         margin-top:0.2rem;

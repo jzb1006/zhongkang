@@ -3,7 +3,7 @@
         <div>
             <div v-for="(item,index) in list" :key="index">
                 <router-link :to="{ name: 'orderDetail', params: { orderSn: item['order_sn'] }}" tag="div">
-                    <panelOrder :date="item['add_time']" :status="item['status']" :path="item['goods_thumb']" :title="item['goods_name']" :price="item['total_fee']" :goodsNumber="item['goods_number']" :totalPrice="item['order_amount']">
+                    <panelOrder :date="item['add_time']" :status="item['status']" :path="item['goods'][0]['goods_thumb']" :title="item['goods'][0]['goods_name']" :price="item['total_fee']" :goodsNumber="item['goods_number']" :totalPrice="item['order_amount']">
                     </panelOrder>
                 </router-link>
             </div>

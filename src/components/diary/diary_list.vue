@@ -107,6 +107,8 @@ export default {
                 self.backdropList = self.backdropList.concat(res.data.backdrop);
 
                 Loading.stop();
+            }).catch(err=>{
+                Loading.stop();
             });
         },
         getImgUrl() {
