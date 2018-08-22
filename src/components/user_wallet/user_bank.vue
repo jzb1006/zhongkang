@@ -1,6 +1,5 @@
 <template>
 	<div id="bank">
-		<top title="银行卡"></top>
         <div class="content">
             <div v-for="item in result"  class="box">
                 <p>{{item.bankname}}</p>
@@ -54,9 +53,6 @@ export default {
             vm.getBankList();
         })
     },
-    components:{
-        top
-    }
 }
 </script>
 
@@ -80,10 +76,10 @@ export default {
     position: absolute;
     right:.2rem;
     top:.2rem;
+    padding:0.1rem;
+    background-color:#32CD32;
     color:#fff;
-    padding:0.05rem;
-    background: blue;
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
 }
 .add a{
     display: block;
@@ -91,7 +87,8 @@ export default {
     padding:0.2rem;
     border:2px solid #ccc;
     margin-left:.2rem;
-    background: #cf0;
+    background-color:#32CD32;
+    color:#fff;
     box-shadow:  1px 1px 5px #cc0;
     text-decoration: none;
 }

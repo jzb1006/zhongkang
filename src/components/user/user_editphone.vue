@@ -10,12 +10,13 @@
 				<p>您未绑定手机号，请绑定</p> 
 			</div>
 			<div class="div1">
-			    <span class="span">新手机号:</span><input type="text" class="input" placeholder="新手机号码" v-model="newphone">
+			    <input type="text" class="phone" placeholder="新手机号码" v-model="newphone">
 			</div>
 			<div class="div1">
-		        <input type="text" name="yanzheng" class="input" placeholder="手机验证码" v-model="code">
-		        <input type="button" value="获取验证码" class="input" @click="get_yanzhengma">
-		        <div class="clear"></div>
+				<div class="code">
+					<input type="text" class="input yan" placeholder="手机验证码" v-model="code">
+					<input type="button" value="获取验证码" class="input get" @click="get_yanzhengma">
+				</div>
 			</div>
 			<div class="div1">
 			    <input type="button" value="修改" class="submit" @click="update_mobile">
@@ -101,19 +102,38 @@ export default {
 		height:2.5rem;
 		padding-top:0.8rem;
 	}
+	.phone,.code,.submit{
+		width:70%;
+        margin:0 auto;
+	}
+	.phone{
+		border:1px solid #ccc;
+		padding:0.25rem 0.15rem;
+		font-size: 0.3rem;
+	}
 	.input{
-		border:2px solid #ccc;
-		padding:0.25rem 0.1rem;
-		font-size: 0.35rem;
+		border:1px solid #ccc;
+		padding:0.25rem 0.15rem;
+		font-size: 0.3rem;
+	}
+	.yan{
+		width:62%;
+		box-sizing: border-box;
+	}
+	.get{
+		width:35%;
+		box-sizing: border-box;
 	}
 	.div1{
 		margin-top:0.3rem;
 	}
 	.submit{
 		width:70%;
-		padding:0.25rem 0.1rem;
+		padding:0.25rem 0.15rem;
 		border:none;
-		border-radius:0.25rem;
-		font-size: 0.35rem;
+		border-radius:0.2rem;
+		font-size: 0.3rem;
+		background: #ff5370;
+        color:#fff;
 	}
 </style>
