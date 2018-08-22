@@ -1,7 +1,7 @@
 <template>
     <div id="FResource">
         <div class="resource" v-for="(resource,$index) in resources" >
-                <span @click="selectStyle(resource,resource.resource_area)" :class="{'active':checkresource == resource.resource_area}">
+                <span @click="selectStyle(resource,resource.resource_area)" :class="{'f_active':checkresource == resource.resource_area}">
                     {{resource.resource_name}}
                 </span>
         </div>
@@ -105,7 +105,7 @@ export default {
         border-radius: 50%;
      }
 
-    #FResource .resource  .active{
+    #FResource .resource  .f_active{
         background-color: rgb(255, 83, 112,.8);
         color: #fff;
      }

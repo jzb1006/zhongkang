@@ -1,9 +1,7 @@
 <template>
     <div id="diary_head">
         <p>
-            <router-link :to="{name:'diaryBackdropList'}">
-            <span>写日记</span>
-            </router-link>
+            <span @click="toUser">写日记</span>
              <router-link :to="{name:'FMain'}">
             <span>医导</span>
              </router-link>
@@ -13,7 +11,14 @@
 </template>
 
 <script>
-export default {};
+import common from '../../widget/lib/user'
+export default {
+    methods:{
+        toUser(){
+            common.checkLogin(this,'/diary/diaryBackdropList');
+        }
+    },
+};
 </script>
 
 <style scoped>

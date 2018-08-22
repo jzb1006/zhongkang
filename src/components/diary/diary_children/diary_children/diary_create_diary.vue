@@ -10,7 +10,7 @@
             </p>
             <div class="date">
                 <group>
-                    <Datetime v-model="day" :start-date="initdata" :end-date="getToday()" title="选择日期"></Datetime>
+                    <Datetime v-model="day" :start-date="initdata" :end-date="getToday()" @click="click_date" title="选择日期"></Datetime>
                 </group>
                 <div class="col_5">
                     <p class="day">术后第
@@ -36,6 +36,7 @@ import api from "@/api/diary";
 import apiUp from "@/api/upload";
 import Bus from "@/assets/bus.js";
 import top from "@/components/decorate/top_back_title.vue";
+import Utils from '@/widget/lib/Utils'
 
 import { Datetime, Group } from "vux";
 export default {
@@ -70,6 +71,9 @@ export default {
         }
     },
     methods: {
+        click_date(){
+
+        },
         changeStatus() {
             this.status = !this.status;
 
@@ -198,40 +202,8 @@ export default {
                 }
             }
         },
-        dpr() {
-            (function(e, l) {
-                var c,
-                    k,
-                    d,
-                    f = e.document,
-                    g = f.documentElement,
-                    h = l.flexible || (l.flexible = {});
-                (function() {
-                    var a,
-                        b = f.querySelector('meta[name="viewport"]');
-                    c = e.devicePixelRatio || 1;
-                    a = 1;
-                    g.setAttribute("data-dpr", 0);
-                    a =
-                        "width=device-width, initial-scale=" +
-                        a +
-                        ", minimum-scale=" +
-                        a +
-                        ", maximum-scale=" +
-                        a +
-                        ", user-scalable=no";
-                    b
-                        ? b.setAttribute("content", a)
-                        : ((b = f.createElement("meta")),
-                          b.setAttribute("name", "viewport"),
-                          b.setAttribute("content", a),
-                          (f.head || g.firstElementChild).appendChild(b));
-                })();
-            })(window, window.FT || (window.FT = {}));
-        }
     },
     mounted() {
-        this.dpr();
         this.bid = this.$route.query.bid;
         this.$_ajax_getInfo();
         var self = this;
@@ -241,7 +213,9 @@ export default {
     }
 };
 </script>
-
+<style>
+@import url("./../../../../assets/css/calandar.css");
+</style>
 <style scoped>
 .ios-arrow-back{
     fill: #fff;

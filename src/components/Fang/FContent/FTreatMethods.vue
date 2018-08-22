@@ -1,7 +1,7 @@
 <template>
     <div id="FTreatMethods">
 		<ul class="ol_list">
-			<li class="ol_li" v-for="(treat,$index) in treat_list.treat_method" :class="{'active':check_treat == treat.treat_id}"  @click="selectStyle(treat,treat.treat_id)">
+			<li class="ol_li" v-for="(treat,$index) in treat_list.treat_method" :class="{'f_active':check_treat == treat.treat_id}"  @click="selectStyle(treat,treat.treat_id)">
 				<p class="name">{{treat.treat_name}}</p>
 				<p class="introduce">
                     <!-- <router-link :to="{path: '/FResource',query: {name: treat.treat_id}}"> -->
@@ -138,14 +138,6 @@ export default {
         this.cid = this.$route.query.cid;
         this.$_ajax_treat();
         Bus.$emit("changeTitle","选择治疗方法");
-        // let check_ids = this.$store.state.fang.check_ids;
-        // for(let index in check_ids){
-        //     if(check_ids[index].num == 2){
-        //         this.check_treat = check_ids[index].id;
-        //         this.$store.dispatch('Is_Sel',true);
-        //     }
-        // }
-
     }
 }
 </script>

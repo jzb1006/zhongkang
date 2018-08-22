@@ -50,6 +50,7 @@
 				</router-link>
 			</div>
 		</div>
+        <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_getBackdrop"></LoadMore>
 		<router-link :to="{name:'diaryCreateDiary',query:{bid:bid}}">
 			<p class="write_diary" v-if="s_uid == p_uid">继续写日记</p>
@@ -58,7 +59,7 @@
 </template>
 <script>
 import api from "@/api/diary";
-import Loading from "@/widget/loading";
+import Loading from "@/components/decorate/loading.vue";
 import LoadMore from '@/components/loadMore/index.vue'
 export default {
     data() {
@@ -77,10 +78,12 @@ export default {
             hasMore:0,
             hiddenNum:0,
             videoMessage:"只看视频",
+            loadinging:true,
         };
     },
     components:{
-        LoadMore
+        LoadMore,
+        Loading
     },
     methods: {
         $_ajax_getBackdrop: function() {
@@ -116,10 +119,10 @@ export default {
                 self.s_uid = res.data.s_uid;
                 self.p_uid = res.data.b_uid;
                 self.isBusy = false;
-                Loading.stop();
+                self.loadinging = false;
             })
             .catch(error => {
-                Loading.stop();
+                self.loadinging = false;
             });
         },
         getImgUrl() {
@@ -171,7 +174,6 @@ export default {
         }
     },
     mounted() {
-        Loading.run();
         this.$_ajax_getBackdrop();
     }
 };

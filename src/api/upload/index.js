@@ -8,7 +8,7 @@ export default {
     },
     //文件网址前缀
     fileUrl(){
-        return "http://192.168.0.108/"
+        return "http://localhost/"
     },
     // //删除图片或者视频
     // ajaxDelFile(module = 'del',params={}){

@@ -1,10 +1,8 @@
 <template>
     <div id="FItem">
         <ul class="ol_list">
-            <li class="ol_li" v-for="(item, $index) in itemlist" @click="selectStyle (item, item.id) " :class="{'active':check_item == item.id}">
-                <!-- <router-link :to="{path: '/FTreatMethods',query: {name: item.cat_id}}" v-on:click="ZhuiJia(item.name)"> -->
+            <li class="ol_li" v-for="(item, $index) in itemlist" @click="selectStyle (item, item.id) " :class="{'f_active':check_item == item.id}">
                 <p class="name">{{item.name}}</p>
-                <!-- </router-link> -->
             </li>
         </ul>
     </div>
@@ -22,7 +20,7 @@ export default {
     data() {
         return {
             check_item: null,
-            active: false,
+            f_active: false,
             itemlist: [],
             cid: ""
         };

@@ -43,6 +43,7 @@ export default {
                     var formData = new FormData();
                     formData.append("sf_upfile", e.target.files[0]);
                     apiUp.ajaxUpload(formData).then(res => {
+                        console.log(res.data);
                         self.fileUrls.push(res.data);
                         this.toParent();
                         Loading.stop();

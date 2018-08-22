@@ -2,8 +2,8 @@
         <div id="nursing">
             <p class="title">选择护理方式</p>
             <div class="container2">
-                <div class="border" @click="sel_nursing(0,0)" :class="{active:checknursing == 0}"><p>自身护理</p>$<span>0</span>~$<span>0</span></div>
-                <div class="border" v-for="nursing in nursingList"  v-if="nursing" @click="sel_nursing(nursing,nursing.nursing_id)" :class="{active:checknursing == nursing.nursing_id}">
+                <div class="border" @click="sel_nursing(0,0)" :class="{f_active:checknursing == 0}"><p>自身护理</p>$<span>0</span>~$<span>0</span></div>
+                <div class="border" v-for="nursing in nursingList"  v-if="nursing" @click="sel_nursing(nursing,nursing.nursing_id)" :class="{f_active:checknursing == nursing.nursing_id}">
                     <p>{{nursing.nursing_name}}</p>$<span>{{nursing.min_price}}</span>~$<span>{{nursing.max_price}}</span></div>
             </div>
         </div>

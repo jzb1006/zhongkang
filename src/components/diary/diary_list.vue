@@ -48,6 +48,7 @@
             </div>
             <hr/>
         </div>
+        <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_get_diary"></LoadMore>
 
     </div>
@@ -56,7 +57,7 @@
 import Vue from "vue";
 import DiaryHead from "./diary_head";
 import api from "@/api/diary";
-import Loading from "@/widget/loading";
+import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
 import searchBar from "@/components/home/search_bar.vue";
 
@@ -72,13 +73,15 @@ export default {
             pd: "",
             page: 0,
             isBusy: false,
-            hasMore: 0
+            hasMore: 0,
+            loadinging:true,
         };
     },
     components: {
         DiaryHead,
         LoadMore,
-        searchBar
+        searchBar,
+        Loading
     },
     methods: {
         $_get_diary: function() {
@@ -106,12 +109,10 @@ export default {
                 self.memuList = Object.assign(self.memuList, res.data.memu);
                 self.backdropList = self.backdropList.concat(res.data.backdrop);
                 this.isBusy = false;
-                Loading.stop();
+                self.loadinging = false;
             })
             .catch(error => {
-                Loading.stop();
-            }).catch(err=>{
-                Loading.stop();
+                self.loadinging = false;
             });
         },
         getImgUrl() {
@@ -133,42 +134,9 @@ export default {
             }
             return scrollTop;
         },
-        dpr() {
-            (function(e, l) {
-                var c,
-                    k,
-                    d,
-                    f = e.document,
-                    g = f.documentElement,
-                    h = l.flexible || (l.flexible = {});
-                (function() {
-                    var a,
-                        b = f.querySelector('meta[name="viewport"]');
-                    c = e.devicePixelRatio || 1;
-                    a = 1;
-                    g.setAttribute("data-dpr", 0);
-                    a =
-                        "width=device-width, initial-scale=" +
-                        a +
-                        ", minimum-scale=" +
-                        a +
-                        ", maximum-scale=" +
-                        a +
-                        ", user-scalable=no";
-                    b
-                        ? b.setAttribute("content", a)
-                        : ((b = f.createElement("meta")),
-                          b.setAttribute("name", "viewport"),
-                          b.setAttribute("content", a),
-                          (f.head || g.firstElementChild).appendChild(b));
-                })();
-            })(window, window.FT || (window.FT = {}));
-        }
     },
     mounted() {
-        Loading.run();
         this.$_get_diary();
-        this.dpr();
     }
 };
 </script>

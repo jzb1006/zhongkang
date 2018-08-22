@@ -1,22 +1,11 @@
 <template>
-    <!-- <div class="nursing">
-            <FBtn v-show="show_btn"></FBtn>
-            <div>
-                <p class="bg-dark p-2 text-white">是否预定专家</p>
-                <div class="container2">
-                    <div class=" border border-dark" :class="{active:checkexpert == 0}" @click="sel_expert(0,0)"><p >不预定</p>$<span>0</span>~$<span>0</span></div> 
-                    <div class=" border border-dark" v-for="expert in expertList" v-if="pd_expert(expert)" :class="{active:checkexpert == expert.expert_id}" @click="sel_expert(expert,expert.expert_id)"><p>预定</p>$<span>{{expert.min_price}}</span>~$<span>{{expert.max_price}}</span></div>
-                </div>
-            </div>
-
-        </div> -->
         <div id="nursing">
             <FBtn v-show="show_btn"></FBtn>
             <div>
                 <p class="title">是否预定专家</p>
                 <div class="container2">
-                    <div class=" border border-dark" :class="{active:checkexpert == 0}" @click="sel_expert(0,0)"><p >不预定</p>$<span>0</span>~$<span>0</span></div> 
-                    <div class=" border border-dark" v-for="expert in expertList" v-if="pd_expert(expert)" :class="{active:checkexpert == expert.expert_id}" @click="sel_expert(expert,expert.expert_id)"><p>预定</p>$<span>{{expert.min_price}}</span>~$<span>{{expert.max_price}}</span></div>
+                    <div class=" border border-dark" :class="{f_active:checkexpert == 0}" @click="sel_expert(0,0)"><p >不预定</p>$<span>0</span>~$<span>0</span></div> 
+                    <div class=" border border-dark" v-for="expert in expertList" v-if="pd_expert(expert)" :class="{f_active:checkexpert == expert.expert_id}" @click="sel_expert(expert,expert.expert_id)"><p>预定</p>$<span>{{expert.min_price}}</span>~$<span>{{expert.max_price}}</span></div>
                 </div>
             </div>
 

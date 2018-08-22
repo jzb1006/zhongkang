@@ -108,7 +108,7 @@ export default {
         text-align:center;
         position: relative;
         background-color:rgb(17, 94, 94,.5);
-        height: 2.5rem;
+        height: 1.5rem;
     }
 
     #diary_backdrop_user .up .top{
@@ -134,7 +134,7 @@ export default {
     }
     #diary_backdrop_user .up .img_head{
         position: absolute;
-        top: 1.8rem;
+        top: .7rem;
         left: 20%;
         margin-left: -0.75rem;
         width:1.5rem;
@@ -149,7 +149,7 @@ export default {
     }
     #diary_backdrop_user .up .operate{
         position: absolute;
-        top: 2.2rem;
+        top: 1.2rem;
         left: 3rem;
         display: inline-block;
         font-size:.3rem;
