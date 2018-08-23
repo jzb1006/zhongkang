@@ -1,12 +1,8 @@
 import {ajax,qs,ajax2,img_prifix} from '../ajax';
 export default {
 
-    ajax(module = '',params={}){
-        // params=qs.stringify(params);
-        return ajax.get(`login_register.php?action=${module}`, {params});
-    },
-    ajaxpost(module ='',params={}){
-        console.log(params);
+
+    ajaxloginPost(module ='',params={}){
         params=qs.stringify(params);
         return ajax.post(`login_register.php?action=${module}`, params);
     },
@@ -37,11 +33,6 @@ export default {
     },
     ajaxOrderGet(module='',params={}){
         return ajax.get(`order.php?act=${module}`, {params});
-    },
-    ajaxPayGet(module = '',params={}){
-        // console.log(params);
-        // params=qs.stringify(params);
-        return ajax.get(`pay.php?action=${module}`, {params});
     },
     ajaxBalancePost(module = '',params={}){
         // console.log(params);

@@ -1,5 +1,5 @@
 <template>
-  <div id="hello">
+  <div id="user">
     <div class="meCenter">
         <div class="setup">
             <i class="zk-icon-Setup Setup_icon"  @click="toSetup"></i>
@@ -23,7 +23,7 @@
 import api from "../../api/user";
 import common from "../../widget/lib/user"
 export default {
-    name: 'hello',
+    name: 'user',
     data(){
       	return {
       		  headimgurl:'',
@@ -73,12 +73,15 @@ export default {
 </script>
 
 <style scoped>
+  #user{
+    background:#f0f0f0;
+  }
   .meCenter{
     position:relative;
-    background:#ffeeaa; 
+    background: #ff5370;
     height:3.2rem; 
     overflow:hidden;
-    font-size:0.35rem;
+    font-size:0.32rem;
   }
   .setup {
     position: fixed;
@@ -124,13 +127,31 @@ export default {
     margin-top:0.2rem;
   }
   .usercontent{
-    font-size:0.35rem;
+    background: #fff;
+    font-size:0.32rem;
   }
   .item{
-    text-align: left;
+    /* text-align: left; */
     padding:0.25rem 0 0.25rem 0.15rem;
-    border-bottom:3px solid #ccc;
-    background-color: #eef;
+    /* border-bottom:1px solid #ccc; */
+    /* background-color: #eef; */
+    position: relative;
+  }
+  .item:before {
+      content: " ";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      right: 0;
+      width:100%;
+      height: 2px;
+      border-bottom: 2px solid #ccc;
+      color: #e5e5e5;
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+      -webkit-transform: scaleY(0.5);
+      transform: scaleY(0.5);
+      /* left: 15px; */
   }
   .top{
     margin-top: 0.25rem;
@@ -138,8 +159,8 @@ export default {
   .Setup_icon{
     display: block;
     position:absolute;
-    top:.1rem;
-    right:.1rem;
+    top:.2rem;
+    right:.2rem;
     font-size:.6rem;
   }
 </style>

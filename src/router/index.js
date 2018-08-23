@@ -347,16 +347,28 @@ const router = new Router({
     },
     {
       path: '/home/userWallet',
-      component: HUserWallet
+      component: HUserWallet,
+      children:[
+        {
+          path:'/home/balance',
+          component:balance
+        },
+        {
+          path:'/home/bank',
+          component:bank
+        },
+        {
+          path: '/bill',
+          name:'bill',
+          component: bill
+      },
+      ]
     },
     {
       path:'/home/billDetail',
       component:billDetail
     },
-    {
-      path:'/home/balance',
-      component:balance
-    },
+    
     {
       path:'/home/recharge',
       component:recharge
@@ -365,10 +377,7 @@ const router = new Router({
       path:'/home/cash',
       component:cash
     },
-    {
-      path:'/home/bank',
-      component:bank
-    },
+    
     {
       path:'/home/addBank',
       component:addbank
@@ -402,11 +411,7 @@ const router = new Router({
       name: 'retrievePassword',
       component: retrievePassword
     },
-    {
-        path: '/bill',
-        name:'bill',
-        component: bill
-    },
+    
   ]
 })
 

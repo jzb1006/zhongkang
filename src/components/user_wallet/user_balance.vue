@@ -1,6 +1,5 @@
 <template>
 	<div id="balance">
-		<top title="余额"></top>
 		<div class="content">
 			<div class="balance">
 				<div class="text">余额(元)</div>
@@ -15,7 +14,6 @@
 <script>
 import api from "../../api/user"
 import common from "../../widget/lib/user"
-import top from "@/components/decorate/top_back_title.vue";
 export default {
     name: 'balance',
     data(){
@@ -45,9 +43,7 @@ export default {
             vm.getBalance();
         })
     },
-    components:{
-        top
-    }
+
 }
 </script>
 
