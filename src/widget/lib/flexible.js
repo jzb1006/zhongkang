@@ -5,7 +5,7 @@
 	(function() {
 		var a, b = f.querySelector('meta[name="viewport"]');
 		c = e.devicePixelRatio || 1;
-		a = 1 / c;
+		a = 1 ;
 		g.setAttribute("data-dpr", c);
 		a = "width=device-width, initial-scale=" + a + ", minimum-scale=" + a + ", maximum-scale=" + a + ", user-scalable=no";
 		b ? b.setAttribute("content", a) : (b = f.createElement("meta"), b.setAttribute("name", "viewport"), b.setAttribute("content", a), (f.head || g.firstElementChild).appendChild(b))

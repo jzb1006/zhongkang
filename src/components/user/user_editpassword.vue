@@ -77,10 +77,9 @@ export default {
 </script>
 
 <style scoped>
-	@import "../../assets/css/Base.css";
 	.content_password{
 		margin-top:2rem;
-		font-size: 0.35rem;
+		font-size: 0.3rem;
 		text-align: center;
 	}
 	.div1{
@@ -95,11 +94,14 @@ export default {
 	.input{
 		border:2px solid #ccc;
 		padding:0.25rem 0.25rem 0.25rem 0.15rem;
-		font-size: 0.35rem;
+		font-size: 0.3rem;
 	}
 	.submit{
 		width:40%;
 		padding:0.25rem 0.25rem 0.25rem 0.15rem;
-		font-size: 0.35rem;
+		font-size: 0.3rem;
+		background: #ff5370;
+		color:#fff;
+		border-radius:.2rem;
 	}
 </style>

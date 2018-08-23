@@ -1,6 +1,5 @@
 <template>
 	<div class="bill">
-		<top title="账单"></top>
 		<div class="content_bill">
 		    <div class="head">
 		        <div class="type">
@@ -52,7 +51,6 @@
 <script>
 import api from "../../api/user"
 import common from "../../widget/lib/user"
-import top from "@/components/decorate/top_back_title.vue"
 import billitem from '@/components/user_wallet/bill_item'
 import LoadMore from '@/components/loadMore/index.vue'
 import { Calendar } from 'vux'
@@ -244,8 +242,8 @@ export default {
 	}
 	.search{
 		width:80%;
-		background: red;
-		color:#fff;
+		background-color:#32CD32;
+        color:#fff;
 		margin:.1rem;
 		padding:0.15rem 0;
 		border-radius: 0.15rem;

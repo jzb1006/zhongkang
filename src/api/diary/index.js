@@ -1,4 +1,4 @@
-import {ajax,qs} from './../ajax';
+import {ajax,qs,img_prifix} from './../ajax';
 export default {
 
     //搜索所有
@@ -8,7 +8,7 @@ export default {
 
     //相片网址前缀
     imgUrl(){
-        return "http://localhost/"
+        return img_prifix
     },
 
     //上传数据

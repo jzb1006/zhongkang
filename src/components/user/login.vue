@@ -48,7 +48,7 @@ export default {
                 'username':username,
                 'password':password
             };
-            api.ajaxpost('login',postData).then(res=>{
+            api.ajaxloginPost('login',postData).then(res=>{
                 if(res.data.error==0){
                     if(this.backToPrevious){
                         this.$router.go(-1);
@@ -93,18 +93,21 @@ export default {
     .input{
         border:2px solid #ccc;
         width:60%;
-        font-size: 0.35rem;
-        padding:0.25rem 0.25rem 0.25rem 0.15rem;
+        font-size: 0.3rem;
+        padding:0.2rem 0.2rem 0.2rem 0.1rem;
     }
     .login{
         width:65%;
-        font-size: 0.35rem;
-        padding:0.25rem 0.25rem 0.25rem 0.15rem;
+        font-size: 0.3rem;
+        padding:0.2rem 0.2rem 0.2rem 0.1rem;
         border:none;
-        border-radius:0.25rem;
+        border-radius:0.2rem;
+        background:rgb(10, 153, 146);
+        color:#fff;
     }
     .reg{
         text-decoration:none;
-        color:#000;
+        color:rgb(10, 153, 146);
+        font-size:0.3rem;
     }
 </style>

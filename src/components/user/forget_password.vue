@@ -3,19 +3,22 @@
     <top title="忘记密码"></top>
     <div class="content">
         <div class="div1">
-            <span class="span">手机号:</span><input type="text" v-model="phonenum" class="input" placeholder="手机号码">
+            <input type="text" v-model="phonenum" class="phone" placeholder="手机号码">
         </div>
         <div class="div1">
-            <input type="text" class="input" v-model="verificationCode" placeholder="手机验证码">
-            <input type="button" class="input" value="获取验证码" @click="get_yanzhengma_exist">
-            <div class="clear"></div>
+            <div class="code">
+                <input type="text" class="yan" v-model="verificationCode" placeholder="手机验证码">
+                <input type="button" class="get" value="获取验证码" @click="get_yanzhengma_exist">
+            </div>
         </div>
         <div class="div1">
-            <input type="button" class="input" value="找回密码" @click="message_verification">
-            <p class="p">
+            <input type="button" class="find" value="找回密码" @click="message_verification">
+        </div>            
+        <div>
+            <p class="lose">
                 <router-link to="/losephone" class="losephone">手机号丢失?</router-link>
             </p>
-        </div>            
+        </div>
     </div>
   </div>
 </template>
@@ -76,17 +79,30 @@ export default {
     .div1{
         margin-bottom:0.4rem;
     }
-    .input{
+    .phone,.lose,.find,.code{
+        width:70%;
+        margin:0 auto;
+    }
+    .yan{
+        width:60%;
+    }
+    .get{
+        width:38%;
+    }
+    .input,.phone,.find,.yan,.get{
         border:2px solid #ccc;
         padding:0.25rem 0.12rem;
         font-size:0.3rem;
+        box-sizing: border-box;
     }
-    .p{
-        text-align: right;
-        padding-right:200px;
+    .find{
+        background: rgb(10, 153, 146);
+        border-radius:.2rem;
+        color:#fff;
     }
-    .p .losephone{
+    .losephone{
         text-decoration:none;
-        color:#000;
+        color:rgb(10, 153, 146);
+        font-size:0.3rem;
     }
 </style>

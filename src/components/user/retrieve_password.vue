@@ -36,7 +36,7 @@ export default {
                 alert('密码应为6-12位的字母或数字');
                 return false;
             }
-            api.ajaxpost('login_forgetpass',{new_password:password}).then(res=>{
+            api.ajaxloginPost('login_forgetpass',{new_password:password}).then(res=>{
                 if(res.data.error==0){
                     alert(res.data.message+'请重新登录');
                     this.$router.push({path:'/login',query:{BackToPrevious:false}});

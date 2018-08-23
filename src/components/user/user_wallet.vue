@@ -1,17 +1,28 @@
 <template>
     <div id="wallet">
           <top title="钱包"></top>
-  	      <div class="wallet_content">
-              <span class="span" @click="toBalance">余额</span>
-              <span class="span" @click="toBank">银行卡</span>
-              <span class="span" @click="toBill">账单</span>
-          </div>
+          <tab>
+            <tab-item selected @on-item-click="toBalance">
+                <p>余额</p>
+            </tab-item>
+            <tab-item @on-item-click="toBank">
+                <p>银行卡</p>
+            </tab-item >
+            <tab-item @on-item-click="toBill">
+                <p>账单</p>
+            </tab-item>
+        </tab>
+          <router-view></router-view>
     </div>
 </template>
 
 <script>
 import common from "../../widget/lib/user"
 import top from '@/components/decorate/top_back_title.vue'
+import {
+        Tab,
+        TabItem
+    } from 'vux'
 export default {
     name: 'wallet',
     methods:{
@@ -26,11 +37,17 @@ export default {
         }
     },
     components:{
-        top
+        top,
+        Tab,
+        TabItem,
     }
 }
 </script>
-
+<style>
+.vux-tab .vux-tab-item.vux-tab-selected {
+        color: #ff5370!important;
+    }
+</style>
 <style scoped>
     .wallet_content{
         background-color: #ccf;

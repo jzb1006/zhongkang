@@ -18,7 +18,7 @@
 </template> 
 
 <script>
-import api from "../../api/user"
+import api from "../../api/pay"
 import top from "@/components/decorate/top_back_title.vue";
 export default {
     name: 'recharge',
@@ -61,7 +61,7 @@ export default {
 	    	if(window.confirm('您充值的金额为'+amount+'元,确定吗？')){
 	    		var order_sn=new Date().getTime();
 	        	var subject="充值";
-	            api.ajaxPayGet('pay',{'pay_id':'3','order_sn':order_sn,'subject':subject,'order_amount':amount}).then(res=>{
+	            api.ajaxPay({'pay_id':'3','order_sn':order_sn,'subject':subject,'order_amount':amount}).then(res=>{
 	            	// if(res.data.error==3){
 	            	// 	alert(res.data.message);
 	            	// 	this.$router.push('/login');

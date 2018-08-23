@@ -1,6 +1,6 @@
 <template>
   <div class="product-list">
-    <div class="hot_item border" :key="index" v-for="(item,index) in list" >
+    <div class="hot_item" :key="index" v-for="(item,index) in list" >
       <router-link :to="{name:'productDetail',params:{id:item.goods_id,ins_id:item.institution_id}}" tag="a" class="link-info router-link-exact-active router-link-active">
         <img :src="getImgUrl()+item.goods_thumb" class="hot_pic lazy">
           <div class="hot_text">
@@ -292,8 +292,5 @@
     background-color: #F5FFFF;
     margin-bottom: 0.05rem;
   }
-  .border {
-    border-bottom: 1px solid #999;
-    box-shadow: 0 1px 1px #fff;
-  }
+
 </style>

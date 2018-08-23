@@ -1,26 +1,30 @@
 <template>
-    <div class="selfinfo">
+    <div id="selfinfo">
         <top v-bind:title="title"></top>
         <div class="content">
             <div class="item distance">
                 <!-- <div class="left">修改头像</div> -->
                 <div class="left"><img class="headimg" v-bind:src="nopre"></div>    
                 <Upload :img-max-num = 1 :video-max-num= 1 :file-type=1 :sign="sign"><span class="text">修改头像</span></Upload> 
+                <div class="clear"></div>
             </div>
             <div class="item">
                 <span class="left">昵称:</span>
                 <input type="text" class="right input" v-model="nickname">
+                <div class="clear"></div>
             </div>
             <div class="item">
                 <span class="left">性别:</span>
                 <div class="sexradio">
-                     <input type="radio" name="sex" value="0" v-model="sex" class="radio">男
-                     <input type="radio" name="sex" value="1" v-model="sex" class="radio">女
+                     <label><input type="radio" name="sex" value="0" v-model="sex" class="radio">男</label>
+                     <label><input type="radio" name="sex" value="1" v-model="sex" class="radio">女</label>
                 </div>
+                <div class="clear"></div>
             </div>
             <div class="item">
                 <span class="left">真实姓名:</span>
                 <input type="text" class="right input" v-model="realname">
+                <div class="clear"></div>
             </div>
             <div class="item">
                 <!-- <span class="left">生日</span> -->
@@ -43,7 +47,7 @@ import common from "../../widget/lib/user"
 import top from "@/components/decorate/top_back_title.vue";
 import Upload from '@/components/common/upload.vue'
 import {mapState,mapGetters} from 'vuex'
-import { Calendar } from 'vux'
+import { Calendar,Group } from 'vux'
 export default {
     name: 'selfinfo',
     data(){
@@ -158,11 +162,15 @@ export default {
     components:{
         Upload,
         top,
-        Calendar
+        Calendar,
+        Group
     }
 }
 </script>
 <style scoped>
+    #selfinfo{
+        background:#f0f0f0;
+    }
     /* .distance>>>.position-relative{
         padding:0.2rem;
         width:3.1rem;
@@ -170,22 +178,40 @@ export default {
         float:right;
     } */
     .text{
+        font-size:.3rem;
         display:inline-block;
-        background:#ddd;
-        padding:0.08rem;
-        border:1px solid #ccc;
+        background: #ff5370;
+        color:#fff;
+        border-radius:2px;
+        padding:0.15rem 0.15rem;
+        border-radius: 0.15rem;
         margin-top:.1rem;
     }
     .content{
         margin-top:0.2rem;
-        font-size:0.35rem;
+        font-size:0.3rem;
     }
     .item{
-        border-bottom:2px solid #ccc;
-        background:#eef;
-        padding:0.15rem;
+        /* text-align: left; */
+        padding:0.25rem 0 0.25rem 0.15rem;
+        background: #fff;
+        position: relative;
+        margin-bottom:0.08rem;
     }
-    .item:after{
+    .item:before{
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        right: 0;
+        width:100%;
+        height: 2px;
+        border-bottom: 2px solid #ccc;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+    }
+    .clear{
         content:'';
         display:block;
         clear:both;
@@ -209,8 +235,9 @@ export default {
         text-align: left;
     }
     .input{
+        border:1px solid #ccc;
         padding:0.1rem;
-        font-size: .35rem;
+        font-size: .3rem;
         box-sizing:border-box;
     }
     .headimg{
@@ -229,8 +256,9 @@ export default {
     .saveBtn{
         width:50%;
         padding:0.15rem 0.15rem;
-        background: #32CD32;
+        background: #ff5370;
+        color:#fff;
         border-radius: 0.15rem;
-        font-size:.35rem;
+        font-size:.3rem;
     }
 </style>
