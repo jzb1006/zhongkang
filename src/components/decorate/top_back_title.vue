@@ -22,7 +22,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
     .navbar {
         height: 1rem;
         line-height: 1rem;

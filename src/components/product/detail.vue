@@ -4,11 +4,11 @@
         <top :title="title"></top>
         <swiper :slidOptions="swiperOption" :slides="slides"></swiper>
         <!--商品名-->
-        <div class="goods_title">
+        <div class="goods_title shrink">
             {{result['goods_name']}} 【{{result['cat_name']}}】【{{result['cat_desc']}}】 {{result['sort_desc']}}
         </div>
         <!--价格-->
-        <div class="other">
+        <div class="other shrink">
             <div class="other_money">
                 <em><i style="font-size: 0.2rem; padding-right: 4px">￥</i> {{result['pifa_price']}}</em>
                 <em class="vip_price">￥ {{result['market_price']}}</em>
@@ -17,7 +17,11 @@
         <!--医院-->
         <div class="hospital shrink">
             <router-link :to="{name:'hospitalDetail',params:{ins_id:ins_id}}">
-                <img :src="getImgUrl()+hospital.profile_photo" class="hospital_icon">
+                <!-- <img :src="getImgUrl()+hospital.profile_photo" class="hospital_icon"> -->
+                <div class="hospital_icon">
+
+                <defaultImg :imgPath="hospital.profile_photo"></defaultImg>
+                </div>
                 <div class="hospital_text">
                     <p>
                         <span>{{hospital.name}}</span>
@@ -33,10 +37,10 @@
         <div class="shrink">
             <router-link :to="{name:'doctorDetail',params:{doc_id:doctor_info.id,ins_id:ins_id}}" class="little-hospital-title border-1px">
                 <span class="title">
-                                    <span>医生 :{{doctor_info.name}} &nbsp;&nbsp; </span>
+                        <span>医生 :{{doctor_info.name}} </span>
                 <span style="font-size:0.2rem; color: #999">
-                                        擅长：<productItem :items="doctor_info.expert_project_classify3_id" class="product_item"></productItem>
-                                      </span>
+                        擅长：<productItem :items="doctor_info.expert_project_classify3_id" class="product_item"></productItem>
+                    </span>
                 </span>
                 <span class="zk-icon-jiantou arrow"></span>
             </router-link>
@@ -78,7 +82,8 @@
     import goods_api from "../../api/goods"
     import swiper from '@/components/slide/index.vue'
     import productItem from "@/components/decorate/product_item.vue";
-    import top from "@/components/decorate/top_back_title.vue";
+    import top from "@/components/product/top_bar.vue";
+     import defaultImg from "@/components/decorate/default_img.vue";
     import {
         Tab,
         TabItem
@@ -183,43 +188,24 @@
         },
         created() {
             this.$_ajax_product_detail();
+            
         },
+       
         components: {
             swiper,
             productItem,
             top,
             Tab,
-            TabItem
+            TabItem,
+            defaultImg
         }
     }
 </script>
-<style>
+<style scoped>
     .shrink {
         padding: 0 0.2rem;
     }
-    .navbar {
-        height: 1rem;
-        line-height: 1rem;
-        position: relative;
-        text-align: center;
-        background: #ff5370;
-        letter-spacing: 0.028rem;
-        font-size: 15px;
-    }
-    .navbar .title {
-        font-size: 0.3rem;
-        color: #fff;
-    }
-    .navbar .fanhui {
-        color: #fff;
-        padding: 0.111rem;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-        z-index: 1000;
-        font-size: 0.4rem;
-    }
+    
     .goods_title {
         padding: 10px 13px 0;
         font-size: 0.3rem;
@@ -243,6 +229,10 @@
     .other_money .vip_price {
         font-size: .3rem;
         color: #333;
+    }
+    .hospital {
+        height: 2rem;
+        padding-top: 0.5rem;
     }
     .hospital_icon {
         width: 1rem;
@@ -280,12 +270,6 @@
     .border-1px {
         position: relative;
     }
-    a,
-    em,
-    i,
-    span {
-        display: inline-block;
-    }
     .little-hospital-title .arrow {
         margin-top: 0;
     }
@@ -305,10 +289,6 @@
     .order .order-table {
         width: 100%;
         height: 1.04rem;
-    }
-    table {
-        border-collapse: collapse;
-        border-spacing: 0;
     }
     .order .order-table .p1 {
         position: relative;
@@ -384,17 +364,13 @@
         overflow: hidden;
         font-size: 0.4rem;
         margin-bottom: 1.5rem;
+        min-height: 7rem;
     }
     .vux-tab .vux-tab-item {
         font-size: 0.3rem!important;
     }
-    /* .vux-tab-container,
-            .vux-tab,
-            .vux-tab-wrap {
-                height: 1rem!important;
-            } */
     .vux-tab-wrap {
-        padding: 0.2rem 0!important;
+        padding: 0.5rem 0!important;
     }
     .vux-tab .vux-tab-item.vux-tab-selected {
         color: #ff5370!important;

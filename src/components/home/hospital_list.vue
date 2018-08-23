@@ -5,6 +5,7 @@
         <hospital :list="result"></hospital>
         <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_docList"></LoadMore>
+        <div id="fill"></div>
     </div>
 </template>
 <script>
@@ -27,7 +28,7 @@ export default {
             isBusy: false,
             ins_info: [],
             page: 1,
-            num_list: 5,
+            num_list: 10,
             loadinging: true
         };
     },
@@ -73,4 +74,5 @@ export default {
 };
 </script>
 <style>
+
 </style>

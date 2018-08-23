@@ -17,7 +17,8 @@
             <emptyOrder v-else v-show="isRequesting"></emptyOrder>
             <Loading v-show="loadinging"></Loading>
             <Alert :Show="warnShow" :alerttType="alerttType" :alertText="alertText"></Alert>
-            <LoadMore :state='hasMore' :isLoading='isBusy' v-if="list.length > 0" @loadmore="$_ajax_order"></LoadMore>
+            <LoadMore :state='hasMore' :isLoading='isBusy' v-if="list.length > 0" @loadmore="$_ajax_order(currentItem)"></LoadMore>
+            <div id="fill"></div>
         </div>
     </div>
 </template>
@@ -105,8 +106,9 @@
             },
             onItemClick(type){
                 console.log(type);
+                this.currentItem = type;
                 this.resetSearch();
-                this.$_ajax_order(type);
+                this.$_ajax_order(this.currentItem);
             },
             resetSearch(){
                 this.list=[]
@@ -132,7 +134,7 @@
         mounted() {
             this.$_ajax_check_loging();
             this.loadinging = true;
-            this.$_ajax_order();
+            this.$_ajax_order(this.currentItem);
         },
     }
 </script>
