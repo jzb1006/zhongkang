@@ -9,6 +9,7 @@
                     <p class="price">$<span>{{product.min_price}}</span>~$<span>{{product.max_price}}</span></p>
             </div>
         </div>
+        <Loading v-show="loadinging"></Loading>
     </div>
 </template>
 
@@ -16,7 +17,7 @@
 import arrive from '././../../../assets/logo.png'
 import api from './../../../api/fang'
 import Bus from './../../../assets/bus.js'
-import Loading from './../../Fang/../../widget/loading'
+import Loading from "@/components/decorate/loading.vue";
 
 export default {
     name: "FProduct",
@@ -28,6 +29,7 @@ export default {
             r_area: "",
             productlist:{},
             sel_num:null,
+            loadinging:true,
         }
     },
     methods:{
@@ -39,7 +41,7 @@ export default {
             api.ajaxSearch("get_products",{tid:treat_id,bid:brand_id,r_area:r_area}).then(
                 res=>{
                     self.productlist = res.data;
-                    Loading.stop();
+                    self.loadinging = false;
                     let check_ids = this.$store.state.fang.check_ids;
                     for(let index in check_ids){
                         if(check_ids[index].num == 5){
@@ -53,6 +55,11 @@ export default {
                             }
                         }
                     }
+                }
+            )
+            .catch(
+                error=>{
+                    self.loadinging = false;
                 }
             )
         },
@@ -88,10 +95,9 @@ export default {
         }
     },
     components:{
-        // FOther
+        Loading
     },
     mounted(){
-        Loading.run();
         this.$store.dispatch('Is_Sel',false);
         Bus.$emit('Content_Type','5');
         this.$store.dispatch('Content_Jump','FOther');

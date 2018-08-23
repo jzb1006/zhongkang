@@ -18,12 +18,12 @@
                     <i v-for="item in chooseItem">{{item.name}}</i>
                 </span>
                 <span class="badge_r">
-                    <x-icon type="ios-arrow-forward" size=".5rem"></x-icon>
+                   <i class="zk-icon-fanhui1"></i>
                 </span>
             </li>
             <li class="sel_time">
                 <group>
-                    <calendar v-model="day" title="选择时间" @click="click_day" disable-future></calendar>
+                    <calendar v-model="day" title="选择时间" disable-future></calendar>
                 </group>
             </li>
             <li class="sel_institution">
@@ -75,9 +75,6 @@ export default {
         };
     },
     methods: {
-        click_day(){
-            Utils.dpr();
-        },
         show_items() {
             Bus.$emit("changeSelItem", true);
         },
@@ -186,7 +183,6 @@ export default {
         top
     },
     mounted() {
-
         Bus.$on("toItem", res => {
             this.chooseItem = res;
         });
@@ -201,7 +197,6 @@ export default {
 </style>
 
 <style scoped>
-@import url("./../../../../assets/css/calandar.css");
 .ios-arrow-back {
     fill: #fff;
 }

@@ -5,6 +5,7 @@
                 <p class="name">{{item.name}}</p>
             </li>
         </ul>
+        <Loading v-show="loadinging"></Loading>
     </div>
 </template>
 
@@ -12,7 +13,7 @@
 import Vue from "vue";
 import api from "./../../../api/fang";
 import Bus from "./../../../assets/bus.js";
-import Loading from "./../../Fang/../../widget/loading";
+import Loading from "@/components/decorate/loading.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -22,7 +23,8 @@ export default {
             check_item: null,
             f_active: false,
             itemlist: [],
-            cid: ""
+            cid: "",
+            loadinging:true,
         };
     },
     computed: {
@@ -41,7 +43,7 @@ export default {
                     }
                 }
 
-                Loading.stop();
+                self.loadinging = false;
                 let check_ids = this.$store.state.fang.check_ids;
                 for (let index in check_ids) {
                     if (check_ids[index].num == 1) {
@@ -54,6 +56,9 @@ export default {
                         }
                     }
                 }
+            })
+            .catch(error=>{
+                self.loadinging = false;
             });
         },
         selectStyle: function(item, index) {
@@ -84,9 +89,10 @@ export default {
             }
         }
     },
-    computed: {},
+    components: {
+         Loading
+    },
     mounted() {
-        Loading.run();
         this.$store.dispatch("Is_Sel", false);
         Bus.$emit("Content_Type", "1");
         this.$store.dispatch("Content_Jump", "/FMain/FTreatMethods");

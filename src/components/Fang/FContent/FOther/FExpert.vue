@@ -8,14 +8,14 @@
                     <div class=" border border-dark" v-for="expert in expertList" v-if="pd_expert(expert)" :class="{f_active:checkexpert == expert.expert_id}" @click="sel_expert(expert,expert.expert_id)"><p>预定</p>$<span>{{expert.min_price}}</span>~$<span>{{expert.max_price}}</span></div>
                 </div>
             </div>
-
+            <Loading v-show="loadinging"></Loading>
         </div>
 </template>
 <script>
 import FBtn from './FBtn'
 import Bus from './../../../../assets/bus.js'
 import api from './../../../../api/fang'
-import Loading from './../../Fang/../../../widget/loading'
+import Loading from "@/components/decorate/loading.vue";
 
 export default {
     name:"FExpert",
@@ -25,6 +25,7 @@ export default {
             expertList:[],
             checkexpert:null,
             show_btn:false,
+            loadinging:true,
         }
     },
     methods:{
@@ -34,7 +35,7 @@ export default {
             api.ajaxSearch("get_expert",{tid:tid}).then(
                 res=>{
                     self.expertList = res.data;
-                    Loading.stop();
+                    self.loadinging = false;
                     let check_ids = this.$store.state.fang.check_ids;
                     for(let index in check_ids){
                         if(check_ids[index].num == 8){
@@ -55,6 +56,9 @@ export default {
                     }
                 }
             )
+            .catch(error=>{
+                self.loadinging = false;
+            })
         },
         sel_expert:function(expert,index){
             this.show_btn = true;
@@ -95,10 +99,10 @@ export default {
         }
     },
     components:{
-        FBtn
+        FBtn,
+        Loading
     },
     mounted(){
-        Loading.run();
         this.$store.dispatch('Is_Sel',false);
         Bus.$emit('Content_Type','8');
         Bus.$emit("changeTitle","预定专家");

@@ -51,6 +51,17 @@
                      </router-link>
                 </div>
             </section>
+            <!-- 医生日记 -->
+            <section class="diary-box">
+                <div class="title border-bot">商家日记
+                     <router-link :to="{name:'doctorDiary',query:{doc_id:doc_id}}" class="fr right">
+                         查看更多日记
+                            <i class="zk-icon-jiantou" style="font-size: 0.3rem;"></i>
+                     </router-link>
+                </div>
+                
+                <diary :docId=doc_id :once = 1 :query=true></diary>
+            </section>
         </div>
         <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
@@ -73,6 +84,7 @@
     import star from "@/components/decorate/star.vue";
     import commentInfo from "@/components/decorate/comment_info.vue";
     import product from '@/components/product/list.vue'
+    import diary from '@/components/diary/diary_list.vue';
     export default {
         data() {
             return {
@@ -105,7 +117,6 @@
                     page:this.page++,
                     num_list:this.num_lits
                 }).then(res => {
-                    console.log(res);
                     var result = res.data.data;
                     var errcode = res.data.error_code;
                     var msg = res.data.msg;
@@ -147,7 +158,8 @@
             defaultImg,
             star,
             commentInfo,
-            product
+            product,
+            diary
         }
     }
 </script>

@@ -43,7 +43,9 @@ import common from "../../widget/lib/user"
 import top from "@/components/decorate/top_back_title.vue";
 import Upload from '@/components/common/upload.vue'
 import {mapState,mapGetters} from 'vuex'
-import { Calendar } from 'vux'
+import { Calendar,Group } from 'vux'
+import Utils from '@/widget/lib/Utils'
+
 export default {
     name: 'selfinfo',
     data(){
@@ -158,10 +160,14 @@ export default {
     components:{
         Upload,
         top,
-        Calendar
+        Calendar,
+        Group
     }
 }
 </script>
+<style>
+@import url("./../../assets/css/calandar.css");
+</style>
 <style scoped>
     /* .distance>>>.position-relative{
         padding:0.2rem;

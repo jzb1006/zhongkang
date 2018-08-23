@@ -6,12 +6,13 @@
                 <div class="border" v-for="nursing in nursingList"  v-if="nursing" @click="sel_nursing(nursing,nursing.nursing_id)" :class="{f_active:checknursing == nursing.nursing_id}">
                     <p>{{nursing.nursing_name}}</p>$<span>{{nursing.min_price}}</span>~$<span>{{nursing.max_price}}</span></div>
             </div>
+            <Loading v-show="loadinging"></Loading>
         </div>
 </template>
 <script>
 import Bus from './../../../../assets/bus.js'
 import api from './../../../../api/fang'
-import Loading from './../../Fang/../../../widget/loading'
+import Loading from "@/components/decorate/loading.vue";
 
 export default {
     data(){
@@ -19,6 +20,7 @@ export default {
             tid:"",
             nursingList:[],
             checknursing:null,
+            loadinging:true,
         }
     },
     methods:{
@@ -29,8 +31,7 @@ export default {
                 res=>{
                     
                     self.nursingList = res.data;
-                    console.log(res.data);
-                    Loading.stop();
+                    self.loadinging = false;
                     let check_ids = this.$store.state.fang.check_ids;
                     for(let index in check_ids){
                         if(check_ids[index].num == 6){
@@ -50,7 +51,9 @@ export default {
                         }
                     }
                 }
-            )
+            ).catch(error=>{
+                self.loadinging = false;
+            })
         },
         sel_nursing:function(nursing,index){
                 this.checknursing = index;
@@ -82,8 +85,10 @@ export default {
                 }
         },
     },
+    components:{
+        Loading
+    },
     mounted(){
-        Loading.run();
         this.$store.dispatch('Is_Sel',false);
         Bus.$emit('Content_Type','6');
         this.$store.dispatch('Content_Jump','/FMain/FOther/FHospital');

@@ -1,17 +1,16 @@
 <template>
     <div id="diary_list">
-        <searchBar :title="'众康医疗'" :iconShow="true"></searchBar>
-        <DiaryHead></DiaryHead>
-        <div class="diary_third" v-for="backdrop in backdropList">
+        <div class="diary_third" v-for="(backdrop,index) in backdropList" v-if="checkOnce(index)">
             <div class="top">
                 <div class="headImg">
-                    <img src="1.jpg" alt="" />
+                    <img v-if="handbookList[backdrop.id].headimgurl" :src="getImgUrl()+handbookList[backdrop.id].headimgurl" alt="" />
                 </div>
-                <span class="user_name">{{handbookList[backdrop.id].user_name}}</span>
+                <span class="user_name" v-if="handbookList[backdrop.id].nickname">{{handbookList[backdrop.id].nickname}}</span>
+                <span class="user_name" v-else>{{handbookList[backdrop.id].user_name}}</span>
                 <span class="time">{{diaryList[backdrop.id].course_time}}</span>
             </div>
             <div class="middle clearfix">
-                <router-link :to="{name:'diaryBackdrop',query:{bid:backdrop.id}}" tag="a">
+                <router-link :to="{name:'diaryBackdrop',query:{bid:backdrop.id}}" tag="div">
                     <div class="avg" v-if="mediaList[diaryList[backdrop.id].id].type == '1'">
                         <div class="b_left contrast_img">
                             <img v-lazy="getImgUrl()+backdrop.img1">
@@ -41,27 +40,25 @@
                     <div class="other_see">
                         <span><i class="zk-icon-dianzan"></i>-{{diaryList[backdrop.id].favor}}</span>
                     </div>
-                    <!-- <div class="other_see">
+                    <div class="other_see">
                         <span><i class="zk-icon-edit"></i>-{{handbookList[backdrop.id].total_comment}}</span>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <hr/>
         </div>
         <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_get_diary"></LoadMore>
-
     </div>
 </template>
 <script>
 import Vue from "vue";
-import DiaryHead from "./diary_head";
 import api from "@/api/diary";
 import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
-import searchBar from "@/components/home/search_bar.vue";
 
 export default {
+    props:['insId','once','docId','cid','query'],
     name: "diary_list",
     data() {
         return {
@@ -75,12 +72,10 @@ export default {
             isBusy: false,
             hasMore: 0,
             loadinging:true,
-        };
+        }
     },
     components: {
-        DiaryHead,
         LoadMore,
-        searchBar,
         Loading
     },
     methods: {
@@ -91,11 +86,14 @@ export default {
             let arr = {
                 page: self.page,
                 pageList: 3,
-                pd: this.pd
+                pd: this.pd,
+                doctor_id:self.docId,
+                institution_id:self.insId,
+                cid:self.cid, 
+                query:this.query
             };
 
             api.ajaxSearch("diary_index", arr).then(res => {
-                console.log(res);
                 this.hasMore = res.data.hasMore;
                 self.handbookList = Object.assign(
                     self.handbookList,
@@ -134,12 +132,38 @@ export default {
             }
             return scrollTop;
         },
+        checkOnce(index){
+            if(this.once){
+                if(index < this.once){
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
     },
     mounted() {
         this.$_get_diary();
     }
 };
 </script>
+<style>
+p.top{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: #fff;
+    font-size: 0.35rem;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    background-color: rgb(255, 83, 112);
+    z-index: 999;
+}
+</style>
+
 <style scoped>
 #diary_list {
     /*padding: 0 15px;*/

@@ -10,7 +10,7 @@
             </p>
             <div class="date">
                 <group>
-                    <Datetime v-model="day" :start-date="initdata" :end-date="getToday()" @click="click_date" title="选择日期"></Datetime>
+                    <Datetime v-model="day" :start-date="initdata" :end-date="getToday()" @on-show="click_date" title="选择日期"></Datetime>
                 </group>
                 <div class="col_5">
                     <p class="day">术后第
@@ -72,7 +72,8 @@ export default {
     },
     methods: {
         click_date(){
-
+            console.log(12312313);
+            Utils.dpr();
         },
         changeStatus() {
             this.status = !this.status;
@@ -130,9 +131,10 @@ export default {
         submit() {
             let pd = this.examination();
             if (pd) {
-                let show_type = 1;
+                let show_type = show;
+
                 if (!this.status) {
-                    show_type = 2;
+                    show_type = hidden;
                 }
 
                 let origin_urls = "";
@@ -204,6 +206,7 @@ export default {
         },
     },
     mounted() {
+        // Utils.dpr();
         this.bid = this.$route.query.bid;
         this.$_ajax_getInfo();
         var self = this;
@@ -217,9 +220,6 @@ export default {
 @import url("./../../../../assets/css/calandar.css");
 </style>
 <style scoped>
-.ios-arrow-back{
-    fill: #fff;
-}
 .col_5 {
     width: 50%;
     float: left;

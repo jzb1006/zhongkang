@@ -93,7 +93,7 @@
                         <img :src="imgPrifix()+item['url']">
                     </li>
                     <li>
-                         <router-link :to="{name:'imgList',params:{ins_id:ins_id,tab:1}}" class="chinese">
+                         <router-link :to="{name:'InsImgList',params:{ins_id:ins_id,tab:1}}" class="chinese">
                        
                                 <span>查看更多</span>
                                 <span class="english">View More</span>
@@ -102,6 +102,16 @@
                     </li>
                 </ul>
                 <div class="business-info"><span>营业时间：{{ins_info['office_hours']}}</span></div>
+            </section>
+            <!-- 商家日记 -->
+            <section class="diary-box">
+                <div class="title border-bot">商家日记
+                     <router-link :to="{name:'insDiary',query:{ins_id:ins_id}}" class="fr right">
+                         查看更多日记
+                            <i class="zk-icon-jiantou" style="font-size: 0.3rem;"></i>
+                     </router-link>
+                </div>
+                <diary :insId=ins_id :once = 1 :query=true></diary>
             </section>
         </div>
         <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
@@ -125,6 +135,7 @@
     import star from "@/components/decorate/star.vue";
     import commentInfo from "@/components/decorate/comment_info.vue";
     import product from '@/components/product/list.vue'
+    import diary from '@/components/diary/diary_list.vue';
     export default {
         data() {
             return {
@@ -152,7 +163,6 @@
                 api.detail({
                     id: this.ins_id
                 }).then(res => {
-                    console.log(res)
                     var result = res.data.data;
                     var errcode = res.data.error_code;
                     var msg = res.data.msg;
@@ -196,7 +206,8 @@
             defaultImg,
             star,
             commentInfo,
-            product
+            product,
+            diary
         }
     }
 </script>
@@ -518,14 +529,6 @@
         -webkit-overflow-scrolling: touch;
         padding: 0.70rem 0.30rem 0.30rem 0;
     }
-    .main section.business-box ul.imgs,
-    .main section.teacher-box ul.teacher {
-        width: 100%;
-        white-space: nowrap;
-        overflow-x: scroll;
-        overflow-y: hidden;
-        box-sizing: border-box;
-    }
     .main section.teacher-box ul.teacher li {
         display: inline-block;
         width: 2.50rem;
@@ -534,7 +537,6 @@
         border-radius: 0.10rem;
         position: relative;
         padding-top: 1.00rem;
-        margin-left: 0.30rem;
         vertical-align: top;
     }
     .main section.teacher-box ul.teacher li .img-box {
@@ -574,8 +576,8 @@
 .main section.business-box ul.imgs, .main section.teacher-box ul.teacher {
     width: 100%;
     white-space: nowrap;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    /* overflow-x: scroll;
+    overflow-y: hidden; */
     box-sizing: border-box;
 }
 
@@ -634,5 +636,8 @@
 .main section.business-box ul.imgs li:last-child .chinese span {
     display: block;
     padding-top: 0.70rem;
+}
+.main section.diary-box{
+    margin-bottom:.5rem;
 }
 </style>

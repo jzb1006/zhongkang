@@ -8,6 +8,7 @@
                 <p class="brand_name">{{ brand.brand_name }}</p>    
             </div>
         </div>
+        <Loading v-show="loadinging"></Loading>
     </div>
 </template>
 
@@ -16,7 +17,7 @@ import Vue from 'vue'
 import avatar from './../../../assets/logo.png'
 import api from './../../../api/fang'
 import Bus from './../../../assets/bus.js'
-import Loading from './../../Fang/../../widget/loading'
+import Loading from "@/components/decorate/loading.vue";
 
 export default {
     name:"FBrand",
@@ -29,6 +30,7 @@ export default {
             bid:"",
             brandlist:{},
             checkbrand:null,
+            loadinging:true,
         }
     },
     methods:{
@@ -39,8 +41,7 @@ export default {
             api.ajaxSearch("get_brands",{tid:treat_id,r_area:r_area}).then(
                 res=>{
                     self.brandlist = res.data;
-                    console.log(res.data);
-                    Loading.stop();
+                    self.loadinging = false;
                     let check_ids = this.$store.state.fang.check_ids;
                     for(let index in check_ids){
                         if(check_ids[index].num == 4){
@@ -56,6 +57,9 @@ export default {
                     }
                 }
             )
+            .catch(error=>{
+                self.loadinging = false;
+            })
         },
         getImgUrl(){
           return api.imgUrl();
@@ -81,8 +85,10 @@ export default {
             this.$store.dispatch('Content_Data',arr);
         }
     },
+    components:{
+        Loading
+    },
     mounted(){
-        Loading.run();
         this.$store.dispatch('Is_Sel',false);
         Bus.$emit('Content_Type','4');
         this.$store.dispatch('Content_Jump','FProduct');

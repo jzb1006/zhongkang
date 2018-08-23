@@ -3,7 +3,7 @@
 		<DiaryDetailTop :bid=bid></DiaryDetailTop>
 		<div v-for="(diary,index) in diaryContent" v-if="index == 0">
 			<div class="content">
-				<span class=" icon_days fl">
+				<span class=" icon_days">
 					<span>第{{getDays(diary.time,diary.course_time)}}天</span>
 				</span>
 				<p>{{diary.content}}</p>

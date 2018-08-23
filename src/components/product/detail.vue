@@ -1,6 +1,5 @@
 <template>
     <div id="product">
-        
         <!--头部-->
         <top :title="title"></top>
         <swiper :slidOptions="swiperOption" :slides="slides"></swiper>
@@ -16,7 +15,7 @@
             </div>
         </div>
         <!--医院-->
-        <div class="hospital">
+        <div class="hospital shrink">
             <router-link :to="{name:'hospitalDetail',params:{ins_id:ins_id}}">
                 <img :src="getImgUrl()+hospital.profile_photo" class="hospital_icon">
                 <div class="hospital_text">
@@ -31,40 +30,55 @@
             </router-link>
         </div>
         <!--医生-->
-        <div>
-              <router-link :to="{name:'doctorDetail',params:{doc_id:doctor_info.id,ins_id:ins_id}}"  class="little-hospital-title border-1px">
-            
+        <div class="shrink">
+            <router-link :to="{name:'doctorDetail',params:{doc_id:doctor_info.id,ins_id:ins_id}}" class="little-hospital-title border-1px">
                 <span class="title">
-                        <span>医生 :{{doctor_info.name}} &nbsp;&nbsp; </span>
+                                    <span>医生 :{{doctor_info.name}} &nbsp;&nbsp; </span>
                 <span style="font-size:0.2rem; color: #999">
-                            擅长：<productItem :items="doctor_info.expert_project_classify3_id" class="product_item"></productItem>
-                          </span>
+                                        擅长：<productItem :items="doctor_info.expert_project_classify3_id" class="product_item"></productItem>
+                                      </span>
                 </span>
                 <span class="zk-icon-jiantou arrow"></span>
-           
-              </router-link>
+            </router-link>
         </div>
         <!--详情-->
-        <div class="main on" style="margin-top: 0.2rem;" v-html="result.goods_desc">
-            {{result.goods_desc}}
+        <div class="main on shrink" style="margin-top: 0.5rem;">
+            <tab :line-width="1" custom-bar-width="60px">
+                <tab-item selected @on-item-click="onItemClick">详情</tab-item>
+                <tab-item @on-item-click="onItemClick">评论</tab-item>
+                <tab-item @on-item-click="onItemClick">日记</tab-item>
+            </tab>
+            <div id="detail" v-html="result.goods_desc" v-show="surrentTab==0">
+                {{result.goods_desc}}
+            </div>
+            <div id="comment" v-show="surrentTab==1">
+                <p>暂时没有评论哦</p>
+            </div>
+            <div id="diary" v-show="surrentTab==2">
+                <!-- 商家日记 -->
+                <section class="diary-box">
+                    <div class="title border-bot">商家日记
+                        <router-link :to="{name:'proDiary',query:{cid:cid}}" class="fr right">
+                            查看更多日记
+                                <i class="zk-icon-jiantou" style="font-size: 0.3rem;"></i>
+                        </router-link>
+                    </div>
+                    <diary :cid=cid :once = 2 :query=true></diary>
+                </section>
+                <p>暂时没有日志哦</p>
+            </div>
         </div>
         <!--底部-->
         <div class="order border-1px">
-            <table class="order-table">
-                <tbody>
-                    <tr>
-                        <td class="p1">
-                            预约金:<span style="visibility: hidden">金</span><span class="order-price">￥ {{result.deposit_price}}</span> <br><br> 到院再付:&nbsp;
-                            <span style="color: #333">￥ {{result.pifa_price-result.deposit_price}}</span>
-                        </td>
-                        <!--普通商品-->
-                        <td class="p4">
-                            <!--scx script-->
-                            <a @click="$_ajax_add_card()">提交订单</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="order-table">
+                <div class="p1">
+                    <p style="padding-bottom: 0.1rem;"> 预约金:<span style="visibility: hidden">金</span><span class="order-price">￥ {{result.deposit_price}}</span> </p>
+                    <p>到院再付:<span style="color: #333">￥ {{result.pifa_price-result.deposit_price}}</span></p>
+                </div>
+                <p class="p4">
+                    <a @click="$_ajax_add_card()">提交订单</a>
+                </p>
+            </div>
         </div>
     </div>
 </template>
@@ -75,6 +89,11 @@
     import swiper from '@/components/slide/index.vue'
     import productItem from "@/components/decorate/product_item.vue";
     import top from "@/components/decorate/top_back_title.vue";
+    import diary from './../diary/diary_list'
+    import {
+        Tab,
+        TabItem
+    } from 'vux'
     export default {
         data() {
             return {
@@ -92,9 +111,10 @@
                     pagination: {
                         el: '.swiper-pagination'
                     },
-                    
                 },
-                title:'商品详情'
+                title: '商品详情',
+                surrentTab: 0,
+                cid:"",
             }
         },
         methods: {
@@ -112,8 +132,7 @@
                     self.result = res.data.goodsinfo;
                     self.hospital = res.data.institution_info[0];
                     self.doctor_info = res.data.doctor_info;
-                    console.log(res.data.gallery)
-                    console.log(res);
+                    self.cid = res.data.goodsinfo.cat_id;
                 }).catch(error => {
                     console.log(error);
                 })
@@ -132,7 +151,6 @@
                 goods_api.addCard({
                     goods: goods
                 }).then(res => {
-                    console.log(res.data);
                     var result = res.data;
                     var code = result.error + '';
                     var msg = result.message
@@ -168,6 +186,9 @@
                     return (arr[2]);
                 else
                     return null;
+            },
+            onItemClick(index) {
+                this.surrentTab = index;
             }
         },
         created() {
@@ -176,11 +197,38 @@
         components: {
             swiper,
             productItem,
-            top
+            top,
+            Tab,
+            TabItem,
+            diary
         }
     }
 </script>
-<style scoped>
+<style>
+    .main section {
+        background: #fff;
+        margin-bottom: 0.20rem;
+        font-size: 0.36rem;
+    }
+    .main section .title {
+        height: 1.00rem;
+        line-height: 1.00rem;
+        font-size: 0.36rem;
+        color: #333;
+        padding: 0 0.30rem;
+    }
+    .main section .title .right {
+        display: inline-block;
+        float: right;
+        font-size: 0.24rem;
+        color: #777;
+    }
+    .fr {
+        float: right;
+    }
+    .shrink {
+        padding: 0 0.2rem;
+    }
     .navbar {
         height: 1rem;
         line-height: 1rem;
@@ -288,7 +336,7 @@
     .order,
     .order .order-table {
         width: 100%;
-        height: 1rem;
+        height: 1.04rem;
     }
     table {
         border-collapse: collapse;
@@ -298,11 +346,13 @@
         position: relative;
         text-align: left;
         width: 40%;
-        line-height: .2rem;
-        font-size: .2rem;
+        line-height: .3rem;
+        font-size: .3rem;
         color: #777;
         border-right: 1px solid #f0f0f0;
         min-width: 0.5rem;
+        float: left;
+        padding: 0.2rem 0.2rem;
     }
     .order .order-table .p1 .order-price {
         color: #ff527f;
@@ -341,9 +391,13 @@
         min-width: 44px;
     }
     .order .order-table .p4 {
-        width: 30%;
-        font-size: 0.3rem;
+        width: 3rem;
+        height: 1rem;
+        line-height: 1rem;
         background-color: #fc5d7b;
+        font-size: 0.3rem;
+        float: right;
+        text-align: center;
     }
     .order .order-table .p3 a,
     .order .order-table .p4 a {
@@ -362,5 +416,22 @@
         overflow: hidden;
         font-size: 0.4rem;
         margin-bottom: 1.5rem;
+    }
+    .vux-tab .vux-tab-item {
+        font-size: 0.3rem!important;
+    }
+    /* .vux-tab-container,
+            .vux-tab,
+            .vux-tab-wrap {
+                height: 1rem!important;
+            } */
+    .vux-tab-wrap {
+        padding: 0.2rem 0!important;
+    }
+    .vux-tab .vux-tab-item.vux-tab-selected {
+        color: #ff5370!important;
+    }
+    .vux-tab-bar-inner {
+        background-color: #ff5370!important;
     }
 </style>

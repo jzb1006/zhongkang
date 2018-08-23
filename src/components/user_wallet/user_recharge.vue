@@ -6,7 +6,7 @@
 			        <span class="span">充值金额:</span>
 			 </div>
 			 <div class="div1">
-	               <span class="renminbi"><img src="../../assets/renminbi.png"></span>
+	               <span class="renminbi"><i class="zk-icon-renminbi1"></i></span>
 	        	   <input type="number" v-model="amount" placeholder="输入充值金额" class="input">
 			 </div>	
 		</div>
@@ -16,12 +16,14 @@
 		<div>
 			<confirm v-model="show" :title="confirmTitle" @on-confirm="onConfirm"></confirm>
 		</div>
+		<Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
   	</div>
 </template> 
 
 <script>
 import api from "../../api/user"
 import top from "@/components/decorate/top_back_title.vue"
+import Alert from "@/components/decorate/alert.vue";
 import { Confirm } from 'vux'
 export default {
     name: 'recharge',
@@ -29,10 +31,16 @@ export default {
     	return{
 			amount:'',
 			show:false,
-			confirmTitle:''
+			confirmTitle:'',
+			alertShow:false,
+			alerttType:'warn',
+            alertText:'',
     	}
     },
     computed:{
+		isShow(){
+               return this.alertShow;
+        },
     	classObject(){
     		return{
     			next:true,
@@ -61,7 +69,7 @@ export default {
     	recharge(){
     		var value=this.amount;
 	    	if(value==""||value==0){
-	        	alert("充值金额不能为空且不能为零");
+				alert("充值金额不能为空且不能为零");
 	        	return false;
 	    	}
 	    	if(value.indexOf('.')==-1){
@@ -103,7 +111,8 @@ export default {
 	},
 	components:{
 		top,
-		Confirm
+		Confirm,
+		Alert
 	}
 }
 </script>

@@ -36,8 +36,6 @@ export default {
 			if(this.$store.state.fang.is_sel){
 				let content = this.$store.state.fang.contentJump;
 				let contentData = this.$store.state.fang.contentData;
-
-				console.log(contentData);
 				this.$router.push({path: content, query: contentData});
 			}else{
 				alert("请选择！！");

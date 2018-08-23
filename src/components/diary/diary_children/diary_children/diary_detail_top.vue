@@ -1,32 +1,39 @@
 <template>
-	<div id="detail_top">
-        <top title="美丽内容"></top>
-		<div v-for="backdrop in backdropList">
-			<div class="head">
+    <div id="detail_top">
+        <p class="top">
+            <top title="美丽内容"></top>
+        </p>
+
+        <div v-for="backdrop in backdropList">
+            <div class="head">
                 <div class="headImg">
                     <img src="http://img2.imgtn.bdimg.com/it/u=1409135023,2233259101&fm=27&gp=0.jpg " alt="" />
                 </div>
-				
-				<span class="user_name">{{userName}}</span>
-				<span class="time">{{backdrop.add_time}}</span>
-			</div>
-			<div class="other">
-				<div class="info">
-					<span class="icon_institution">机构</span>
-					<span class="" :title="backdrop.institution_name">{{backdrop.institution_name}}</span>
-				</div>
-				<div class="info">
-                    <span class="icon_doctor">医生</span>
-					<span class="" :title="backdrop.doctor_name">{{backdrop.doctor_name}}</span>
-				</div>
-				<div class="info">
-					<router-link :to="{name:'diaryBackdrop',query:{bid:bid}}" tag="div">
-						<p class="see_diary text-center text-info">查看其他日记</p>
-					</router-link>
-				</div>
-			</div>
-		</div>
-	</div>
+
+                <span class="user_name">{{userName}}</span>
+                <span class="time">{{backdrop.add_time}}</span>
+            </div>
+            <div class="other">
+                <div class="info">
+                    <router-link :to="{name:'hospitalDetail',params:{ins_id:backdrop.institution_id}}">
+                        <span class="icon_institution">机构</span>
+                        <span class="" :title="backdrop.institution_name">{{backdrop.institution_name}}</span>
+                    </router-link>
+                </div>
+                <div class="info">
+                    <router-link :to="{name:'doctorDetail',params:{doc_id:backdrop.doctor_id,ins_id:backdrop.institution_id}}">
+                        <span class="icon_doctor">医生</span>
+                        <span class="" :title="backdrop.doctor_name">{{backdrop.doctor_name}}</span>
+                    </router-link>
+                </div>
+                <div class="info">
+                    <router-link :to="{name:'diaryBackdrop',query:{bid:bid}}" tag="div">
+                        <p class="see_diary text-center text-info">查看其他日记</p>
+                    </router-link>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
 import api from "@/api/diary";
@@ -43,7 +50,7 @@ export default {
         };
     },
     props: ["bid"],
-    components:{
+    components: {
         top
     },
     methods: {
@@ -63,8 +70,11 @@ export default {
                 self.p_uid = res.data.b_uid;
             });
         },
-        back(){
-            this.$router.push({name:'diaryBackdrop',query:{bid:this.bid}});
+        back() {
+            this.$router.push({
+                name: "diaryBackdrop",
+                query: { bid: this.bid }
+            });
         }
     },
     mounted() {
@@ -73,13 +83,29 @@ export default {
 };
 </script>
 <style scoped>
-.ios-arrow-back{
+.ios-arrow-back {
     fill: #fff;
 }
-.ios-contact{
+.ios-contact {
     fill: #ddddff;
 }
-#detail_top .top {
+
+#detail_top > p.top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: #fff;
+    font-size: 0.35rem;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    background-color: rgb(255, 83, 112);
+    z-index: 999;
+}
+
+/* #detail_top .top {
     position: fixed;
     top: 0;
     left: 0;
@@ -95,9 +121,10 @@ export default {
 }
 #detail_top .top span{
     float: left;
-}
+} */
 #detail_top .head {
     position: relative;
+    margin-top: 1rem;
     height: 1.2rem;
 }
 #detail_top .head span.time {
@@ -118,7 +145,7 @@ export default {
     background-color: #ddd;
     z-index: 1;
 }
-#detail_top .head .headImg img{
+#detail_top .head .headImg img {
     width: 100%;
     min-height: 100%;
 }
@@ -136,18 +163,19 @@ export default {
 #detail_top .other {
     font-size: 0.4rem;
     margin: 0.5rem 0;
-    padding: 0.1rem .3rem;
+    padding: 0.1rem 0.3rem;
 }
 #detail_top .other .info {
-    font-size: .3rem;
+    font-size: 0.3rem;
     padding: 0.2rem;
     overflow: hidden;
     border: 1px solid #ccc;
     box-shadow: 5px 5px 5px #ccc;
 }
-#detail_top .other .info span.icon_institution,#detail_top .other .info span.icon_doctor{
-    font-size: .3rem;
-    padding: .2rem;
+#detail_top .other .info span.icon_institution,
+#detail_top .other .info span.icon_doctor {
+    font-size: 0.3rem;
+    padding: 0.2rem;
     border-radius: 1rem;
     color: #fff;
     border: 1px solid #000;
@@ -158,7 +186,7 @@ export default {
     height: 1rem;
     display: inline-block;
 }
-#detail_top .other span{
+#detail_top .other span {
     display: inline-block;
 }
 p.see_diary {

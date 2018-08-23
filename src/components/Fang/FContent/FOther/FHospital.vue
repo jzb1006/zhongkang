@@ -10,13 +10,14 @@
                     <p>不用住院</p>
                 </div>
             </div>
+            <Loading v-show="loadinging"></Loading>
         </div>
 </template>
 
 <script>
 import Bus from './../../../../assets/bus.js'
 import api from './../../../../api/fang'
-import Loading from './../../Fang/../../../widget/loading'
+import Loading from "@/components/decorate/loading.vue";
 
 export default {
    data(){
@@ -24,6 +25,7 @@ export default {
            tid:"",
            bedList:[],
            checkhospital:null,
+           loadinging:true,
        }
    },
    methods:{
@@ -33,7 +35,7 @@ export default {
            api.ajaxSearch('get_hospital',{tid:tid}).then(
                res=>{
                     self.bedList = res.data;
-                    Loading.stop();
+                    self.loadinging = false;
                     let check_ids = this.$store.state.fang.check_ids;
                     for(let index in check_ids){
                         if(check_ids[index].num == 7){
@@ -56,6 +58,9 @@ export default {
                     }
                }
            )
+           .catch(error=>{
+                self.loadinging = false;
+            })
        },
        sel_bed:function(bed,index){
            this.checkhospital = index;
@@ -88,8 +93,10 @@ export default {
            
        }
    },
+   components:{
+       Loading
+   },
     mounted(){
-        Loading.run();
         this.$store.dispatch('Is_Sel',false);
         Bus.$emit('Content_Type','7');
         this.$store.dispatch('Content_Jump','/FMain/FOther/FExpert');

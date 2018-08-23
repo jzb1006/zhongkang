@@ -4,6 +4,7 @@ import Router from 'vue-router'
 
 import Search from '@/components/search/search.vue'
 import productDetail from '@/components/product/detail.vue'
+import proDiary from '@/components/product/pro_diary.vue'
 import mycart from '@/components/shopping/mycart_checkout.vue'
 import pay from '@/components/shopping/pay.vue'
 import orderList from '@/components/order/order_list.vue'
@@ -16,6 +17,7 @@ import hospitalDetail from '@/components/hospital/detail.vue'
 import insAlbum from '@/components/hospital/ins_album.vue'
 import ins_imgList from '@/components/hospital/img_list.vue'
 import ins_licence from '@/components/hospital/licence.vue'
+import insDiary from '@/components/hospital/ins_diary.vue'
 import docList from '@/components/hospital/doc_list.vue'
 import Map from '@/components/hospital/to_Map.vue'
 
@@ -24,6 +26,7 @@ import docAlbum from '@/components/doctor/doc_album.vue'
 import doc_imgList from '@/components/doctor/img_list.vue'
 import doc_licence from '@/components/doctor/licence.vue'
 import doctorDetail from '@/components/doctor/detail.vue'
+import doctorDiary from '@/components/doctor/doc_diary.vue'
 
 import HProductList from '@/components/home/product_list.vue'
 import HDoctorList from '@/components/home/doctor_list.vue'
@@ -178,6 +181,11 @@ export default new Router({
       component: productDetail
     },
     {
+      path: '/proDiary',
+      name: 'proDiary',
+      component: proDiary
+    },
+    {
       path: '/mycart',
       name: 'mycart',
       component: mycart
@@ -256,6 +264,16 @@ export default new Router({
       name: 'doctorDetail',
       component: doctorDetail
     },
+    {
+      path: '/doctorDiary',
+      name: 'doctorDiary',
+      component: doctorDiary
+    },
+    {
+      path: '/ins_diary',
+      name: 'insDiary',
+      component: insDiary
+    },
     // {
     //   path: '/docAlbum/:doc_id',
     //   name: 'docAlbum',
@@ -309,7 +327,7 @@ export default new Router({
     {
       path: '/home/diaryList',
       name: 'diaryList',
-      component: ()=> import('@/components/diary/diary_list.vue'),
+      component: ()=> import('@/components/diary/diary_head.vue'),
     },
     {
       path: '/hospitalList',
