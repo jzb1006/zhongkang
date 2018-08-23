@@ -1,6 +1,6 @@
 <template>
   <div id="SearchDoctor">
-    <div data-doctorid="" v-if="list!==''" :key="index" class="doctor border" v-for="(item,index) in list">
+    <div data-doctorid="" v-if="list!==''" :key="index" class="doctor" v-for="(item,index) in list">
     <router-link :to="{name:'doctorDetail',params:{doc_id:item['id'],ins_id:item['from_institution_id']}}">
       <div class="doctor-info">
         <!-- <div class="doctor-avatar"><img alt="" :src="getImgUrl()+item.avatar" lazy="loaded"></div> -->
@@ -8,7 +8,7 @@
           <defaultImg :imgPath="item.avatar"></defaultImg>
         </div>
         <div class="doctor-main">
-          <div class="doctor-part1"><span class="doctor-name">{{item.name}}</span> <span class="doctor-title">主治医师</span> <span class="doctor-icon renzheng"></span></div>
+          <div class="doctor-part1"><span class="doctor-name">{{item.name}}</span> <span class="doctor-title">主治医师</span> <span class="doctor-icon renzheng zk-icon-iconfontzhizuobiaozhun023114"></span></div>
           <!---->
           <div class="doctor-part2"><span class="doctor-hospital">{{item.ins_name}}</span></div>
           <div class="doctor-part3">
@@ -16,7 +16,7 @@
           </div>
         </div>
       </div>
-      <div  class="doctor-item">
+      <div  class="doctor-item margin">
          <productItem :items="item.expert_project_classify3_id"></productItem>
       </div>
      
@@ -69,6 +69,9 @@
   }
 </script>
 <style scoped>
+ #SearchDoctor .margin{
+        margin-top: -0.5rem;
+  }
   .award {
     margin-bottom: 7px;
   }
@@ -150,15 +153,10 @@
     background-position: center;
     background-size: 100%;
   }
-  .doctor .yunzhensuo {
-    background-image: url(//mstatic.soyoung.com/m/static/img/search/yunzhensuo.png);
-    height: 0.48rem;
-    width: 1.48rem;
-  }
   .doctor .renzheng {
     width: 0.82rem;
     height: 0.32rem;
-    background-image: url(//mstatic.soyoung.com/m/static/img/search/yimei.png);
+    color: #ff5370;
   }
   .doctor .doctor-hospital {
     color: #555;
@@ -244,8 +242,5 @@
     font-size: 0.24rem;
     text-align: center;
   }
-  .border {
-            border-bottom: 1px solid #999;
-            box-shadow: 0 1px 1px #fff;
-        }
+
 </style>

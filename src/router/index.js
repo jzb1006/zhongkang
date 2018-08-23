@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import store from '../store'
 
 import Search from '@/components/search/search.vue'
 import productDetail from '@/components/product/detail.vue'
@@ -64,7 +64,7 @@ import balance from '@/components/user_wallet/user_balance'
 import recharge from '@/components/user_wallet/user_recharge'
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -409,3 +409,15 @@ export default new Router({
     },
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if(to.name=='productDetail' || to.name=='mycart'){
+    store.dispatch('changeTabShow',false);
+  }else{
+    store.dispatch('changeTabShow',true);
+  }
+  
+  next();
+})
+
+export default router;
