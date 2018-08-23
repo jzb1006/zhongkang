@@ -34,7 +34,7 @@
 <style scoped>
     img {
         width: 100%;
-           height: 1.2rem;
+         height: 1rem;
         border-radius: 999px;
     }
 </style>

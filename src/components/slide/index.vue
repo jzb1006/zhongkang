@@ -9,7 +9,6 @@
     </div>
 </template>
 <script>
-    import Loading from '@/widget/loading'
     import api from "../../api/search"
     /* 轮播图 */
     import {

@@ -82,14 +82,18 @@ export default {
 		width:70%;
 		border: 2px solid #ccc;
 		padding:0.25rem 0.25rem 0.25rem 0.15rem;
-		font-size: 0.35rem;
+		font-size: 0.3rem;
+		position: relative;
 	}
 	.div2{
 		margin-top:0.25rem;
 	}
 	.save{
 		width:30%;
-		padding:0.25rem 0.25rem 0.25rem 0.15rem;
-		font-size: 0.35rem;
+		padding:0.25rem 0.15rem 0.25rem 0.15rem;
+		font-size: 0.3rem;
+		background: #ff5370;
+		color:#fff;
+		border-radius:.2rem;
 	}
 </style>

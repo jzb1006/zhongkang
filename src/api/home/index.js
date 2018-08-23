@@ -15,6 +15,6 @@ export default {
     },
     //图片前缀
     imgPrifix(){
-      return img_prifix;
+       return img_prifix;
     }
 }

@@ -255,7 +255,7 @@ div.check_status > div > p {
 
 #backdrop_content .list .list_content .timeLine{
     position: relative;
-    padding: 0.1rem .3rem;
+    /* padding: 0.1rem .3rem; */
     margin: 0 .2rem;
     margin-bottom: .8rem;
     border: 1px solid #ccc;

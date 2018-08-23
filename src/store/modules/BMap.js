@@ -2,10 +2,10 @@ import vue from 'vue'
 const state = {
   latitude: '',
   longitude: '',
-  city: "广州市",
-  district: "天河区",
-  province: "广东省",
-  address: "广东省广州市天河区"
+  city: "北京市",
+  district: "朝阳区",
+  province: "北京市",
+  address: "北京市朝阳区"
 }
 
 const actions = {

@@ -3,7 +3,7 @@ export default {
     //获取订单列表
     get_order_list(params={}){
         console.log(params);
-        return ajax.get('order.php?action=ajax_orderlist',{params})
+        return ajax.get('order.php?act=ajax_orderlist',{params})
     },
     //获取订单详情
     get_order_detail(params={}){

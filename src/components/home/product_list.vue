@@ -1,9 +1,10 @@
 <template>
     <div id="product_list">
-        <searchBar :title="'众康医疗'" :iconShow="true"></searchBar>
+        <searchBar :title="'项目'" :iconShow="true"></searchBar>
         <product :list="result"></product>
          <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_index"></LoadMore>
+        <div id="fill"></div>
     </div>
 </template>
 <script>
@@ -22,7 +23,7 @@
             return {
                 result: [],
                 page: 1,
-                num_list: 5,
+                num_list: 10,
                 hasMore: 0,
                 isBusy: false,
                 loadinging:true
@@ -45,12 +46,13 @@
                     page: this.page++,
                     num_list: this.num_list
                 }).then(res => {
+                    console.log(res)
                     var result = res.data.data;
                     var error_code = res.data.error_code;
                     if (error_code == 0) {
                         self.hasMore = result.hasMore;
-                        if (result.goods_info) {
-                            self.result = self.result.concat(result.goods_info);
+                        if (result.goods) {
+                            self.result = self.result.concat(result.goods);
                         }
                     }
                     self.loadinging=false

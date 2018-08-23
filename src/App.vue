@@ -3,12 +3,13 @@
     <transition :name="transitionName">
       <router-view class="child-view"></router-view>
     </transition>
-    <foot></foot>
+    <foot v-show="navbarShow"></foot>
   </div>
 </template>
 
 <script>
   import foot from "@/components/common/foot.vue";
+  import {mapState} from 'vuex';
   export default {
     data() {
       return {
@@ -18,7 +19,11 @@
     components: {
       foot,
     },
-
+   computed:{
+      ...mapState({
+         navbarShow:state=>state.commont.navbarShow
+      })
+   },
     watch: {
       '$route' (to, from) {
         let routersArr = sessionStorage.getItem('routers') && sessionStorage.getItem('routers').split(',') || [];

@@ -57,7 +57,7 @@ export default {
                 'yanzheng':verificationCode,
                 'user_rank':'1'
             };
-            api.ajaxpost('register',postData).then(res=>{
+            api.ajaxloginPost('register',postData).then(res=>{
                 if(res.data.error==0){
                     this.$router.push({path:'/'});
                 }else{

@@ -90,7 +90,7 @@ export default{
     },
     //检验是否登录
     checkLogin(self,toPath){
-        api.ajaxpost('checkLogin').then(function(res){
+        api.ajaxloginPost('checkLogin').then(function(res){
             if(res.data.error==0){
                 self.$router.push({path:'/login'});
             }else{

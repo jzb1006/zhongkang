@@ -5,7 +5,7 @@
       <div class="hospital-info">
         <div class="hospital-avatar"> <defaultImg :imgPath="item.profile_photo"></defaultImg></div>
         <div class="hospital-main">
-          <div class="hospital-part"><span class="hospital-name">{{item.name}}</span> <span class="hospital-title"></span> <span class="hospital-icon renzheng"></span></div>
+          <div class="hospital-part"><span class="hospital-name">{{item.name}}</span> <span class="hospital-title"></span> <span class="hospital-icon renzheng zk-icon-iconfontzhizuobiaozhun023114"></span></div>
           <!---->
           <div class="hospital-part"><span class="hospital-type">{{item.institution_type_id==1?'公立':'民营'}}</span></div>
           <div class="hospital-part"><span class="hospital-address">{{item.address}}</span></div>
@@ -13,7 +13,7 @@
             <!-- <div class="hospital-star"><span  :style="{'width':item.total_evaluate*20+'%'}">&nbsp;</span></div> -->
             <star :star="item.total_evaluate"></star>
           </div>
-          <div class="hospital-part">
+          <div class="hospital-part margin">
              <productItem :items="item.expert_project_classify3_id"></productItem>
           </div>
         </div>
@@ -66,6 +66,9 @@
   }
 </script>
 <style scoped>
+  #SearchHospital .margin{
+        margin-top: -0.5rem;
+  }
   .award {
     background: #fdf4ce;
     color: #d68f13;
@@ -163,15 +166,11 @@
     background-position: center;
     background-size: 100%;
   }
-  .hospital .yunzhensuo {
-    background-image: url(//mstatic.soyoung.com/m/static/img/search/yunzhensuo.png);
-    height: 0.32rem;
-    width: 0.98rem;
-  }
+  
   .hospital .renzheng {
     width: 0.82rem;
     height: 0.32rem;
-    background-image: url(//mstatic.soyoung.com/m/static/img/search/yimei.png);
+   color: #ff5370;
   }
   .hospital .hospital-type,
   .hospital .hospital-address {
@@ -212,17 +211,7 @@
     margin-right: 0.2rem;
     margin-bottom: 0.1rem;
   }
-  .hospital .icon-gougou {
-    display: inline-block;
-    width: 0.3rem;
-    height: 0.3rem;
-    line-height: 0.3rem;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 0.2rem;
-    color: #fff;
-    background-image: linear-gradient(to right, #fe9194, #ff64a4);
-  }
+  
   .hospital .hospital-product {
     padding-left: 20%;
     padding-right: 0.3rem;
