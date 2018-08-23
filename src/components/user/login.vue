@@ -91,7 +91,7 @@ export default {
         margin-bottom:0.3rem;
     }
     .input{
-        border:2px solid #ccc;
+        border:1px solid #ccc;
         width:60%;
         font-size: 0.3rem;
         padding:0.2rem 0.2rem 0.2rem 0.1rem;
@@ -102,12 +102,12 @@ export default {
         padding:0.2rem 0.2rem 0.2rem 0.1rem;
         border:none;
         border-radius:0.2rem;
-        background:rgb(10, 153, 146);
-        color:#fff;
+        background: #ff5370;
+		color:#fff;
     }
     .reg{
         text-decoration:none;
-        color:rgb(10, 153, 146);
+        color:#ff5370;
         font-size:0.3rem;
     }
 </style>

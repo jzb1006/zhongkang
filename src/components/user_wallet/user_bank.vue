@@ -4,7 +4,7 @@
             <div v-for="item in result"  class="box">
                 <p>{{item.bankname}}</p>
                 <p>{{item.banksn}}</p>
-                <p class="remove"><span @click="remove(item.bankname,item.banksn)">解除绑定</span></p>
+                <p class="remove" @click="remove(item.bankname,item.banksn)">解除绑定</p>
             </div>
             <div class="add">
                  <a href="javascript:;" @click="addBank">添加银行卡</a>
@@ -57,39 +57,37 @@ export default {
 </script>
 
 <style scoped>
-.content{
-    margin-top:0.1rem;
-    font-size: 0.3rem
-}
-.box{
-    position: relative;
-    width:94%;
-    margin:0 auto 0.25rem;
-    text-align: left;
-    background: #ccc;
-    padding:0.2rem;
-}
-.box p{
-    padding-bottom:.1rem;
-}
-.remove{
-    position: absolute;
-    right:.2rem;
-    top:.2rem;
-    padding:0.1rem;
-    background-color:#32CD32;
-    color:#fff;
-    /* border: 1px solid #000; */
-}
-.add a{
-    display: block;
-    width:30%;
-    padding:0.2rem;
-    border:2px solid #ccc;
-    margin-left:.2rem;
-    background-color:#32CD32;
-    color:#fff;
-    box-shadow:  1px 1px 5px #cc0;
-    text-decoration: none;
-}
+    .content{
+        margin-top:0.1rem;
+        font-size: 0.3rem;
+    }
+    .box{
+        position: relative;
+        width:94%;
+        margin:0 auto 0.25rem;
+        text-align: left;
+        background: #fff;
+        padding:0.2rem;
+    }
+    .box p{
+        padding-bottom:.1rem;
+    }
+    .remove{
+        position: absolute;
+        right:.2rem;
+        top:.2rem;
+        background: #ff5370;
+        color:#fff;
+        padding:0.2rem;
+        /* border: 1px solid #000; */
+    }
+    .add a{
+        display: block;
+        width:30%;
+        padding:0.2rem;
+        margin-left:.2rem;
+        background: #ff5370;
+        color:#fff;
+        text-decoration: none;
+    }
 </style>

@@ -13,8 +13,33 @@
         </div> 
     </div>
     <div class="usercontent">
-        <div class="item top" @click="toWallet">我的钱包</div>
-        <div class="item" @click="toOrder">我的订单</div>
+        <div class="item" @click="toOrder(0)">
+           <span class="zk-icon-icon- icon single"></span>
+           <span class="text">我的订单</span>
+           <span class="zk-icon-fanhui1 icon next"></span>
+        </div>
+        <div class="cat">
+          <tabbar>
+            <tabbar-item selected @on-item-click="toOrder(0)">
+              <span slot="icon" class="zk-icon-icon- icon"></span>
+              <span slot="label">全部订单</span>
+            </tabbar-item>
+            <tabbar-item @on-item-click="toOrder(1)">
+              <span slot="icon" class="zk-icon-Group icon"></span>
+              <span slot="label">未付款</span>
+            </tabbar-item>
+            <tabbar-item @on-item-click="toOrder(2)">
+              <span slot="icon" class="zk-icon-yifukuan icon"></span>
+              <span slot="label">已付款</span>
+            </tabbar-item>
+          </tabbar>
+        </div>
+        <div class="item top" @click="toWallet">
+             <span class="zk-icon-qianbao icon single"></span>
+             <span class="text">我的钱包</span>
+             <span class="zk-icon-fanhui1 icon next"></span>
+        </div>
+        
     </div>
   </div>
 </template>
@@ -22,6 +47,7 @@
 <script>
 import api from "../../api/user";
 import common from "../../widget/lib/user"
+import { Tabbar, TabbarItem } from 'vux'
 export default {
     name: 'user',
     data(){
@@ -51,8 +77,10 @@ export default {
         toWallet(){
             common.checkLogin(this,'/home/userWallet');
         },
-        toOrder(){
-            common.checkLogin(this,'/orderList');
+        toOrder(type){
+            // common.checkLogin(this,'/orderList');
+            // common.checkLogin(this,'/orderList');
+            this.$router.push({path:'/orderList',query:{index:type}})
         }
     },
   	mounted(){
@@ -68,10 +96,13 @@ export default {
         }).catch(error=>{
            console.log(error);
         })    
-  	}
+    },
+    components:{
+        Tabbar,
+        TabbarItem,
+    }
 }
 </script>
-
 <style scoped>
   #user{
     background:#f0f0f0;
@@ -127,14 +158,16 @@ export default {
     margin-top:0.2rem;
   }
   .usercontent{
-    background: #fff;
+    position:relative;
     font-size:0.32rem;
   }
   .item{
     /* text-align: left; */
     padding:0.25rem 0 0.25rem 0.15rem;
+    height:1rem;
+    box-sizing: border-box;
     /* border-bottom:1px solid #ccc; */
-    /* background-color: #eef; */
+    background: #f7f7fa;
     position: relative;
   }
   .item:before {
@@ -154,13 +187,32 @@ export default {
       /* left: 15px; */
   }
   .top{
-    margin-top: 0.25rem;
+    position: relative;
+    top:1rem;
+    margin-top: .4rem;
   }
   .Setup_icon{
     display: block;
     position:absolute;
-    top:.2rem;
-    right:.2rem;
+    top:.3rem;
+    right:.3rem;
     font-size:.6rem;
+  }
+  .cat{
+    position:relative;
+    top:1rem;
+    left:0;
+    background:#fff;
+  }
+  .single{
+    display: inline-block;
+    width:6%;
+  }
+  .text{
+    display:inline-block;
+    width:82%;
+  }
+  .next{
+    display:inline-block;
   }
 </style>

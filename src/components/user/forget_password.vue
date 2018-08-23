@@ -90,19 +90,19 @@ export default {
         width:38%;
     }
     .input,.phone,.find,.yan,.get{
-        border:2px solid #ccc;
+        border:1px solid #ccc;
         padding:0.25rem 0.12rem;
         font-size:0.3rem;
         box-sizing: border-box;
     }
     .find{
-        background: rgb(10, 153, 146);
+       background: #ff5370;
+		color:#fff;
         border-radius:.2rem;
-        color:#fff;
     }
     .losephone{
         text-decoration:none;
-        color:rgb(10, 153, 146);
+        color:#ff5370;
         font-size:0.3rem;
     }
 </style>

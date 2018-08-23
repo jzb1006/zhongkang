@@ -93,7 +93,7 @@ export default {
         margin-bottom:0.3rem;
     }
     .input{
-        border:2px solid #ccc;
+        border:1px solid #ccc;
         padding:0.25rem 0.25rem 0.25rem 0.15rem;
         font-size:0.3rem;
     }
@@ -105,7 +105,9 @@ export default {
         width:76%;
         padding:0.25rem 0.25rem 0.25rem 0.15rem;
         border:none;
-        border-radius:0.25rem;
+        border-radius:.2rem;
         font-size:0.3rem;
+        background: #ff5370;
+		color:#fff;
     }
 </style>

@@ -7,7 +7,6 @@ import productDetail from '@/components/product/detail.vue'
 import mycart from '@/components/shopping/mycart_checkout.vue'
 import pay from '@/components/shopping/pay.vue'
 import orderList from '@/components/order/order_list.vue'
-// import login from '@/components/user/login.vue'
 import orderDetail from '@/components/order/order_detail.vue'
 import applyRefund from '@/components/order/apply_refund.vue'
 import appeal from '@/components/order/appeal.vue'
@@ -348,6 +347,7 @@ export default new Router({
     {
       path: '/home/userWallet',
       component: HUserWallet,
+      redirect:'/home/balance',
       children:[
         {
           path:'/home/balance',

@@ -53,9 +53,16 @@ export default {
         width: 100%;
     }
     .balance{
+        margin: 0 0.25rem 0.25rem;
+        background:#fff;
         height: 2.5rem;
-        padding: 0.8rem 0.5rem;
+        padding: 0.4rem 0.5rem;
         box-sizing: border-box;
+        border-radius:.2rem;
+    }
+    .num{
+        margin-top:.4rem;
+        font-size:.8rem;
     }
     .recharge,.cash{
         border: 1px solid #ccc;
@@ -63,7 +70,7 @@ export default {
         padding: 0.25rem 0.15rem;
     }
     .recharge{
-        background-color: #32CD32;
+        background: #ff5370;
         color:#fff;
     }
 </style>

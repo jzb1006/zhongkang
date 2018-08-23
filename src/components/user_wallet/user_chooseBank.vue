@@ -50,12 +50,15 @@ export default {
 </script>
 
 <style scoped>
+    #bank{
+        background:#f0f0f0;
+    }
     .content{
         margin-top:0.2rem;
         font-size: 0.35rem;
     }
     .item{
-        background-color:#eef;
+        background-color:#fff;
         border-bottom:3px solid #ccc;
         padding:0.1rem;
     }
@@ -70,7 +73,7 @@ export default {
         margin:0.2rem;
         padding:0.2rem;
         /*border: 1px solid #ccc;*/
-        background: #32CD32;
+        background: #ff5370;
         color:#fff;
     }
     .row{

@@ -131,7 +131,7 @@ export default {
 	}
 	.div1,.input{
 		padding:0.25rem 0.25rem 0.25rem 0.15rem;
-		font-size: 0.35rem;
+		font-size: 0.3rem;
 	}
 	.input{
 		border: 2px solid #ccc;
@@ -139,19 +139,16 @@ export default {
 	.div2{
 		margin-top:0.4rem;
 	}
-
 	.next{
 		font-size: 0.3rem;
 		display:block;
         width:80%;
-        border:2px solid #ccc;
         margin:0.3rem auto;
-        padding:0.25rem 0;
-		font-size: 0.35rem;
+        padding:0.15rem 0;
+		font-size: 0.3rem;
     }
-
 	.toggleColor{
-        background-color:#32CD32;
+        background: #ff5370;
         color:#fff;
     }
 </style>

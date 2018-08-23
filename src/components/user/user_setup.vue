@@ -58,14 +58,13 @@ export default {
         background:#f0f0f0; 
     }
     .content{
-        
         margin-top:0.2rem;
         font-size:0.32rem;
     }
     .item{
         background: #fff;
-        /* text-align: left; */
-        padding:0.25rem 0 0.25rem 0.15rem;
+        text-align: left;
+        padding:.3rem 0 0.3rem 0.15rem;
         /* border-bottom:1px solid #ccc; */
         /* background-color: #eef; */
         position: relative;

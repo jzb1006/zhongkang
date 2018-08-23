@@ -7,7 +7,7 @@
                         <span class="span">提现金额:</span>
                  </div>
                  <div class="div1">
-                        <span class="renminbi"><img src="../../assets/renminbi.png"></span>
+                        <span class="renminbi"><i class="zk-icon-renminbi1"></i></span>
                         <input type="number" v-model="amount" class="input">
                  </div> 
                  <div class="div1">
@@ -173,30 +173,27 @@ export default {
     .div1{
         margin-bottom:0.25rem;
     }
-    .renminbi img{
-        width:0.4rem;
-        height:0.4rem;
-    }
     .confirm{
         font-size:0.3rem;
         display:block;
-        width:80%;
+        width:70%;
         border:2px solid #ccc;
         margin:0.3rem auto;
-        padding:0.25rem 0;
+        padding:0.15rem 0;
     }
     .toggleColor{
-        background-color:#32CD32;
+        background: #ff5370;
         color:#fff;
     }
     .input{
         border:2px solid #ccc;
         padding:0.2rem 0.2rem 0.2rem 0.1rem;
-        font-size: 0.35rem;
+        font-size: 0.3rem;
     }
     .all{
         color:#fff;
         border:1px solid #ccc;
-        background:green;
+        background: #ff5370;
+        padding:.1rem;
     }
 </style>

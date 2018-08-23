@@ -2,13 +2,13 @@
     <div id="order_list">
         <top title="订单列表"></top>
         <tab>
-            <tab-item selected @on-item-click="onItemClick(0)">
+            <tab-item :selected="selected === 0" @on-item-click="onItemClick(0)">
                 <p class="route">全部订单</p>
             </tab-item>
-            <tab-item @on-item-click="onItemClick(1)">
+            <tab-item :selected="selected === 1" @on-item-click="onItemClick(1)">
                 <p class="route">未付款</p>
             </tab-item >
-            <tab-item @on-item-click="onItemClick(2)">
+            <tab-item :selected="selected === 2" @on-item-click="onItemClick(2)">
                 <p class="route">已付款</p>
             </tab-item>
         </tab>
@@ -46,6 +46,7 @@
                 hasMore: 0,
                 isBusy: false,
                 isRequesting: true,
+                selected:this.$route.query.index
             }
         },
         computed: {

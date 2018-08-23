@@ -1,5 +1,5 @@
 <template>
-	<div class="bill">
+	<div id="bill">
 		<div class="content_bill">
 		    <div class="head">
 		        <div class="type">
@@ -18,16 +18,13 @@
 		            <input type="button" class="button" value="近3月" @click="fn(2)">
 		            <input type="button" class="button" value="近1年" @click="fn(3)">
 		        </div>
-		        <div class="div1">
-		             <group>
-					    <calendar title="起始日期:" v-model="timeStart" disable-future></calendar>
-					 </group>
-		        </div>
-		        <div class="div1"> 
-		             <group>
-					    <calendar title="终止日期:" v-model="timeStop" disable-future></calendar>
-					 </group>
-		        </div>
+				<group>
+					<calendar title="起始日期:" v-model="timeStart" disable-future></calendar>
+				</group>
+				<group>
+					<calendar title="终止日期:" v-model="timeStop" disable-future></calendar>
+				</group>
+		        
 		        <div class="query">
 		             <input type="button" @click="select" value="查询" class="search" />
 		    	</div>
@@ -53,7 +50,7 @@ import api from "../../api/user"
 import common from "../../widget/lib/user"
 import billitem from '@/components/user_wallet/bill_item'
 import LoadMore from '@/components/loadMore/index.vue'
-import { Calendar } from 'vux'
+import { Calendar,Group } from 'vux'
 
 export default {
     name: 'bill',
@@ -148,41 +145,29 @@ export default {
         	this.count=0;
         	this.result=[];
         	this.query();
-        },
-        dpr() {
-			(function(e, l) {
-			var c, k, d, f = e.document,
-			g = f.documentElement,
-			h = l.flexible || (l.flexible = {});
-			(function() {
-			var a, b = f.querySelector('meta[name="viewport"]');
-			c = e.devicePixelRatio || 1;
-			a = 1;
-			g.setAttribute("data-dpr",0);
-			a = "width=device-width, initial-scale=" + a + ", minimum-scale=" + a + ", maximum-scale=" + a + ", user-scalable=no";
-			b ? b.setAttribute("content", a) : (b = f.createElement("meta"), b.setAttribute("name", "viewport"), b.setAttribute("content", a), (f.head || g.firstElementChild).appendChild(b))
-			})();
-			})(window, window.FT || (window.FT = {}));
-		}
+        }
 	},
 	created(){
         this.timeStart=this.getdate(-6);
         this.timeStop=this.getdate();
         this.query();
 	},
-	mounted(){
-		this.dpr();
-	},
 	components:{
 		top,
 		billitem,
 		LoadMore,
-		Calendar
+		Calendar,
+		Group
 	}
 }
 </script>
-
+<style>
+@import url("./../../assets/css/calandar.css");
+</style>
 <style scoped>
+	#bill{
+		background:#f0f0f0;
+	}
 	.content_bill{
 		font-size: .33rem;
 		text-align: center;
@@ -197,34 +182,38 @@ export default {
 		padding-top:0.2rem;
         padding-left:0.1rem;
 		float:left;
+		font-size:.3rem;
 		width:35%;
 		box-sizing: border-box;
 	}
 	.btngroup{
-		background: #fff;
-		padding:0.1rem 0;
+		margin-top:.2rem;
 	}
 	.button{
+		border:1px solid red;
 		background: #fff;
-		border:2px solid red;
-		color:red;
-		padding:0.1rem;
-		border-radius:0.1rem;
-		margin-right:0.15rem;
+		color:#ff5370;;
+		padding:.1rem .2rem;
+		font-size:.3rem;
+		border-radius:.1rem;
+		margin-right:.15rem;
 	}
 	.select{
 		float:right;
 		width:65%;
 		padding:0.1rem 0 0.1rem 0.1rem;
 		box-sizing: border-box;
-		font-size:14px;
+		font-size:.25rem;
+	}
+	.select option{
+		font-size:.15rem;
 	}
 	.type{
 		margin-top:0.1rem;
 		padding-right:0.5rem;
 		padding-top:0.1rem;
 		padding-bottom:0.1rem;
-		background: #ccc;
+		background:#fff;
 	}
 	.type:after{
 		content:'';
@@ -232,30 +221,40 @@ export default {
 		clear: both;
 	}
 	.div1{
-		padding-top:0.1rem;
-		background: #ccc;
+		padding-top:.05rem;
 		padding-bottom:0.1rem;
 	}
 	.top{
-		padding-bottom:0.1rem;
-		border-bottom: 2px solid #ccc;
+		padding-top:.4rem;
+		padding-bottom:.4rem;
+		background:#fff;
+		position:relative;
+		/* border-bottom: 1px solid #ccc; */
 	}
+	.top:before {
+      content: " ";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width:100%;
+      height: 2px;
+      border-bottom: 2px solid #ccc;
+      color: #e5e5e5;
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+      -webkit-transform: scaleY(0.5);
+      transform: scaleY(0.5);
+      /* left: 15px; */
+  }
 	.search{
 		width:80%;
-		background-color:#32CD32;
-        color:#fff;
 		margin:.1rem;
-		padding:0.15rem 0;
+		padding:.15rem 0;
+		font-size:0.3rem;
 		border-radius: 0.15rem;
+		background: #ff5370;
+        color:#fff;
 	}
 </style>
-<!-- <style>
-	.calendar-header{
-		font-size: .8rem!important;
-	}
-	.week{
-		font-size: .5rem!important;
-		text-align: center!important;
-	}
-</style> -->
 

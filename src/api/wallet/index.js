@@ -1,4 +1,4 @@
-import {ajax,qs,} from '../ajax';
+import {ajax,qs} from '../ajax';
 export default {
     ajaxWalletGet(module='',params={}){
         return ajax.get(`wallet.php?act=${module}`,{params});

@@ -83,21 +83,23 @@ export default {
 		text-align: center;
 	}
 	.div1{
-		margin-top:0.3rem;
+		width:80%;
+		margin:.3rem auto;
 	}
 	.span{
 		display:inline-block;
-		width:30%;
+		width:25%;
 		text-align:right;
 		padding-right:20px;
 	}
 	.input{
-		border:2px solid #ccc;
+		width:60%;
+		border:1px solid #ccc;
 		padding:0.25rem 0.25rem 0.25rem 0.15rem;
 		font-size: 0.3rem;
 	}
 	.submit{
-		width:40%;
+		width:60%;
 		padding:0.25rem 0.25rem 0.25rem 0.15rem;
 		font-size: 0.3rem;
 		background: #ff5370;

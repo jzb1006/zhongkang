@@ -73,7 +73,7 @@ export default {
         margin-bottom:0.4rem;
     }
     .email{
-        border: 2px solid #ccc;
+        border: 1px solid #ccc;
         padding:0.25rem;
         box-sizing:border-box;
         font-size:0.3rem;
@@ -82,8 +82,8 @@ export default {
         /* width:30%; */
         padding:0.25rem;
         font-size:0.3rem;
-        background:rgb(10, 153, 146);
-        color:#fff;
+        background: #ff5370;
+		color:#fff;
         border-radius:.2rem;
     }
 </style>

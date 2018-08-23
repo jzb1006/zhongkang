@@ -1,8 +1,7 @@
 import {ajax,qs,ajax2,img_prifix} from '../ajax';
 export default {
-
-
     ajaxloginPost(module ='',params={}){
+        console.log(params);
         params=qs.stringify(params);
         return ajax.post(`login_register.php?action=${module}`, params);
     },

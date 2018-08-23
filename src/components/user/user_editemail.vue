@@ -80,7 +80,7 @@ export default {
 	}
 	.edit{
 		width:70%;
-		border: 2px solid #ccc;
+		border: 1px solid #ccc;
 		padding:0.25rem 0.25rem 0.25rem 0.15rem;
 		font-size: 0.3rem;
 		position: relative;
