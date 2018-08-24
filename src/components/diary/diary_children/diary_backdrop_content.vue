@@ -16,7 +16,7 @@
 
 					<div v-else="diary.check_status == '2'">
 						<img src="./../../../../static/images/nopass.png" alt="" />
-                        <p v-model="show">点击查看详情</p>
+                        <p v-model="show" @click.native="showPlugin">点击查看详情</p>
                         <alert v-model="show" title="拒绝原因">{{diary.reject_cause}}</alert>
                         <p></p>
 					</div>
@@ -177,9 +177,18 @@ export default {
             }
             return scrollTop;
         },
-        onShow(){
-
-        }
+        showPlugin () {
+        this.$vux.alert.show({
+            title: 'VUX is Cool',
+            content: this.$t('Do you agree?'),
+            onShow () {
+            console.log('Plugin: I\'m showing')
+            },
+            onHide () {
+            console.log('Plugin: I\'m hiding now')
+            }
+        })
+        },
     },
     mounted() {
         this.$_ajax_getBackdrop();

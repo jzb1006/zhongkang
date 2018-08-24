@@ -62,9 +62,10 @@ export default {
                 bid = this.bid;
             }
             api.ajaxSearch("diary_detail_basic", { bid: bid }).then(res => {
+                console.log('top',res);
                 self.backdropList = res.data.backdrop;
                 self.memuList = res.data.item_name;
-                self.userName = res.data.user_name.user_name;
+                self.userName = res.data.user.user_name;
                 self.diaryNum = res.data.tt;
                 self.s_uid = res.data.s_uid;
                 self.p_uid = res.data.b_uid;
