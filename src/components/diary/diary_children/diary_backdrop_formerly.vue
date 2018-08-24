@@ -17,6 +17,7 @@
             </div>
             <div class="img"> 
                 <div class="col_3 img_wrapper">
+                    <!-- <previewer :list="backdrop.img1"></previewer> -->
                     <img v-lazy="getImgUrl()+backdrop.img1" alt="术前图片" @click="enlarge(backdrop.img1)">
                 </div>
                 <div class="col_3 img_wrapper">
@@ -42,7 +43,7 @@ export default {
             enlarge_img: "",
             enlarge_status: false,
             s_uid: 0,
-            p_uid: 0
+            p_uid: 0,
         };
     },
     props: ["bid"],
@@ -55,6 +56,7 @@ export default {
                 self.backdropList = res.data.backdrop;
                 self.s_uid = res.data.s_uid;
                 self.p_uid = res.data.b_uid;
+
             })
         },
         getImgUrl() {

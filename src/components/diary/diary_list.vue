@@ -9,8 +9,9 @@
                 <span class="user_name" v-else>{{handbookList[backdrop.id].user_name}}</span>
                 <span class="time">{{diaryList[backdrop.id].course_time}}</span>
             </div>
+            <router-link :to="{name:'diaryBackdrop',query:{bid:backdrop.id}}" tag="div">
             <div class="middle clearfix">
-                <router-link :to="{name:'diaryBackdrop',query:{bid:backdrop.id}}" tag="div">
+                
                     <div class="avg" v-if="mediaList[diaryList[backdrop.id].id].type == '1'">
                         <div class="b_left contrast_img">
                             <img v-lazy="getImgUrl()+backdrop.img1">
@@ -27,7 +28,7 @@
                     <div v-else>
 
                     </div>
-                </router-link>
+                
             </div>
             <div class="bottom">
                 <p class="item">
@@ -45,6 +46,7 @@
                     </div>
                 </div>
             </div>
+            </router-link>
             <hr/>
         </div>
         <Loading v-show="loadinging"></Loading>
@@ -166,7 +168,7 @@ p.top{
 
 <style scoped>
 #diary_list {
-    margin-top: .3rem;
+    margin-top: 1rem;
 }
 #diary_list .diary_third {
     padding: 0 0.2rem;

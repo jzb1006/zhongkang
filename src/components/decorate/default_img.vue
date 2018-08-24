@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="default_img">
         <img alt="" :src="imgUrl(imgPath)" lazy="loaded">
     </div>
 </template>
@@ -32,9 +32,9 @@
     }
 </script>
 <style scoped>
-    img {
+    #default_img img {
         width: 100%;
-         height: 1rem;
+        min-height: 100%;
         border-radius: 999px;
     }
 </style>

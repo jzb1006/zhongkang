@@ -7,7 +7,8 @@
         <div v-for="backhead in backdropList">
             <div class="up">
                 <div class="img_head">
-                    <img :src="getImgUrl()+user.headimgurl">
+                    <defaultImg :imgPath="user.headimgurl"></defaultImg>
+                    <!-- <img :src="getImgUrl()+user.headimgurl"> -->
                 </div>
                 <router-link :to="{name:'diaryUpdateBasic',query:{bid:backhead.id}}" tag="a">
                     <span class="operate" v-if="s_uid == p_uid">编辑</span>
@@ -52,6 +53,7 @@
 <script>
 import api from "@/api/diary";
 import top from "@/components/decorate/top_back_title.vue";
+ import defaultImg from "@/components/decorate/default_img.vue";
 export default {
     data() {
         return {
@@ -65,7 +67,8 @@ export default {
     },
     props: ["bid"],
     components: {
-        top
+        top,
+        defaultImg
     },
     methods: {
         $_ajax_getBackdrop: function() {
@@ -99,6 +102,7 @@ export default {
 </script>
 <style scoped>
 /* 图标颜色 */
+
 .col_4 {
     width: 40%;
 }
@@ -165,8 +169,9 @@ export default {
     overflow: hidden;
 }
 #diary_backdrop_user .up .img_head img {
-    width: 100%;
-    min-height: 100%;
+    width: 100%!important;
+    min-height: 100%!important;
+    height: 100%!important;
 }
 #diary_backdrop_user .up .operate {
     position: absolute;
