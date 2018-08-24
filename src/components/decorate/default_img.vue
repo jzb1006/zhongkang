@@ -1,6 +1,6 @@
 <template>
-    <div id="default_img">
-        <img alt="" :src="imgUrl(imgPath)" lazy="loaded">
+    <div>
+        <img alt="" :src="imgUrl(imgPath)" :style="style" lazy="loaded">
     </div>
 </template>
 <script>
@@ -16,6 +16,9 @@
             imgPath: {
                 // type: [String,Object],
                 required: true
+            },
+            style:{
+                default:" width: 100%;height: 1rem;border-radius: 999px;"
             }
         },
         methods: {
@@ -28,13 +31,9 @@
                 }
                 return this.getImgUrl()+imgPath;
             }
-        }
+        },
     }
 </script>
 <style scoped>
-    #default_img img {
-        width: 100%;
-        min-height: 100%;
-        border-radius: 999px;
-    }
+   
 </style>

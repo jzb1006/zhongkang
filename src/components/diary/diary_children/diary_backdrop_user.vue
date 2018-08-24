@@ -7,7 +7,7 @@
         <div v-for="backhead in backdropList">
             <div class="up">
                 <div class="img_head">
-                    <defaultImg :imgPath="user.headimgurl"></defaultImg>
+                    <defaultImg :imgPath="user.headimgurl" :style.default="img_style" ></defaultImg>
                     <!-- <img :src="getImgUrl()+user.headimgurl"> -->
                 </div>
                 <router-link :to="{name:'diaryUpdateBasic',query:{bid:backhead.id}}" tag="a">
@@ -62,7 +62,8 @@ export default {
             user: "",
             diaryNum: 0,
             s_uid: 0,
-            p_uid: 0
+            p_uid: 0,
+            img_style:'width:100%;min-height:100%',
         };
     },
     props: ["bid"],

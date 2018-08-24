@@ -168,7 +168,7 @@ p.top{
 
 <style scoped>
 #diary_list {
-    margin-top: 1rem;
+    margin-top: .5rem;
 }
 #diary_list .diary_third {
     padding: 0 0.2rem;
