@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import api from "../../api/user";
+import api from "../../api/setup";
 import common from "../../widget/lib/user"
 // import Bus from './../../assets/bus.js';
 import top from "@/components/decorate/top_back_title.vue";
@@ -109,7 +109,7 @@ export default {
                 'realName':realname,
                 'headimgurl':headimgurl
             };
-            api.ajaxSetupPost('update_userinfo',postData).then(res=>{
+            api.update_userinfo(postData).then(res=>{
                 if(res.data.error==7){
                     alert(res.data.message);
                     this.$router.push('/login');

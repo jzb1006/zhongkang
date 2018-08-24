@@ -21,7 +21,7 @@
 </template> 
 
 <script>
-import api from "../../api/user"
+import api from "../../api/wallet"
 import top from "@/components/decorate/top_back_title.vue"
 import Alert from "@/components/decorate/alert.vue";
 import { Confirm } from 'vux'

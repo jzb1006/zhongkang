@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store'
+import api from '../api/user'
 
 import Search from '@/components/search/search.vue'
 import productDetail from '@/components/product/detail.vue'
@@ -322,39 +323,48 @@ const router = new Router({
     },
     {
       path: '/home/user',
+      name:'user',
       component: HUser
     },
     {
       path: '/home/userSetup',
+      name:'userSetup',
       component: HUserSetup
     },
     {
       path: '/home/userSelfinfo',
+      name:'userSelfinfo',
       component: HUserSelfinfo
     },
     {
       path: '/home/userEditphone',
+      name:'userEditphone',
       component: HUserEditPhone
     },
     {
       path: '/home/userEditpassword',
+      name:'userEditpassword',
       component: HUserEditPassword
     },
     {
       path: '/home/userEditemail',
+      name:'userEditemail',
       component: HUserEditEmail
     },
     {
       path: '/home/userWallet',
+      name:'userWallet',
       component: HUserWallet,
       redirect:'/home/balance',
       children:[
         {
           path:'/home/balance',
+          name:'balance',
           component:balance
         },
         {
           path:'/home/bank',
+          name:'bank',
           component:bank
         },
         {
@@ -371,19 +381,23 @@ const router = new Router({
     
     {
       path:'/home/recharge',
+      name:'recharge',
       component:recharge
     },
     {
       path:'/home/cash',
+      name:'cash',
       component:cash
     },
     
     {
       path:'/home/addBank',
+      name:'addBank',
       component:addbank
     },
     {
       path:'/home/chooseBank',
+      name:'chooseBank',
       component:chooseBank
     },
     {
@@ -420,6 +434,19 @@ router.beforeEach((to, from, next) => {
     store.dispatch('changeTabShow',false);
   }else{
     store.dispatch('changeTabShow',true);
+  }
+  if(to.name=='user'||to.name=='orderList'||to.name=='recharge'||to.name=='cash'||to.name=='addBank'||
+    to.name=='userSelfinfo'||to.name=='userEditphone'||to.name=='userEditpassword'||to.name=='userEditemail'||
+    to.name=='balance'||to.name=='bank'||to.name=='bill'||to.name=='userSetup'||to.name=='userWallet'||to.name=='orderList'||
+    to.name=='chooseBank'){
+      api.ajaxloginPost('checkLogin').then(res=>{
+          console.log(res.data);
+          if(res.data.error==0){
+            router.push({name:'login'});
+          }
+      }).catch(error=>{
+          console.log(error);
+      })
   }
   
   next();

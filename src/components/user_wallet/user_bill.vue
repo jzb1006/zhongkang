@@ -1,5 +1,6 @@
 <template>
 	<div id="bill">
+		<Loading v-show="loadinging"></Loading>
 		<div class="content_bill">
 		    <div class="head">
 		        <div class="type">
@@ -46,10 +47,11 @@
 </template> 
 
 <script>
-import api from "../../api/user"
+import api from "../../api/wallet"
 import common from "../../widget/lib/user"
 import billitem from '@/components/user_wallet/bill_item'
 import LoadMore from '@/components/loadMore/index.vue'
+import Loading from "@/components/decorate/loading.vue";
 import { Calendar,Group } from 'vux'
 
 export default {
@@ -66,7 +68,8 @@ export default {
     		listnum:'10',
     		hasMore: 0,
             isBusy: false,
-            isShow:false,
+			isShow:false,
+			loadinging:true
     	} 
 	},
 	computed:{
@@ -126,7 +129,8 @@ export default {
         	let listnum=this.listnum;
         	let postData={'typeValue':this.typeValue,'timeStart':this.timeStart,'timeStop':this.timeStop,'num':listnum,'page':count};
         	this.isBusy = true;
-	        api.ajaxWalletPost('select_bill',postData).then(res=>{
+	        api.select_bill(postData).then(res=>{
+				console.log(res);
 	        	let data=res.data;
 	        	this.result = this.result.concat(data);
 	        	if(data[0].income){
@@ -136,7 +140,8 @@ export default {
 	        		this.cost=data[0].cost;
 	        	}
 	        	this.hasMore = data[0].hasMore;
-	        	this.isBusy=false;
+				this.isBusy=false;
+				this.loadinging=false;
 	        }).catch(error=>{
 	            console.log(error);
 	        })
@@ -157,7 +162,8 @@ export default {
 		billitem,
 		LoadMore,
 		Calendar,
-		Group
+		Group,
+		Loading
 	}
 }
 </script>

@@ -1,8 +1,9 @@
 <template>
   <div id="user">
+    <Loading v-show="loadinging"></Loading>
     <div class="meCenter">
         <div class="setup">
-            <i class="zk-icon-Setup Setup_icon"  @click="toSetup"></i>
+            <router-link to="/home/userSetup" tag="i" class="zk-icon-Setup Setup_icon"></router-link>
         </div>
         <div class="mainInfo">
             <div class="headImg"><img v-bind:src="headimgurl"></div>
@@ -34,11 +35,11 @@
             </tabbar-item>
           </tabbar>
         </div>
-        <div class="item top" @click="toWallet">
+        <router-link to="/home/userWallet" tag="div" class="item top">
              <span class="zk-icon-qianbao icon single"></span>
              <span class="text">我的钱包</span>
              <span class="zk-icon-fanhui1 icon next"></span>
-        </div>
+        </router-link>
         
     </div>
   </div>
@@ -46,7 +47,7 @@
 
 <script>
 import api from "../../api/user";
-import common from "../../widget/lib/user"
+import Loading from "@/components/decorate/loading.vue";
 import { Tabbar, TabbarItem } from 'vux'
 export default {
     name: 'user',
@@ -56,7 +57,8 @@ export default {
             nickname:'',
             userrank:'',
             mobile_phone:'',
-            email:''
+            email:'',
+            loadinging:true
       	}
 	  },
     methods:{
@@ -71,15 +73,7 @@ export default {
             let headimgurl=((argument.headimgurl!=null)&&(argument.headimgurl!=""))?api.imgUrl()+argument.headimgurl:argument.defaultImg;
             return headimgurl;
         },
-        toSetup(){
-            common.checkLogin(this,'/home/userSetup');
-        },
-        toWallet(){
-            common.checkLogin(this,'/home/userWallet');
-        },
         toOrder(type){
-            // common.checkLogin(this,'/orderList');
-            // common.checkLogin(this,'/orderList');
             this.$router.push({path:'/orderList',query:{index:type}})
         }
     },
@@ -93,6 +87,7 @@ export default {
            this.userrank=res.data.userinfo.level_name;
            this.mobile_phone=res.data.userinfo.mobile_phone;
            this.email=res.data.userinfo.email;
+           this.loadinging=false;
         }).catch(error=>{
            console.log(error);
         })    
@@ -100,6 +95,7 @@ export default {
     components:{
         Tabbar,
         TabbarItem,
+        Loading
     }
 }
 </script>

@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import common from "../../widget/lib/user"
 import top from '@/components/decorate/top_back_title.vue'
 import {
         Tab,
@@ -27,16 +26,13 @@ export default {
     name: 'wallet',
     methods:{
         toBalance(){
-            // common.checkLogin(this,'/home/balance');
             this.$router.replace('/home/balance');
         },     
         toBank(){
             this.$router.replace('/home/bank');
-            // common.checkLogin(this,'/home/bank');
         },
         toBill(){
             this.$router.replace('/bill');
-            // common.checkLogin(this,'/bill');
         }
     },
     components:{

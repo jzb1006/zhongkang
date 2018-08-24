@@ -28,7 +28,8 @@
 </template> 
 
 <script>
-import api from "../../api/user"
+import api from "../../api/wallet"
+import user from "../../api/user"
 import top from "@/components/decorate/top_back_title.vue";
 export default {
     name: 'addbank',
@@ -42,7 +43,7 @@ export default {
     },
     methods:{
         getVerificationCode(){
-            api.ajaxuserPost('yanzhengma').then(res=>{
+            user.ajaxuserPost('yanzhengma').then(res=>{
                 alert(`验证码为${res.data},仅作测试用`);
             }).catch(error=>{
                 console.log(error);
@@ -71,7 +72,7 @@ export default {
                 return false;
             }
             if(confirm('确认修改吗')){
-                api.ajaxWalletPost('update_user_bank',{'bankname':banknames,'uname':unames,'banksn':banksns,'yanzheng':yanzhengma}).then(res=>{
+                api.update_user_bank({'bankname':banknames,'uname':unames,'banksn':banksns,'yanzheng':yanzhengma}).then(res=>{
                       if(res.data.error==3){
                           alert(res.data.message);
                           this.$router.push('/login');

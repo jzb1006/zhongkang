@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import api from "../../api/user"
+import api from "../../api/wallet"
 import common from "../../widget/lib/user"
 import top from "@/components/decorate/top_back_title.vue";
 export default{

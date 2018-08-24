@@ -1,21 +1,20 @@
 <template>
 	<div id="bank">
         <div class="content">
-            <div v-for="item in result"  class="box">
+            <div v-for="item in result"  :key="item.banksn" class="box">
                 <p>{{item.bankname}}</p>
                 <p>{{item.banksn}}</p>
                 <p class="remove" @click="remove(item.bankname,item.banksn)">解除绑定</p>
             </div>
             <div class="add">
-                 <a href="javascript:;" @click="addBank">添加银行卡</a>
+                 <router-link to="/home/addBank">添加银行卡</router-link>
             </div>
         </div>
   	</div>
 </template> 
 
 <script>
-import api from "../../api/user"
-import common from "../../widget/lib/user"
+import api from "../../api/wallet"
 import top from "@/components/decorate/top_back_title.vue";
 export default {
     name: 'bank',
@@ -27,7 +26,7 @@ export default {
     methods:{
         remove(bankname,banksn){
             if(window.confirm('确定解除吗？')){
-                api.ajaxWalletPost('remove_bank',{'bankname':bankname,'banksn':banksn}).then(res=>{
+                api.remove_bank({'bankname':bankname,'banksn':banksn}).then(res=>{
                     this.getBankList();
                 }).catch(error=>{
                     console.log(error);
@@ -38,14 +37,11 @@ export default {
              }
         },
         getBankList(){
-            api.ajaxWalletGet('bank').then(res=>{
+            api.getBankList().then(res=>{
                 this.result=res.data;
             }).catch(error=>{
                 console.log(error);
             })
-        },
-        addBank(){
-            common.checkLogin(this,'/home/addBank');
         }
     },
     beforeRouteEnter(to,from,next){

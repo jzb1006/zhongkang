@@ -1,7 +1,7 @@
 <template>
 	<div id="cash">
 		<top title="提现"></top>
-        <div class="metext content" @click="chooseBank">{{way}}</div>
+        <router-link to="/home/chooseBank" tag="div" class="metext content">{{way}}</router-link>
         <div class="main">
                  <div class="div1 text">
                         <span class="span">提现金额:</span>
@@ -26,7 +26,8 @@
 </template> 
 
 <script>
-import api from "../../api/user"
+import api from "../../api/wallet"
+import user from "../../api/user"
 import common from "../../widget/lib/user"
 import top from "@/components/decorate/top_back_title.vue";
 import {mapState,mapGetters} from 'vuex'
@@ -59,9 +60,6 @@ export default {
         }
     },
     methods:{
-        chooseBank(){
-            this.$router.push('/home/chooseBank');
-        },
         all(){
             this.amount=this.result.user_money;
         },
@@ -79,7 +77,7 @@ export default {
                 var amount=parseFloat(value);
 
                 //判断是否已绑定该类型银行账号
-                api.ajaxWalletGet('check_bank',{'type':this.cashway}).then(res=>{
+                api.checkBank({'type':this.cashway}).then(res=>{
                     if(res.data.error==3){
                         alert(res.data.message);
                         this.$router.push('/login');
@@ -88,7 +86,7 @@ export default {
                         alert('您未绑定该类型的账号,请前往绑定');
                         this.$router.push('/home/addBank');
                     }else if(res.data.error==0){
-                        api.ajaxWalletGet('yuetixian',{'amount':amount,'yanzhengma':yanzhengma}).then(res=>{
+                        api.cash({'amount':amount,'yanzhengma':yanzhengma}).then(res=>{
                             if(res.data.error==0){
                                 alert(res.data.message);
                             }else if(res.data.error==1){
@@ -122,7 +120,7 @@ export default {
             if(!(this.check_acount(value))){
                  return false;
             }
-            api.ajaxuserPost('yanzhengma').then(res=>{
+            user.ajaxuserPost('yanzhengma').then(res=>{
                 alert(`验证码为${res.data},仅作测试用`);
             }).catch(error=>{
                 console.log(error);
@@ -157,15 +155,15 @@ export default {
     .metext{
         text-align:left;
         padding:0.2rem;
-        border-top:2px solid #ccc;
-        border-bottom:2px solid #ccc;
+        border-top:1px solid #ccc;
+        border-bottom:1px solid #ccc;
     }
     .main{
         font-size:0.3rem;
         margin-top:0.3rem;
         padding:0.3rem;
-        border-top:2px solid #ccc;
-        border-bottom:2px solid #ccc;
+        border-top:1px solid #ccc;
+        border-bottom:1px solid #ccc;
     }
     .text{
         text-align:left;
@@ -177,7 +175,7 @@ export default {
         font-size:0.3rem;
         display:block;
         width:70%;
-        border:2px solid #ccc;
+        border:1px solid #ccc;
         margin:0.3rem auto;
         padding:0.15rem 0;
     }
@@ -186,7 +184,7 @@ export default {
         color:#fff;
     }
     .input{
-        border:2px solid #ccc;
+        border:1px solid #ccc;
         padding:0.2rem 0.2rem 0.2rem 0.1rem;
         font-size: 0.3rem;
     }
