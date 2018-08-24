@@ -14,7 +14,7 @@
         </div> 
     </div>
     <div class="usercontent">
-        <div class="item" @click="toOrder(0)">
+        <div class="item vux-1px-b" @click="toOrder(0)">
            <span class="zk-icon-icon- icon single"></span>
            <span class="text">我的订单</span>
            <span class="zk-icon-fanhui1 icon next"></span>
@@ -35,7 +35,7 @@
             </tabbar-item>
           </tabbar>
         </div>
-        <router-link to="/home/userWallet" tag="div" class="item top">
+        <router-link to="/home/userWallet" tag="div" class="item top vux-1px-b">
              <span class="zk-icon-qianbao icon single"></span>
              <span class="text">我的钱包</span>
              <span class="zk-icon-fanhui1 icon next"></span>
@@ -162,25 +162,7 @@ export default {
     padding:0.25rem 0 0.25rem 0.15rem;
     height:1rem;
     box-sizing: border-box;
-    /* border-bottom:1px solid #ccc; */
     background: #f7f7fa;
-    position: relative;
-  }
-  .item:before {
-      content: " ";
-      position: absolute;
-      left: 0;
-      bottom: -2px;
-      right: 0;
-      width:100%;
-      height: 2px;
-      border-bottom: 2px solid #ccc;
-      color: #e5e5e5;
-      -webkit-transform-origin: 0 0;
-      transform-origin: 0 0;
-      -webkit-transform: scaleY(0.5);
-      transform: scaleY(0.5);
-      /* left: 15px; */
   }
   .top{
     position: relative;

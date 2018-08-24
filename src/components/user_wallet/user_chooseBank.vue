@@ -2,7 +2,7 @@
     <div id="bank">
         <top title="选择银行卡"></top>
         <div class="content">
-            <div v-for="item in result" @click="chooseBank(item.bankname)" class="item">
+            <div v-for="item in result" @click="chooseBank(item.bankname)" class="item vux-1px-b">
                 <p class="row">{{item.bankname}}</p>
                 <p class="row">{{item.banksn}}</p>
             </div>
@@ -61,22 +61,6 @@ export default {
         background-color:#fff;
         /* border-bottom:1px solid #ccc; */
         padding:0.1rem;
-        position: relative;
-    }
-    .item:before {
-        content: " ";
-        position: absolute;
-        left: 0;
-        bottom: -1px;
-        right: 0;
-        width:100%;
-        height: 1px;
-        border-bottom: 1px solid #ccc;
-        color: #e5e5e5;
-        -webkit-transform-origin: 0 0;
-        transform-origin: 0 0;
-        -webkit-transform: scaleY(0.5);
-        transform: scaleY(0.5);
     }
     .add{
         font-size: .3rem;
