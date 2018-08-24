@@ -29,8 +29,9 @@
 
 <style scoped>
 	.box{
-		border-bottom:2px solid #ccc;
+		border-bottom:1px solid #ccc;
 		padding:0.2rem;
+		background:#fff;
 	}
 	.box:after{
 		content:'';

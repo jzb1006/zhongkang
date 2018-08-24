@@ -46,9 +46,13 @@
 </script>
 
 <style>
+
   #app {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+</style>
+<style lang="less">
+@import '~vux/src/styles/1px.less';
 </style>

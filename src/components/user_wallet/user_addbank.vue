@@ -18,7 +18,7 @@
                       <input type="text" v-model="banksn"  class="pw">
                 </div>
                 <div class="box">
-                      <input class="num pw" type="text"  v-model="VerificationCode" placeholder="请输入验证码"><input type="button" class="btn pw" value="获取验证码" @click="getVerificationCode">
+                      <input class="num" type="text"  v-model="VerificationCode" placeholder="请输入验证码"><input type="button" class="btn" value="获取验证码" @click="getVerificationCode">
                 </div>
                 <div class="box confirm">
                       <input type="button" class="submit" @click="update_user_bank" value="确认提交">
@@ -28,7 +28,8 @@
 </template> 
 
 <script>
-import api from "../../api/user"
+import api from "../../api/wallet"
+import user from "../../api/user"
 import top from "@/components/decorate/top_back_title.vue";
 export default {
     name: 'addbank',
@@ -42,7 +43,7 @@ export default {
     },
     methods:{
         getVerificationCode(){
-            api.ajaxuserPost('yanzhengma').then(res=>{
+            user.ajaxuserPost('yanzhengma').then(res=>{
                 alert(`验证码为${res.data},仅作测试用`);
             }).catch(error=>{
                 console.log(error);
@@ -71,7 +72,7 @@ export default {
                 return false;
             }
             if(confirm('确认修改吗')){
-                api.ajaxWalletPost('update_user_bank',{'bankname':banknames,'uname':unames,'banksn':banksns,'yanzheng':yanzhengma}).then(res=>{
+                api.update_user_bank({'bankname':banknames,'uname':unames,'banksn':banksns,'yanzheng':yanzhengma}).then(res=>{
                       if(res.data.error==3){
                           alert(res.data.message);
                           this.$router.push('/login');
@@ -104,19 +105,38 @@ export default {
    }
    .select{
        font-size: 0.1rem;
-       width:40%;
    }
    .select option{
-       font-size: 16px;
+       font-size: .15rem;
    }
+   .title{
+		display:inline-block;
+		width:20%;
+		text-align:right;
+		padding-right:20px;
+	}
    .pw{
-       border: 3px solid #ccc;
+       width:60%;
+       border: 1px solid #ccc;
        font-size: 0.3rem;
        padding:0.2rem 0.2rem 0.2rem 0.1rem;
    }
    .submit{
        width:40%;
        padding:0.2rem 0.2rem 0.2rem 0.1rem;
-       font-size: 0.35rem;
+       font-size: 0.3rem;
+       background: #ff5370;
+       color:#fff;
+       border-radius:.2rem;
+   }
+   .num{
+       border: 1px solid #ccc;
+       font-size:.3rem;
+       padding:0.2rem 0.2rem 0.2rem 0.1rem;
+   }
+   .btn{
+       border: 1px solid #ccc;
+       font-size:.3rem;
+       padding:0.2rem 0.2rem 0.2rem 0.1rem;
    }
 </style>

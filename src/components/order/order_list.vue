@@ -2,22 +2,23 @@
     <div id="order_list">
         <top title="订单列表"></top>
         <tab>
-            <tab-item selected @on-item-click="onItemClick(0)">
+            <tab-item :selected="selected === 0" @on-item-click="onItemClick(0)">
                 <p class="route">全部订单</p>
             </tab-item>
-            <tab-item @on-item-click="onItemClick(1)">
+            <tab-item :selected="selected === 1" @on-item-click="onItemClick(1)">
                 <p class="route">未付款</p>
             </tab-item >
-            <tab-item @on-item-click="onItemClick(2)">
+            <tab-item :selected="selected === 2" @on-item-click="onItemClick(2)">
                 <p class="route">已付款</p>
             </tab-item>
         </tab>
         <div id="container">
             <orderItem v-if="list.length != 0" :list="list"></orderItem>
             <emptyOrder v-else v-show="isRequesting"></emptyOrder>
+            <LoadMore :state='hasMore' :isLoading='isBusy' v-if="list.length > 0" @loadmore="$_ajax_order(currentItem)"></LoadMore>
+
             <Loading v-show="loadinging"></Loading>
             <Alert :Show="warnShow" :alerttType="alerttType" :alertText="alertText"></Alert>
-            <LoadMore :state='hasMore' :isLoading='isBusy' v-if="list.length > 0" @loadmore="$_ajax_order(currentItem)"></LoadMore>
             <div id="fill"></div>
         </div>
     </div>
@@ -47,7 +48,7 @@
                 hasMore: 0,
                 isBusy: false,
                 isRequesting: true,
-                currentItem:0,
+                selected:this.$route.query.index
             }
         },
         computed: {

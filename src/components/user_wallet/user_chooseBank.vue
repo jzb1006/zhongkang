@@ -14,7 +14,7 @@
 </template> 
 
 <script>
-import api from "../../api/user"
+import api from "../../api/wallet"
 import top from "@/components/decorate/top_back_title.vue";
 import {mapState,mapGetters} from 'vuex'
 export default {
@@ -50,27 +50,43 @@ export default {
 </script>
 
 <style scoped>
+    #bank{
+        background:#f0f0f0;
+    }
     .content{
         margin-top:0.2rem;
         font-size: 0.35rem;
     }
     .item{
-        background-color:#eef;
-        border-bottom:3px solid #ccc;
+        background-color:#fff;
+        /* border-bottom:1px solid #ccc; */
         padding:0.1rem;
+        position: relative;
+    }
+    .item:before {
+        content: " ";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        right: 0;
+        width:100%;
+        height: 1px;
+        border-bottom: 1px solid #ccc;
+        color: #e5e5e5;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
     }
     .add{
-        /*padding:0.1rem;*/
-        font-size: 0.35rem;
-        
-
+        font-size: .3rem;
     }
     .addBank{
         display: inline-block;
         margin:0.2rem;
         padding:0.2rem;
         /*border: 1px solid #ccc;*/
-        background: #32CD32;
+        background: #ff5370;
         color:#fff;
     }
     .row{
