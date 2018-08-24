@@ -2,7 +2,7 @@
     <div id="upload">
         <span class="tishi">
             <form id="form1" enctype="multipart/form-data">
-                <input type="file" name="sf_upfile" @change="changeFile($event)" class="position-absolute upfile btn btn-sm btn-outline-info">添加图片或者视频
+                <input type="file" name="sf_upfile" @change="changeFile($event)" class="position-absolute upfile btn btn-sm btn-outline-info">{{title}}
             </form>
         </span>
         <fileShow :file-url="fileUrls" :init-files="initFiles"></fileShow>
@@ -15,7 +15,7 @@ import Bus from "./../../assets/bus.js";
 import fileShow from "@/components/public/fileShow.vue";
 import Loading from "@/widget/loading";
 export default {
-    props: ["img-max-num", "video-max-num", "file-type"],
+    props: ["img-max-num", "video-max-num", "file-type","title"],
     data() {
         return {
             fileUrls: [],
@@ -27,7 +27,7 @@ export default {
                 "文件类型只支持 jpg, jpeg, gif 格式的图片",
                 "文件类型只支持 MP4 格式的视频",
                 "文件类型支持 jpg,jpeg,gif和MP4"
-            ]
+            ],
         };
     },
     components: {
@@ -54,7 +54,7 @@ export default {
             }
         },
         toParent() {
-            Bus.$emit("changeUrls", this.fileUrls);
+            this.$emit("changeUrls", this.fileUrls);
         },
         //文件支持上传的格式
         examinationFormat(fileURL) {
