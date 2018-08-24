@@ -22,7 +22,7 @@
             </div>
             <textarea-autosize class="content" placeholder="写日记分享变美过程，获得日志奖励" v-model="items.content" ref="count">
                 </textarea-autosize>
-            
+            <toast v-model="show">添加成功</toast>
             <Upload uploadSel="classics" :img-max-num=9 :video-max-num=1 :file-type=3></Upload>
         </div>
         <div>
@@ -37,6 +37,7 @@ import apiUp from "@/api/upload";
 import Bus from "@/assets/bus.js";
 import top from "@/components/decorate/top_back_title.vue";
 import Utils from '@/widget/lib/Utils'
+import { Toast } from 'vux'
 
 import { Datetime, Group } from "vux";
 export default {
@@ -55,7 +56,8 @@ export default {
             bid: "",
             backdropList: [],
             memuList: [],
-            differDay: 0
+            differDay: 0,
+            show:false,
         };
     },
     computed: {},
@@ -63,7 +65,8 @@ export default {
         Upload,
         Datetime,
         Group,
-        top
+        top,
+        Toast
     },
     watch:{
         'day':function(){
@@ -131,10 +134,10 @@ export default {
         submit() {
             let pd = this.examination();
             if (pd) {
-                let show_type = show;
+                let show_type = 'show';
 
                 if (!this.status) {
-                    show_type = hidden;
+                    show_type = 'hidden';
                 }
 
                 let origin_urls = "";
@@ -164,10 +167,14 @@ export default {
                 api.ajaxSubmit("ajax_create_diary", fromData).then(res => {
                     console.log(res.data);
                     if (res.data.error == 0) {
-                        this.$router.push({
-                            name: "diaryDetail",
-                            query: { bid: self.bid, did: res.data.did }
-                        });
+                        self.show = true;
+                        this.timer = setInterval(() => {
+                            this.$router.push({
+                                name: "diaryDetail",
+                                query: { bid: self.bid, did: res.data.did }
+                            });
+                        self.show = false;
+                        }, 1000);
                     } else {
                         alert(res.data.message);
                     }
@@ -213,6 +220,9 @@ export default {
         Bus.$on("changeUrls", function(msg) {
             self.fileUrls = msg;
         });
+    },
+    beforeDestroy () {
+        clearInterval(this.timer)
     }
 };
 </script>

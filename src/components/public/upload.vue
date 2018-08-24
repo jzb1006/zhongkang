@@ -6,6 +6,7 @@
             </form>
         </span>
         <fileShow :file-url="fileUrls" :init-files="initFiles"></fileShow>
+        <Loading v-show="loadinging"></Loading>
     </div>
 </template>
 
@@ -13,7 +14,7 @@
 import apiUp from "@/api/upload";
 import Bus from "./../../assets/bus.js";
 import fileShow from "@/components/public/fileShow.vue";
-import Loading from "@/widget/loading";
+import Loading from "@/components/decorate/loading.vue";
 export default {
     props: ["img-max-num", "video-max-num", "file-type","title"],
     data() {
@@ -28,15 +29,20 @@ export default {
                 "文件类型只支持 MP4 格式的视频",
                 "文件类型支持 jpg,jpeg,gif和MP4"
             ],
+            loadinging:false,
         };
     },
     components: {
-        fileShow
+        fileShow,
+        Loading
     },
     methods: {
         //文件上传
         changeFile: function(e) {
-            Loading.run();
+            this.loadinging = true;
+            if(!e){
+                this.loadinging = false;
+            }
             var self = this;
             if (this.limit(e.target.files[0].type)) {
                 if (this.examinationFormat(e.target.files[0].type)) {
@@ -46,9 +52,10 @@ export default {
                         console.log(res.data);
                         self.fileUrls.push(res.data);
                         this.toParent();
-                        Loading.stop();
+                        self.loadinging = false;
                     });
                 } else {
+                    self.loadinging = false;
                     alert(this.fileTypeTip[this.fileType - 1]);
                 }
             }
@@ -71,7 +78,7 @@ export default {
                     return true;
                 }
             }
-            Loading.stop();
+            self.loadinging = false;
             return false;
         },
         //限制文件的数目
@@ -89,13 +96,13 @@ export default {
             if (this.checkFileType(data)) {
                 if (imgUrl.length >= this.imgMaxNum) {
                     alert("最多上传" + this.imgMaxNum + "张图片！！");
-                    Loading.stop();
+                    this.loadinging = false;
                     return false;
                 }
             } else {
                 if (videoUrl.length >= this.videoMaxNum) {
                     alert("最多上传" + this.videoMaxNum + "个视频！！");
-                    Loading.stop();
+                    this.loadinging = false;
                     return false;
                 }
             }

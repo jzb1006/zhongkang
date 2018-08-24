@@ -31,7 +31,7 @@
 		    	</div>
 		    </div>
 		    <div class="billrecord">
-		    	<div class="top" v-if="income!=0||cost!=0">
+		    	<div class="top vux-1px-b" v-if="income!=0||cost!=0">
 		    		<span>{{start}}至{{stop}}</span>
 	                <span>总收入{{income}}</span>
 	                <span>总支出{{cost}}</span>
@@ -234,25 +234,8 @@ export default {
 		padding-top:.4rem;
 		padding-bottom:.4rem;
 		background:#fff;
-		position:relative;
 		/* border-bottom: 1px solid #ccc; */
 	}
-	.top:before {
-      content: " ";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      width:100%;
-      height: 2px;
-      border-bottom: 2px solid #ccc;
-      color: #e5e5e5;
-      -webkit-transform-origin: 0 0;
-      transform-origin: 0 0;
-      -webkit-transform: scaleY(0.5);
-      transform: scaleY(0.5);
-      /* left: 15px; */
-  }
 	.search{
 		width:80%;
 		margin:.1rem;

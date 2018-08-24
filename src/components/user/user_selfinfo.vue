@@ -2,18 +2,18 @@
     <div id="selfinfo">
         <top v-bind:title="title"></top>
         <div class="content">
-            <div class="item distance">
+            <div class="item distance vux-1px-b">
                 <!-- <div class="left">修改头像</div> -->
                 <div class="left"><img class="headimg" v-bind:src="nopre"></div>    
                 <Upload :img-max-num = 1 :video-max-num= 1 :file-type=1 :sign="sign"><span class="text">修改头像</span></Upload> 
                 <div class="clear"></div>
             </div>
-            <div class="item">
+            <div class="item vux-1px-b">
                 <span class="left">昵称:</span>
-                <input type="text" class="right input" v-model="nickname">
+                <div class="vux-1px right"><input type="text" class="input" v-model="nickname"></div>
                 <div class="clear"></div>
             </div>
-            <div class="item">
+            <div class="item vux-1px-b">
                 <span class="left">性别:</span>
                 <div class="sexradio">
                      <label><input type="radio" name="sex" value="0" v-model="sex" class="radio">男</label>
@@ -21,9 +21,9 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class="item">
-                <span class="left">真实姓名:</span>
-                <input type="text" class="right input" v-model="realname">
+            <div class="item vux-1px-b">
+                <div class="left">真实姓名:</div>
+                <div class="vux-1px right"><input type="text" class="input" v-model="realname"></div>
                 <div class="clear"></div>
             </div>
 
@@ -61,7 +61,7 @@ export default {
             birthday:'',
             sex:'',
             title:'个人信息',
-            sign:'headimg',
+            sign:true,
             temporary:''
         }
     },
@@ -206,24 +206,8 @@ export default {
         font-size:0.3rem;
     }
     .item{
-        /* text-align: left; */
         padding:0.25rem 0 0.25rem 0.15rem;
         background: #fff;
-        position: relative;
-        margin-bottom:0.08rem;
-    }
-    .item:before{
-        position: absolute;
-        left: 0;
-        bottom: -2px;
-        right: 0;
-        width:100%;
-        height: 2px;
-        border-bottom: 2px solid #ccc;
-        -webkit-transform-origin: 0 0;
-        transform-origin: 0 0;
-        -webkit-transform: scaleY(0.5);
-        transform: scaleY(0.5);
     }
     .clear{
         content:'';
@@ -240,8 +224,8 @@ export default {
         box-sizing:border-box;
     }
     .right{
-        float:right;
-        width:65%;
+        float:left;
+        width:62%;
     }
     .sexradio{
         width:65%;
@@ -249,24 +233,14 @@ export default {
         text-align: left;
     }
     .input{
-        border:1px solid #ccc;
+        position: relative;
+        z-index:100;
+        display:block;
+        width:98%;
+        margin:.1rem auto;
         padding:0.1rem;
         font-size: .3rem;
         box-sizing:border-box;
-        
-        /* background: -webkit-linear-gradient(-90deg, #000 1px, rgba(0, 0, 0, 0)
-            1px, rgba(0, 0, 0, 0) 100%);
-        background: -moz-linear-gradient(-90deg, #000 1px, rgba(0, 0, 0, 0) 1px,
-            rgba(0, 0, 0, 0) 100%);
-        background: linear-gradient(180deg, #000 1px, rgba(0, 0, 0, 0) 1px,
-            rgba(0, 0, 0, 0) 100%);
-        background-size: 100% 1.7em; */
-
-        /* background: -webkit-linear-gradient(left top, rgba(0, 0, 0, .5) 1px,#fff, rgba(0, 0, 0, .5) 1px); /* Safari 5.1 - 6.0 */
-        /*background: -o-linear-gradient(bottom right, rgba(0, 0, 0, .5) 1px, #fff, rgba(0, 0, 0, .5) 1px); /* Opera 11.1 - 12.0 */
-        /*background: -moz-linear-gradient(bottom right,rgba(0, 0, 0, .5) 1px,#fff,  rgba(0, 0, 0, .5) 1px); /* Firefox 3.6 - 15 */
-        /*background: linear-gradient(to bottom right, rgba(0, 0, 0, .5) 1px, #fff, rgba(0, 0, 0, .5) 1px); /* 标准的语法（必须放在最后） */
-        /*background-size: 100% 1.7em; */
     }
     .headimg{
         width:1rem;

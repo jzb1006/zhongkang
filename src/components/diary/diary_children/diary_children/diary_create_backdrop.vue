@@ -192,7 +192,9 @@ export default {
     }
 };
 </script>
-<style>
+
+<style lang="less">
+@calendar-selected-bg-color:#000;
 @import url("./../../../../assets/css/calandar.css");
 </style>
 
