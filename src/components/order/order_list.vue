@@ -5,16 +5,16 @@
             <tab-item :selected="selected === 0" @on-item-click="onItemClick(0)">
                 <p class="route">全部订单</p>
             </tab-item>
-            <tab-item :selected="selected === 1" @on-item-click="onItemClick(1)">
+            <tab-item :selected="selected === 1" @on-item-click="onItemClick(1,'未付款')">
                 <p class="route">未付款</p>
             </tab-item >
-            <tab-item :selected="selected === 2" @on-item-click="onItemClick(2)">
+            <tab-item :selected="selected === 2" @on-item-click="onItemClick(2,'已付款')">
                 <p class="route">已付款</p>
             </tab-item>
         </tab>
         <div id="container">
             <orderItem v-if="list.length != 0" :list="list"></orderItem>
-            <emptyOrder v-else v-show="isRequesting"></emptyOrder>
+            <emptyOrder v-else v-show="isRequesting" :orderType="orderName"></emptyOrder>
             <LoadMore :state='hasMore' :isLoading='isBusy' v-if="list.length > 0" @loadmore="$_ajax_order(currentItem)"></LoadMore>
 
             <Loading v-show="loadinging"></Loading>
@@ -48,7 +48,8 @@
                 hasMore: 0,
                 isBusy: false,
                 isRequesting: true,
-                selected:this.$route.query.index
+                selected:this.$route.query.index,
+                orderName:''
             }
         },
         computed: {
@@ -105,9 +106,10 @@
                         this.isRequesting = true;
                     });
             },
-            onItemClick(type){
+            onItemClick(type,orderName=''){
                 console.log(type);
                 this.currentItem = type;
+                this.orderName = orderName;
                 this.resetSearch();
                 this.$_ajax_order(this.currentItem);
             },
