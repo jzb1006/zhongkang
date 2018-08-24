@@ -434,7 +434,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.name=='productDetail' || to.name=='mycart'){
+  if(to.name=='productDetail' || to.name=='mycart' || to.name=='orderDetail'){
     store.dispatch('changeTabShow',false);
   }else{
     store.dispatch('changeTabShow',true);

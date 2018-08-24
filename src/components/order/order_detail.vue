@@ -13,15 +13,15 @@
             <x-switch v-model="actionShow" :title="'订单操作记录'"></x-switch>
         </group>
         <!-- 订单单号与时间 -->
-        <group class="border">
+        <group class="vux-1px-b">
             <cell-form-preview :list="order_sn_list"></cell-form-preview>
         </group>
         <!-- 订单金额详情 -->
-        <group class="border">
+        <group class="vux-1px-b">
             <cell-form-preview :list="order_price_list"></cell-form-preview>
         </group>
         <!-- 订单状态 -->
-        <group class="border">
+        <group class="vux-1px-b">
             <cell-form-preview :list="order_status"></cell-form-preview>
         </group>
         <!-- 实际付款 -->
@@ -30,8 +30,9 @@
                 <p>实付款：<span>￥{{order_info['order_amount']}}</span></p>
             </div>
         </group>
+         <div id="fill"></div>
         <!-- 底部 -->
-        <div class="foot">
+        <div class="foot vux-1px-t">
             <div :key="indexs" v-for="(items,indexs) in order_btn['button_text']">
                 <div v-if="items['type']==0">
                   <div class="btn"  @click="change_action(items['name'],order_btn['order_sn'],order_btn['status'],items['text'])">{{items['text']}}</div>
@@ -47,6 +48,7 @@
                 </div>
             </div>
         </div>
+       
         <!-- 弹出框 -->
         <!-- 二维码 -->
         <div>
@@ -330,14 +332,8 @@
             width: 0.5rem;
             height: 0.5rem;
         }
-        .vux-close:before,
-        .vux-close:after {
-            width: 46px;
-        }
-        .border {
-            border-bottom: 1px solid #999;
-            box-shadow: 0 1px 1px #fff;
-        }
+        
+       
     }
     .truePrice {
         text-align: right;
@@ -352,9 +348,8 @@
         bottom: 0;
         width: 100%;
         padding: 0.2rem 0px;
-        border-top: 1px solid #999;
-        box-shadow: 0 1px 1px #fff;
         left: 0;
+        background: #fff;
         .btn {
             height: 0.6rem;
             font-size: 0.22rem;

@@ -15,9 +15,10 @@
         <div id="container">
             <orderItem v-if="list.length != 0" :list="list"></orderItem>
             <emptyOrder v-else v-show="isRequesting"></emptyOrder>
+            <LoadMore :state='hasMore' :isLoading='isBusy' v-if="list.length > 0" @loadmore="$_ajax_order(currentItem)"></LoadMore>
+
             <Loading v-show="loadinging"></Loading>
             <Alert :Show="warnShow" :alerttType="alerttType" :alertText="alertText"></Alert>
-            <LoadMore :state='hasMore' :isLoading='isBusy' v-if="list.length > 0" @loadmore="$_ajax_order(currentItem)"></LoadMore>
             <div id="fill"></div>
         </div>
     </div>
