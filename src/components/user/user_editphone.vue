@@ -14,8 +14,7 @@
 			</div>
 			<div class="div1">
 				<div class="code">
-					<input type="text" class="input yan" placeholder="手机验证码" v-model="code">
-					<input type="button" value="获取验证码" class="input get" @click="get_yanzhengma">
+					<input type="text" class="input yan" placeholder="手机验证码" v-model="code"><input type="button" value="获取验证码" class="input get" @click="get_yanzhengma">
 				</div>
 			</div>
 			<div class="div1">
@@ -26,7 +25,7 @@
 </template>
 
 <script>
-import api from "../../api/user";
+import api from "../../api/setup";
 import common from "../../widget/lib/user"
 import top from '@/components/decorate/top_back_title.vue'
 import {mapState,mapGetters} from 'vuex'
@@ -56,7 +55,7 @@ export default {
         	if(!common.checkVerificationCode(code)){
                 return false;
             }
-        	api.ajaxSetupPost('updatemobile',{'new_mobile':mobileNum,'yanzheng':code}).then(res=>{
+        	api.updatemobile({'new_mobile':mobileNum,'yanzheng':code}).then(res=>{
                 if(res.data.error==3){
                 	alert(res.data.message);
 					this.$router.push({path:'/login'});
@@ -117,7 +116,7 @@ export default {
 		font-size: 0.3rem;
 	}
 	.yan{
-		width:62%;
+		width:65%;
 		box-sizing: border-box;
 	}
 	.get{
@@ -128,7 +127,6 @@ export default {
 		margin-top:0.3rem;
 	}
 	.submit{
-		width:70%;
 		padding:0.25rem 0.15rem;
 		border:none;
 		border-radius:0.2rem;

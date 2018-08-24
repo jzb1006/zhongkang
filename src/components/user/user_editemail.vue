@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import api from "../../api/user";
+import api from "../../api/setup";
 import common from "../../widget/lib/user"
 import top from '@/components/decorate/top_back_title.vue'
 import {mapState,mapGetters} from 'vuex'
@@ -80,7 +80,7 @@ export default {
 	}
 	.edit{
 		width:70%;
-		border: 2px solid #ccc;
+		border: 1px solid #ccc;
 		padding:0.25rem 0.25rem 0.25rem 0.15rem;
 		font-size: 0.3rem;
 		position: relative;

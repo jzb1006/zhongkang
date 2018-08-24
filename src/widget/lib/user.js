@@ -87,18 +87,6 @@ export default{
                 alert(res.data.message);
             }
         })
-    },
-    //检验是否登录
-    checkLogin(self,toPath){
-        api.ajaxloginPost('checkLogin').then(function(res){
-            if(res.data.error==0){
-                self.$router.push({path:'/login'});
-            }else{
-                self.$router.push({path:toPath});
-            }
-        }).catch(error=>{
-            console.log(error);
-        })
     }
     
 }

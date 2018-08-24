@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import api from "../../api/user"
+import api from "../../api/wallet"
 import common from "../../widget/lib/user"
 import top from "@/components/decorate/top_back_title.vue";
 export default{
@@ -70,7 +70,7 @@ export default{
 <style scoped>
 	.content{
 		margin-top:0.15rem;
-		font-size: 0.4rem;
+		font-size: 0.35rem;
 	}
 	.p{
 		text-align: left;

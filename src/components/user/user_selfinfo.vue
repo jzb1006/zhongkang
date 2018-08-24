@@ -26,13 +26,13 @@
                 <input type="text" class="right input" v-model="realname">
                 <div class="clear"></div>
             </div>
-            <div class="item">
+
                 <!-- <span class="left">生日</span> -->
                 <!-- <vue-datepicker-local class="right" v-model="birthday"/> -->
                 <group>
                     <calendar title="生日:" v-model="birthday" disable-future></calendar>
                 </group>
-            </div>
+
             <div class="save">
                 <input type="button" class="saveBtn" value="保存" @click="saveUserinfo">
             </div>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import api from "../../api/user";
+import api from "../../api/setup";
 import common from "../../widget/lib/user"
 // import Bus from './../../assets/bus.js';
 import top from "@/components/decorate/top_back_title.vue";
@@ -111,7 +111,7 @@ export default {
                 'realName':realname,
                 'headimgurl':headimgurl
             };
-            api.ajaxSetupPost('update_userinfo',postData).then(res=>{
+            api.update_userinfo(postData).then(res=>{
                 if(res.data.error==7){
                     alert(res.data.message);
                     this.$router.push('/login');
@@ -129,7 +129,22 @@ export default {
             }).catch(error=>{
                 console.log(error);
             })
-        }
+        },
+        dpr() {
+			(function(e, l) {
+			var c, k, d, f = e.document,
+			g = f.documentElement,
+			h = l.flexible || (l.flexible = {});
+			(function() {
+			var a, b = f.querySelector('meta[name="viewport"]');
+			c = e.devicePixelRatio || 1;
+			a = 1;
+			g.setAttribute("data-dpr",0);
+			a = "width=device-width, initial-scale=" + a + ", minimum-scale=" + a + ", maximum-scale=" + a + ", user-scalable=no";
+			b ? b.setAttribute("content", a) : (b = f.createElement("meta"), b.setAttribute("name", "viewport"), b.setAttribute("content", a), (f.head || g.firstElementChild).appendChild(b))
+			})();
+			})(window, window.FT || (window.FT = {}));
+		}
     },
     computed:{
         ...mapGetters([
@@ -176,12 +191,6 @@ export default {
     #selfinfo{
         background:#f0f0f0;
     }
-    /* .distance>>>.position-relative{
-        padding:0.2rem;
-        width:3.1rem;
-        font-size: .35rem;
-        float:right;
-    } */
     .text{
         font-size:.3rem;
         display:inline-block;
@@ -244,6 +253,20 @@ export default {
         padding:0.1rem;
         font-size: .3rem;
         box-sizing:border-box;
+        
+        /* background: -webkit-linear-gradient(-90deg, #000 1px, rgba(0, 0, 0, 0)
+            1px, rgba(0, 0, 0, 0) 100%);
+        background: -moz-linear-gradient(-90deg, #000 1px, rgba(0, 0, 0, 0) 1px,
+            rgba(0, 0, 0, 0) 100%);
+        background: linear-gradient(180deg, #000 1px, rgba(0, 0, 0, 0) 1px,
+            rgba(0, 0, 0, 0) 100%);
+        background-size: 100% 1.7em; */
+
+        /* background: -webkit-linear-gradient(left top, rgba(0, 0, 0, .5) 1px,#fff, rgba(0, 0, 0, .5) 1px); /* Safari 5.1 - 6.0 */
+        /*background: -o-linear-gradient(bottom right, rgba(0, 0, 0, .5) 1px, #fff, rgba(0, 0, 0, .5) 1px); /* Opera 11.1 - 12.0 */
+        /*background: -moz-linear-gradient(bottom right,rgba(0, 0, 0, .5) 1px,#fff,  rgba(0, 0, 0, .5) 1px); /* Firefox 3.6 - 15 */
+        /*background: linear-gradient(to bottom right, rgba(0, 0, 0, .5) 1px, #fff, rgba(0, 0, 0, .5) 1px); /* 标准的语法（必须放在最后） */
+        /*background-size: 100% 1.7em; */
     }
     .headimg{
         width:1rem;
