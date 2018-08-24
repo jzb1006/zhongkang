@@ -61,7 +61,7 @@ export default {
             birthday:'',
             sex:'',
             title:'个人信息',
-            sign:'headimg',
+            sign:true,
             temporary:''
         }
     },
