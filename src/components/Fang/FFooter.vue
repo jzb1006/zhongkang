@@ -2,7 +2,7 @@
 	<div id="FFooter">
 		<div class="row">
 			<div class="col_6 btn_l" @click="$router.back(-1)" v-show="back">
-				<p class="top" >
+				<p class="prep" >
 					<span>上一步</span>
 				</p>
 			</div>

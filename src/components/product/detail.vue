@@ -207,7 +207,8 @@
             top,
             Tab,
             TabItem,
-            diary
+            diary,
+            defaultImg
         }
     }
 </script>
@@ -233,9 +234,6 @@
     .fr {
         float: right;
     }
-            /* defaultImg
-        }
-    } */
 </style>
 <style scoped>
     .shrink {

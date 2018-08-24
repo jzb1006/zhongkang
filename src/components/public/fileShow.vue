@@ -14,13 +14,12 @@
 </template>
 <script>
 import apiUp from "@/api/upload";
-import Loading from "@/widget/loading";
 
 export default {
     props: ["file-url", "init-files"],
     data() {
         return {
-            mediaList: []
+            mediaList: [],
         };
     },
     methods: {
