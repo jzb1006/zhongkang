@@ -1,34 +1,23 @@
 <template>
-         <!-- <div class="nursing">
-            <p class="bg-dark p-2 text-white">选择病床类型</p>
-            <div class="container2">
-                <div class="border border-dark" v-for="bed in bedList" v-if="bed" :class="{active:checkhospital == bed.bed_type}" @click="sel_bed(bed,bed.bed_type)">
-                    <p>{{bed.bed_name}}</p>
-                    $<span>{{bed.min_price}}</span>~$<span>{{bed.max_price}}</span>
-                </div>
-                <div class="border border-dark" :class="{active:checkhospital == 0}" v-else @click="sel_bed(0,0)">
-                    <p>不用住院</p>
-                </div>
-            </div>
-        </div> -->
         	<div id="nursing">
             <p class="title">选择病床类型</p>
             <div class="container2">
-                <div class="border" v-for="bed in bedList" v-if="bed" :class="{active:checkhospital == bed.bed_type}" @click="sel_bed(bed,bed.bed_type)">
+                <div class="border" v-for="bed in bedList" v-if="bed" :class="{f_active:checkhospital == bed.bed_type}" @click="sel_bed(bed,bed.bed_type)">
                     <p>{{bed.bed_name}}</p>
                     $<span>{{bed.min_price}}</span>~$<span>{{bed.max_price}}</span>
                 </div>
-                <div class="border" :class="{active:checkhospital == 0}" v-else @click="sel_bed(0,0)">
+                <div class="border" :class="{f_active:checkhospital == 0}" v-else @click="sel_bed(0,0)">
                     <p>不用住院</p>
                 </div>
             </div>
+            <Loading v-show="loadinging"></Loading>
         </div>
 </template>
 
 <script>
 import Bus from './../../../../assets/bus.js'
 import api from './../../../../api/fang'
-import Loading from './../../Fang/../../../widget/loading'
+import Loading from "@/components/decorate/loading.vue";
 
 export default {
    data(){
@@ -36,6 +25,7 @@ export default {
            tid:"",
            bedList:[],
            checkhospital:null,
+           loadinging:true,
        }
    },
    methods:{
@@ -45,7 +35,7 @@ export default {
            api.ajaxSearch('get_hospital',{tid:tid}).then(
                res=>{
                     self.bedList = res.data;
-                    Loading.stop();
+                    self.loadinging = false;
                     let check_ids = this.$store.state.fang.check_ids;
                     for(let index in check_ids){
                         if(check_ids[index].num == 7){
@@ -68,6 +58,9 @@ export default {
                     }
                }
            )
+           .catch(error=>{
+                self.loadinging = false;
+            })
        },
        sel_bed:function(bed,index){
            this.checkhospital = index;
@@ -100,8 +93,10 @@ export default {
            
        }
    },
+   components:{
+       Loading
+   },
     mounted(){
-        Loading.run();
         this.$store.dispatch('Is_Sel',false);
         Bus.$emit('Content_Type','7');
         this.$store.dispatch('Content_Jump','/FMain/FOther/FExpert');

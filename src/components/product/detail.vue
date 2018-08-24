@@ -59,6 +59,16 @@
                 <p>暂时没有评论哦</p>
             </div>
             <div id="diary" v-show="surrentTab==2">
+                <!-- 商家日记 -->
+                <section class="diary-box">
+                    <div class="title border-bot">商家日记
+                        <router-link :to="{name:'proDiary',query:{cid:cid}}" class="fr right">
+                            查看更多日记
+                                <i class="zk-icon-jiantou" style="font-size: 0.3rem;"></i>
+                        </router-link>
+                    </div>
+                    <diary :cid=cid :once = 2 :query=true></diary>
+                </section>
                 <p>暂时没有日志哦</p>
             </div>
         </div>
@@ -82,7 +92,8 @@
     import goods_api from "../../api/goods"
     import swiper from '@/components/slide/index.vue'
     import productItem from "@/components/decorate/product_item.vue";
-    import top from "@/components/product/top_bar.vue";
+    import top from "@/components/decorate/top_back_title.vue";
+    import diary from './../diary/diary_list'
      import defaultImg from "@/components/decorate/default_img.vue";
     import {
         Tab,
@@ -107,7 +118,8 @@
                     },
                 },
                 title: '商品详情',
-                surrentTab: 0
+                surrentTab: 0,
+                cid:"",
             }
         },
         methods: {
@@ -125,8 +137,7 @@
                     self.result = res.data.goodsinfo;
                     self.hospital = res.data.institution_info[0];
                     self.doctor_info = res.data.doctor_info;
-                    console.log(res.data.gallery)
-                    console.log(res);
+                    self.cid = res.data.goodsinfo.cat_id;
                 }).catch(error => {
                     console.log(error);
                 })
@@ -145,7 +156,6 @@
                 goods_api.addCard({
                     goods: goods
                 }).then(res => {
-                    console.log(res.data);
                     var result = res.data;
                     var code = result.error + '';
                     var msg = result.message
@@ -197,10 +207,36 @@
             top,
             Tab,
             TabItem,
-            defaultImg
+            diary
         }
     }
 </script>
+<style>
+    .main section {
+        background: #fff;
+        margin-bottom: 0.20rem;
+        font-size: 0.36rem;
+    }
+    .main section .title {
+        height: 1.00rem;
+        line-height: 1.00rem;
+        font-size: 0.36rem;
+        color: #333;
+        padding: 0 0.30rem;
+    }
+    .main section .title .right {
+        display: inline-block;
+        float: right;
+        font-size: 0.24rem;
+        color: #777;
+    }
+    .fr {
+        float: right;
+    }
+            /* defaultImg
+        }
+    } */
+</style>
 <style scoped>
     .shrink {
         padding: 0 0.2rem;

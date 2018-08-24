@@ -1,21 +1,14 @@
 <template>
-    <!-- <div class="container">
-        <div class="row justify-content-around">
-            <div class="col-5 border img_wrapper" v-for="(brand,$index) in brandlist" @click="selectStyle(brand,brand.brand_id)" :class="{'active':checkbrand == brand.brand_id}">
-                    <img v-bind:src='getImgUrl()+brand.brand_img'>
-                    <p class="brand_name">{{ brand.brand_name }}</p>
-            </div>
-        </div>
-    </div> -->
     <div id="FBrand">
         <div class="row">
-            <div class="img_wrapper" v-for="(brand,$index) in brandlist" @click="selectStyle(brand,brand.brand_id)" :class="{'active':checkbrand == brand.brand_id}">
+            <div class="img_wrapper" v-for="(brand,$index) in brandlist" @click="selectStyle(brand,brand.brand_id)" :class="{'f_active':checkbrand == brand.brand_id}">
             	<div class="img">
             		<img v-bind:src='getImgUrl()+brand.brand_img'>
             	</div>
                 <p class="brand_name">{{ brand.brand_name }}</p>    
             </div>
         </div>
+        <Loading v-show="loadinging"></Loading>
     </div>
 </template>
 
@@ -24,7 +17,7 @@ import Vue from 'vue'
 import avatar from './../../../assets/logo.png'
 import api from './../../../api/fang'
 import Bus from './../../../assets/bus.js'
-import Loading from './../../Fang/../../widget/loading'
+import Loading from "@/components/decorate/loading.vue";
 
 export default {
     name:"FBrand",
@@ -37,19 +30,18 @@ export default {
             bid:"",
             brandlist:{},
             checkbrand:null,
+            loadinging:true,
         }
     },
     methods:{
         $_ajax_brand:function(){
-            // console.log('brand');
             var self = this;
             var treat_id = this.treat_id;
             var r_area = this.r_area;
             api.ajaxSearch("get_brands",{tid:treat_id,r_area:r_area}).then(
                 res=>{
                     self.brandlist = res.data;
-                    console.log(res.data);
-                    Loading.stop();
+                    self.loadinging = false;
                     let check_ids = this.$store.state.fang.check_ids;
                     for(let index in check_ids){
                         if(check_ids[index].num == 4){
@@ -65,6 +57,9 @@ export default {
                     }
                 }
             )
+            .catch(error=>{
+                self.loadinging = false;
+            })
         },
         getImgUrl(){
           return api.imgUrl();
@@ -91,10 +86,9 @@ export default {
         }
     },
     components:{
-        // FProduct
+        Loading
     },
     mounted(){
-        Loading.run();
         this.$store.dispatch('Is_Sel',false);
         Bus.$emit('Content_Type','4');
         this.$store.dispatch('Content_Jump','FProduct');
@@ -110,8 +104,6 @@ export default {
 <style scoped>
 		#FBrand{
            margin: 2rem 0;
-		}
-		#FBrand .row {
 		}
 		#FBrand .row .img_wrapper{
 			margin: .3rem;

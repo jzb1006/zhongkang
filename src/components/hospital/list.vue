@@ -32,7 +32,7 @@
   import productItem from "@/components/decorate/product_item.vue";
   import productList from "@/components/decorate/product_list.vue";
   import defaultImg from "@/components/decorate/default_img.vue";
-    import star from "@/components/decorate/star.vue";
+  import star from "@/components/decorate/star.vue";
   export default {
     name: 'searchHospitl',
     data() {
@@ -58,7 +58,6 @@
       // console.log(list.lengte);
     },
     components: {
-
       productItem,
       productList,
       defaultImg,

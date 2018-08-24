@@ -238,16 +238,16 @@ export default {
 };
 </script>
 <style>
-/* @import url('./../../../../assets/css/calandar.css'); */
+@import url('./../../../../assets/css/calandar.css');
 </style>
 <style scoped>
 #show_institution {
     position: absolute;
+    font-size: 0.3rem;
     /* top: 2rem; */
-    left: 2.35rem;
-    width: 4.52rem;
-    font-size: .35rem;
-    max-height: 5rem;
+    left: 2.1rem;
+    width: 4.5rem;
+    max-height: 2rem;
     overflow-x: hidden;
     border: 1px dotted #000;
     background-color: #fff;
@@ -266,7 +266,7 @@ export default {
 #show_doctor {
     position: absolute;
     /* top: 2rem; */
-    left: 2.35rem;
+    left: 2.1rem;
     width: 4.52rem;
     max-height: 5rem;
     overflow-x: hidden;

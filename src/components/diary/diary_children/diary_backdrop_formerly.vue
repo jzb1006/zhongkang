@@ -7,12 +7,12 @@
                     <img src="./../../../../static/images/no.png" alt="" />
                 </div>
 
-                <div v-else-if="backdrop.check_status === '1'">
-                    <img src="./../../../../static/images/no.png" alt="" />
+                <div v-else-if="backdrop.check_status == '1'">
+                    <img src="./../../../../static/images/pass.png" alt="" />
                 </div>
 
                 <div v-else="backdrop.check_status == '2'">
-                    <img src="./../../../../static/images/no.png" alt="" />
+                    <img src="./../../../../static/images/nopass.png" alt="" />
                 </div>
             </div>
             <div class="img"> 
@@ -51,6 +51,7 @@ export default {
             var self = this;
             let bid = this.$route.query.bid;
             api.ajaxSearch("diary_detail_basic", { bid: bid }).then(res => {
+                console.log(res);
                 self.backdropList = res.data.backdrop;
                 self.s_uid = res.data.s_uid;
                 self.p_uid = res.data.b_uid;
@@ -68,7 +69,7 @@ export default {
             this.enlarge_status = false;
         }
     },
-    mounted() {
+    created() {
         this.$_ajax_getBackdrop();
     }
 };
@@ -79,6 +80,7 @@ export default {
     float: left;
 }
 #backdrop_formerly {
+    position: relative;
     padding: 15px 15px;
     margin-right: auto;
     margin-left: auto;
@@ -120,12 +122,12 @@ div.enlarge_img > img.img_enlarge {
 }
 div.check_status {
     position: absolute;
-    right: 0.5rem;
-    top: -3.5rem;
+       right: 0.5rem;
+    top: -.5rem;
 }
 div.check_status > div:first-child {
-    width: 4rem;
-    height: 4rem;
+    width: 1.5rem;
+    height: 1.5rem;
     overflow: hidden;
 }
 div.check_status > div > img {

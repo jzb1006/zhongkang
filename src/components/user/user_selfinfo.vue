@@ -48,6 +48,8 @@ import top from "@/components/decorate/top_back_title.vue";
 import Upload from '@/components/common/upload.vue'
 import {mapState,mapGetters} from 'vuex'
 import { Calendar,Group } from 'vux'
+import Utils from '@/widget/lib/Utils'
+
 export default {
     name: 'selfinfo',
     data(){

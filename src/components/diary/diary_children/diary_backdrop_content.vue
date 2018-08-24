@@ -1,6 +1,6 @@
 <template>
 	<div id="backdrop_content">
-        <p class="top clearfix">变美过程
+        <p class="btop clearfix">变美过程
             <span class="see_v" @click="seeOnlyVideo">{{videoMessage}}</span>
         </p>
 		<div class="list">
@@ -16,7 +16,9 @@
 
 					<div v-else="diary.check_status == '2'">
 						<img src="./../../../../static/images/nopass.png" alt="" />
-                        <p>{{diary.reject_cause}}</p>
+                        <p v-model="show">点击查看详情</p>
+                        <alert v-model="show" title="拒绝原因">{{diary.reject_cause}}</alert>
+                        <p></p>
 					</div>
 				</div>
 				<p class="time">
@@ -50,6 +52,7 @@
 				</router-link>
 			</div>
 		</div>
+        <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_getBackdrop"></LoadMore>
 		<router-link :to="{name:'diaryCreateDiary',query:{bid:bid}}">
 			<p class="write_diary" v-if="s_uid == p_uid">继续写日记</p>
@@ -58,8 +61,9 @@
 </template>
 <script>
 import api from "@/api/diary";
-import Loading from "@/widget/loading";
-import LoadMore from '@/components/loadMore/index.vue'
+import Loading from "@/components/decorate/loading.vue";
+import LoadMore from '@/components/loadMore/index.vue';
+import { Alert } from 'vux'
 export default {
     data() {
         return {
@@ -77,10 +81,14 @@ export default {
             hasMore:0,
             hiddenNum:0,
             videoMessage:"只看视频",
+            loadinging:true,
+            show:false,
         };
     },
     components:{
-        LoadMore
+        LoadMore,
+        Loading,
+        Alert
     },
     methods: {
         $_ajax_getBackdrop: function() {
@@ -116,10 +124,10 @@ export default {
                 self.s_uid = res.data.s_uid;
                 self.p_uid = res.data.b_uid;
                 self.isBusy = false;
-                Loading.stop();
+                self.loadinging = false;
             })
             .catch(error => {
-                Loading.stop();
+                self.loadinging = false;
             });
         },
         getImgUrl() {
@@ -168,10 +176,12 @@ export default {
                 scrollTop = document.body.scrollTop;
             }
             return scrollTop;
+        },
+        onShow(){
+
         }
     },
     mounted() {
-        Loading.run();
         this.$_ajax_getBackdrop();
     }
 };
@@ -194,7 +204,8 @@ ul{
 div.check_status {
     position: absolute;
     right: 0.5rem;
-    top: 1rem;
+    top: .6rem;
+    z-index: 222;
 }
 div.check_status > div:first-child {
     width: 1.1rem;
@@ -205,6 +216,7 @@ div.check_status > div > img {
 }
 div.check_status > div > p {
     width: 1.1rem;
+    max-height: 1rem;
     font-size: .3rem;
     color:rgb(255, 0, 0);
 }
@@ -214,13 +226,13 @@ div.check_status > div > p {
     position: relative;
     padding: 0 15px;
 }
-#backdrop_content .top{
+#backdrop_content .btop{
     font-size: .35rem;
     font-weight: 550;
     padding: .2rem;
     background-color: rgb(255, 83, 112);;
 }
-#backdrop_content .top .see_v{
+#backdrop_content .btop .see_v{
     float: right;
     font-size: .3rem;
     color: #fff;
@@ -243,7 +255,7 @@ div.check_status > div > p {
 
 #backdrop_content .list .list_content .timeLine{
     position: relative;
-    /* padding: 0.1rem .2rem; */
+    /* padding: 0.1rem .3rem; */
     margin: 0 .2rem;
     margin-bottom: .8rem;
     border: 1px solid #ccc;
@@ -308,7 +320,7 @@ div.other {
 .pic-2 {
     margin-top: 0.2rem;
     height: 4.3rem;
-    width: 6.2rem;
+    width: 6.8rem;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
