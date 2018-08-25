@@ -55,7 +55,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .content{
         margin-top:2.5rem;
         font-size: 0.3rem;
