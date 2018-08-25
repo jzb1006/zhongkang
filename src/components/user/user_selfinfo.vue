@@ -29,7 +29,7 @@
 
                 <!-- <span class="left">生日</span> -->
                 <!-- <vue-datepicker-local class="right" v-model="birthday"/> -->
-                <group>
+                <group class="birth">
                     <calendar title="生日:" v-model="birthday" disable-future></calendar>
                 </group>
 
@@ -272,5 +272,8 @@ export default {
         color:#fff;
         border-radius: 0.15rem;
         font-size:.3rem;
+    }
+    .birth{
+        
     }
 </style>

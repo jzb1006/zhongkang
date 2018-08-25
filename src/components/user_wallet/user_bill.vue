@@ -193,7 +193,7 @@ export default {
 		box-sizing: border-box;
 	}
 	.btngroup{
-		margin-top:.2rem;
+		margin:.2rem 0;
 	}
 	.button{
 		border:1px solid red;
