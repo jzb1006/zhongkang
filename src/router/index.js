@@ -456,7 +456,7 @@ router.beforeEach((to, from, next) => {
   if(to.name=='user'||to.name=='orderList'||to.name=='recharge'||to.name=='cash'||to.name=='addBank'||
     to.name=='userSelfinfo'||to.name=='userEditphone'||to.name=='userEditpassword'||to.name=='userEditemail'||
     to.name=='balance'||to.name=='bank'||to.name=='bill'||to.name=='userSetup'||to.name=='userWallet'||to.name=='orderList'||
-    to.name=='chooseBank'){
+    to.name=='chooseBank' || to.name=='diaryBackdropList'){
       api.ajaxloginPost('checkLogin').then(res=>{
           console.log(res.data);
           if(res.data.error==0){
