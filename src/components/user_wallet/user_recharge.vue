@@ -6,70 +6,41 @@
 			        <span class="span">充值金额:</span>
 			 </div>
 			 <div class="div1">
-	               <span class="renminbi"><i class="zk-icon-renminbi1"></i></span>
+	               <span class="renminbi"><img src="../../assets/renminbi.png"></span>
 	        	   <input type="number" v-model="amount" placeholder="输入充值金额" class="input">
 			 </div>	
 		</div>
 		<div class="div2 meone">
-		     <input type="button" value="下一步" @click="recharge" :class="classObject">
+		     <!-- <input type="button" value="下一步" @click="recharge" :class="classObject"> -->
+			 <a href="http://192.168.0.108/m/pay.php?action=pay&pay_id=3&order_sn=1226517789222&subject=充值&order_amount=1" target="_black" @click="recharge_two">下一步</a>
 		</div>
-		<div>
-			<confirm v-model="show" :title="confirmTitle" @on-confirm="onConfirm"></confirm>
-		</div>
-		<Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
   	</div>
 </template> 
 
 <script>
-import api from "../../api/wallet"
-import top from "@/components/decorate/top_back_title.vue"
-import Alert from "@/components/decorate/alert.vue";
-import { Confirm } from 'vux'
+import api from "../../api/pay"
+import top from "@/components/decorate/top_back_title.vue";
 export default {
     name: 'recharge',
     data(){
     	return{
-			amount:'',
-			show:false,
-			confirmTitle:'',
-			alertShow:false,
-			alerttType:'warn',
-            alertText:'',
+			amount:''
+			// order_sn:'11111222'
     	}
     },
     computed:{
-		isShow(){
-               return this.alertShow;
-        },
     	classObject(){
     		return{
     			next:true,
     			toggleColor:this.amount!=''
     		}	
-		}
+    	}
     },
     methods:{
-		onConfirm(){
-			var value=this.amount;
-			var amount=parseFloat(value);	
-			var order_sn=new Date().getTime();
-			var subject="充值";
-			api.ajaxWalletPost('chongzhi',{'WIDout_trade_no':order_sn,'WIDsubject':subject,'WIDtotal_amount':amount})
-			.then(res=>{
-				if(res.data.error==3){
-					alert(res.data.message);
-					this.$router.push('/login');
-				}else{
-					this.$router.go(-1);
-				}
-			}).catch(error=>{
-				console.log(error);
-			})
-		},
     	recharge(){
     		var value=this.amount;
 	    	if(value==""||value==0){
-				alert("充值金额不能为空且不能为零");
+	        	alert("充值金额不能为空且不能为零");
 	        	return false;
 	    	}
 	    	if(value.indexOf('.')==-1){
@@ -85,34 +56,35 @@ export default {
 	        		alert('充值金额精确到分');
 	    			return false;
 	        	}
-			}
-			this.confirmTitle=`您即将充值${this.amount}元,确定吗？`;
-			this.show=true;
-	    	
+	    	}
+	    	var amount=parseFloat(value);	
+	    	if(window.confirm('您充值的金额为'+amount+'元,确定吗？')){
+	    		var order_sn=new Date().getTime();
+	        	var subject="充值";
+	            api.ajaxPay({'pay_id':'3','order_sn':order_sn,'subject':subject,'order_amount':amount}).then(res=>{
+	            	// if(res.data.error==3){
+	            	// 	alert(res.data.message);
+	            	// 	this.$router.push('/login');
+	            	// }else{
+	            	// 	this.$router.go(-1);
+					// }
+					// console.log('s');
+					console.log(res.data);
+	            	
+	            }).catch(error=>{
+	            	console.log(error);
+	            })
+	            return true;
+	         }else{
+	            return false;
+	         }
 		},
-		dpr() {
-			(function(e, l) {
-			var c, k, d, f = e.document,
-			g = f.documentElement,
-			h = l.flexible || (l.flexible = {});
-			(function() {
-			var a, b = f.querySelector('meta[name="viewport"]');
-			c = e.devicePixelRatio || 1;
-			a = 1;
-			g.setAttribute("data-dpr",0);
-			a = "width=device-width, initial-scale=" + a + ", minimum-scale=" + a + ", maximum-scale=" + a + ", user-scalable=no";
-			b ? b.setAttribute("content", a) : (b = f.createElement("meta"), b.setAttribute("name", "viewport"), b.setAttribute("content", a), (f.head || g.firstElementChild).appendChild(b))
-			})();
-			})(window, window.FT || (window.FT = {}));
+		recharge_two(){
+			 this.$router.push('/home/balance');
 		}
-	},
-	mounted(){
-		this.dpr();
-	},
+    },
 	components:{
-		top,
-		Confirm,
-		Alert
+		top
 	}
 }
 </script>
@@ -132,7 +104,7 @@ export default {
 	}
 	.div1,.input{
 		padding:0.25rem 0.25rem 0.25rem 0.15rem;
-		font-size: 0.3rem;
+		font-size: 0.35rem;
 	}
 	.input{
 		border: 1px solid #ccc;
@@ -140,16 +112,19 @@ export default {
 	.div2{
 		margin-top:0.4rem;
 	}
+
 	.next{
 		font-size: 0.3rem;
 		display:block;
         width:80%;
+        border:2px solid #ccc;
         margin:0.3rem auto;
-        padding:0.15rem 0;
-		font-size: 0.3rem;
+        padding:0.25rem 0;
+		font-size: 0.35rem;
     }
+
 	.toggleColor{
-        background: #ff5370;
+        background-color:#32CD32;
         color:#fff;
     }
 </style>

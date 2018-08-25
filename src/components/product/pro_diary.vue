@@ -1,9 +1,10 @@
 <template>
         <div id="proDiary">
-            <p class="top">
-                <top title="项目日记"></top>
-            </p>
-            
+            <div class="head">
+                <p class="top">
+                    <top title="项目日记"></top>
+                </p>
+            </div>
             <diary :cid=cid :query=true></diary>
         </div>
 </template>
@@ -27,5 +28,7 @@ export default {
 }
 </script>
 <style scoped>
-
+#proDiary .head{
+    height: 1rem;
+}
 </style>

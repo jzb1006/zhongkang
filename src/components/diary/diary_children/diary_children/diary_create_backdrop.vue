@@ -6,7 +6,7 @@
         </p>
         <div class="pic">
             <div class="text-center m-1">
-                <Upload :img-max-num=3 :video-max-num=1 :file-type=1></Upload>
+                <Upload @changeUrls="getUrl" :img-max-num=3 :video-max-num=1 :file-type=1 title="添加三张真实图片"></Upload>
             </div>
             <p class="tip">
                 <span>上传三张术前真实照片</span>
@@ -46,6 +46,7 @@
             </li>
         </ul>
         <diarySelItem></diarySelItem>
+        <div id="fill"></div>
     </div>
 </template>
 <script>
@@ -174,6 +175,9 @@ export default {
 
             return true;
         },
+        getUrl(data){
+            this.backdrop_img = data; 
+        }
     },
     components: {
         Upload,
@@ -185,9 +189,6 @@ export default {
     mounted() {
         Bus.$on("toItem", res => {
             this.chooseItem = res;
-        });
-        Bus.$on("changeUrls", res => {
-            this.backdrop_img = res;
         });
     }
 };

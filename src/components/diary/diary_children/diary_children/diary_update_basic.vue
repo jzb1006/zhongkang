@@ -8,7 +8,7 @@
         </p>
         <div class="pic">
             <div>
-                <Upload :img-max-num=3 :video-max-num=1 :file-type=1></Upload>
+                <Upload @changeUrls="getUrl" :img-max-num=3 :video-max-num=1 :file-type=1 title="添加三张真实图片"></Upload>
             </div>
             <p class="tip">
                 <span>上传三张术前真实照片</span>
@@ -216,6 +216,9 @@ export default {
             Bus.$emit("initImg", arrImg);
 
             Loading.stop();
+        },
+        getUrl(data){
+            this.backdrop_img = data; 
         }
     },
     components: {
@@ -229,9 +232,6 @@ export default {
         Loading.run();
         Bus.$on("toItem", res => {
             this.chooseItem = res;
-        });
-        Bus.$on("changeUrls", res => {
-            this.backdrop_img = res;
         });
         this.$_getInfo();
     }

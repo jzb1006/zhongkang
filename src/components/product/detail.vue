@@ -92,7 +92,7 @@
     import goods_api from "../../api/goods"
     import swiper from '@/components/slide/index.vue'
     import productItem from "@/components/decorate/product_item.vue";
-    import top from "@/components/decorate/top_back_title.vue";
+    import top from "@/components/product/top_bar.vue";
     import diary from './../diary/diary_list'
      import defaultImg from "@/components/decorate/default_img.vue";
     import {
@@ -234,6 +234,21 @@
     .fr {
         float: right;
     }
+    .vux-tab .vux-tab-item {
+        font-size: 0.3rem!important;
+    }
+    .vux-tab-wrap {
+        padding: 0.5rem 0!important;
+    }
+    .vux-tab .vux-tab-item.vux-tab-selected {
+        color: #ff5370!important;
+    }
+    .vux-tab-bar-inner {
+        background-color: #ff5370!important;
+    }
+            /* defaultImg
+        }
+    } */
 </style>
 <style scoped>
     .shrink {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img alt="" :src="imgUrl(imgPath)" :style="style" lazy="loaded">
+        <img alt="" :src="imgUrl(imgPath)" v-bind:style="styles" lazy="loaded">
     </div>
 </template>
 <script>
@@ -17,8 +17,14 @@
                 // type: [String,Object],
                 required: true
             },
-            style:{
-                default:" width: 100%;height: 1rem;border-radius: 999px;"
+            styles:{
+                default:()=>{
+                    return{
+                    width: '100%',
+                    height: '1rem',
+                    borderRadius: '999px'
+                }
+              }
             }
         },
         methods: {
