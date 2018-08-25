@@ -69,7 +69,7 @@
                     </div>
                     <diary :cid=cid :once = 2 :query=true></diary>
                 </section>
-                <p>暂时没有日志哦</p>
+                
             </div>
         </div>
         <!--底部-->
@@ -400,16 +400,5 @@
         margin-bottom: 1.5rem;
         min-height: 7rem;
     }
-    .vux-tab .vux-tab-item {
-        font-size: 0.3rem!important;
-    }
-    .vux-tab-wrap {
-        padding: 0.5rem 0!important;
-    }
-    .vux-tab .vux-tab-item.vux-tab-selected {
-        color: #ff5370!important;
-    }
-    .vux-tab-bar-inner {
-        background-color: #ff5370!important;
-    }
+    
 </style>

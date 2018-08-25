@@ -265,7 +265,7 @@ div.check_status > div > p {
 #backdrop_content .list .list_content .timeLine{
     position: relative;
     /* padding: 0.1rem .3rem; */
-    margin: 0 .2rem;
+    /* margin: 0 .2rem; */
     margin-bottom: .8rem;
     border: 1px solid #ccc;
     box-shadow: 5px 5px 5px #ccc;
@@ -339,7 +339,7 @@ div.other {
 }
 .pic-2 li {
     height: 4.3rem;
-    width: 3.05rem;
+    width: 3.3rem;
     overflow: hidden;
     border-radius: 0.1rem;
 }

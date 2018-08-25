@@ -2,7 +2,9 @@
     <div id="diary_head">
         <searchBar :title="'众康医疗'" :iconShow="true"></searchBar>
         <p>
-            <span @click="toUser">写日记</span>
+            <router-link :to="{name:'diaryBackdropList'}">
+            <span>写日记</span>
+            </router-link>
              <router-link :to="{name:'FMain'}">
             <span>医导</span>
              </router-link>
@@ -16,11 +18,6 @@ import common from '../../widget/lib/user'
 import DiaryList from "./diary_list";
 import searchBar from "@/components/home/search_bar.vue";
 export default {
-    methods:{
-        toUser(){
-            common.checkLogin(this,'/diary/diaryBackdropList');
-        }
-    },
     components:{
         DiaryList,
         searchBar
