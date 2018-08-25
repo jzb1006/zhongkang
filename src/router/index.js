@@ -65,6 +65,7 @@ import addbank from '@/components/user_wallet/user_addbank'
 import chooseBank from '@/components/user_wallet/user_chooseBank'
 import balance from '@/components/user_wallet/user_balance'
 import recharge from '@/components/user_wallet/user_recharge'
+
 Vue.use(Router)
 
 const router = new Router({
