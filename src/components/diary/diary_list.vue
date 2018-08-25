@@ -155,7 +155,6 @@ p.top{
     top: 0;
     left: 0;
     right: 0;
-    height: 1rem;
     color: #fff;
     font-size: 0.35rem;
     text-align: center;
