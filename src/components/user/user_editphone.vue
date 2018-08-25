@@ -106,7 +106,8 @@ export default {
 	.include_phone{
 		width:70%;
         margin:0 auto;
-		padding:.25rem 0;
+		padding:.25rem .05rem;
+		box-sizing: border-box;
 	}
 	.include{
 		width:70%;

@@ -11,7 +11,7 @@
                 <input type="button" class="get" value="获取验证码" @click="get_yanzhengma_exist">
             </div> -->
             <div class="code">
-                <div class="vux-1px include left"><input type="text" class="input yan" placeholder="手机验证码" v-model="code"></div>
+                <div class="vux-1px include left"><input type="text" class="input yan" placeholder="手机验证码" v-model="verificationCode"></div>
                 <span class="input get right" @click="get_yanzhengma_exist">获取验证码</span>
                 <div class="clear"></div>
             </div>
@@ -52,6 +52,7 @@ export default {
         message_verification(){
             let Mobile=this.phonenum;
             let yanzhengma=this.verificationCode;
+            console.log(yanzhengma);
             if(!common.checkPhoneNum(Mobile)){
                 return false;
             }
@@ -125,7 +126,7 @@ export default {
         display:block;
         width:100%;
         margin:0 auto;
-		padding:.15rem .15rem .15rem 0;
+		padding:.15rem .15rem .15rem .15rem;
 	}
 	.get{
 		box-sizing: border-box;

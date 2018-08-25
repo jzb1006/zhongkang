@@ -121,10 +121,11 @@ export default {
 	.content{
 		/*margin-top:240px;*/
 		font-size: 0.3rem;
-		border-top:2px solid #ccc;
-		border-bottom:2px solid #ccc;
+		border-top:1px solid #ccc;
+		border-bottom:1px solid #ccc;
 		text-align:left;
 	}
+	
 	.renminbi img{
 		width:45px;
 		height:45px;
@@ -134,7 +135,7 @@ export default {
 		font-size: 0.3rem;
 	}
 	.input{
-		border: 2px solid #ccc;
+		border: 1px solid #ccc;
 	}
 	.div2{
 		margin-top:0.4rem;
