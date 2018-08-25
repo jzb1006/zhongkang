@@ -43,7 +43,7 @@
         position: fixed;
         width: 100%;
         bottom: 0;
-        z-index: 666;
+        z-index: 500;
     }
     .weui-tabbar__icon {
         width: 0.5rem!important;

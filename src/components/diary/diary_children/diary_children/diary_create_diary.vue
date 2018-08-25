@@ -23,11 +23,11 @@
             <textarea-autosize class="content" placeholder="写日记分享变美过程，获得日志奖励" v-model="items.content" ref="count">
                 </textarea-autosize>
             <toast v-model="show">添加成功</toast>
-            <Upload uploadSel="classics" :img-max-num=9 :video-max-num=1 :file-type=3></Upload>
+            <Upload uploadSel="classics" :img-max-num=9 :video-max-num=1 :file-type=3 title="添加图片或者视频"></Upload>
         </div>
         <div>
-            
         </div>
+        
     </div>
 </template>
 <script>

@@ -15,9 +15,9 @@
 
 .inline-calendar td > span.vux-calendar-each-date {
     /* width: auto!important; */
-    height: auto!important;
-    font-size: 0.3rem!important;
-    line-height: .4rem!important;
+    /* height: auto!important; */
+    font-size: 0.2rem!important;
+    /* line-height: .4rem!important; */
 }
 
 .vux-prev-icon, .vux-next-icon {
