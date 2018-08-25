@@ -92,7 +92,7 @@
     import goods_api from "../../api/goods"
     import swiper from '@/components/slide/index.vue'
     import productItem from "@/components/decorate/product_item.vue";
-    import top from "@/components/decorate/top_back_title.vue";
+    import top from "@/components/product/top_bar.vue";
     import diary from './../diary/diary_list'
      import defaultImg from "@/components/decorate/default_img.vue";
     import {
