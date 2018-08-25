@@ -1,8 +1,11 @@
 <template>
     <div id="insDiary">
-        <p class="top">
-            <top title="医院日记"></top>
-        </p>
+        <div class="head">
+            <p class="top">
+                <top title="医院日记"></top>
+            </p>
+        </div>
+        
         
         <diary :insId=ins_id :query=true></diary>
     </div>
@@ -26,5 +29,7 @@ export default {
 }
 </script>
 <style scoped>
-
+#insDiary .head{
+    height: 1rem;
+}
 </style>

@@ -1,8 +1,11 @@
 <template>
     <div id="docDiary">
-        <p class="top">
-            <top title="医生日记"></top>
-        </p>
+        <div class="head">
+            <p class="top">
+                <top title="医生日记"></top>
+            </p>
+        </div>
+        
         <diary :docId=doc_id :query=true></diary>
     </div>
 </template>
@@ -26,6 +29,9 @@ export default {
 }
 </script>
 <style scoped>
+#docDiary .head{
+    height: 1rem;
+}
 #docDiary > p.top {
     position: fixed;
     top: 0;
