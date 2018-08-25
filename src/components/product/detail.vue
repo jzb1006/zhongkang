@@ -234,7 +234,6 @@
     .fr {
         float: right;
     }
-<<<<<<< HEAD
     .vux-tab .vux-tab-item {
         font-size: 0.3rem!important;
     }
@@ -250,8 +249,6 @@
             /* defaultImg
         }
     } */
-=======
->>>>>>> d9ec916ec5e31bc106023afc9e45860317d411fe
 </style>
 <style scoped>
     .shrink {
