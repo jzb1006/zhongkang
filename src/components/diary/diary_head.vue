@@ -8,6 +8,16 @@
              <router-link :to="{name:'FMain'}">
             <span>医导</span>
              </router-link>
+             <router-link :to="{name:'atlasesList'}">
+                 <span>图集</span>
+             </router-link>
+             <router-link :to="{name:'RehaList'}">
+                 <span>视频</span>
+             </router-link>
+             <router-link :to="{name:'commentList'}">
+                 <span>评论</span>
+             </router-link>
+             
         </p>
         <DiaryList></DiaryList>
     </div>
