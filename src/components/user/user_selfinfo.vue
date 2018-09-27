@@ -5,7 +5,7 @@
             <div class="item distance vux-1px-b">
                 <!-- <div class="left">修改头像</div> -->
                 <div class="left"><img class="headimg" v-bind:src="nopre"></div>    
-                <Upload :img-max-num = 1 :video-max-num= 1 :file-type=1 :sign="sign"><span class="text">修改头像</span></Upload> 
+                <Upload @changeUrls="getUrl" :file-type=1 :sign="sign"><span class="text">修改头像</span></Upload> 
                 <div class="clear"></div>
             </div>
             <div class="item vux-1px-b">
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import user from "../../api/user";
 import api from "../../api/setup";
 import common from "../../widget/lib/user"
 // import Bus from './../../assets/bus.js';
@@ -61,7 +62,7 @@ export default {
             birthday:'',
             sex:'',
             title:'个人信息',
-            sign:true,
+            sign:'headimgurl',
             temporary:''
         }
     },
@@ -84,6 +85,15 @@ export default {
                 let date=new Date();
                 let currentdate=common.formatDate(date);
                 return currentdate;
+            }
+        },
+        getUrl(data){    
+            console.log('头像');   
+            if(data.length >= 1){
+                this.headimgurl=data[0];
+                this.nopre=user.imgUrl()+data[0];
+                data.splice(0,1);
+                
             }
         },
         saveUserinfo(){

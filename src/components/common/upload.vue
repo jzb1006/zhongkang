@@ -5,7 +5,7 @@
             <input type="file" name="sf_upfile" @change="changeFile($event)" class="position-absolute upfile btn btn-sm btn-outline-info"><slot></slot>
         </form>
         </span>
-        <fileShow :file-url="fileUrls" v-if="sign!='headimg'"></fileShow>
+        <fileShow :file-url="fileUrls" v-if="sign!='headimgurl'"></fileShow>
     </div>
 </template>
 
@@ -71,7 +71,7 @@ export default {
             )
         },
         toParent(){
-            this.bus.$emit("changeUrls",this.fileUrls);
+            this.$emit("changeUrls",this.fileUrls);
             console.log(this.fileUrls);
         },
         //文件支持上传的格式
@@ -163,6 +163,9 @@ export default {
             }else{
                 return fanwei = new Array("jpg","jpeg","mp4","gif");
             }
+        },
+        del(){
+            this.$emit('del')
         }
     },
     computed:{

@@ -1,6 +1,6 @@
 <template>
     <div id="diary_list">
-        <div class="diary_third" v-for="(backdrop,index) in backdropList" v-if="checkOnce(index)">
+        <div class="diary_third vux-1px-b" v-for="(backdrop,index) in backdropList" v-if="checkOnce(index)">
             <div class="top">
                 <div class="headImg">
                     <img v-if="handbookList[backdrop.id].headimgurl" :src="getImgUrl()+handbookList[backdrop.id].headimgurl" alt="" />
@@ -47,7 +47,6 @@
                 </div>
             </div>
             </router-link>
-            <hr/>
         </div>
         <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_get_diary"></LoadMore>
@@ -171,10 +170,7 @@ p.top{
     margin-top: .5rem;
 }
 #diary_list .diary_third {
-    padding: 0 0.2rem;
-}
-#diary_list .diary_third  hr{
-    margin: .5rem 0;
+    padding:0.2rem;
 }
 #diary_list .diary_third .top {
     position: relative;

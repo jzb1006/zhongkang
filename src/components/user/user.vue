@@ -14,13 +14,13 @@
         </div> 
     </div>
     <div class="usercontent">
-        <div class="item vux-1px-b" @click="toOrder(0)">
+        <div class="item" @click="toOrder(0)">
            <span class="zk-icon-icon- icon single"></span>
            <span class="text">我的订单</span>
            <span class="zk-icon-fanhui1 icon next"></span>
         </div>
-        <div class="cat">
-          <tabbar>
+        <!-- <div class="cat"> -->
+          <tabbar class="cat">
             <tabbar-item selected @on-item-click="toOrder(0)">
               <span slot="icon" class="zk-icon-icon- icon"></span>
               <span slot="label">全部订单</span>
@@ -34,8 +34,8 @@
               <span slot="label">已付款</span>
             </tabbar-item>
           </tabbar>
-        </div>
-        <router-link to="/home/userWallet" tag="div" class="item top vux-1px-b">
+        <!-- </div> -->
+        <router-link to="/home/userWallet" tag="div" class="item top vux-1px-tb">
              <span class="zk-icon-qianbao icon single"></span>
              <span class="text">我的钱包</span>
              <span class="zk-icon-fanhui1 icon next"></span>
@@ -103,6 +103,10 @@ export default {
   #user{
     background:#f0f0f0;
   }
+  .cat{
+    position: relative;
+    padding:.15rem 0;
+  }
   .meCenter{
     position:relative;
     background: #ff5370;
@@ -165,8 +169,8 @@ export default {
     background: #f7f7fa;
   }
   .top{
-    position: relative;
-    top:1rem;
+    /* position: relative;
+    top:1rem; */
     margin-top: .4rem;
   }
   .Setup_icon{
@@ -176,12 +180,7 @@ export default {
     right:.3rem;
     font-size:.6rem;
   }
-  .cat{
-    position:relative;
-    top:1rem;
-    left:0;
-    background:#fff;
-  }
+  
   .single{
     display: inline-block;
     width:6%;

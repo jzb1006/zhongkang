@@ -7,7 +7,7 @@
         <div v-for="backhead in backdropList">
             <div class="up">
                 <div class="img_head">
-                    <defaultImg :imgPath="user.headimgurl" :style.default="img_style" ></defaultImg>
+                    <defaultImg :imgPath="user.headimgurl" :styles="img_style" ></defaultImg>
                     <!-- <img :src="getImgUrl()+user.headimgurl"> -->
                 </div>
                 <router-link :to="{name:'diaryUpdateBasic',query:{bid:backhead.id}}" tag="a">
