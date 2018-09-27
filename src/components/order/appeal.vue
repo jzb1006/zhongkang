@@ -3,7 +3,7 @@
          <!-- 头部 -->
         <top title="向平台申诉"></top>
         <!-- 单选框 -->
-         <upload @imgPath="getImg"></upload>
+         <upload @changeUrls="getImg" :title="'点击添加图片'"></upload>
         <!-- 文本框 -->
         <group>
             <x-textarea :max="20" v-model="textarea" placeholder="输入你的退款理由"></x-textarea>
@@ -12,7 +12,7 @@
         <div style="padding: 1rem 0.1rem;">
             <x-button type="primary" @click.native="submit()">提交</x-button>
         </div>
-
+       <div id="fill"></div>
         <!-- 弹窗 -->
         <div >
         <confirm v-model="confirmShow"
@@ -29,7 +29,7 @@
 </template>
 <script>
 import top from "@/components/decorate/top_back_title.vue";
-import upload from "@/components/decorate/upload.vue";
+import upload from "@/components/public/upload.vue";
 import Alert from "@/components/decorate/alert.vue";
  import api from "../../api/order";
     import {

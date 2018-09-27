@@ -54,6 +54,7 @@ export default {
             var self = this;
             api.ajaxSearch("diary_create_basic").then(res => {
                 self.itemList = res.data;
+                console.log(res.data);
             });
         },
         sel_item1(data) {

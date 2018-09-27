@@ -1,11 +1,11 @@
 <template>
     <div id="panel_order">
         <div style="padding:0.2rem 0.3rem">
-            <div class="status border" v-show="datePanelShow">
+            <div class="status vux-1px-b" v-show="datePanelShow">
                 <div class="l">{{date|date}}</div>
                 <div class="r">{{status}}</div>
             </div>
-            <div class="body" :class="{border:borderShow}">
+            <div class="body" :class="{'vux-1px-b':borderShow}">
                 <div class="panel_img">
                     <img :src="img_path()+path" alt="">
                 </div>

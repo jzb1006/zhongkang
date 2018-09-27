@@ -3,7 +3,7 @@
 		<DiaryDetailTop :bid=bid></DiaryDetailTop>
 		<div v-for="(diary,index) in diaryContent" v-if="index == 0">
 			<div class="content">
-				<span class=" icon_days fl">
+				<span class=" icon_days">
 					<span>第{{getDays(diary.time,diary.course_time)}}天</span>
 				</span>
 				<p>{{diary.content}}</p>
@@ -33,12 +33,13 @@
                 赞
             </div>
 		</div>
+        <Loading v-show="loadinging"></Loading>
 	</div>
 </template>
 <script>
 import api from "@/api/diary";
 import DiaryDetailTop from "./diary_detail_top";
-import Loading from "@/widget/loading";
+import Loading from "@/components/decorate/loading.vue";
 export default {
     data() {
         return {
@@ -49,10 +50,12 @@ export default {
             mediaList: [],
             footer_in:false,
             username:"",
+            loadinging:true,
         };
     },
     components: {
-        DiaryDetailTop
+        DiaryDetailTop,
+        Loading
     },
     methods: {
         $_ajax_getDiaryDetail: function() {
@@ -66,11 +69,11 @@ export default {
                     self.diaryContent = res.data.diary;
                     self.mediaList = res.data.media;
                     self.username = res.data.my_name[0].user_name;
-                    Loading.stop();
+                    self.loadinging = false;
                     // this.commentNum = res.data.comment_num.count(comment_ID);
                 })
                 .catch(error=>{
-                    Loading.stop();
+                    self.loadinging = false;
                 });
         },
         getImgUrl() {
@@ -123,11 +126,7 @@ export default {
             });
         }
     },
-    components: {
-        DiaryDetailTop
-    },
     mounted() {
-        Loading.run();
         this.$_ajax_getDiaryDetail();
     }
 };

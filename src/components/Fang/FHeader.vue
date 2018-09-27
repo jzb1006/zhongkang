@@ -23,7 +23,7 @@ export default{
     },
     mounted(){
         var self = this;
-       bus.$on('changeTitle',function(data){
+        bus.$on('changeTitle',function(data){
            self.sel_title = data;
        })
     }

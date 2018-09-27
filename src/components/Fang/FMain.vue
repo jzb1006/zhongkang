@@ -27,7 +27,7 @@ export default {
 }
 </script>
 <style>
-      .active{
+      .f_active{
           color: #000;
           border:2px solid rgb(255, 83, 112,.7)!important;
       }

@@ -1,8 +1,9 @@
 <template>
   <div id="user">
+    <Loading v-show="loadinging"></Loading>
     <div class="meCenter">
         <div class="setup">
-            <i class="zk-icon-Setup Setup_icon"  @click="toSetup"></i>
+            <router-link to="/home/userSetup" tag="i" class="zk-icon-Setup Setup_icon"></router-link>
         </div>
         <div class="mainInfo">
             <div class="headImg"><img v-bind:src="headimgurl"></div>
@@ -13,15 +14,41 @@
         </div> 
     </div>
     <div class="usercontent">
-        <div class="item top" @click="toWallet">我的钱包</div>
-        <div class="item" @click="toOrder">我的订单</div>
+        <div class="item" @click="toOrder(0)">
+           <span class="zk-icon-icon- icon single"></span>
+           <span class="text">我的订单</span>
+           <span class="zk-icon-fanhui1 icon next"></span>
+        </div>
+        <!-- <div class="cat"> -->
+          <tabbar class="cat">
+            <tabbar-item selected @on-item-click="toOrder(0)">
+              <span slot="icon" class="zk-icon-icon- icon"></span>
+              <span slot="label">全部订单</span>
+            </tabbar-item>
+            <tabbar-item @on-item-click="toOrder(1)">
+              <span slot="icon" class="zk-icon-Group icon"></span>
+              <span slot="label">未付款</span>
+            </tabbar-item>
+            <tabbar-item @on-item-click="toOrder(2)">
+              <span slot="icon" class="zk-icon-yifukuan icon"></span>
+              <span slot="label">已付款</span>
+            </tabbar-item>
+          </tabbar>
+        <!-- </div> -->
+        <router-link to="/home/userWallet" tag="div" class="item top vux-1px-tb">
+             <span class="zk-icon-qianbao icon single"></span>
+             <span class="text">我的钱包</span>
+             <span class="zk-icon-fanhui1 icon next"></span>
+        </router-link>
+        
     </div>
   </div>
 </template>
 
 <script>
 import api from "../../api/user";
-import common from "../../widget/lib/user"
+import Loading from "@/components/decorate/loading.vue";
+import { Tabbar, TabbarItem } from 'vux'
 export default {
     name: 'user',
     data(){
@@ -30,7 +57,8 @@ export default {
             nickname:'',
             userrank:'',
             mobile_phone:'',
-            email:''
+            email:'',
+            loadinging:true
       	}
 	  },
     methods:{
@@ -45,14 +73,8 @@ export default {
             let headimgurl=((argument.headimgurl!=null)&&(argument.headimgurl!=""))?api.imgUrl()+argument.headimgurl:argument.defaultImg;
             return headimgurl;
         },
-        toSetup(){
-            common.checkLogin(this,'/home/userSetup');
-        },
-        toWallet(){
-            common.checkLogin(this,'/home/userWallet');
-        },
-        toOrder(){
-            common.checkLogin(this,'/orderList');
+        toOrder(type){
+            this.$router.push({path:'/orderList',query:{index:type}})
         }
     },
   	mounted(){
@@ -65,16 +87,25 @@ export default {
            this.userrank=res.data.userinfo.level_name;
            this.mobile_phone=res.data.userinfo.mobile_phone;
            this.email=res.data.userinfo.email;
+           this.loadinging=false;
         }).catch(error=>{
            console.log(error);
         })    
-  	}
+    },
+    components:{
+        Tabbar,
+        TabbarItem,
+        Loading
+    }
 }
 </script>
-
 <style scoped>
   #user{
     background:#f0f0f0;
+  }
+  .cat{
+    position: relative;
+    padding:.15rem 0;
   }
   .meCenter{
     position:relative;
@@ -127,40 +158,38 @@ export default {
     margin-top:0.2rem;
   }
   .usercontent{
-    background: #fff;
+    position:relative;
     font-size:0.32rem;
   }
   .item{
     /* text-align: left; */
     padding:0.25rem 0 0.25rem 0.15rem;
-    /* border-bottom:1px solid #ccc; */
-    /* background-color: #eef; */
-    position: relative;
-  }
-  .item:before {
-      content: " ";
-      position: absolute;
-      left: 0;
-      bottom: -2px;
-      right: 0;
-      width:100%;
-      height: 2px;
-      border-bottom: 2px solid #ccc;
-      color: #e5e5e5;
-      -webkit-transform-origin: 0 0;
-      transform-origin: 0 0;
-      -webkit-transform: scaleY(0.5);
-      transform: scaleY(0.5);
-      /* left: 15px; */
+    height:1rem;
+    box-sizing: border-box;
+    background: #f7f7fa;
   }
   .top{
-    margin-top: 0.25rem;
+    /* position: relative;
+    top:1rem; */
+    margin-top: .4rem;
   }
   .Setup_icon{
     display: block;
     position:absolute;
-    top:.2rem;
-    right:.2rem;
+    top:.3rem;
+    right:.3rem;
     font-size:.6rem;
+  }
+  
+  .single{
+    display: inline-block;
+    width:6%;
+  }
+  .text{
+    display:inline-block;
+    width:82%;
+  }
+  .next{
+    display:inline-block;
   }
 </style>

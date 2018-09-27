@@ -1,10 +1,11 @@
 <template>
     <div id="FResource">
         <div class="resource" v-for="(resource,$index) in resources" >
-                <span @click="selectStyle(resource,resource.resource_area)" :class="{'active':checkresource == resource.resource_area}">
+                <span @click="selectStyle(resource,resource.resource_area)" :class="{'f_active':checkresource == resource.resource_area}">
                     {{resource.resource_name}}
                 </span>
         </div>
+        <Loading v-show="loadinging"></Loading>
     </div>
 </template>
 
@@ -12,7 +13,7 @@
 import Vue from 'vue'
 import api from './../../../api/fang'
 import Bus from './../../../assets/bus.js'
-import Loading from './../../Fang/../../widget/loading'
+import Loading from "@/components/decorate/loading.vue";
 
 export default {
     name:"FResource",
@@ -22,6 +23,7 @@ export default {
             treat_id:"",
             r_area:"",
             checkresource:null,
+            loadinging:true,
         }
     },
     methods:{
@@ -32,7 +34,7 @@ export default {
                 res=>{
                     console.log( res.data);
                     self.resources = res.data;
-                    Loading.stop();
+                    self.loadinging = false;
                     let check_ids = this.$store.state.fang.check_ids;
                     // console.log(check_ids);
                     
@@ -50,6 +52,9 @@ export default {
                     }
                 }
             )
+            .catch(error=>{
+                self.loadinging = false;
+            })
         },
         selectStyle:function(resource,index){
             this.checkresource = index;
@@ -71,10 +76,9 @@ export default {
         }
     },
     components:{
-        // FBrand
+        Loading
     },
-    created(){
-        Loading.run();
+    mounted(){
         this.$store.dispatch('Is_Sel',false);
         Bus.$emit('Content_Type','3');
         this.$store.dispatch('Content_Jump','FBrand');
@@ -105,7 +109,7 @@ export default {
         border-radius: 50%;
      }
 
-    #FResource .resource  .active{
+    #FResource .resource  .f_active{
         background-color: rgb(255, 83, 112,.8);
         color: #fff;
      }

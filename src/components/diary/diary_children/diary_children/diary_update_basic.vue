@@ -8,7 +8,7 @@
         </p>
         <div class="pic">
             <div>
-                <Upload :img-max-num=3 :video-max-num=1 :file-type=1></Upload>
+                <Upload @changeUrls="getUrl" :img-max-num=3 :video-max-num=1 :file-type=1 title="添加三张真实图片"></Upload>
             </div>
             <p class="tip">
                 <span>上传三张术前真实照片</span>
@@ -216,6 +216,9 @@ export default {
             Bus.$emit("initImg", arrImg);
 
             Loading.stop();
+        },
+        getUrl(data){
+            this.backdrop_img = data; 
         }
     },
     components: {
@@ -230,24 +233,21 @@ export default {
         Bus.$on("toItem", res => {
             this.chooseItem = res;
         });
-        Bus.$on("changeUrls", res => {
-            this.backdrop_img = res;
-        });
         this.$_getInfo();
     }
 };
 </script>
 <style>
-/* @import url('./../../../../assets/css/calandar.css'); */
+@import url('./../../../../assets/css/calandar.css');
 </style>
 <style scoped>
 #show_institution {
     position: absolute;
+    font-size: 0.3rem;
     /* top: 2rem; */
-    left: 2.35rem;
-    width: 4.52rem;
-    font-size: .35rem;
-    max-height: 5rem;
+    left: 2.1rem;
+    width: 4.5rem;
+    max-height: 2rem;
     overflow-x: hidden;
     border: 1px dotted #000;
     background-color: #fff;
@@ -266,7 +266,7 @@ export default {
 #show_doctor {
     position: absolute;
     /* top: 2rem; */
-    left: 2.35rem;
+    left: 2.1rem;
     width: 4.52rem;
     max-height: 5rem;
     overflow-x: hidden;

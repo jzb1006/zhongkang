@@ -2,7 +2,7 @@
 	<div id="email">
 		<top v-bind:title="title"></top>
 		<div class="email">
-		     <input type="text" class="edit" v-model="email">
+		     <div class="vux-1px include"><input type="text" class="edit" v-model="email"></div>
 		</div>
 		<div class="div2">
 		     <input type="button" class="save" value="保存" @click="editEmail">
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import api from "../../api/user";
+import api from "../../api/setup";
 import common from "../../widget/lib/user"
 import top from '@/components/decorate/top_back_title.vue'
 import {mapState,mapGetters} from 'vuex'
@@ -78,12 +78,19 @@ export default {
 		font-size: 0.3rem;
 		text-align: center;
 	}
+	.include{
+		width:60%;
+		padding:0.2rem;
+		font-size: 0.3rem;
+		margin:0 auto;
+	}
 	.edit{
 		width:70%;
-		border: 2px solid #ccc;
-		padding:0.25rem 0.25rem 0.25rem 0.15rem;
 		font-size: 0.3rem;
 		position: relative;
+        z-index:100;
+        display:block;
+        width:96%;
 	}
 	.div2{
 		margin-top:0.25rem;

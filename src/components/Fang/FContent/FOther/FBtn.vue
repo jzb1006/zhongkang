@@ -1,10 +1,4 @@
 <template>
-    <!-- <div class="container border border-dark rounded-circlr">
-        <span v-on:click="changeShow">查看账单</span>
-        <transition name="slide-fade">
-            <FAcound v-show="fshow"></FAcound>
-        </transition>
-    </div> -->
         <div id="FBtn">
         <span v-on:click="changeShow">查看账单</span>
         <transition name="slide-fade">

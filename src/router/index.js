@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store'
+import api from '../api/user'
 
 import Search from '@/components/search/search.vue'
 import productDetail from '@/components/product/detail.vue'
+import proDiary from '@/components/product/pro_diary.vue'
 import mycart from '@/components/shopping/mycart_checkout.vue'
 import pay from '@/components/shopping/pay.vue'
 import orderList from '@/components/order/order_list.vue'
-// import login from '@/components/user/login.vue'
 import orderDetail from '@/components/order/order_detail.vue'
 import applyRefund from '@/components/order/apply_refund.vue'
 import appeal from '@/components/order/appeal.vue'
@@ -16,6 +17,7 @@ import hospitalDetail from '@/components/hospital/detail.vue'
 import insAlbum from '@/components/hospital/ins_album.vue'
 import ins_imgList from '@/components/hospital/img_list.vue'
 import ins_licence from '@/components/hospital/licence.vue'
+import insDiary from '@/components/hospital/ins_diary.vue'
 import docList from '@/components/hospital/doc_list.vue'
 import Map from '@/components/hospital/to_Map.vue'
 
@@ -24,6 +26,7 @@ import docAlbum from '@/components/doctor/doc_album.vue'
 import doc_imgList from '@/components/doctor/img_list.vue'
 import doc_licence from '@/components/doctor/licence.vue'
 import doctorDetail from '@/components/doctor/detail.vue'
+import doctorDiary from '@/components/doctor/doc_diary.vue'
 
 import HProductList from '@/components/home/product_list.vue'
 import HDoctorList from '@/components/home/doctor_list.vue'
@@ -62,6 +65,33 @@ import addbank from '@/components/user_wallet/user_addbank'
 import chooseBank from '@/components/user_wallet/user_chooseBank'
 import balance from '@/components/user_wallet/user_balance'
 import recharge from '@/components/user_wallet/user_recharge'
+
+//图一图
+import atlasesList from '@/components/atlases/atlases_list'
+import atlasesDetail from '@/components/atlases/atlases_detail'
+import atlasesAdd from '@/components/atlases/add_atlases'
+import atlasesUpdate from '@/components/atlases/update_atlases'
+
+//评论
+import commentInput from '@/components/comment/comment_input'
+import commentList from '@/components/comment/comment_list'
+import commentDetail from '@/components/comment/comment_detail'
+import test from '@/components/comment/test'
+
+//视一视
+import RehaList from '@/components/reha_video/rehaList'
+import RehaDetail from '@/components/reha_video/reha_detail'
+import addVideo from '@/components/reha_video/add_video'
+import updateVideo from '@/components/reha_video/update_video'
+
+//文章
+import articleList from '@/components/article/article_list'
+import articleDetail from '@/components/article/article_detail'
+
+//素材
+import materialList from '@/components/material/material_list'
+import articledetail from '@/components/material/article_detail'
+import videodetail from '@/components/material/video_detail'
 Vue.use(Router)
 
 const router = new Router({
@@ -69,6 +99,86 @@ const router = new Router({
     {
       path: '/',
       redirect:'/home/diaryList'
+    },
+    {
+      path: '/materialList',
+      name: 'materialList',
+      component : materialList,
+    },
+    {
+      path: '/articledetail',
+      name: 'articledetail',
+      component : articledetail
+    },
+    {
+      path: '/videodetail',
+      name: 'videodetail',
+      component : videodetail,
+    },
+    {
+      path: '/articleList',
+      name: 'articleList',
+      component : articleList,
+    },
+    {
+      path: '/RehaList',
+      name: 'RehaList',
+      component : RehaList,
+    },
+    {
+      path: '/RehaDetail',
+      name: 'RehaDetail',
+      component : RehaDetail,
+    },
+    {
+      path: '/addVideo',
+      name: 'addVideo',
+      component : addVideo,
+    },
+    {
+      path: '/updateVideo',
+      name: 'updateVideo',
+      component : updateVideo,
+    },
+    {
+      path: '/commentInput',
+      name: 'commentInput',
+      component : commentInput,
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component : test,
+    },
+    {
+      path: '/commentList',
+      name: 'commentList',
+      component : commentList,
+    },
+    {
+      path: '/commentDetail',
+      name: 'commentDetail',
+      component : commentDetail,
+    },
+    {
+      path: '/atlasesList',
+      name: 'atlasesList',
+      component : atlasesList,
+    },
+    {
+      path: '/atlasesDetail',
+      name: 'atlasesDetail',
+      component : atlasesDetail,
+    },
+    {
+      path: '/atlasesAdd',
+      name: 'atlasesAdd',
+      component : atlasesAdd,
+    },
+    {
+      path: '/atlasesUpdate',
+      name: 'atlasesUpdate',
+      component : atlasesUpdate,
     },
     {
       path: '/FMain',
@@ -178,6 +288,11 @@ const router = new Router({
       component: productDetail
     },
     {
+      path: '/proDiary',
+      name: 'proDiary',
+      component: proDiary
+    },
+    {
       path: '/mycart',
       name: 'mycart',
       component: mycart
@@ -256,6 +371,16 @@ const router = new Router({
       name: 'doctorDetail',
       component: doctorDetail
     },
+    {
+      path: '/doctorDiary',
+      name: 'doctorDiary',
+      component: doctorDiary
+    },
+    {
+      path: '/ins_diary',
+      name: 'insDiary',
+      component: insDiary
+    },
     // {
     //   path: '/docAlbum/:doc_id',
     //   name: 'docAlbum',
@@ -309,7 +434,7 @@ const router = new Router({
     {
       path: '/home/diaryList',
       name: 'diaryList',
-      component: ()=> import('@/components/diary/diary_list.vue'),
+      component: ()=> import('@/components/diary/diary_head.vue'),
     },
     {
       path: '/hospitalList',
@@ -323,38 +448,48 @@ const router = new Router({
     },
     {
       path: '/home/user',
+      name:'user',
       component: HUser
     },
     {
       path: '/home/userSetup',
+      name:'userSetup',
       component: HUserSetup
     },
     {
       path: '/home/userSelfinfo',
+      name:'userSelfinfo',
       component: HUserSelfinfo
     },
     {
       path: '/home/userEditphone',
+      name:'userEditphone',
       component: HUserEditPhone
     },
     {
       path: '/home/userEditpassword',
+      name:'userEditpassword',
       component: HUserEditPassword
     },
     {
       path: '/home/userEditemail',
+      name:'userEditemail',
       component: HUserEditEmail
     },
     {
       path: '/home/userWallet',
+      name:'userWallet',
       component: HUserWallet,
+      redirect:'/home/balance',
       children:[
         {
           path:'/home/balance',
+          name:'balance',
           component:balance
         },
         {
           path:'/home/bank',
+          name:'bank',
           component:bank
         },
         {
@@ -371,19 +506,23 @@ const router = new Router({
     
     {
       path:'/home/recharge',
+      name:'recharge',
       component:recharge
     },
     {
       path:'/home/cash',
+      name:'cash',
       component:cash
     },
     
     {
       path:'/home/addBank',
+      name:'addBank',
       component:addbank
     },
     {
       path:'/home/chooseBank',
+      name:'chooseBank',
       component:chooseBank
     },
     {
@@ -416,10 +555,23 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.name=='productDetail' || to.name=='mycart'){
+  if(to.name=='productDetail' || to.name=='mycart' || to.name=='orderDetail'){
     store.dispatch('changeTabShow',false);
   }else{
     store.dispatch('changeTabShow',true);
+  }
+  if(to.name=='user'||to.name=='orderList'||to.name=='recharge'||to.name=='cash'||to.name=='addBank'||
+    to.name=='userSelfinfo'||to.name=='userEditphone'||to.name=='userEditpassword'||to.name=='userEditemail'||
+    to.name=='balance'||to.name=='bank'||to.name=='bill'||to.name=='userSetup'||to.name=='userWallet'||to.name=='orderList'||
+    to.name=='chooseBank' || to.name=='diaryBackdropList'){
+      api.ajaxloginPost('checkLogin').then(res=>{
+          console.log(res.data);
+          if(res.data.error==0){
+            router.push({name:'login'});
+          }
+      }).catch(error=>{
+          console.log(error);
+      })
   }
   
   next();

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img alt="" :src="imgUrl(imgPath)" lazy="loaded">
+        <img alt="" :src="imgUrl(imgPath)" v-bind:style="styles" lazy="loaded">
     </div>
 </template>
 <script>
@@ -16,6 +16,15 @@
             imgPath: {
                 // type: [String,Object],
                 required: true
+            },
+            styles:{
+                default:()=>{
+                    return{
+                    width: '100%',
+                    height: '1rem',
+                    borderRadius: '999px'
+                }
+              }
             }
         },
         methods: {
@@ -28,13 +37,9 @@
                 }
                 return this.getImgUrl()+imgPath;
             }
-        }
+        },
     }
 </script>
 <style scoped>
-    img {
-        width: 100%;
-         height: 1rem;
-        border-radius: 999px;
-    }
+   
 </style>

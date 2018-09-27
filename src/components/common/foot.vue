@@ -18,7 +18,7 @@
                     <span slot="icon" class="zk-icon-project-o icon"></span>
                     <span slot="label">项目</span>
                 </tabbar-item>
-                <tabbar-item @click.native="toUser">
+                <tabbar-item link="/home/user">
                     <span slot="icon" class="zk-icon-iconfonticon5 icon"></span>
                     <span slot="label">个人中心</span>
                 </tabbar-item>
@@ -32,11 +32,6 @@
     } from 'vux'
     import common from '../../widget/lib/user'
     export default {
-        methods:{
-            toUser(){
-                common.checkLogin(this,'/home/user');
-            }
-        },
         components: {
             Tabbar,
             TabbarItem,
@@ -48,6 +43,7 @@
         position: fixed;
         width: 100%;
         bottom: 0;
+        z-index: 500;
     }
     .weui-tabbar__icon {
         width: 0.5rem!important;

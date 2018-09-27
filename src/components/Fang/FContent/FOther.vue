@@ -34,7 +34,7 @@ export default {
         width: 1rem;
         height: 1rem;
     }
-    .active{
+    .f_active{
         background: #000;
     }
     .container>div{

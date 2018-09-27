@@ -55,7 +55,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .content{
         margin-top:2.5rem;
         font-size: 0.3rem;
@@ -65,7 +65,7 @@ export default {
         margin-bottom:0.4rem;
     }
     .input{
-        border:2px solid #ccc;
+        border:1px solid #ccc;
         padding:0.25rem;
         font-size:0.3rem;
     }
@@ -73,5 +73,8 @@ export default {
         width:30%;
         padding:0.25rem;
         font-size:0.3rem;
+        background: #ff5370;
+        color:#fff;
+        border-radius:.2rem;
     }
 </style>

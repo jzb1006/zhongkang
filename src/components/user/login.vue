@@ -3,10 +3,10 @@
     <top title="登录"></top>
     <div class="content_login">
          <div class="text">
-                <input  placeholder="手机/邮箱" type="text" v-model="username" class="input">
+                <div class="vux-1px include"><input  placeholder="手机/邮箱" type="text" v-model="username" class="input"></div>
          </div>
          <div class="text">
-                <input placeholder="请输入密码" type="password" v-model="password" class="input">
+                <div class="vux-1px include"><input placeholder="请输入密码" type="password" v-model="password" class="input"></div>
          </div>
          <div class="text">
                <input value="登录" type="button" @click="submit_login" class="login">
@@ -90,11 +90,20 @@ export default {
     .text{
         margin-bottom:0.3rem;
     }
+    .include{
+		width:60%;
+		padding:0.2rem;
+		font-size: 0.3rem;
+        margin:0 auto;
+	}
     .input{
-        border:2px solid #ccc;
-        width:60%;
+        position: relative;
+        z-index:100;
+        display:block;
+        width:100%;
+        box-sizing: border-box;
         font-size: 0.3rem;
-        padding:0.2rem 0.2rem 0.2rem 0.1rem;
+        margin:0 auto;
     }
     .login{
         width:65%;
@@ -102,12 +111,12 @@ export default {
         padding:0.2rem 0.2rem 0.2rem 0.1rem;
         border:none;
         border-radius:0.2rem;
-        background:rgb(10, 153, 146);
-        color:#fff;
+        background: #ff5370;
+		color:#fff;
     }
     .reg{
         text-decoration:none;
-        color:rgb(10, 153, 146);
+        color:#ff5370;
         font-size:0.3rem;
     }
 </style>

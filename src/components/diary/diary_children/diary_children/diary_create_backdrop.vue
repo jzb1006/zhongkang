@@ -6,7 +6,7 @@
         </p>
         <div class="pic">
             <div class="text-center m-1">
-                <Upload :img-max-num=3 :video-max-num=1 :file-type=1></Upload>
+                <Upload @changeUrls="getUrl" :img-max-num=3 :video-max-num=1 :file-type=1 title="添加三张真实图片"></Upload>
             </div>
             <p class="tip">
                 <span>上传三张术前真实照片</span>
@@ -18,7 +18,7 @@
                     <i v-for="item in chooseItem">{{item.name}}</i>
                 </span>
                 <span class="badge_r">
-                    <x-icon type="ios-arrow-forward" size=".5rem"></x-icon>
+                   <i class="zk-icon-fanhui1"></i>
                 </span>
             </li>
             <li class="sel_time">
@@ -46,6 +46,7 @@
             </li>
         </ul>
         <diarySelItem></diarySelItem>
+        <div id="fill"></div>
     </div>
 </template>
 <script>
@@ -56,6 +57,7 @@ import apiH from "@/api/hospital";
 import api from "@/api/diary";
 import { Group, Calendar } from "vux";
 import top from "@/components/decorate/top_back_title.vue";
+import Utils from '@/widget/lib/Utils'
 
 export default {
     data() {
@@ -173,36 +175,8 @@ export default {
 
             return true;
         },
-        dpr() {
-            (function(e, l) {
-                var c,
-                    k,
-                    d,
-                    f = e.document,
-                    g = f.documentElement,
-                    h = l.flexible || (l.flexible = {});
-                (function() {
-                    var a,
-                        b = f.querySelector('meta[name="viewport"]');
-                    c = e.devicePixelRatio || 1;
-                    a = 1;
-                    g.setAttribute("data-dpr", 0);
-                    a =
-                        "width=device-width, initial-scale=" +
-                        a +
-                        ", minimum-scale=" +
-                        a +
-                        ", maximum-scale=" +
-                        a +
-                        ", user-scalable=no";
-                    b
-                        ? b.setAttribute("content", a)
-                        : ((b = f.createElement("meta")),
-                          b.setAttribute("name", "viewport"),
-                          b.setAttribute("content", a),
-                          (f.head || g.firstElementChild).appendChild(b));
-                })();
-            })(window, window.FT || (window.FT = {}));
+        getUrl(data){
+            this.backdrop_img = data; 
         }
     },
     components: {
@@ -213,17 +187,15 @@ export default {
         top
     },
     mounted() {
-        this.dpr();
         Bus.$on("toItem", res => {
             this.chooseItem = res;
-        });
-        Bus.$on("changeUrls", res => {
-            this.backdrop_img = res;
         });
     }
 };
 </script>
-<style>
+
+<style lang="less">
+@calendar-selected-bg-color:#000;
 @import url("./../../../../assets/css/calandar.css");
 </style>
 

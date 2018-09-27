@@ -2,7 +2,7 @@
 	<div id="FFooter">
 		<div class="row">
 			<div class="col_6 btn_l" @click="$router.back(-1)" v-show="back">
-				<p class="top" >
+				<p class="prep" >
 					<span>上一步</span>
 				</p>
 			</div>
@@ -36,8 +36,6 @@ export default {
 			if(this.$store.state.fang.is_sel){
 				let content = this.$store.state.fang.contentJump;
 				let contentData = this.$store.state.fang.contentData;
-
-				console.log(contentData);
 				this.$router.push({path: content, query: contentData});
 			}else{
 				alert("请选择！！");

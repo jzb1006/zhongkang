@@ -10,7 +10,7 @@
             </p>
             <div class="date">
                 <group>
-                    <Datetime v-model="day" :start-date="initdata" :end-date="getToday()" title="选择日期"></Datetime>
+                    <Datetime v-model="day" :start-date="initdata" :end-date="getToday()" @on-show="click_date" title="选择日期"></Datetime>
                 </group>
                 <div class="col_5">
                     <p class="day">术后第
@@ -22,12 +22,12 @@
             </div>
             <textarea-autosize class="content" placeholder="写日记分享变美过程，获得日志奖励" v-model="items.content" ref="count">
                 </textarea-autosize>
-            
-            <Upload uploadSel="classics" :img-max-num=9 :video-max-num=1 :file-type=3></Upload>
+            <toast v-model="show">添加成功</toast>
+            <Upload uploadSel="classics" @changeUrls="getUrl" :img-max-num=9 :video-max-num=1 :file-type=3 title="添加图片或者视频"></Upload>
         </div>
         <div>
-            
         </div>
+        
     </div>
 </template>
 <script>
@@ -36,6 +36,8 @@ import api from "@/api/diary";
 import apiUp from "@/api/upload";
 import Bus from "@/assets/bus.js";
 import top from "@/components/decorate/top_back_title.vue";
+import Utils from '@/widget/lib/Utils'
+import { Toast } from 'vux'
 
 import { Datetime, Group } from "vux";
 export default {
@@ -54,7 +56,8 @@ export default {
             bid: "",
             backdropList: [],
             memuList: [],
-            differDay: 0
+            differDay: 0,
+            show:false,
         };
     },
     computed: {},
@@ -62,7 +65,8 @@ export default {
         Upload,
         Datetime,
         Group,
-        top
+        top,
+        Toast
     },
     watch:{
         'day':function(){
@@ -70,6 +74,10 @@ export default {
         }
     },
     methods: {
+        click_date(){
+            console.log(12312313);
+            Utils.dpr();
+        },
         changeStatus() {
             this.status = !this.status;
 
@@ -126,9 +134,10 @@ export default {
         submit() {
             let pd = this.examination();
             if (pd) {
-                let show_type = 1;
+                let show_type = 'show';
+
                 if (!this.status) {
-                    show_type = 2;
+                    show_type = 'hidden';
                 }
 
                 let origin_urls = "";
@@ -158,10 +167,14 @@ export default {
                 api.ajaxSubmit("ajax_create_diary", fromData).then(res => {
                     console.log(res.data);
                     if (res.data.error == 0) {
-                        this.$router.push({
-                            name: "diaryDetail",
-                            query: { bid: self.bid, did: res.data.did }
-                        });
+                        self.show = true;
+                        this.timer = setInterval(() => {
+                            this.$router.push({
+                                name: "diaryDetail",
+                                query: { bid: self.bid, did: res.data.did }
+                            });
+                        self.show = false;
+                        }, 1000);
                     } else {
                         alert(res.data.message);
                     }
@@ -198,54 +211,25 @@ export default {
                 }
             }
         },
-        dpr() {
-            (function(e, l) {
-                var c,
-                    k,
-                    d,
-                    f = e.document,
-                    g = f.documentElement,
-                    h = l.flexible || (l.flexible = {});
-                (function() {
-                    var a,
-                        b = f.querySelector('meta[name="viewport"]');
-                    c = e.devicePixelRatio || 1;
-                    a = 1;
-                    g.setAttribute("data-dpr", 0);
-                    a =
-                        "width=device-width, initial-scale=" +
-                        a +
-                        ", minimum-scale=" +
-                        a +
-                        ", maximum-scale=" +
-                        a +
-                        ", user-scalable=no";
-                    b
-                        ? b.setAttribute("content", a)
-                        : ((b = f.createElement("meta")),
-                          b.setAttribute("name", "viewport"),
-                          b.setAttribute("content", a),
-                          (f.head || g.firstElementChild).appendChild(b));
-                })();
-            })(window, window.FT || (window.FT = {}));
+        getUrl(data){
+            this.fileUrls = data; 
         }
     },
     mounted() {
-        this.dpr();
+        // Utils.dpr();
         this.bid = this.$route.query.bid;
         this.$_ajax_getInfo();
         var self = this;
-        Bus.$on("changeUrls", function(msg) {
-            self.fileUrls = msg;
-        });
+    },
+    beforeDestroy () {
+        clearInterval(this.timer)
     }
 };
 </script>
-
+<style>
+@import url("./../../../../assets/css/calandar.css");
+</style>
 <style scoped>
-.ios-arrow-back{
-    fill: #fff;
-}
 .col_5 {
     width: 50%;
     float: left;

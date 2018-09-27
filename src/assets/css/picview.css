@@ -1,0 +1,13 @@
+.pswp__counter {
+    position: fixed!important;
+    left: 0;
+    top: auto!important;
+    bottom: 160px!important;
+    height: 44px;
+    font-size: 13px;
+    line-height: 44px;
+    color: #FFF;
+    /* opacity: 0.75; */
+    padding: 0 10px;
+    background-color: #00000080;
+}

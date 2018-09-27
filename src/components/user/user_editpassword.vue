@@ -3,13 +3,13 @@
 		<top title="修改密码"></top>
 		<div class="content_password">
 			<div class="div1">
-		        <span class="span">原密码:</span><input type="password" placeholder="原密码" v-model="oldPassword" class="input">
+		        <div class="span">原密码:</div><div class="vux-1px include"><input type="password" placeholder="原密码" v-model="oldPassword" class="input"></div>
 			</div>
 			<div class="div1">
-		        <span class="span">新密码:</span><input type="password" placeholder="新密码" v-model="newPassword"  class="input">
+		        <div class="span">新密码:</div><div class="vux-1px include"><input type="password" placeholder="新密码" v-model="newPassword"  class="input"></div>
 			</div>
 			<div class="div1">
-		        <span class="span">确认密码:</span><input type="password" placeholder="确认密码" v-model="confirmPassword" class="input">
+		        <div class="span">确认密码:</div><div class="vux-1px include"><input type="password" placeholder="确认密码" v-model="confirmPassword" class="input"></div>
 			</div>
 			<div class="div1">
 		        <input type="button" value="修改" @click="update_pass" class="submit">
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import api from "../../api/user";
+import api from "../../api/setup";
 import common from "../../widget/lib/user"
 import top from '@/components/decorate/top_back_title.vue'
 export default {
@@ -83,21 +83,44 @@ export default {
 		text-align: center;
 	}
 	.div1{
-		margin-top:0.3rem;
+		width:80%;
+		margin:.3rem auto;
+		height: 1rem;
+		vertical-align: middle;
+		position: relative;
+	}
+	.div1::after{
+		content:'';
+        display:block;
+        clear:both;
 	}
 	.span{
-		display:inline-block;
-		width:30%;
+		width:25%;
+		float:left;
 		text-align:right;
-		padding-right:20px;
+		margin-right:.2rem;
+		line-height: 1rem;
+	}
+	.include{
+		width:60%;
+		float:left;
+		padding:0.2rem;
+		font-size: 0.3rem;
+		position:absolute;
+		top:50%;
+		right:0;
+		transform: translateY(-50%);
 	}
 	.input{
-		border:2px solid #ccc;
-		padding:0.25rem 0.25rem 0.25rem 0.15rem;
 		font-size: 0.3rem;
+		position: relative;
+        z-index:100;
+        display:block;
+        width:96%;
+        margin:0 auto;
 	}
 	.submit{
-		width:40%;
+		width:60%;
 		padding:0.25rem 0.25rem 0.25rem 0.15rem;
 		font-size: 0.3rem;
 		background: #ff5370;

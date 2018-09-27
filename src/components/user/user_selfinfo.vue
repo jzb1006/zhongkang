@@ -2,18 +2,18 @@
     <div id="selfinfo">
         <top v-bind:title="title"></top>
         <div class="content">
-            <div class="item distance">
+            <div class="item distance vux-1px-b">
                 <!-- <div class="left">修改头像</div> -->
                 <div class="left"><img class="headimg" v-bind:src="nopre"></div>    
-                <Upload :img-max-num = 1 :video-max-num= 1 :file-type=1 :sign="sign"><span class="text">修改头像</span></Upload> 
+                <Upload @changeUrls="getUrl" :file-type=1 :sign="sign"><span class="text">修改头像</span></Upload> 
                 <div class="clear"></div>
             </div>
-            <div class="item">
+            <div class="item vux-1px-b">
                 <span class="left">昵称:</span>
-                <input type="text" class="right input" v-model="nickname">
+                <div class="vux-1px right"><input type="text" class="input" v-model="nickname"></div>
                 <div class="clear"></div>
             </div>
-            <div class="item">
+            <div class="item vux-1px-b">
                 <span class="left">性别:</span>
                 <div class="sexradio">
                      <label><input type="radio" name="sex" value="0" v-model="sex" class="radio">男</label>
@@ -21,18 +21,18 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class="item">
-                <span class="left">真实姓名:</span>
-                <input type="text" class="right input" v-model="realname">
+            <div class="item vux-1px-b">
+                <div class="left">真实姓名:</div>
+                <div class="vux-1px right"><input type="text" class="input" v-model="realname"></div>
                 <div class="clear"></div>
             </div>
-            <div class="item">
+
                 <!-- <span class="left">生日</span> -->
                 <!-- <vue-datepicker-local class="right" v-model="birthday"/> -->
                 <group>
                     <calendar title="生日:" v-model="birthday" disable-future></calendar>
                 </group>
-            </div>
+
             <div class="save">
                 <input type="button" class="saveBtn" value="保存" @click="saveUserinfo">
             </div>
@@ -41,13 +41,16 @@
 </template>
 
 <script>
-import api from "../../api/user";
+import user from "../../api/user";
+import api from "../../api/setup";
 import common from "../../widget/lib/user"
 // import Bus from './../../assets/bus.js';
 import top from "@/components/decorate/top_back_title.vue";
 import Upload from '@/components/common/upload.vue'
 import {mapState,mapGetters} from 'vuex'
 import { Calendar,Group } from 'vux'
+import Utils from '@/widget/lib/Utils'
+
 export default {
     name: 'selfinfo',
     data(){
@@ -59,7 +62,7 @@ export default {
             birthday:'',
             sex:'',
             title:'个人信息',
-            sign:'headimg',
+            sign:'headimgurl',
             temporary:''
         }
     },
@@ -82,6 +85,15 @@ export default {
                 let date=new Date();
                 let currentdate=common.formatDate(date);
                 return currentdate;
+            }
+        },
+        getUrl(data){    
+            console.log('头像');   
+            if(data.length >= 1){
+                this.headimgurl=data[0];
+                this.nopre=user.imgUrl()+data[0];
+                data.splice(0,1);
+                
             }
         },
         saveUserinfo(){
@@ -109,7 +121,7 @@ export default {
                 'realName':realname,
                 'headimgurl':headimgurl
             };
-            api.ajaxSetupPost('update_userinfo',postData).then(res=>{
+            api.update_userinfo(postData).then(res=>{
                 if(res.data.error==7){
                     alert(res.data.message);
                     this.$router.push('/login');
@@ -127,7 +139,22 @@ export default {
             }).catch(error=>{
                 console.log(error);
             })
-        }
+        },
+        dpr() {
+			(function(e, l) {
+			var c, k, d, f = e.document,
+			g = f.documentElement,
+			h = l.flexible || (l.flexible = {});
+			(function() {
+			var a, b = f.querySelector('meta[name="viewport"]');
+			c = e.devicePixelRatio || 1;
+			a = 1;
+			g.setAttribute("data-dpr",0);
+			a = "width=device-width, initial-scale=" + a + ", minimum-scale=" + a + ", maximum-scale=" + a + ", user-scalable=no";
+			b ? b.setAttribute("content", a) : (b = f.createElement("meta"), b.setAttribute("name", "viewport"), b.setAttribute("content", a), (f.head || g.firstElementChild).appendChild(b))
+			})();
+			})(window, window.FT || (window.FT = {}));
+		}
     },
     computed:{
         ...mapGetters([
@@ -167,16 +194,13 @@ export default {
     }
 }
 </script>
+<style>
+@import url("./../../assets/css/calandar.css");
+</style>
 <style scoped>
     #selfinfo{
         background:#f0f0f0;
     }
-    /* .distance>>>.position-relative{
-        padding:0.2rem;
-        width:3.1rem;
-        font-size: .35rem;
-        float:right;
-    } */
     .text{
         font-size:.3rem;
         display:inline-block;
@@ -192,24 +216,8 @@ export default {
         font-size:0.3rem;
     }
     .item{
-        /* text-align: left; */
         padding:0.25rem 0 0.25rem 0.15rem;
         background: #fff;
-        position: relative;
-        margin-bottom:0.08rem;
-    }
-    .item:before{
-        position: absolute;
-        left: 0;
-        bottom: -2px;
-        right: 0;
-        width:100%;
-        height: 2px;
-        border-bottom: 2px solid #ccc;
-        -webkit-transform-origin: 0 0;
-        transform-origin: 0 0;
-        -webkit-transform: scaleY(0.5);
-        transform: scaleY(0.5);
     }
     .clear{
         content:'';
@@ -226,8 +234,8 @@ export default {
         box-sizing:border-box;
     }
     .right{
-        float:right;
-        width:65%;
+        float:left;
+        width:62%;
     }
     .sexradio{
         width:65%;
@@ -235,7 +243,11 @@ export default {
         text-align: left;
     }
     .input{
-        border:1px solid #ccc;
+        position: relative;
+        z-index:100;
+        display:block;
+        width:98%;
+        margin:.1rem auto;
         padding:0.1rem;
         font-size: .3rem;
         box-sizing:border-box;

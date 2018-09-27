@@ -3,7 +3,7 @@
     <top title="丢失手机号"></top>
     <div class="content">
          <div class="div1">
-                <input type="text" class="email" placeholder="邮箱" v-model="email">
+                <div class="vux-1px include"><input type="text" class="email" placeholder="邮箱" v-model="email"></div>
          </div>
          <div class="div1">
                <input type="button" class="complete" value="找回密码"  id="submit" @click="email_verification">
@@ -65,25 +65,31 @@ export default {
         font-size: 0.3rem;
         text-align:center;
     }
-    .email,.complete{
-        width:70%;
-        margin:0 auto;
-    }
     .div1{
         margin-bottom:0.4rem;
     }
+    .include{
+		width:60%;
+		padding:.2rem;
+		font-size: .3rem;
+		margin:0 auto;
+	}
     .email{
-        border: 2px solid #ccc;
-        padding:0.25rem;
+        width:100%;
+		font-size: 0.3rem;
+		position: relative;
+        z-index:100;
+        display:block;
         box-sizing:border-box;
-        font-size:0.3rem;
     }
     .complete{
         /* width:30%; */
-        padding:0.25rem;
+        width:40%;
+        margin:0 auto;
+        padding:.2rem;
         font-size:0.3rem;
-        background:rgb(10, 153, 146);
-        color:#fff;
+        background: #ff5370;
+		color:#fff;
         border-radius:.2rem;
     }
 </style>

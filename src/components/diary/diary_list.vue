@@ -1,17 +1,17 @@
 <template>
     <div id="diary_list">
-        <searchBar :title="'众康医疗'" :iconShow="true"></searchBar>
-        <DiaryHead></DiaryHead>
-        <div class="diary_third" v-for="backdrop in backdropList">
+        <div class="diary_third vux-1px-b" v-for="(backdrop,index) in backdropList" v-if="checkOnce(index)">
             <div class="top">
                 <div class="headImg">
-                    <img src="1.jpg" alt="" />
+                    <img v-if="handbookList[backdrop.id].headimgurl" :src="getImgUrl()+handbookList[backdrop.id].headimgurl" alt="" />
                 </div>
-                <span class="user_name">{{handbookList[backdrop.id].user_name}}</span>
+                <span class="user_name" v-if="handbookList[backdrop.id].nickname">{{handbookList[backdrop.id].nickname}}</span>
+                <span class="user_name" v-else>{{handbookList[backdrop.id].user_name}}</span>
                 <span class="time">{{diaryList[backdrop.id].course_time}}</span>
             </div>
+            <router-link :to="{name:'diaryBackdrop',query:{bid:backdrop.id}}" tag="div">
             <div class="middle clearfix">
-                <router-link :to="{name:'diaryBackdrop',query:{bid:backdrop.id}}" tag="a">
+                
                     <div class="avg" v-if="mediaList[diaryList[backdrop.id].id].type == '1'">
                         <div class="b_left contrast_img">
                             <img v-lazy="getImgUrl()+backdrop.img1">
@@ -28,7 +28,7 @@
                     <div v-else>
 
                     </div>
-                </router-link>
+                
             </div>
             <div class="bottom">
                 <p class="item">
@@ -41,26 +41,25 @@
                     <div class="other_see">
                         <span><i class="zk-icon-dianzan"></i>-{{diaryList[backdrop.id].favor}}</span>
                     </div>
-                    <!-- <div class="other_see">
+                    <div class="other_see">
                         <span><i class="zk-icon-edit"></i>-{{handbookList[backdrop.id].total_comment}}</span>
-                    </div> -->
+                    </div>
                 </div>
             </div>
-            <hr/>
+            </router-link>
         </div>
+        <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_get_diary"></LoadMore>
-
     </div>
 </template>
 <script>
 import Vue from "vue";
-import DiaryHead from "./diary_head";
 import api from "@/api/diary";
-import Loading from "@/widget/loading";
+import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
-import searchBar from "@/components/home/search_bar.vue";
 
 export default {
+    props:['insId','once','docId','cid','query'],
     name: "diary_list",
     data() {
         return {
@@ -72,13 +71,13 @@ export default {
             pd: "",
             page: 0,
             isBusy: false,
-            hasMore: 0
-        };
+            hasMore: 0,
+            loadinging:true,
+        }
     },
     components: {
-        DiaryHead,
         LoadMore,
-        searchBar
+        Loading
     },
     methods: {
         $_get_diary: function() {
@@ -88,11 +87,14 @@ export default {
             let arr = {
                 page: self.page,
                 pageList: 3,
-                pd: this.pd
+                pd: this.pd,
+                doctor_id:self.docId,
+                institution_id:self.insId,
+                cid:self.cid, 
+                query:this.query
             };
 
             api.ajaxSearch("diary_index", arr).then(res => {
-                console.log(res);
                 this.hasMore = res.data.hasMore;
                 self.handbookList = Object.assign(
                     self.handbookList,
@@ -106,12 +108,10 @@ export default {
                 self.memuList = Object.assign(self.memuList, res.data.memu);
                 self.backdropList = self.backdropList.concat(res.data.backdrop);
                 this.isBusy = false;
-                Loading.stop();
+                self.loadinging = false;
             })
             .catch(error => {
-                Loading.stop();
-            }).catch(err=>{
-                Loading.stop();
+                self.loadinging = false;
             });
         },
         getImgUrl() {
@@ -133,54 +133,44 @@ export default {
             }
             return scrollTop;
         },
-        dpr() {
-            (function(e, l) {
-                var c,
-                    k,
-                    d,
-                    f = e.document,
-                    g = f.documentElement,
-                    h = l.flexible || (l.flexible = {});
-                (function() {
-                    var a,
-                        b = f.querySelector('meta[name="viewport"]');
-                    c = e.devicePixelRatio || 1;
-                    a = 1;
-                    g.setAttribute("data-dpr", 0);
-                    a =
-                        "width=device-width, initial-scale=" +
-                        a +
-                        ", minimum-scale=" +
-                        a +
-                        ", maximum-scale=" +
-                        a +
-                        ", user-scalable=no";
-                    b
-                        ? b.setAttribute("content", a)
-                        : ((b = f.createElement("meta")),
-                          b.setAttribute("name", "viewport"),
-                          b.setAttribute("content", a),
-                          (f.head || g.firstElementChild).appendChild(b));
-                })();
-            })(window, window.FT || (window.FT = {}));
+        checkOnce(index){
+            if(this.once){
+                if(index < this.once){
+                    return true;
+                }
+                return false;
+            }
+            return true;
         }
     },
     mounted() {
-        Loading.run();
         this.$_get_diary();
-        this.dpr();
     }
 };
 </script>
+<style>
+p.top{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: #fff;
+    font-size: 0.35rem;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    background-color: rgb(255, 83, 112);
+    z-index: 999;
+}
+</style>
+
 <style scoped>
 #diary_list {
-    /*padding: 0 15px;*/
+    margin-top: .5rem;
 }
 #diary_list .diary_third {
-    padding: 0 0.2rem;
-}
-#diary_list .diary_third  hr{
-    margin: .5rem 0;
+    padding:0.2rem;
 }
 #diary_list .diary_third .top {
     position: relative;
@@ -232,10 +222,13 @@ export default {
     float: right;
 }
 #diary_list .diary_third .middle .show_video {
+    text-align:center;
     width: 100%;
+    height: 4.5rem;
+    overflow: hidden;
 }
 #diary_list .diary_third .middle .show_video video {
-    width: 100%;
+    height: 100%;
 }
 #diary_list .diary_third .middle .avg .contrast_img .img_tip {
     position: absolute;

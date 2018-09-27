@@ -1,25 +1,35 @@
+.weui-cells:before{
+    border-top: 0px!important;
+}
 .weui-cells {
-    font-size: .3rem!important;
+    /* margin-top: 0!important; */
+    font-size: .35rem!important;
+}
+.weui-cells:after{
+    border-bottom: 0px!important;
 }
 
 .inline-calendar th {
-    font-size: .5rem !important;
+    font-size: .35rem !important;
 }
 
 .inline-calendar td > span.vux-calendar-each-date {
-    width: auto!important;
-    height: auto!important;
-    font-size: 0.4rem!important;
-    line-height: .6rem!important;
+    /* width: auto!important; */
+    /* height: auto!important; */
+    font-size: 0.2rem!important;
+    /* line-height: .4rem!important; */
 }
 
 .vux-prev-icon, .vux-next-icon {
-    width: .3rem!important;
-    height: .3rem!important;
+    width: .2rem!important;
+    height: .2rem!important;
 }
 
 .inline-calendar a {
-    top: 0.3rem!important;
+    font-size: .4rem!important;
+}
+.inline-calendar a {
+    top: 0.4rem!important;
 }
 .vux-next-icon {
     top: 0.3rem!important;

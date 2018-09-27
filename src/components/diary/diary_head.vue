@@ -1,5 +1,6 @@
 <template>
     <div id="diary_head">
+        <searchBar :title="'众康医疗'" :iconShow="true"></searchBar>
         <p>
             <router-link :to="{name:'diaryBackdropList'}">
             <span>写日记</span>
@@ -7,16 +8,47 @@
              <router-link :to="{name:'FMain'}">
             <span>医导</span>
              </router-link>
-        </p>
-    </div>
+             <router-link :to="{name:'atlasesList'}">
+                 <span>图集</span>
+             </router-link>
+             <router-link :to="{name:'RehaList'}">
+                 <span>视频</span>
+             </router-link>
+             <router-link :to="{name:'commentList'}">
+                 <span>评论列表</span>
+             </router-link>
+             <router-link :to="{name:'test'}">
+                 <span>评论框</span>
+             </router-link>
+             <router-link :to="{name:'articleList'}">
+                 <span>文章</span>
+             </router-link>
+             <router-link :to="{name:'materialList'}">
+                 <span>素材</span>
+             </router-link>
 
+             
+        </p>
+        <DiaryList></DiaryList>
+    </div>
 </template>
 
 <script>
-export default {};
+import common from '../../widget/lib/user'
+import DiaryList from "./diary_list";
+import searchBar from "@/components/home/search_bar.vue";
+export default {
+    components:{
+        DiaryList,
+        searchBar
+    }
+};
 </script>
 
 <style scoped>
+#diary_head{
+
+}
 #diary_head p {
     text-align: right;
 }

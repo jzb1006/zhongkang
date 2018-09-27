@@ -1,7 +1,7 @@
 <template>
     <div id="FTreatMethods">
 		<ul class="ol_list">
-			<li class="ol_li" v-for="(treat,$index) in treat_list.treat_method" :class="{'active':check_treat == treat.treat_id}"  @click="selectStyle(treat,treat.treat_id)">
+			<li class="ol_li" v-for="(treat,$index) in treat_list.treat_method" :class="{'f_active':check_treat == treat.treat_id}"  @click="selectStyle(treat,treat.treat_id)">
 				<p class="name">{{treat.treat_name}}</p>
 				<p class="introduce">
                     <!-- <router-link :to="{path: '/FResource',query: {name: treat.treat_id}}"> -->
@@ -10,11 +10,14 @@
                 <div class="clearfix">
                     <button type="button" class="btn_d" @click="show_detail(treat.treat_id)">详情</button>
                 </div>
-                <transition name="bounce">
-                    <p class="detail border border-dark p-2" v-show="'c_'+treat.treat_id == check_detail">{{treat.treat_detail}}</p>
-                </transition>
+                <!-- <transition name="bounce"> -->
+                    <div v-html="treat.treat_detail" class="detail border border-dark p-2" v-show="'c_'+treat.treat_id == check_detail">
+                        {{treat.treat_detail}}
+                    </div>
+                <!-- </transition> -->
 			</li>
 		</ul>
+        <Loading v-show="loadinging"></Loading>
 	</div>
 </template>
 
@@ -22,7 +25,7 @@
 import Vue from 'vue'
 import api from './../../../api/fang'
 import Bus from './../../../assets/bus.js'
-import Loading from './../../Fang/../../widget/loading'
+import Loading from "@/components/decorate/loading.vue";
 import {mapState,mapActions} from 'vuex'
 export default {
     name:"treat_method",
@@ -34,7 +37,7 @@ export default {
             tid:"",
             treat_list:{},
             check_detail:"",
-
+            loadinging:true,
         }
     },
     methods:{
@@ -44,9 +47,8 @@ export default {
             var cid = this.cid;
             api.ajaxSearch('get_treat_methods',{cid:cid}).then(
                 res=>{
-                    this.treat_list = res.data;
-                    console.log(res.data);
-                    Loading.stop();
+                    self.treat_list = res.data;
+                    self.loadinging = false;
                     let check_ids = this.$store.state.fang.check_ids;
                     for(let index in check_ids){
                         if(check_ids[index].num == 2){
@@ -62,6 +64,9 @@ export default {
                     }
                 }
             )
+            .catch(error=>{
+                self.loadinging = false;
+            })
         },
         selectStyle:function(treat,index){
             this.tid = index;
@@ -128,29 +133,21 @@ export default {
             this.check_detail = 'c_'+id;
         }
     },
-    computed:{
- 
+    components:{
+        Loading
     },
     mounted(){
-        Loading.run();
         this.$store.dispatch('Is_Sel',false);
         Bus.$emit('Content_Type','2');
         this.cid = this.$route.query.cid;
         this.$_ajax_treat();
         Bus.$emit("changeTitle","选择治疗方法");
-        // let check_ids = this.$store.state.fang.check_ids;
-        // for(let index in check_ids){
-        //     if(check_ids[index].num == 2){
-        //         this.check_treat = check_ids[index].id;
-        //         this.$store.dispatch('Is_Sel',true);
-        //     }
-        // }
-
     }
 }
 </script>
 
 <style scoped>
+
     #FTreatMethods{
         margin: 2rem 0;
         padding: .1rem .3rem;
@@ -182,7 +179,7 @@ export default {
         background: #343a40;
         z-index: 1;
     }
-    #FTreatMethods .ol_list .ol_li p.detail{
+    #FTreatMethods .ol_list .ol_li div.detail{
         font-size: .3rem;
         margin-top: .1rem;
         padding: .1rem;

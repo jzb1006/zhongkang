@@ -102,7 +102,16 @@
                 </ul>
                 <div class="business-info"><span>营业时间：{{ins_info['office_hours']}}</span></div>
             </section>
-            <div id="fill"></div>
+            <!-- 商家日记 -->
+            <section class="diary-box">
+                <div class="title border-bot">商家日记
+                     <router-link :to="{name:'insDiary',query:{ins_id:ins_id}}" class="fr right">
+                         查看更多日记
+                            <i class="zk-icon-jiantou" style="font-size: 0.3rem;"></i>
+                     </router-link>
+                </div>
+                <diary :insId=ins_id :once = 1 :query=true></diary>
+            </section>
         </div>
         <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
@@ -125,6 +134,7 @@
     import star from "@/components/decorate/star.vue";
     import commentInfo from "@/components/decorate/comment_info.vue";
     import product from '@/components/product/list.vue'
+    import diary from '@/components/diary/diary_list.vue';
     export default {
         data() {
             return {
@@ -152,7 +162,6 @@
                 api.detail({
                     id: this.ins_id
                 }).then(res => {
-                    console.log(res)
                     var result = res.data.data;
                     var errcode = res.data.error_code;
                     var msg = res.data.msg;
@@ -196,7 +205,8 @@
             defaultImg,
             star,
             commentInfo,
-            product
+            product,
+            diary
         }
     }
 </script>

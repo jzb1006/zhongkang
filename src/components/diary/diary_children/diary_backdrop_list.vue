@@ -31,23 +31,26 @@
                 </div>
             </li>
         </ul>
+        <Loading v-show="loadinging"></Loading>
     </div>
 </template>
 
 <script>
 import api from "./../../../api/diary";
-import Loading from "@/widget/loading";
+import Loading from "@/components/decorate/loading.vue";
 import top from "@/components/decorate/top_back_title.vue";
 export default {
     data() {
         return {
             backdropList: [],
             itemName: [],
-            diaryCount: []
+            diaryCount: [],
+            loadinging:true,
         };
     },
     components:{
-        top
+        top,
+        Loading
     },
     methods: {
         $_ajax_backdropList: function() {
@@ -56,10 +59,10 @@ export default {
                 self.backdropList = res.data.backdrop;
                 self.itemName = res.data.item_name;
                 self.diaryCount = res.data.diary_count;
-                Loading.stop();
+                self.loadinging = false;
             })
             .catch(error => {
-                Loading.stop();
+                self.loadinging = false;
             });
         },
         formatCid(data) {
@@ -68,7 +71,6 @@ export default {
         }
     },
     mounted() {
-        Loading.run();
         this.$_ajax_backdropList();
     }
 };
