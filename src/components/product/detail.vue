@@ -94,7 +94,8 @@
     import productItem from "@/components/decorate/product_item.vue";
     import top from "@/components/product/top_bar.vue";
     import diary from './../diary/diary_list'
-     import defaultImg from "@/components/decorate/default_img.vue";
+    import defaultImg from "@/components/decorate/default_img.vue";
+    
     import {
         Tab,
         TabItem
@@ -120,6 +121,7 @@
                 title: '商品详情',
                 surrentTab: 0,
                 cid:"",
+                keyword:''
             }
         },
         methods: {
@@ -138,6 +140,8 @@
                     self.hospital = res.data.institution_info[0];
                     self.doctor_info = res.data.doctor_info;
                     self.cid = res.data.goodsinfo.cat_id;
+                    self.keyword = self.result.meta_keys+','+self.result.goods_name
+                    
                 }).catch(error => {
                     console.log(error);
                 })
@@ -194,11 +198,13 @@
             },
             onItemClick(index) {
                 this.surrentTab = index;
-            }
+            },
         },
-        created() {
+        mounted() {
             this.$_ajax_product_detail();
-            
+        },
+        destroyed(){
+            this.behavior.behavior_data(this.keyword,3);
         },
        
         components: {

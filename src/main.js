@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import {} from './widget/lib/flexible'
+import behavior from '../static/lib/behavior'
 import Vue from 'vue'
 import App from './App'
 import store from './store'
@@ -12,10 +13,9 @@ import "./assets/css/routeAnimate.css";
 import VueTextareaAutosize from 'vue-textarea-autosize'
 import VueLazyload from 'vue-lazyload'  //引入这个懒加载插件
 import { Toast } from 'vux'
-
 Vue.component('toast', Toast)
 Vue.use(VueTextareaAutosize)
-
+Vue.prototype.behavior = behavior
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   error: './../static/images/error.png',

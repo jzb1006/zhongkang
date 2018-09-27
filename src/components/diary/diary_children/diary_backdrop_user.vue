@@ -21,8 +21,8 @@
                         <span class="name" v-if="user.nickname">{{user.nickname}}</span>
                         <span class="name" v-else>{{user.user_name}}</span>
                     </div>
-                    <div class="col_6 clearfix">
-                        <span class="item" v-for="memu in memuList">{{memu.cat_name}}</span>
+                    <div class="col_6 clearfix" ref="keyword">
+                        <span class="item" :key="index" v-for="(memu,index) in memuList">{{memu.cat_name}}</span>
                     </div>
                     <div class="col_4">
                         <span class="time">{{backhead.add_time}}</span>
@@ -64,6 +64,7 @@ export default {
             s_uid: 0,
             p_uid: 0,
             img_style:'width:100%;min-height:100%',
+            keyword:this.$refs.keyword
         };
     },
     props: ["bid"],
@@ -73,6 +74,7 @@ export default {
     },
     methods: {
         $_ajax_getBackdrop: function() {
+            
             var self = this;
             let bid = this.$route.query.bid;
 
@@ -97,8 +99,8 @@ export default {
         }
     },
     mounted() {
-        this.$_ajax_getBackdrop();
-    }
+        this.$_ajax_getBackdrop(); 
+    },
 };
 </script>
 <style scoped>
