@@ -746,6 +746,10 @@ button {
 #search * {
   box-sizing: border-box;
 }
+#iso{
+  height:1rem;
+  width:100%;
+}
 #fill{
   height: 1.5rem;
   width: 100%;

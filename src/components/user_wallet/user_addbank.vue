@@ -18,7 +18,9 @@
                       <input type="text" v-model="banksn"  class="pw">
                 </div>
                 <div class="box">
-                      <input class="num" type="text"  v-model="VerificationCode" placeholder="请输入验证码"><input type="button" class="btn" value="获取验证码" @click="getVerificationCode">
+                      <div class="code">
+                          <verification-code :isHasPhone="false" @inputCode="inputCode"></verification-code>
+                      </div>
                 </div>
                 <div class="box confirm">
                       <input type="button" class="submit" @click="update_user_bank" value="确认提交">
@@ -31,6 +33,7 @@
 import api from "../../api/wallet"
 import user from "../../api/user"
 import top from "@/components/decorate/top_back_title.vue";
+import verificationCode from '@/components/common/verificationCode.vue'
 export default {
     name: 'addbank',
     data(){
@@ -38,13 +41,27 @@ export default {
             banknames:'支付宝',
             unames:'',
             banksn:'',
-            VerificationCode:''
+            verificationCode:'',
+            codeText:'获取验证码',
+            flag:true,
         }
     },
     methods:{
         getVerificationCode(){
             user.ajaxuserPost('yanzhengma').then(res=>{
+                var self=this;
                 alert(`验证码为${res.data},仅作测试用`);
+                var i=60;
+                var timeId=setInterval(()=>{
+                    self.flag=false;
+                    i=i-1;
+                    self.codeText=i.toString()+' 秒';
+                    if(i==0){
+                        clearInterval(timeId);
+                        self.flag=true;
+                        self.codeText="重新获取";
+                    }
+                },1000);
             }).catch(error=>{
                 console.log(error);
             }) 
@@ -53,7 +70,7 @@ export default {
             let banknames = this.banknames;
             let unames = this.unames;
             let banksns = this.banksn;
-            let yanzhengma=this.VerificationCode;
+            let yanzhengma=this.verificationCode;
             let reg_mobile=/^1[3458]\d{9}$/g;
             if(banknames==""){
                 alert('请输入银行单位');
@@ -86,10 +103,14 @@ export default {
                 })
             }
             return false;
+        },
+        inputCode(data){
+            this.verificationCode=data;
         }
     },
     components:{
-      top
+      top,
+      verificationCode,
     }
 }
 </script>
@@ -129,10 +150,9 @@ export default {
        color:#fff;
        border-radius:.2rem;
    }
-   .num{
-       border: 1px solid #ccc;
-       font-size:.3rem;
-       padding:0.2rem 0.2rem 0.2rem 0.1rem;
+   .code{
+       width:85%;
+       margin:0 auto;
    }
    .btn{
        border: 1px solid #ccc;

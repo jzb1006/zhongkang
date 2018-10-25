@@ -30,17 +30,18 @@
 		             <input type="button" @click="select" value="查询" class="search" />
 		    	</div>
 		    </div>
-		    <div class="billrecord">
-		    	<div class="top vux-1px-b" v-if="income!=0||cost!=0">
+		    <div class="billrecord" v-if="income!=0||cost!=0">
+		    	<div class="top vux-1px-b">
 		    		<span>{{start}}至{{stop}}</span>
 	                <span>总收入{{income}}</span>
 	                <span>总支出{{cost}}</span>
 		    	</div>
-		    	<div v-else>
-		    		<p>该时间段内没有账单记录</p>
-		    	</div>
-		    	<billitem v-for="r in result" v-bind:item="r" v-bind:key="r.order_sn"></billitem>
-		    	<LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="query"></LoadMore>
+		    	
+		    	<billitem v-if="r.order_sn!=''&&r.order_sn!=null" v-for="r in result" v-bind:item="r" v-bind:key="r.order_sn"></billitem>
+		    	<LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="query" class="bg"></LoadMore>
+		    </div>
+			<div v-else>
+		    		<nosearch text="该时间段内没有账单记录" class="nosearch"></nosearch>
 		    </div>
 		</div>
   	</div>
@@ -52,6 +53,7 @@ import common from "../../widget/lib/user"
 import billitem from '@/components/user_wallet/bill_item'
 import LoadMore from '@/components/loadMore/index.vue'
 import Loading from "@/components/decorate/loading.vue";
+import nosearch from "@/components/nosearch/index.vue";
 import { Calendar,Group } from 'vux'
 
 export default {
@@ -163,7 +165,8 @@ export default {
 		LoadMore,
 		Calendar,
 		Group,
-		Loading
+		Loading,
+		nosearch
 	}
 }
 </script>
@@ -180,9 +183,6 @@ export default {
 	}
 	.head{
 		padding-bottom:0.3rem;
-	}
-	.billrecord{
-		margin-bottom:1.2rem;
 	}
 	.span{
 		padding-top:0.2rem;
@@ -244,6 +244,13 @@ export default {
 		border-radius: 0.15rem;
 		background: #ff5370;
         color:#fff;
+	}
+	.bg{
+		background:#fff;
+	}
+	.nosearch{
+		position: relative;
+		top:-50%;
 	}
 </style>
 

@@ -14,9 +14,7 @@
 			</div>
 			<div class="div1">
 				<div class="code">
-					<div class="vux-1px include left"><input type="text" class="input yan" placeholder="手机验证码" v-model="code"></div>
-					<span class="input get right" @click="get_yanzhengma">获取验证码</span>
-					<div class="clear"></div>
+					<verification-code :phoneNum="this.newphone" @inputCode="inputCode"></verification-code>
 				</div>
 			</div>
 			<div class="div1">
@@ -30,23 +28,19 @@
 import api from "../../api/setup";
 import common from "../../widget/lib/user"
 import top from '@/components/decorate/top_back_title.vue'
+import verificationCode from '@/components/common/verificationCode.vue'
 import {mapState,mapGetters} from 'vuex'
 export default {
 	name:'phone',
 	data(){
 		return {
 			newphone:'',
-			code:''
+			code:'',
 		}
 	},
 	methods:{
-		//获取验证码(手机号码未存在才发送验证码）
-        get_yanzhengma(){
-            let mobileNum=this.newphone;
-            if(!common.checkPhoneNum(mobileNum)){
-                return false;
-            }
-            common.getVerificationCode(mobileNum);
+		inputCode(data){
+            this.code=data;
         },
         update_mobile(){
         	let code=this.code;
@@ -86,7 +80,8 @@ export default {
 		}
 	},
 	components:{
-		top
+		top,
+		verificationCode,
 	}
 }
 </script>
@@ -109,11 +104,6 @@ export default {
 		padding:.25rem .05rem;
 		box-sizing: border-box;
 	}
-	.include{
-		width:70%;
-        margin:0 auto;
-		padding:.1rem;
-	}
 	.phone{
 		position: relative;
         z-index:100;
@@ -129,15 +119,6 @@ export default {
 		width:70%;
         margin:0 auto;
 	}
-	/* .phone{
-		border:1px solid #ccc;
-		padding:0.25rem 0.15rem;
-		font-size: 0.3rem;
-	} */
-	.input{
-		/* padding:0.25rem 0.15rem; */
-		font-size: 0.3rem;
-	}
 	.yan{
 		box-sizing: border-box;
 		position: relative;
@@ -146,17 +127,6 @@ export default {
         width:100%;
         margin:0 auto;
 		padding:.15rem .15rem .15rem 0;
-	}
-	.get{
-		box-sizing: border-box;
-		position: relative;
-        z-index:100;
-        display:block;
-        width:100%;
-        margin:0 auto;
-		padding:.27rem 0;
-		background: #ff5370;
-        color:#fff;
 	}
 	.div1{
 		margin-top:0.3rem;
@@ -169,20 +139,4 @@ export default {
 		background: #ff5370;
         color:#fff;
 	}
-	.left{
-        padding:0.1rem;
-        float:left;
-        width:65%;
-        box-sizing:border-box;
-    }
-    .right{
-        float:left;
-        width:35%;
-		box-sizing:border-box;
-    }
-	.clear{
-        content:'';
-        display:block;
-        clear:both;
-    }
 </style>

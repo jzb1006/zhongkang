@@ -45,7 +45,8 @@
                 </div>
             </li>
         </ul>
-        <diarySelItem></diarySelItem>
+        <diarySelItem>
+        </diarySelItem>
         <div id="fill"></div>
     </div>
 </template>

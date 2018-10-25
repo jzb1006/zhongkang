@@ -1,17 +1,19 @@
 <template>
 	<div id="recharge">
 		<top title="充值"></top>
-		<div class="content">
-			 <div class="div1">
+		<div class="content vux-1px-b">
+			 <div class="text">
 			        <span class="span">充值金额:</span>
 			 </div>
 			 <div class="div1">
 	               <span class="renminbi"><i class="zk-icon-renminbi1"></i></span>
-	        	   <input type="number" v-model="amount" placeholder="输入充值金额" class="input">
+	        	   <div class="vux-1px include"><input type="number" v-model="amount" placeholder="输入充值金额" class="input"></div>
+				   <div class="clear"></div>
 			 </div>	
 		</div>
 		<div class="div2 meone">
-		     <input type="button" value="下一步" @click="recharge" :class="classObject">
+		     <!-- <a @click="jump" href="javascript:;" target="_black" :class="classObject">下一步</a> -->
+			 <span @click="jump">下一步</span>
 		</div>
 		<div>
 			<confirm v-model="show" :title="confirmTitle" @on-confirm="onConfirm"></confirm>
@@ -49,6 +51,12 @@ export default {
 		}
     },
     methods:{
+		jump(){
+			var timestamp = (new Date()).getTime();
+			console.log(timestamp);
+			// this.i=this.i+1;
+			window.location.href="http://192.168.0.110/m/pay.php?action=pay&pay_id=3&order_sn="+timestamp+"&subject=充值&order_amount="+this.amount;
+		},
 		onConfirm(){
 			var value=this.amount;
 			var amount=parseFloat(value);	
@@ -119,34 +127,58 @@ export default {
 
 <style scoped>
 	.content{
-		/*margin-top:240px;*/
-		font-size: 0.3rem;
-		border-top:2px solid #ccc;
-		border-bottom:2px solid #ccc;
+		font-size: .3rem;
 		text-align:left;
 	}
-	.renminbi img{
-		width:45px;
-		height:45px;
+	.renminbi{
+		float:left;
+		width:10%;
+		box-sizing: border-box;
+		line-height: .6rem;
 	}
-	.div1,.input{
-		padding:0.25rem 0.25rem 0.25rem 0.15rem;
-		font-size: 0.3rem;
+	.include{
+		width:80%;
+		float:left;
+		padding:.2rem;
+		box-sizing: border-box;
+		font-size: .3rem;
+	}
+	.clear{
+		content:"";
+		display:block;
+		clear:both;
 	}
 	.input{
-		border: 2px solid #ccc;
+		font-size: .3rem;
+		position: relative;
+        z-index:100;
+        display:block;
+        width:96%;
+        margin:0 auto;
+	}
+	.text{
+		padding:.25rem .25rem .25rem .15rem;
+		font-size: .3rem;
+	}
+	.div1{
+		padding:.25rem .25rem .6rem .15rem;
+		font-size: .3rem;
+		position: relative;
+		height:.6rem;
 	}
 	.div2{
-		margin-top:0.4rem;
+		margin-top:.4rem;
 	}
 	.next{
+		/* border: 1px solid #ccc; */
+		background: #ccc;
 		font-size: 0.3rem;
 		display:block;
-        width:80%;
+        width:60%;
         margin:0.3rem auto;
-        padding:0.15rem 0;
+        padding:0.15rem .15rem;
 		font-size: 0.3rem;
-    }
+    } 
 	.toggleColor{
         background: #ff5370;
         color:#fff;

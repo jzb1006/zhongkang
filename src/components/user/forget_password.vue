@@ -6,14 +6,8 @@
             <div class="vux-1px include"><input type="text" v-model="phonenum" class="phone" placeholder="手机号码"></div>
         </div>
         <div class="div1">
-            <!-- <div class="code">
-                <input type="text" class="yan" v-model="verificationCode" placeholder="手机验证码">
-                <input type="button" class="get" value="获取验证码" @click="get_yanzhengma_exist">
-            </div> -->
             <div class="code">
-                <div class="vux-1px include left"><input type="text" class="input yan" placeholder="手机验证码" v-model="verificationCode"></div>
-                <span class="input get right" @click="get_yanzhengma_exist">获取验证码</span>
-                <div class="clear"></div>
+                <verification-code :exist="true" :phoneNum="this.phonenum" @inputCode="inputCode"></verification-code>
             </div>
         </div>
         <div class="div1">
@@ -32,23 +26,17 @@
 import api from '../../api/user'
 import common from '../../widget/lib/user'
 import top from '@/components/decorate/top_back_title.vue'
+import verificationCode from '@/components/common/verificationCode.vue'
 export default {
     name: 'password',
     data(){
     	return {
     		phonenum: '',
             verificationCode:'',
-            title:'找回密码'
+            title:'找回密码',
     	} 
 	},
 	methods: {
-        get_yanzhengma_exist(){
-            let mobileNum=this.phonenum;
-            if(!common.checkPhoneNum(mobileNum)){
-                return false;
-            }
-            common.getVerificationCode_exit(mobileNum);
-        },
         message_verification(){
             let Mobile=this.phonenum;
             let yanzhengma=this.verificationCode;
@@ -68,10 +56,14 @@ export default {
             }).catch(error=>{
                 console.log(error);
             })
+        },
+        inputCode(data){
+            this.verificationCode=data;
         }
     },
     components:{
-        top
+        top,
+        verificationCode,
     }
 }
 </script>
@@ -104,7 +96,7 @@ export default {
         padding:.15rem .15rem .15rem 0;;
         box-sizing: border-box;
     }
-    .input,.find,.yan,.get{
+    .find{
         padding:0.25rem 0.12rem;
         font-size:0.3rem;
         box-sizing: border-box;
@@ -118,41 +110,5 @@ export default {
         text-decoration:none;
         color:#ff5370;
         font-size:0.3rem;
-    }
-    .yan{
-		box-sizing: border-box;
-		position: relative;
-        z-index:100;
-        display:block;
-        width:100%;
-        margin:0 auto;
-		padding:.15rem .15rem .15rem .15rem;
-	}
-	.get{
-		box-sizing: border-box;
-		position: relative;
-        z-index:100;
-        display:block;
-        width:100%;
-        margin:0 auto;
-		padding:.27rem 0;
-		background: #ff5370;
-        color:#fff;
-	}
-    .left{
-        padding:0.1rem;
-        float:left;
-        width:65%;
-        box-sizing:border-box;
-    }
-    .right{
-        float:left;
-        width:35%;
-		box-sizing:border-box;
-    }
-	.clear{
-        content:'';
-        display:block;
-        clear:both;
     }
 </style>

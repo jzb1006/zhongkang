@@ -5,7 +5,7 @@
                 <input type="file" name="sf_upfile" @change="changeFile($event)" class="position-absolute upfile btn btn-sm btn-outline-info">{{title}}
             </form>
         </span>
-        <fileShow :file-url="fileUrls" :init-files="initFiles"></fileShow>
+        <fileShow :file-url="fileUrls" :init-files="initFiles" v-if="sign!='headimg'"></fileShow>
         <Loading v-show="loadinging"></Loading>
     </div>
 </template>
@@ -16,7 +16,27 @@ import Bus from "./../../assets/bus.js";
 import fileShow from "@/components/public/fileShow.vue";
 import Loading from "@/components/decorate/loading.vue";
 export default {
-    props: ["img-max-num", "video-max-num", "file-type","title"],
+    // props: ["img-max-num", "video-max-num", "file-type","title","sign"],
+    props:{
+        "img-max-num":{
+            type:[String,Number]
+        },
+        "video-max-num":{
+            type:[String,Number]
+        },
+        "file-type":{
+            type:[Number]
+        },
+        "title":{
+            type:[String,Number,Object]
+        },
+        "sign":{
+            type:[String,Number,Object]
+        },
+        oldPhoto:{
+            type:[String,Array]
+        }
+    },
     data() {
         return {
             fileUrls: [],
@@ -31,6 +51,13 @@ export default {
             ],
             loadinging:false,
         };
+    },
+    watch:{
+        oldPhoto:function(newValue,oldValue){
+            console.log(newValue);
+            this.fileUrls=newValue;
+            this.initFiles = JSON.parse(JSON.stringify(this.fileUrls));
+        }
     },
     components: {
         fileShow,

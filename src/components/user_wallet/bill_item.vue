@@ -1,12 +1,14 @@
 <template>
 	<div id="billItem">
-		<div class="box" @click="detail(item.order_sn)">
-			<div class="left">
-				<p class="desc">{{item.changedesc}}</p>
-				<p class="time">{{item.thismonth}}</p>
+		<router-link :to="{name:'billDetail',params:{order_sn:item.order_sn}}">
+			<div class="box">
+				<div class="left">
+					<p class="desc">{{item.changedesc}}</p>
+					<p class="time">{{item.thismonth}}</p>
+				</div>
+				<div class="right">{{item.money}}</div>
 			</div>
-			<div class="right">{{item.money}}</div>
-		</div>
+		</router-link>
 	</div>
 </template>
 
@@ -19,11 +21,6 @@
 				required:true
 			}
 		},
-		methods:{
-			detail(sn){
-				this.$router.push({path:'/home/billDetail',query:{order_sn:sn}});
-			}
-		}
 	}
 </script>
 

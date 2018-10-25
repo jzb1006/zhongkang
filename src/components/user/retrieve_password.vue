@@ -16,6 +16,7 @@
 import api from '../../api/user'
 import common from '../../widget/lib/user'
 import top from '@/components/decorate/top_back_title.vue'
+import md5 from 'js-md5';
 export default {
     name: 'findpass',
     data(){
@@ -36,7 +37,7 @@ export default {
                 alert('密码应为6-12位的字母或数字');
                 return false;
             }
-            api.ajaxloginPost('login_forgetpass',{new_password:password}).then(res=>{
+            api.findPass({new_password:md5(password)}).then(res=>{
                 if(res.data.error==0){
                     alert(res.data.message+'请重新登录');
                     this.$router.push({path:'/login',query:{BackToPrevious:false}});

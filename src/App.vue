@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <router-view class="child-view"></router-view>
+      <keep-alive include="requirement,customized">
+        <router-view class="child-view"></router-view>
+      </keep-alive>
     </transition>
     <foot v-show="navbarShow"></foot>
   </div>

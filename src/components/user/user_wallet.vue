@@ -1,7 +1,7 @@
 <template>
     <div id="wallet">
           <top title="钱包"></top>
-          <tab>
+          <tab class="nav">
             <tab-item selected @on-item-click="toBalance">
                 <p class="route">余额</p>
             </tab-item>
@@ -43,7 +43,7 @@ export default {
 }
 </script>
 <style>
-    .vux-tab .vux-tab-item {
+    /* .vux-tab .vux-tab-item {
         font-size: 0.3rem!important;
     }
     .vux-tab-container,
@@ -66,7 +66,7 @@ export default {
     .route {
         height: 1rem;
         line-height: 1rem;
-    }
+    } */
 </style>
 <style scoped>
     #wallet{
@@ -77,6 +77,9 @@ export default {
         line-height: 1.5rem;
         font-size: 0.3rem;
         text-align: center;
+    }
+    .nav{
+        margin-bottom:.2                                                                                                                                                                                         rem;
     }
     .span{
         display:inline-block;

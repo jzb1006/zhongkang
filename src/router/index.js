@@ -45,6 +45,7 @@ import FHospital from '@/components/Fang/FContent/FOther/FHospital.vue'
 import FNursing from '@/components/Fang/FContent/FOther/FNursing.vue'
 
 import login from '@/components/user/login.vue'
+import frequentLogin from '@/components/user/frequent_login.vue'
 import register from '@/components/user/register.vue'
 import forgetPassword from '@/components/user/forget_password.vue'
 import losephone from '@/components/user/losephone.vue'
@@ -65,6 +66,33 @@ import addbank from '@/components/user_wallet/user_addbank'
 import chooseBank from '@/components/user_wallet/user_chooseBank'
 import balance from '@/components/user_wallet/user_balance'
 import recharge from '@/components/user_wallet/user_recharge'
+
+import customized from '@/components/customized/customized'
+import requirement from '@/components/customized/requirement'
+import confirmOrder from '@/components/customized/confirmOrder'
+import cuspay from '@/components/customized/cuspay'
+import adviser from '@/components/adviser/list'
+import customizedOrder from '@/components/customized/customizedOrder'
+import adviserAuthentication from '@/components/adviser/adviserAuthentication'
+import adviserReceipt from '@/components/adviser/adviserReceipt'
+import receiptDetail from '@/components/adviser/receiptDetail'
+import customizedReply from '@/components/adviser/customizedReply'
+import programme from '@/components/adviser/addProgramme'
+import customizedOrderDetail from '@/components/customized/customizedOrderDetail'
+import viewReply from '@/components/customized/viewReply'
+import replyOrder from '@/components/adviser/replyOrder'
+import replyOrderDetail from '@/components/adviser/replyOrderDetail'
+import inquiries from '@/components/customized/inquiries'
+import ask from '@/components/customized/ask'
+import customized_applyRefund from '@/components/customized/customized_applyRefund'
+import customized_appeal from '@/components/customized/customized_appeal'
+import appeal_confirm_consumption from '@/components/adviser/appeal_confirm_consumption'
+import editProgramme from '@/components/adviser/editProgramme'
+import adviserViewReply from '@/components/adviser/viewReply'
+import answer from '@/components/adviser/answer'
+
+
+
 Vue.use(Router)
 
 const router = new Router({
@@ -393,10 +421,125 @@ const router = new Router({
       ]
     },
     {
-      path:'/home/billDetail',
+      path:'/home/customized',
+      name:'customized',
+      component:customized
+    },
+    {
+      path:'/requirement',
+      name:'requirement',
+      component:requirement
+    },
+    {
+      path:'/confirmOrder',
+      name:'confirmOrder',
+      component:confirmOrder
+    },
+    {
+      path:'/cuspay',
+      name:'cuspay',
+      component:cuspay
+    },
+    {
+      path:'/adviser',
+      name:'adviser',
+      component:adviser
+    },
+    {
+      path:'/customizedOrder',
+      name:'customizedOrder',
+      component:customizedOrder
+    },
+    {
+      path:'/adviserAuthentication',
+      name:'adviserAuthentication',
+      component:adviserAuthentication
+    },
+    {
+      path:'/adviserReceipt',
+      name:'adviserReceipt',
+      component:adviserReceipt
+    },
+    {
+      path:'/receiptDetail',
+      name:'receiptDetail',
+      component:receiptDetail
+    },
+    {
+      path:'/customizedReply',
+      name:'customizedReply',
+      component:customizedReply
+    },
+    {
+      path:'/programme',
+      name:'programme',
+      component:programme
+    },
+    {
+      path:'/customizedOrderDetail',
+      name:'customizedOrderDetail',
+      component:customizedOrderDetail
+    },
+    {
+      path: '/customized_applyRefund/:tt/:oid/:status',
+      name: 'customized_applyRefund',
+      component: customized_applyRefund,
+    },
+    {
+      path: '/customized_appeal/:tt/:oid/:status',
+      name: 'customized_appeal',
+      component: customized_appeal,
+    },
+    {
+      path: '/appeal_confirm_consumption/:tt/:oid/:status',
+      name: 'appeal_confirm_consumption',
+      component: appeal_confirm_consumption,
+    },
+    {
+      path:'/viewReply',
+      name:'viewReply',
+      component:viewReply
+    },
+    {
+      path:'/adviserViewReply',
+      name:'adviserViewReply',
+      component:adviserViewReply
+    },
+    {
+      path:'/editProgramme',
+      name:'editProgramme',
+      component:editProgramme
+    },
+    {
+      path:'/replyOrder',
+      name:'replyOrder',
+      component:replyOrder
+    },
+    {
+      path:'/replyOrderDetail',
+      name:'replyOrderDetail',
+      component:replyOrderDetail
+    },
+    {
+      path:'/inquiries',
+      name:'inquiries',
+      component:inquiries
+    },
+    {
+      path:'/ask',
+      name:'ask',
+      component:ask
+    },
+    {
+      path:'/answer',
+      name:'answer',
+      component:answer
+    },
+    {
+      path:'/billDetail/:order_sn',
+      name:'billDetail',
       component:billDetail
     },
-    
     {
       path:'/home/recharge',
       name:'recharge',
@@ -424,6 +567,11 @@ const router = new Router({
       component: login
     },
     {
+      path: '/frequentLogin',
+      name: 'frequentLogin',
+      component: frequentLogin
+    },
+    {
       path: '/register',
       name: 'register',
       component: register
@@ -444,11 +592,20 @@ const router = new Router({
       component: retrievePassword
     },
     
-  ]
+  ],
+  // scrollBehavior (to, from, savedPosition) {
+  //   if (to.name=="ask") {
+  //     // return savedPosition
+  //     return { x: 0, y:document.body.ask.offsetHeight-window.innerHeight };
+  //   } 
+  // }
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.name=='productDetail' || to.name=='mycart' || to.name=='orderDetail'){
+  if(to.name=='productDetail' || to.name=='mycart' || to.name=='orderDetail' ||to.name=='confirmOrder'||
+  to.name=='bill' || to.name=="customizedOrderDetail" || to.name=='receiptDetail' || to.name=='ask' ||
+  to.name=='answer' || to.name=='replyOrderDetail' || to.name=='viewReply' || to.name=='adviserViewReply'
+  || to.name=='programme'){
     store.dispatch('changeTabShow',false);
   }else{
     store.dispatch('changeTabShow',true);
@@ -456,18 +613,23 @@ router.beforeEach((to, from, next) => {
   if(to.name=='user'||to.name=='orderList'||to.name=='recharge'||to.name=='cash'||to.name=='addBank'||
     to.name=='userSelfinfo'||to.name=='userEditphone'||to.name=='userEditpassword'||to.name=='userEditemail'||
     to.name=='balance'||to.name=='bank'||to.name=='bill'||to.name=='userSetup'||to.name=='userWallet'||to.name=='orderList'||
-    to.name=='chooseBank' || to.name=='diaryBackdropList'){
-      api.ajaxloginPost('checkLogin').then(res=>{
+    to.name=='chooseBank' || to.name=='diaryBackdropList'||to.name=='customized'){
+      api.checkLogin('checkLogin').then(res=>{
           console.log(res.data);
-          if(res.data.error==0){
-            router.push({name:'login'});
+          console.log('a');
+          if(res.data.error==1){
+            next();
+          }  else if(res.data.error==0){
+            // router.push({name:'login'});
+            next('/login');
           }
       }).catch(error=>{
           console.log(error);
       })
   }
-  
+  console.log('b');
   next();
 })
+
 
 export default router;

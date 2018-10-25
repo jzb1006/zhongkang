@@ -11,8 +11,7 @@
                         <input type="number" v-model="amount" class="input">
                  </div> 
                  <div class="div1">
-                        <input type="text" placeholder="请输入验证码" v-model="verificationCode" class="input">
-                        <input type="button" value="获取验证码"  @click="getVerificationCode" class="input">
+                        <verification-code :isHasPhone="false" @inputCode="inputCode"></verification-code>
                  </div>
                  <div class="div1">
                         <span>可用余额:</span><span v-text="this.result.user_money"></span>
@@ -30,6 +29,7 @@ import api from "../../api/wallet"
 import user from "../../api/user"
 import common from "../../widget/lib/user"
 import top from "@/components/decorate/top_back_title.vue";
+import verificationCode from '@/components/common/verificationCode.vue'
 import {mapState,mapGetters} from 'vuex'
 export default {
     name: 'cash',
@@ -87,7 +87,7 @@ export default {
                         this.$router.push('/home/addBank');
                     }else if(res.data.error==0){
                         api.cash({'amount':amount,'yanzhengma':yanzhengma}).then(res=>{
-                            if(res.data.error==0){
+                            if(res.data.error==0||res.data.error==2){
                                 alert(res.data.message);
                             }else if(res.data.error==1){
                                 this.$router.go(-1);
@@ -115,20 +115,11 @@ export default {
             }
             return true;
         },
-        getVerificationCode(){
-            let value=this.amount;
-            if(!(this.check_acount(value))){
-                 return false;
-            }
-            user.ajaxuserPost('yanzhengma').then(res=>{
-                alert(`验证码为${res.data},仅作测试用`);
-            }).catch(error=>{
-                console.log(error);
-            }) 
+        inputCode(data){
+            this.verificationCode=data;
         }
     },
     mounted(){
-        console.log('dddd');
         api.ajaxWalletGet('tixian').then(res=>{
             this.result=res.data;
         }).catch(error=>{
@@ -142,7 +133,8 @@ export default {
         }
     },
     components:{
-        top
+        top,
+        verificationCode,
     }
 }
 </script>

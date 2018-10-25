@@ -9,7 +9,7 @@
             <div class="headImg"><img v-bind:src="headimgurl"></div>
             <div class="name">
                 <p>昵称: <span>{{nickname}}</span></p>
-                <p>会员等级：<span>{{userrank}}</span></p> 
+                <p>会员等级：<span>{{levelName}}</span></p> 
             </div>
         </div> 
     </div>
@@ -36,10 +36,41 @@
           </tabbar>
         <!-- </div> -->
         <router-link to="/home/userWallet" tag="div" class="item top vux-1px-tb">
-             <span class="zk-icon-qianbao icon single"></span>
-             <span class="text">我的钱包</span>
-             <span class="zk-icon-fanhui1 icon next"></span>
+            <span class="zk-icon-qianbao icon single"></span>
+            <span class="text">我的钱包</span>
+            <span class="zk-icon-fanhui1 icon next"></span>
         </router-link>
+        <div v-if="isAdviser">
+            <router-link to="/adviserReceipt" tag="div" class="item vux-1px-b">
+                <span class="zk-icon-dingzhijiaju icon single"></span>
+                <span class="text">顾问接单</span>
+                <span class="zk-icon-fanhui1 icon next"></span>
+            </router-link>
+            <router-link to="/replyOrder" tag="div" class="item vux-1px-b">
+                <span class="zk-icon-dingzhijiaju icon single"></span>
+                <span class="text">顾问查看已接订单</span>
+                <span class="zk-icon-fanhui1 icon next"></span>
+            </router-link>
+        </div>
+        <div v-else>
+            <router-link to="/requirement" tag="div" class="item vux-1px-b">
+                <span class="zk-icon-dingzhijiaju icon single"></span>
+                <span class="text">私人定制</span>
+                <span class="zk-icon-fanhui1 icon next"></span>
+            </router-link>
+            <router-link to="/customizedOrder" tag="div" class="item vux-1px-b">
+                <span class="zk-icon-dingzhijiaju icon single"></span>
+                <span class="text">定制订单</span>
+                <span class="zk-icon-fanhui1 icon next"></span>
+            </router-link>
+            <router-link to="/adviserAuthentication" tag="div" class="item vux-1px-b">
+                <span class="zk-icon-dingzhijiaju icon single"></span>
+                <span class="text">顾问认证</span>
+                <span class="zk-icon-fanhui1 icon next"></span>
+            </router-link>
+        </div>
+        
+        
         
     </div>
   </div>
@@ -58,9 +89,19 @@ export default {
             userrank:'',
             mobile_phone:'',
             email:'',
-            loadinging:true
+            loadinging:true,
+            levelName:''
       	}
-	  },
+    },
+    computed:{
+      isAdviser(){
+        if(this.userrank=='41'||this.userrank=='42'||this.userrank=='43'){
+          return true;
+        }else{
+          return false;
+        }
+      }
+    },
     methods:{
         getNickname(argument){
             if(argument.nickname==""){
@@ -78,17 +119,20 @@ export default {
         }
     },
   	mounted(){
-        api.ajaxuserGet().then(res=>{
+        api.user_center().then(res=>{
            console.log(res);
            let data=res.data.userinfo;
            this.$store.dispatch('changeUserinfo',data);
            this.nickname=this.getNickname(data);
            this.headimgurl=this.getHeadimgurl(data);
-           this.userrank=res.data.userinfo.level_name;
-           this.mobile_phone=res.data.userinfo.mobile_phone;
-           this.email=res.data.userinfo.email;
+           this.userrank=data.user_rank;
+           this.levelName=data.level_name;
+           this.mobile_phone=data.mobile_phone;
+           this.email=data.email;
            this.loadinging=false;
         }).catch(error=>{
+           this.loadinging = false;
+           console.log('fail');
            console.log(error);
         })    
     },
@@ -102,17 +146,20 @@ export default {
 <style scoped>
   #user{
     background:#f0f0f0;
+    min-height:100%;
+    height:auto;
   }
   .cat{
     position: relative;
     padding:.15rem 0;
+    background: #fff;
   }
   .meCenter{
     position:relative;
     background: #ff5370;
     height:3.2rem; 
     overflow:hidden;
-    font-size:0.32rem;
+    font-size:.32rem;
   }
   .setup {
     position: fixed;
@@ -125,10 +172,10 @@ export default {
     display: block;
     float: right;
     position: absolute;
-    top:0.1rem;
-    right:0.1rem;
-    width:0.7rem;
-    height:0.7rem;
+    top:.1rem;
+    right:.1rem;
+    width:.7rem;
+    height:.7rem;
   }
   .mainInfo{
     position:absolute;
@@ -142,31 +189,29 @@ export default {
   }
   .headImg{
     float:left;
-    padding:0.25rem;
+    padding:.25rem;
   }
   .name{
     float:left;
-    padding:0.25rem;
+    padding:.25rem;
   }
   .name p{
-    padding-top:0.28rem;
+    padding-top:.28rem;
   }
   .headImg img{
     width:1.2rem;
     height:1.2rem;
-    border-radius:0.6rem;
-    margin-top:0.2rem;
+    border-radius:.6rem;
+    margin-top:.2rem;
   }
   .usercontent{
     position:relative;
-    font-size:0.32rem;
+    font-size:.32rem;
   }
   .item{
-    /* text-align: left; */
-    padding:0.25rem 0 0.25rem 0.15rem;
-    height:1rem;
+    background: #fff;
+    padding:.3rem 0 .3rem .15rem;
     box-sizing: border-box;
-    background: #f7f7fa;
   }
   .top{
     /* position: relative;

@@ -22,6 +22,8 @@
 				<span class="span_left">交易号:</span>
 				<span class="span_right">{{tradeno}}</span>
 			</p>
+			<div class="refund" @click="refund">申请退款</div>
+			<div class="refund" @click="refundQuery">退款查询</div>
 		</div>
 	</div>
 </template>
@@ -53,11 +55,18 @@ export default{
 			}).catch(error=>{
 				console.log(error);
 			})
+		},
+		refund(){
+			console.log(typeof this.money);
+			window.location.href="http://192.168.0.110/m/pay.php?action=refund&order_sn="+this.ordersn+"&refund_reason=退款&refund_amount="+this.money+"&trade_no="+this.tradeno;
+		},
+		refundQuery(){
+			window.location.href="http://192.168.0.110/m/pay.php?action=refundQuery&order_sn="+this.ordersn;
 		}
 	},
 	beforeRouteEnter (to, from, next) {
 		next(vm => {
-	        vm.ordersn=to.query.order_sn;
+	        vm.ordersn=to.params.order_sn;
 	        vm.show();
 	    });
 	},
@@ -80,5 +89,13 @@ export default{
 		display: inline-block;
 		padding-left:0.15rem;
 		margin-right:0.15rem;
+	}
+	.refund{
+		background: #ff5370;
+       	color:#fff;
+		padding:.25rem;
+		width:20%;
+		text-align: center;
+		margin-top:.1rem;
 	}
 </style>

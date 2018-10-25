@@ -37,7 +37,7 @@ export default {
                 alert('邮箱格式不正确');
                 return false;
             }
-            api.ajaxloginPost('email_verification',{email:Email,url:url}).then(res=>{
+            api.email_verification({email:Email,url:url}).then(res=>{
                 if(res.data==''){
                     alert('发送失败');
                     return false;

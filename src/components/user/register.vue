@@ -15,16 +15,10 @@
           </div>
           <span id="passErrorMessage" style="display:none;"></span>
           <div class="div1">
-               <!-- <input type="text" class="input_code input" v-model="verificationCode" placeholder="手机验证码">
-               <input type="button" class="input_code" value="获取验证码" @click="get_yanzhengma('mobile')"> -->
-               <div class="code">
-					<div class="vux-1px include left"><input type="text" class="input yan" placeholder="手机验证码" v-model="verificationCode"></div>
-					<span class="input get right" @click="get_yanzhengma">获取验证码</span>
-					<div class="clear"></div>
-				</div>
+                <verification-code :phoneNum="this.username" @inputCode="inputCode"></verification-code>
           </div>
           <div class="div1">
-                <input  type="button" value="同意协议并注册"  @click="submit_register" class="input_register">
+                <input type="button" value="同意协议并注册"  @click="submit_register" class="input_register">
           </div>
     </div>    
 
@@ -36,27 +30,31 @@
 import api from '../../api/user'
 import common from '../../widget/lib/user'
 import top from '@/components/decorate/top_back_title.vue'
+import verificationCode from '@/components/common/verificationCode.vue'
+import { setInterval, clearInterval } from 'timers';
+import md5 from 'js-md5';
 export default {
     name: 'register',
     data(){
     	return {
     		username: '',
             password:'',           
-            verificationCode:''
+            verificationCode:'',
     	}
        
 	},
 	methods: {
         submit_register(){
-            let username=this.username;
-            let password=this.password;
+            if(!common.checkPassword(this.password)){
+                return false;
+            }
+            let password=md5(this.password);
             let verificationCode=this.verificationCode;
+            let username=this.username;
             if(!common.checkPhoneNum(username)){
                 return false;
             }
-            if(!common.checkPassword(password)){
-                return false;
-            }
+            
             if(!common.checkVerificationCode(verificationCode)){
                 return false;
             }
@@ -66,7 +64,8 @@ export default {
                 'yanzheng':verificationCode,
                 'user_rank':'1'
             };
-            api.ajaxloginPost('register',postData).then(res=>{
+            api.register(postData).then(res=>{
+                console.log(res);
                 if(res.data.error==0){
                     this.$router.push({path:'/'});
                 }else{
@@ -76,17 +75,13 @@ export default {
                 console.log(error);
             })
         },
-        //获取验证码(手机号码未存在才发送验证码）
-        get_yanzhengma(){
-            let mobileNum=this.username;
-            if(!common.checkPhoneNum(mobileNum)){
-                return false;
-            }
-            common.getVerificationCode(mobileNum);
+        inputCode(data){
+            this.verificationCode=data;
         }
     },
     components:{
-        top
+        top,
+        verificationCode,
     }
 }
 </script>
@@ -139,33 +134,6 @@ export default {
         font-size:0.3rem;
         background: #ff5370;
 		color:#fff;
-    }
-    .yan{
-		box-sizing: border-box;
-		position: relative;
-        z-index:100;
-        display:block;
-        width:100%;
-        margin:0 auto;
-		padding:.15rem .15rem .15rem 0;
-        font-size:.3rem;
-	}
-	.get{
-		box-sizing: border-box;
-		position: relative;
-        z-index:100;
-        display:block;
-        width:100%;
-        margin:0 auto;
-		padding:.27rem 0;
-		background: #ff5370;
-        color:#fff;
-	}
-    .left{
-        padding:0.1rem;
-        float:left;
-        width:65%;
-        box-sizing:border-box;
     }
     .right{
         float:left;

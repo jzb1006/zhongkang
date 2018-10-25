@@ -8,6 +8,11 @@
          <div class="text">
                 <div class="vux-1px include"><input placeholder="请输入密码" type="password" v-model="password" class="input"></div>
          </div>
+         <div class="text" v-if="input_code">
+            <div class="code">
+                <verification-code :exist="true" :phoneNum="this.username" @inputCode="inputCode"></verification-code>
+            </div>
+        </div>
          <div class="text">
                <input value="登录" type="button" @click="submit_login" class="login">
          </div>
@@ -15,7 +20,7 @@
                 <router-link to="/register" class="reg">新用户注册?</router-link>
                 <router-link to="/forgetPassword" class="reg">忘记密码?</router-link>
          </div>
-    </div>         
+    </div>
 
 
   </div>
@@ -25,19 +30,24 @@
 import api from '../../api/user'
 import common from '../../widget/lib/user'
 import top from '@/components/decorate/top_back_title.vue'
+import verificationCode from '@/components/common/verificationCode.vue'
+import md5 from 'js-md5';
 export default {
     name: 'userlogin',
     data(){
         return {
             username: '',
             password:'',
-            backToPrevious:true
+            backToPrevious:true,
+            input_code:false,
+            code:'',
         } 
     },
     methods: {
         submit_login(){
             let username=this.username;
             let password=this.password;
+            let code=this.code;
             if(!common.checkPhoneNum(username)){
                 return false;
             }
@@ -46,26 +56,50 @@ export default {
             }
             let postData = {
                 'username':username,
-                'password':password
+                'password':md5(password),
+                'vifcode':code,
             };
-            api.ajaxloginPost('login',postData).then(res=>{
-                if(res.data.error==0){
+            api.login(postData).then(res=>{
+                console.log(res);
+                if(res.data.error_code==1){
+                    
                     if(this.backToPrevious){
                         this.$router.go(-1);
                     }else{
                         this.$router.push('/');
                         this.backToPrevious=true;
                     }
+                    this.loginSuccessToApp(username,md5(password));
+                }else if(res.data.error_code==2){
+                    alert(res.data.msg);
+                    // this.$router.push('/frequentLogin');
+                    this.input_code=true;
                     
                 }else{
-                    alert(res.data.message);
+                    alert(res.data.msg);
                 }
             }).catch(error=>{
                 console.log(error);
             })
         },
+        loginSuccessToApp(username,password){
+            //调用Android的方法启动相册
+            alert('hello');
+            window.network.loginSuccessToApp(username,password);
+        },
         register(){
             this.$router.push({path:'/register'});
+        },
+        get_yanzhengma(){
+            let mobileNum=this.username;
+            var self=this;
+            if(!common.checkPhoneNum(mobileNum)){
+                return false;
+            }
+            common.getVerificationCode_exit(mobileNum,self);
+        },
+        inputCode(data){
+            this.code=data;
         }
     },
     mounted(){
@@ -75,7 +109,8 @@ export default {
         }
     },
     components:{
-        top
+        top,
+        verificationCode,
     }
 }
 </script>
@@ -91,10 +126,11 @@ export default {
         margin-bottom:0.3rem;
     }
     .include{
-		width:60%;
+		width:65%;
 		padding:0.2rem;
 		font-size: 0.3rem;
         margin:0 auto;
+        box-sizing: border-box;
 	}
     .input{
         position: relative;
@@ -119,4 +155,18 @@ export default {
         color:#ff5370;
         font-size:0.3rem;
     }
+
+
+    .code{
+		width:65%;
+		/* padding:0.2rem; */
+		font-size: 0.3rem;
+        margin:0 auto;
+        
+	}
+    .include1{
+		width:70%;
+        margin:0 auto;
+		padding:.1rem;
+	}
 </style>

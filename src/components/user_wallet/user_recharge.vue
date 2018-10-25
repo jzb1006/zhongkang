@@ -1,46 +1,76 @@
 <template>
 	<div id="recharge">
 		<top title="充值"></top>
-		<div class="content">
-			 <div class="div1">
+		<div class="content vux-1px-b">
+			 <div class="text">
 			        <span class="span">充值金额:</span>
 			 </div>
 			 <div class="div1">
-	               <span class="renminbi"><img src="../../assets/renminbi.png"></span>
-	        	   <input type="number" v-model="amount" placeholder="输入充值金额" class="input">
+	               <span class="renminbi"><i class="zk-icon-renminbi1"></i></span>
+	        	   <div class="vux-1px include"><input type="number" v-model="amount" placeholder="输入充值金额" class="input"></div>
+				   <div class="clear"></div>
 			 </div>	
 		</div>
 		<div class="div2 meone">
-		     <!-- <input type="button" value="下一步" @click="recharge" :class="classObject"> -->
-			 <a href="http://192.168.0.108/m/pay.php?action=pay&pay_id=3&order_sn=1226517789222&subject=充值&order_amount=1" target="_black" @click="recharge_two">下一步</a>
+		     <input type="button" value="下一步" @click="recharge" :class="classObject">
 		</div>
+		<div>
+			<confirm v-model="show" :title="confirmTitle" @on-confirm="onConfirm"></confirm>
+		</div>
+		<Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
   	</div>
 </template> 
 
 <script>
-import api from "../../api/pay"
-import top from "@/components/decorate/top_back_title.vue";
+import api from "../../api/wallet"
+import top from "@/components/decorate/top_back_title.vue"
+import Alert from "@/components/decorate/alert.vue";
+import { Confirm } from 'vux'
 export default {
     name: 'recharge',
     data(){
     	return{
-			amount:''
-			// order_sn:'11111222'
+			amount:'',
+			show:false,
+			confirmTitle:'',
+			alertShow:false,
+			alerttType:'warn',
+            alertText:'',
     	}
     },
     computed:{
+		isShow(){
+               return this.alertShow;
+        },
     	classObject(){
     		return{
     			next:true,
     			toggleColor:this.amount!=''
     		}	
-    	}
+		}
     },
     methods:{
+		onConfirm(){
+			var value=this.amount;
+			var amount=parseFloat(value);	
+			var order_sn=new Date().getTime();
+			var subject="充值";
+			api.ajaxWalletPost('chongzhi',{'WIDout_trade_no':order_sn,'WIDsubject':subject,'WIDtotal_amount':amount})
+			.then(res=>{
+				if(res.data.error==3){
+					alert(res.data.message);
+					this.$router.push('/login');
+				}else{
+					this.$router.go(-1);
+				}
+			}).catch(error=>{
+				console.log(error);
+			})
+		},
     	recharge(){
     		var value=this.amount;
 	    	if(value==""||value==0){
-	        	alert("充值金额不能为空且不能为零");
+				alert("充值金额不能为空且不能为零");
 	        	return false;
 	    	}
 	    	if(value.indexOf('.')==-1){
@@ -56,75 +86,92 @@ export default {
 	        		alert('充值金额精确到分');
 	    			return false;
 	        	}
-	    	}
-	    	var amount=parseFloat(value);	
-	    	if(window.confirm('您充值的金额为'+amount+'元,确定吗？')){
-	    		var order_sn=new Date().getTime();
-	        	var subject="充值";
-	            api.ajaxPay({'pay_id':'3','order_sn':order_sn,'subject':subject,'order_amount':amount}).then(res=>{
-	            	// if(res.data.error==3){
-	            	// 	alert(res.data.message);
-	            	// 	this.$router.push('/login');
-	            	// }else{
-	            	// 	this.$router.go(-1);
-					// }
-					// console.log('s');
-					console.log(res.data);
-	            	
-	            }).catch(error=>{
-	            	console.log(error);
-	            })
-	            return true;
-	         }else{
-	            return false;
-	         }
+			}
+			this.confirmTitle=`您即将充值${this.amount}元,确定吗？`;
+			this.show=true;
+	    	
 		},
-		recharge_two(){
-			 this.$router.push('/home/balance');
+		dpr() {
+			(function(e, l) {
+			var c, k, d, f = e.document,
+			g = f.documentElement,
+			h = l.flexible || (l.flexible = {});
+			(function() {
+			var a, b = f.querySelector('meta[name="viewport"]');
+			c = e.devicePixelRatio || 1;
+			a = 1;
+			g.setAttribute("data-dpr",0);
+			a = "width=device-width, initial-scale=" + a + ", minimum-scale=" + a + ", maximum-scale=" + a + ", user-scalable=no";
+			b ? b.setAttribute("content", a) : (b = f.createElement("meta"), b.setAttribute("name", "viewport"), b.setAttribute("content", a), (f.head || g.firstElementChild).appendChild(b))
+			})();
+			})(window, window.FT || (window.FT = {}));
 		}
-    },
+	},
+	mounted(){
+		this.dpr();
+	},
 	components:{
-		top
+		top,
+		Confirm,
+		Alert
 	}
 }
 </script>
 
 <style scoped>
 	.content{
-		/*margin-top:240px;*/
-		font-size: 0.3rem;
-		border-top:1px solid #ccc;
-		border-bottom:1px solid #ccc;
+		font-size: .3rem;
 		text-align:left;
 	}
-	
-	.renminbi img{
-		width:45px;
-		height:45px;
+	.renminbi{
+		float:left;
+		width:10%;
+		box-sizing: border-box;
+		line-height: .6rem;
 	}
-	.div1,.input{
-		padding:0.25rem 0.25rem 0.25rem 0.15rem;
-		font-size: 0.35rem;
+	.include{
+		width:80%;
+		float:left;
+		padding:.2rem;
+		box-sizing: border-box;
+		font-size: .3rem;
+	}
+	.clear{
+		content:"";
+		display:block;
+		clear:both;
 	}
 	.input{
-		border: 1px solid #ccc;
+		font-size: .3rem;
+		position: relative;
+        z-index:100;
+        display:block;
+        width:96%;
+        margin:0 auto;
+	}
+	.text{
+		padding:.25rem .25rem .25rem .15rem;
+		font-size: .3rem;
+	}
+	.div1{
+		padding:.25rem .25rem .6rem .15rem;
+		font-size: .3rem;
+		position: relative;
+		height:.6rem;
 	}
 	.div2{
-		margin-top:0.4rem;
+		margin-top:.4rem;
 	}
-
 	.next{
-		font-size: 0.3rem;
+		font-size: .3rem;
 		display:block;
-        width:80%;
-        border:2px solid #ccc;
-        margin:0.3rem auto;
-        padding:0.25rem 0;
-		font-size: 0.35rem;
+        width:60%;
+        margin:.3rem auto;
+        padding:.2rem 0;
+		font-size: .3rem;
     }
-
 	.toggleColor{
-        background-color:#32CD32;
+        background: #ff5370;
         color:#fff;
     }
 </style>

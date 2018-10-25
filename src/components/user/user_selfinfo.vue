@@ -5,7 +5,7 @@
             <div class="item distance vux-1px-b">
                 <!-- <div class="left">修改头像</div> -->
                 <div class="left"><img class="headimg" v-bind:src="nopre"></div>    
-                <Upload @changeUrls="getUrl" :file-type=1 :sign="sign"><span class="text">修改头像</span></Upload> 
+                <Upload @changeUrls="getUrl" :file-type=1 sign="headimg" title="修改头像"><span class="text"></span></Upload> 
                 <div class="clear"></div>
             </div>
             <div class="item vux-1px-b">
@@ -46,7 +46,7 @@ import api from "../../api/setup";
 import common from "../../widget/lib/user"
 // import Bus from './../../assets/bus.js';
 import top from "@/components/decorate/top_back_title.vue";
-import Upload from '@/components/common/upload.vue'
+import Upload from '@/components/public/upload.vue'
 import {mapState,mapGetters} from 'vuex'
 import { Calendar,Group } from 'vux'
 import Utils from '@/widget/lib/Utils'
@@ -88,12 +88,12 @@ export default {
             }
         },
         getUrl(data){    
-            console.log('头像');   
+            console.log('头像'); 
+            console.log(data);  
             if(data.length >= 1){
                 this.headimgurl=data[0];
                 this.nopre=user.imgUrl()+data[0];
                 data.splice(0,1);
-                
             }
         },
         saveUserinfo(){
@@ -165,7 +165,7 @@ export default {
         })
     },
     mounted(){
-        let data;
+        var data;
         if(this.getUserinfo){
             data=this.getUserinfo;
         }else{
