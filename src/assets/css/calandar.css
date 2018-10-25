@@ -2,8 +2,13 @@
     border-top: 0px!important;
 }
 .weui-cells {
-    /* margin-top: 0!important; */
-    font-size: .35rem!important;
+    margin-top: 0!important;
+    padding: .2rem 0!important;
+    font-size: .32rem!important;
+    line-height:0!important;
+}
+.weui-cell{
+    padding:0!important;
 }
 .weui-cells:after{
     border-bottom: 0px!important;
@@ -38,4 +43,17 @@
 .calendar-header {
     line-height: .9rem !important;
     font-size: .6rem !important;
+}
+.vux-calendar:before{
+    border: 0px!important;
+}
+.vux-popup-mask{
+    /* z-index: 500!important; */
+}
+
+ .v-transfer-dom{
+    font-size: .3rem!important;
+}
+.weui-cell_radio{
+    padding: .2rem!important;
 }

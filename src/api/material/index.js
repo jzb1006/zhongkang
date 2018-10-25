@@ -9,7 +9,8 @@ export default{
         params = qs.stringify(params);
         return ajax3.post(`material.php?action=${module}`,params);
     },
-    act_material(module = "",params={}){        
+    act_material(module = "",params={}){
+        console.log(params);        
         return ajax.get(`material.php?act=${module}`,{params});
     }
 }

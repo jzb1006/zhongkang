@@ -1,69 +1,82 @@
 <template>
-	<div id="backdrop_content">
-        <p class="btop clearfix">变美过程
+    <div id="backdrop_content">
+        <p class="btop">
+            <span>变美过程</span>
             <span class="see_v" @click="seeOnlyVideo">{{videoMessage}}</span>
         </p>
-		<div class="list">
-			<div class="list_content" v-for="(diary,index) in diaryList" :class="{hiddenNow:mediaList[diary.id].type == hiddenNum}">
-				<div class="check_status" v-if="s_uid == p_uid">
-					<div v-if="diary.check_status == '0'">
-						<img src="./../../../../static/images/no.png" alt="" />
-					</div>
+        <div class="list">
+            <div class="list_content" v-for="(diary,index) in diaryList" :class="{hiddenNow:mediaList[diary.id].type == hiddenNum}">
+                <div class="check_status" v-if="s_uid == p_uid">
+                    <div v-if="diary.check_status == '0'">
+                        <img src="./../../../../static/images/no.png" alt="" />
+                    </div>
 
-					<div v-else-if="diary.check_status === '1'">
-						<img src="./../../../../static/images/pass.png" alt="" />
-					</div>
+                    <div v-else-if="diary.check_status === '1'">
+                        <img src="./../../../../static/images/pass.png" alt="" />
+                    </div>
 
-					<div v-else="diary.check_status == '2'">
-						<img src="./../../../../static/images/nopass.png" alt="" />
+                    <div v-else="diary.check_status == '2'">
+                        <img src="./../../../../static/images/nopass.png" alt="" />
                         <p v-model="show" @click.native="showPlugin">点击查看详情</p>
                         <alert v-model="show" title="拒绝原因">{{diary.reject_cause}}</alert>
                         <p></p>
-					</div>
-				</div>
-				<p class="time">
-					<i class="zk-icon-shijian"></i> {{diary.course_time}}
-					<em>第{{diaryNum - index}}篇日记</em>
-				</p>
-				<router-link :to="{name:'diaryDetail',query:{bid:bid,did:diary.id}}" tag="div">
-					<div class="timeLine">
-						<p class="title">{{memu}} 第{{getDays(backdropList.add_time,diary.course_time)}}天</p>
-						<p class="content">{{diary.content}}</p>
-						<ul :class="'pic pic-'+getMediaNum(mediaList[diary.id].origin_urls)" v-if="mediaList[diary.id].type == '1'">
-							<li v-for="media in getMediaUrl(mediaList[diary.id].origin_urls)">
-								<img v-lazy="getImgUrl()+media" alt="">
-							</li>
-						</ul>
-						<ul class="video-1" v-else-if="mediaList[diary.id].type == '2'">
-							<li>
-								<video controls :src="getImgUrl()+mediaList[diary.id].origin_urls"></video>
-							</li>
-						</ul>
-						<p v-else>媒体类型错误！！！无法显示</p>
-						<div class="other clearfix">
-							<div class="row-5">
-								<i class="zk-icon-liulan"></i>-{{diary.view_count}}
-							</div>
-							<div class="row-5">
-								<i class="zk-icon-dianzan"></i>-{{diary.favor}}
-							</div>
-						</div>
-					</div>
-				</router-link>
-			</div>
-		</div>
+                    </div>
+                </div>
+                <p class="time">
+                    <i class="zk-icon-shijian"></i> {{diary.course_time.split(" ")[0]}}
+                    <em>第{{transform_num(diaryNum - index)}}篇日记</em>
+                </p>
+                <div class="timeLine">
+                    <router-link :to="{name:'diaryDetail',query:{bid:bid,did:diary.id}}" tag="div">
+                        <p class="title">{{memu}}
+                            <span class="time">第{{getDays(backdropList.time,diary.course_time)}}天</span>
+                        </p>
+                        <p class="content">{{diary.content}}</p>
+                        <ul :class="'pic pic-'+getMediaNum(mediaList[diary.id].origin_urls)" v-if="mediaList[diary.id].type == '1'">
+                            <li v-for="media in getMediaUrl(mediaList[diary.id].origin_urls)">
+                                <img v-lazy="getImgUrl()+media" alt="">
+                            </li>
+                        </ul>
+                        <ul class="video-1" v-else-if="mediaList[diary.id].type == '2'">
+                            <li>
+                                <video controls :src="getImgUrl()+mediaList[diary.id].origin_urls"></video>
+                            </li>
+                        </ul>
+                        <p v-else>媒体类型错误！！！无法显示</p>
+                    </router-link>
+                    <div class="other clearfix">
+                        <div>
+                            <i class="zk-icon-liulan"></i> {{transform_num(diary.view_count)}}
+                        </div>
+                        <div>
+                            <i class="zk-icon-dianzan" @click="favor(diary.id)"></i> {{transform_num(diary.favor)}}
+                        </div>
+                    </div>
+                    <div v-if="s_uid == p_uid" class="operate_list">
+                        <!-- <router-link :to="{name:'diaryOperate',query:{operate:'ud',did:diary.id}}"> -->
+                        <div class="operate_btn" @click="update_diary(diary.id)">
+                            <i class="zk-icon-xiugai"></i>
+                        </div>
+                        <!-- </router-link> -->
+                        <div class="operate_btn" @click="delDiary(diary.id,index)">
+                            <i class="zk-icon-icon "></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_getBackdrop"></LoadMore>
-		<router-link :to="{name:'diaryCreateDiary',query:{bid:bid}}">
-			<p class="write_diary" v-if="s_uid == p_uid">继续写日记</p>
-		</router-link>
-	</div>
+        <!-- <router-link :to="{name:'diaryOperate',query:{bid:bid,operate:'cd'}}"> -->
+        <p class="write_diary" v-if="s_uid == p_uid" @click="create_diary()">继续写日记</p>
+        <!-- </router-link> -->
+    </div>
 </template>
 <script>
 import api from "@/api/diary";
 import Loading from "@/components/decorate/loading.vue";
-import LoadMore from '@/components/loadMore/index.vue';
-import { Alert } from 'vux'
+import LoadMore from "@/components/loadMore/index.vue";
+import { Alert } from "vux";
 export default {
     data() {
         return {
@@ -77,20 +90,52 @@ export default {
             p_uid: 0,
             onlyVideo: true,
             page: 0,
-            isBusy:false,
-            hasMore:0,
-            hiddenNum:0,
-            videoMessage:"只看视频",
-            loadinging:true,
-            show:false,
+            isBusy: false,
+            hasMore: 0,
+            hiddenNum: 0,
+            videoMessage: "只看视频",
+            loadinging: true,
+            show: false
         };
     },
-    components:{
+    components: {
         LoadMore,
         Loading,
         Alert
     },
     methods: {
+        update_diary(did) {
+            this.$store.dispatch("Save_Diary_Operate", "ud");
+            this.$store.dispatch("Save_Aesthetic_Status", false);
+            this.$router.push({
+                name: "diaryOperate",
+                query: { did: did }
+            });
+        },
+        create_diary() {
+            this.$store.dispatch("Save_Diary_Operate", "cd");
+            this.$store.dispatch("Save_Aesthetic_Status", false);
+            this.$router.push({
+                name: "diaryOperate",
+                query: { bid: this.bid }
+            });
+        },
+        delDiary(did, index) {
+            api.ajaxSubmit("delDiary", { did: did }).then(res => {
+                if (res.data.error == 0) {
+                    alert(res.data.message);
+                    this.diaryList.splice(index, 1);
+                } else {
+                    alert(res.data.message);
+                }
+            });
+        },
+        transform_num(index) {
+            let num = parseInt(index);
+            return num > 100000000
+                ? Math.floor(num / 100000000) + "亿"
+                : num > 10000 ? Math.floor(num / 10000) + "万" : num;
+        },
         $_ajax_getBackdrop: function() {
             var self = this;
             this.isBusy = true;
@@ -102,33 +147,33 @@ export default {
                 bid: this.bid
             };
 
-            api.ajaxSearch("diary_detail_basic", arr).then(res => {
-                console.log(res.data);
-                
-                this.hasMore = res.data.hasMore;
-                self.backdropList = Object.assign(
-                    self.backdropList,
-                    res.data.backdrop[0]
-                );
-                self.diaryList = self.diaryList.concat(res.data.diary);
-                self.mediaList = Object.assign(
-                    self.mediaList,
-                    res.data.diary_media
-                );
-                self.diaryNum = res.data.total_tt;
+            api
+                .ajaxSearch("diary_detail_basic", arr)
+                .then(res => {
+                    this.hasMore = res.data.hasMore;
+                    self.backdropList = Object.assign(
+                        self.backdropList,
+                        res.data.backdrop[0]
+                    );
+                    self.diaryList = self.diaryList.concat(res.data.diary);
+                    self.mediaList = Object.assign(
+                        self.mediaList,
+                        res.data.diary_media
+                    );
+                    self.diaryNum = res.data.total_tt;
 
-                for (let index in res.data.item_name) {
-                    self.memu = res.data.item_name[index].cat_name;
-                    break;
-                }
-                self.s_uid = res.data.s_uid;
-                self.p_uid = res.data.b_uid;
-                self.isBusy = false;
-                self.loadinging = false;
-            })
-            .catch(error => {
-                self.loadinging = false;
-            });
+                    for (let index in res.data.item_name) {
+                        self.memu = res.data.item_name[index].cat_name;
+                        break;
+                    }
+                    self.s_uid = res.data.s_uid;
+                    self.p_uid = res.data.b_uid;
+                    self.isBusy = false;
+                    self.loadinging = false;
+                })
+                .catch(error => {
+                    self.loadinging = false;
+                });
         },
         getImgUrl() {
             return api.imgUrl();
@@ -162,8 +207,9 @@ export default {
             return days;
         },
         seeOnlyVideo() {
-            this.hiddenNum = this.hiddenNum == 1? 0 : 1;
-            this.videoMessage = this.videoMessage == '只看视频' ? '查看全部' : '只看视频';
+            this.hiddenNum = this.hiddenNum == 1 ? 0 : 1;
+            this.videoMessage =
+                this.videoMessage == "只看视频" ? "查看全部" : "只看视频";
         },
         getScrollTop: function() {
             var scrollTop = 0;
@@ -177,18 +223,23 @@ export default {
             }
             return scrollTop;
         },
-        showPlugin () {
-        this.$vux.alert.show({
-            title: 'VUX is Cool',
-            content: this.$t('Do you agree?'),
-            onShow () {
-            console.log('Plugin: I\'m showing')
-            },
-            onHide () {
-            console.log('Plugin: I\'m hiding now')
-            }
-        })
+        showPlugin() {
+            this.$vux.alert.show({
+                title: "VUX is Cool",
+                content: this.$t("Do you agree?"),
+                onShow() {
+                    console.log("Plugin: I'm showing");
+                },
+                onHide() {
+                    console.log("Plugin: I'm hiding now");
+                }
+            });
         },
+        favor(did) {
+            api.ajaxSubmit("add_favor", { did: did }).then(res => {
+                alert(res.data.message);
+            });
+        }
     },
     mounted() {
         this.$_ajax_getBackdrop();
@@ -196,24 +247,20 @@ export default {
 };
 </script>
 <style scoped>
-.hiddenNow{
+.hiddenNow {
     display: none;
 }
-.ios-time{
-    fill: rgba(255, 83, 112,.7);
+.ios-time {
+    fill: rgba(255, 83, 112, 0.7);
 }
-ul{
+ul {
     margin: 0;
     padding: 0;
-}
-.row-5{
-    width: 50%;
-    float: left;
 }
 div.check_status {
     position: absolute;
     right: 0.5rem;
-    top: .6rem;
+    top: 0.8rem;
     z-index: 222;
 }
 div.check_status > div:first-child {
@@ -226,100 +273,127 @@ div.check_status > div > img {
 div.check_status > div > p {
     width: 1.1rem;
     max-height: 1rem;
-    font-size: .3rem;
-    color:rgb(255, 0, 0);
+    font-size: 0.3rem;
+    color: rgb(255, 0, 0);
 }
-
 
 #backdrop_content {
     position: relative;
     padding: 0 15px;
 }
-#backdrop_content .btop{
-    font-size: .35rem;
+#backdrop_content .btop {
+    font-size: 0.25rem;
     font-weight: 550;
-    padding: .2rem;
-    background-color: rgb(255, 83, 112);;
+    padding: 0.2rem;
+    background-color: rgb(255, 83, 112);
+    display: flex;
+    justify-content: space-between;
 }
-#backdrop_content .btop .see_v{
+#backdrop_content .btop .see_v {
     float: right;
-    font-size: .3rem;
+    font-size: 0.25rem;
+    font-weight: 500;
     color: #fff;
 }
-#backdrop_content .list{
+#backdrop_content .list {
     margin-bottom: 2rem;
 }
-#backdrop_content .list .list_content{
+#backdrop_content .list .list_content {
     position: relative;
 }
 #backdrop_content .list .list_content p.time {
-    font-size: 0.3rem;
-    margin: .3rem 0;
+    font-size: 0.28rem;
+    margin: 0.3rem 0;
 }
 
 #backdrop_content .list .list_content p.time em {
-    font-size: 0.3rem;
+    font-size: 0.25rem;
     color: #ccc;
 }
 
-#backdrop_content .list .list_content .timeLine{
+#backdrop_content .list .list_content .timeLine {
     position: relative;
-    /* padding: 0.1rem .3rem; */
-    /* margin: 0 .2rem; */
-    margin-bottom: .8rem;
+    margin-bottom: 0.8rem;
     border: 1px solid #ccc;
     box-shadow: 5px 5px 5px #ccc;
+    border-radius: 0.1rem;
+    padding: 0.3rem;
+}
+
+#backdrop_content .list .list_content .timeLine .operate_list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0.3rem;
+    font-size: 0.3rem;
+    text-align: center;
+}
+#backdrop_content .list .list_content .timeLine .operate_list .operate_btn {
+    border: 1px solid #ccc;
+    border-radius: 0.1rem;
+    padding: 0.1rem 0;
+    background-color: rgb(255, 83, 112);
+    color: #fff;
 }
 
 #backdrop_content .list .list_content .timeLine p.title {
-    font-size: 0.35rem;
-    font-weight: 550;
-    margin: .1rem;
+    font-size: 0.28rem;
+    /* font-weight: 550; */
+    margin: 0.1rem;
+}
+#backdrop_content .list .list_content .timeLine p.title span.time {
+    font-size: 0.25rem;
+    color: #aaa;
 }
 #backdrop_content .list .list_content .timeLine p.content {
-    font-size: 0.3rem;
-    margin: .1rem;
+    font-size: 0.25rem;
+    margin: 0.1rem;
+    line-height: 0.4rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    color: #272727;
 }
 
 #backdrop_content p.write_diary {
     position: fixed;
-    bottom: 1.3rem;
-    left: .4rem;
-    right: .4rem;
+    bottom: 1.13rem;
+    left: 0.4rem;
+    right: 0.4rem;
     text-align: center;
-    padding: 0.15rem;
+    padding: 0.1rem;
     color: #fff;
-    font-size: 0.35rem;
-    background: #72dacf;
+    font-size: 0.3rem;
+    background: rgb(255, 83, 112);
     border: 1px solid rgb(255, 83, 112);
     border-radius: 1rem;
+    z-index: 499;
 }
 
 div.other {
-    padding: .3rem 0;
-    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0.2rem;
     font-size: 0.3rem;
-    font-weight: 550;
-    color: rgb(255, 83, 112);
+    text-align: center;
 }
-
-
+.pic {
+    margin-bottom: 0.2rem;
+}
 .pic img {
     width: 100%;
     min-height: 100%;
 }
 
 .pic li {
-    border-radius: 0.3rem;
+    display: flex;
+    align-items: center;
+    border-radius: 0.1rem;
 }
 .pic-1 {
     margin-top: 0.2rem;
-    height: 8rem;
+    height: 4rem;
 }
 .pic-1 li {
     height: 100%;
@@ -328,8 +402,8 @@ div.other {
 }
 .pic-2 {
     margin-top: 0.2rem;
-    height: 4.3rem;
-    width: 6.8rem;
+    height: 3.5rem;
+    /* width: 6.3rem; */
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
@@ -338,8 +412,8 @@ div.other {
     justify-content: space-between;
 }
 .pic-2 li {
-    height: 4.3rem;
-    width: 3.3rem;
+    height: 3.5rem;
+    width: 3.1rem;
     overflow: hidden;
     border-radius: 0.1rem;
 }
@@ -391,7 +465,7 @@ div.other {
 .pic-5 li {
     height: 3.1rem;
     width: 3.1rem;
-    margin-top: .1rem;
+    margin-top: 0.1rem;
     overflow: hidden;
     border-radius: 0.05rem;
 }
@@ -519,6 +593,6 @@ div.other {
 .video-1 li video {
     width: 100%;
     height: 100%;
-    max-height: 8rem;
+    max-height: 4rem;
 }
 </style>

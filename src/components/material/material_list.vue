@@ -1,6 +1,6 @@
 <template>
     <div id="materialList">
-        <top title="素材"></top>
+        <top title="素材"> </top>
         <div class="material_tab">
             <button-tab>
                 <button-tab-item @on-item-click="select_material_type" selected>
@@ -15,6 +15,7 @@
             </button-tab>
         </div>
         <div class="list">
+            <!-- 文章 -->
             <div class="material" v-for="material in materiallist" v-if="material.material_type == 'article'" v-show="article_show">
                 <router-link :to="{name:'articledetail',query:{healthy_talk_id:material.hid}}">
                     <div class="article clearfix">
@@ -32,9 +33,11 @@
                     </div>
                 </router-link>
             </div>
+            <!-- 图集 -->
             <div class="material" v-else-if="material.material_type == 'atlases'" v-show="atlases_show">
                 <atlasesdetail :info=material></atlasesdetail>
             </div>
+            <!-- 视频 -->
             <div class="material" v-else-if="material.material_type == 'video'" v-show="video_show">
                 <div class="RehaList_wrapper">
                     <router-link :to="{name:'videodetail',query:{healthy_talk_id:material.hid}}">
@@ -42,8 +45,9 @@
                             {{material.title}}
                             <span class="play">{{material.view_count}}次播放</span>
                         </p>
-                        <div class="reha" v-for="(msg,index) in JSON.parse(material.material_content)" v-if="index == 0">
-                            <video :src="fileUrl()+msg.url"></video>
+                        <div class="reha img_wrapper" v-for="(msg,index) in JSON.parse(material.material_content)" v-if="index == 0">
+                            <img v-if="material.material_cover" :src="material.material_cover" alt="">
+                            <video v-else :src="fileUrl()+msg.url"></video>
                             <span class="time">04:21</span>
                         </div>
                     </router-link>
@@ -71,7 +75,6 @@
 import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
 import top from "@/components/decorate/top_back_title.vue";
-import atlaseswrapper from "./atlases_wrapper";
 import atlasesdetail from "./atlases_detail";
 import apiM from "@/api/material/index.js";
 import { ButtonTab, ButtonTabItem } from "vux";
@@ -90,14 +93,14 @@ export default {
             page: 0,
             isBusy: false,
             hasMore: 0,
-            loadinging: true
+            loadinging: true,
+            healthy_talk_id: ""
         };
     },
     components: {
         preciew,
         ButtonTab,
         ButtonTabItem,
-        atlaseswrapper,
         top,
         atlasesdetail,
         Loading,
@@ -140,12 +143,14 @@ export default {
         getData() {
             var self = this;
             this.isBusy = true;
+            this.healthy_talk_id = this.$route.query.healthy_talk_id;
             self.page = self.page + 1;
             apiM
                 .act_material("material_list", {
                     condition: this.condition,
                     type: "public",
-                    page: self.page
+                    page: self.page,
+                    healthy_talk_id: self.healthy_talk_id
                 })
                 .then(res => {
                     this.hasMore = res.data.hasMore;
@@ -165,15 +170,24 @@ export default {
     }
 };
 </script>
+<style>
+.vux-button-group > a.vux-button-tab-item-last,.vux-button-group > a.vux-button-group-current,.vux-button-group > a.vux-button-tab-item-last:after{
+    border-radius: 0!important;
+}
+</style>
 
 <style scoped>
+
 #materialList {
     height: auto !important;
     margin-bottom: 1rem;
 }
 #materialList .material_tab {
-    padding: 0.2rem;
+    padding: .1rem .1rem .2rem .1rem;
     height: 0.5rem;
+    position: sticky;
+    top: 0rem;
+    z-index: 501;
 }
 #materialList .material_tab .vux-button-group {
     width: 3rem;
@@ -286,10 +300,21 @@ export default {
     line-height: 0.4rem;
     color: #fff;
 }
+#materialList .list .RehaList_wrapper .img_wrapper {
+    position: relative;
+    width: 100%;
+    height: 4rem;
+    text-align: center;
+    background-color: #00000080;
+}
+#materialList .list .RehaList_wrapper .img_wrapper img {
+    height: 100%;
+}
 #materialList .list .RehaList_wrapper .reha {
     position: relative;
     width: 100%;
     height: 4rem;
+    overflow: hidden;
     background-color: #00000080;
 }
 #materialList .list .RehaList_wrapper .reha video {

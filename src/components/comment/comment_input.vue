@@ -1,16 +1,13 @@
 <template>
     <div id="commentInput">
         <p class="input_show" @click="show_textarea">
-            <!-- <span class="zk-icon-edit"></span> -->
-        {{tip}}</p>
+            {{tip}}</p>
         <div class="shade" v-show="show_input" @click="hidden_input">
 
         </div>
         <div class="input_box" v-show="show_input">
-            <textarea id="content" ref="content" placeholder="'@'+name" v-model="comment_content" v-focus></textarea>
+            <textarea id="content" ref="content" placeholder="写点感想" v-model="comment_content" v-focus></textarea>
             <p class="clearfix">
-                <!-- <span class="zk-icon-iconfonticon5"></span>
-                <span class="zk-icon-tukuxiangce"></span> -->
                 <span class="submit" @click="submit_comment">发表评论</span>
             </p>
         </div>
@@ -18,6 +15,8 @@
 </template>
 <script>
 import apiCom from "./../../api/comment";
+import { mapGetters } from "vuex";
+import bus from "@/assets/bus.js";
 export default {
     props: {
         tip: {
@@ -25,13 +24,13 @@ export default {
         },
         textareaStatus: {
             default: false
-        },
-        info: Object
+        }
     },
     data() {
         return {
             show_input: false,
-            comment_content: ""
+            comment_content: "",
+            info: {}
         };
     },
     watch: {
@@ -45,27 +44,35 @@ export default {
             el.focus();
         }
     },
+    computed: {
+        ...mapGetters(["getUserinfo"])
+    },
     methods: {
+        comment_tip() {
+            if (this.getUserinfo.nickname) {
+                this.comment_content = "@" + this.getUserinfo.nickname;
+            } else {
+                this.comment_content = "";
+            }
+        },
         show_textarea() {
             this.show_input = true;
         },
         submit_comment() {
             this.show_input = false;
             this.toParent();
+            var self = this;
             let arr = {
-                comment_post_ID: this.info.comment_post_id,
-                author: this.info.u_name,
-                comment_parent: this.info.comment_parent,
-                comment_form: this.info.comment_form,
-                comment_form_id: this.info.comment_form_id,
-                comment: this.comment_content,
-                uid: this.info.u_id,
-                parent_id: this.info.p_id
+                comment_post_ID: self.info.comment_post_ID, //数据库文章id
+                author: self.getUserinfo.nickname, //评论者名字
+                comment_parent: self.info.comment_parent, //父级id
+                comment_form: self.info.comment_form, //类型
+                comment_form_id: self.info.comment_form_id, //评论素材id
+                comment: self.comment_content, //评论内容
+                uid: self.getUserinfo.user_id, //评论者id
+                parent_id: self.info.parent_id //被评论者id
             };
-
-            apiCom
-                .addComment(arr)
-                .then(res => {
+            apiCom.addComment(arr).then(res => {
                     console.log(res);
                 })
                 .catch(error => {
@@ -81,7 +88,11 @@ export default {
         }
     },
     mounted() {
+        bus.$on("comment_info", res => {
+            this.info = res;
+        });
         this.show_input = this.textareaStatus;
+        this.comment_tip();
     }
 };
 </script>
@@ -99,7 +110,7 @@ export default {
     font-size: 0.3rem;
     color: #000;
     margin: 0.1rem 0.2rem;
-    padding: 0.2rem .3rem;
+    padding: 0.2rem 0.3rem;
     border: 1px solid #ccc;
     border-radius: 1rem;
     background-color: #00000010;
@@ -127,7 +138,7 @@ export default {
 #commentInput .input_box textarea {
     font-size: 0.3rem;
     width: 90%;
-    padding: .15rem;
+    padding: 0.15rem;
     height: 1.5rem;
     border-radius: 0.1rem;
     border: 1px solid #00000080;

@@ -10,6 +10,7 @@
 <script>
   import foot from "@/components/common/foot.vue";
   import {mapState} from 'vuex';
+ 
   export default {
     data() {
       return {

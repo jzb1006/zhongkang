@@ -8,7 +8,7 @@
             <div class="order-product clear">
                 <img class="pic" :src="img_path()+item['goods_thumb']" alt="">
                 <div class="order-product-info clear">
-                    <h1 class="title no-select">【{{item['meta_keys']}}】【{{item['meta_desc']}}】{{item['sort_desc']}}</h1>
+                    <h1 class="title no-select" ref="keyword">【{{item['meta_keys']}}】【{{item['meta_desc']}}】{{item['sort_desc']}}</h1>
                     <div class="price no-select clear">
                         预约金：
                         <i>￥</i><em>{{item['deposit_price']}}</em>
@@ -82,7 +82,8 @@
                 lmh: 0,
                 title: '购物车',
                 isDisable: false,
-                pay_id:0
+                pay_id:0,
+                keyword:this.$refs
             }
         },
         methods: {
@@ -173,6 +174,8 @@
                 }).catch(error=>{
                     console.log(error);
                 })
+                this.behavior.behavior_data(this.keyword.keyword[0].innerHTML,1);
+                
             }
         },
         mounted() {

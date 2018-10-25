@@ -1,4 +1,4 @@
-import {ajax2,ajax3,qs} from './../ajax'
+import {ajax2,ajax3,qs,img_prifix} from './../ajax'
 export default {
 
     //图片上传
@@ -8,7 +8,7 @@ export default {
     },
     //文件网址前缀
     fileUrl(){
-        return "http://localhost/"
+        return img_prifix
     },
     // //删除图片或者视频
     // ajaxDelFile(module = 'del',params={}){

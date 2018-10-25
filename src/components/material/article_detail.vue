@@ -9,31 +9,39 @@
             <div class="content" v-html="m.material_content">
             </div>
         </div>
+        <div style="width:1rem;height:1rem;border:1px solid #000;overflow:hidden">
+            <reward paytype='pay_btn'></reward>
+        </div>
+
     </div>
 </template>
 
 <script>
-import apiM from "@/api/material/index.js"
+import reward from "@/components/decorate/reward.vue";
+import apiM from "@/api/material/index.js";
 import top from "@/components/decorate/top_back_title.vue";
 export default {
     data() {
         return {
-            material:[],
-            healthy_talk_id:'',
+            material: [],
+            healthy_talk_id: ""
         };
     },
-    components:{
-        top
+    components: {
+        top,
+        reward
     },
-    methods:{
-        getData(){
+    methods: {
+        getData() {
             var self = this;
-            apiM.act_material("material_once",{healthy_talk_id:this.healthy_talk_id}).then(
-                res=>{
+            apiM
+                .act_material("material_once", {
+                    healthy_talk_id: this.healthy_talk_id
+                })
+                .then(res => {
                     self.material = res.data.material_once;
                     console.log(res);
-                }
-            )
+                });
         }
     },
     mounted() {
@@ -53,10 +61,10 @@ export default {
     line-height: 1rem;
 }
 #articleDetail p.other {
-    line-height: .5rem;
+    line-height: 0.5rem;
 }
 #articleDetail .content {
     margin: 0.2rem;
-    line-height: .5rem;
+    line-height: 0.5rem;
 }
 </style>

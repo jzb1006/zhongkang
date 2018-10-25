@@ -2,7 +2,7 @@
 <template>
     <div id="atlases_detail">
         <div class="material">
-            <div class="atlases_wrapper" v-for="(img,index) in imgs" v-if="index == '1'">
+            <div class="atlases_wrapper" v-for="(img,index) in imgs" v-if="index == '0'">
                 <div class="atlases">
                     <preciew :list="imgs" @IndexChange="getIndex" @show="show" @close="close"></preciew>
                     <span>{{imgs.length}}图</span>
@@ -60,11 +60,15 @@ export default {
             this.atlases_content_show = false;
         },
         getData() {
-            console.log(this.info);
+            // console.log(this.info.material_content);
             let data = JSON.parse(this.info.material_content);
-            for (let idex in data) {
+            // console.log(data);
+            for (let index in data) {
                 let data1 = {
-                    src: this.imgUrl() + data[idex].url
+                    w: 0,
+                    h: 0,
+                    msrc: this.imgUrl() + data[index].url,
+                    src: this.imgUrl() + data[index].url
                 };
                 this.imgs.push(data1);
             }
@@ -98,12 +102,15 @@ export default {
 }
 #atlases_detail .material .atlases_wrapper .atlases_content {
     position: fixed;
-    bottom: 63px;
-    /* top: 650px; */
-    height: 100px;
-    line-height: 20px;
+    left: 0.2rem;
+    right: 0.1rem;
+    bottom: 0.1rem;
+    height: 3rem;
+    line-height: 0.35rem;
+    overflow-y: scroll;
     color: #fff;
     font-size: 0.3rem;
+    background-color: #00000080;
     z-index: 4010;
 }
 #atlases_detail .material .atlases_wrapper .atlases img {

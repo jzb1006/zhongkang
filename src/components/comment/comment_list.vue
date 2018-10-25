@@ -1,39 +1,43 @@
 <template>
     <div id="commentList">
-        <comment :limitnum = '2' :info = info :commentlist = total :user=user></comment>
+        <comment :limitnum = '1' :commentlist = total :mid = m_id></comment>
     </div>
 </template>
 <script>
 import apiCom from './../../api/comment'
 import comment from './comment'; 
-
+import bus from "@/assets/bus.js"
 export default {
+    props:{
+        m_id:{
+            default:'12'
+        }
+    },
     data(){
         return{
             info:{
-                p_id: "12",//文章的作者id
-				p_name:"多大的",//文章的作者
-				u_id: "2360",//用户id
-				comment_author:"小黄",//用户名字
-				comment_parent:"14",//父评论id,默认为0
-                comment_post_id: "21",//后台评论类型id
-				comment_form: "diary",//属于哪种类型的评论
-				comment_form_id: "20",//评论文章的id
+                comment_post_ID: 19,//数据库文章id
+                comment_parent: "0",//父级id
+                comment_form: "diary",//类型
+                comment_form_id: "12",//评论素材id
+                parent_id: "3030"//被评论者id
             },
             total:[],
             parent:[],
             children:[],
-            user:[],
         }
     },
     methods:{
+        //获取评论
         getcomment(){
             let self = this;
-            apiCom.ajaxSearch('index').then(res=>{
+            apiCom.ajaxSearch('index',{comment_form:'diary',id:'12'}).then(res=>{
                 this.parseData(res.data.comments);
-                self.user = res.data.user;
             })
+
+            bus.$emit('comment_info',this.info);
         },
+        //去除重复数据
         remove_duplicate_data(data){
             var newArr = [];
             for(var i = 0; i < data.length; i++) {　
@@ -43,6 +47,7 @@ export default {
             }
             return newArr;
         },
+        //整理评论数据
         parseData(data){
             for(let index in data){
                 if(data[index].comment_parent == 0){
@@ -61,6 +66,7 @@ export default {
                     comment_parent:data[index].comment_parent,
                     comment_content:data[index].comment_content,
                     comment_form_id:data[index]. comment_form_id,
+                    comment_form:data[index]. comment_form,
                     reply:[]
                 }
 
@@ -91,5 +97,9 @@ export default {
 }
 </script>
 <style scoped>
-    
+    #commentList{
+        position: relative;
+        background-color: #fff;
+        z-index: 500;
+    }
 </style>

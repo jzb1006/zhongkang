@@ -121,7 +121,7 @@ export default {
 </script>
 <style scoped>
 #diary_reward{
-
+    margin-bottom: 1rem;
 }
 #diary_reward p.top{
     position: fixed;
@@ -138,15 +138,15 @@ export default {
     float: left;
 }
 ul.guide {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
     font-size: .3rem;
     list-style: none;
     padding: 0;
 }
 ul.guide li.item {
-    width: 33.3%;
-    float: left;
     padding: 0.3rem 0;
-    font-size: 0.4rem;
+    font-size: 0.3rem;
     text-align: center;
     border: 0px solid #ccc;
     border-left: 0px;
@@ -159,8 +159,9 @@ ul.guide li.item {
 div.standard,
 div.flow,
 div.notice {
-    font-size: 0.35rem;
+    font-size: 0.3rem;
     padding: 0.5rem 0;
+    margin-bottom: 1rem;
 }
 div.standard .item{
     margin-top: .5rem;
@@ -173,15 +174,15 @@ div.flow p.item{
     padding:0 .5rem;
 }
 div.flow p.item span.text{
-    font-size: .35rem;
+    font-size: .3rem;
     line-height: .45rem;
     font-weight: 300;
 }
 div.flow div.note{
-    padding: .5rem;
+    padding:0 .5rem;
 }
 div.notice ul {
-    padding: 0.5rem;
+    padding:0 0.5rem;
 }
 div.notice ul li {
     margin-top: .6rem;

@@ -1,40 +1,43 @@
 <template>
-	<div id="diary_detail">
-		<DiaryDetailTop :bid=bid></DiaryDetailTop>
-		<div v-for="(diary,index) in diaryContent" v-if="index == 0">
-			<div class="content">
-				<span class=" icon_days">
-					<span>第{{getDays(diary.time,diary.course_time)}}天</span>
-				</span>
-				<p>{{diary.content}}</p>
-			</div>
-			<div class="media_list">
-				<div v-for="media in mediaList">
-					<img v-for="url in getMediaUrl(media)" v-if="checkImgType(url)" v-lazy="getImgUrl()+url">
-					<video v-else-if="!checkImgType(url)" :src="getImgUrl()+url" controls="controls"></video>
-				</div>
-			</div>
-			<div class="bottom">
-				<div class="bottom_see clearfix">
-					<div class="col_4">
-						<span><i class="zk-icon-liulan"></i>-{{diary.view_count}}</span>
-					</div>
-					<div class="col_4">
-						<span><i class="zk-icon-dianzan"></i>-{{diary.favor}}</span>
-					</div>
-					<div class="col_4">
-						<span><i class="zk-icon-edit"></i>-{{commentNum}}</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="footer" @click="favor()" v-if="username">
+    <div id="diary_detail">
+        <DiaryDetailTop :bid=bid></DiaryDetailTop>
+        <div v-for="(diary,index) in diaryContent" v-if="index == 0">
+            <div class="content">
+                <p class="icon_days">
+                    <span>第{{getDays(diary.time,diary.course_time)}}天</span>
+                </p>
+                <p>{{diary.content}}</p>
+            </div>
+            <div class="media_list">
+                <div v-for="media in mediaList">
+                    <img v-for="url in getMediaUrl(media)" v-if="checkImgType(url)" v-lazy="getImgUrl()+url">
+                    <video v-else-if="!checkImgType(url)" :src="getImgUrl()+url" controls="controls"></video>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="bottom_see clearfix">
+                    <div class="col_4">
+                        <span>
+                            <i class="zk-icon-liulan"></i>{{transform_num(diary.view_count)}}</span>
+                    </div>
+                    <div class="col_4">
+                        <span>
+                            <i class="zk-icon-dianzan"></i> {{transform_num(diary.favor)}}</span>
+                    </div>
+                    <div class="col_4">
+                        <span>
+                            <i class="zk-icon-edit"></i> {{transform_num(commentNum)}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer" @click="favor()" v-if="username">
             <div class="click_zan">
                 赞
             </div>
-		</div>
+        </div>
         <Loading v-show="loadinging"></Loading>
-	</div>
+    </div>
 </template>
 <script>
 import api from "@/api/diary";
@@ -48,9 +51,9 @@ export default {
             bid: "",
             did: "",
             mediaList: [],
-            footer_in:false,
-            username:"",
-            loadinging:true,
+            footer_in: false,
+            username: "",
+            loadinging: true
         };
     },
     components: {
@@ -58,6 +61,12 @@ export default {
         Loading
     },
     methods: {
+        transform_num(index) {
+            let num = parseInt(index);
+            return num > 100000000
+                ? Math.floor(num / 100000000) + "亿"
+                : num > 10000 ? Math.floor(num / 10000) + "万" : num;
+        },
         $_ajax_getDiaryDetail: function() {
             var self = this;
             this.did = this.$route.query.did;
@@ -72,7 +81,7 @@ export default {
                     self.loadinging = false;
                     // this.commentNum = res.data.comment_num.count(comment_ID);
                 })
-                .catch(error=>{
+                .catch(error => {
                     self.loadinging = false;
                 });
         },
@@ -84,7 +93,7 @@ export default {
             return arr;
         },
         checkImgType: function(fileURL) {
-            var right_type = new Array(".jpg", ".jpeg", ".mp4", ".gif");
+            var right_type = new Array(".jpg", ".jpeg", ".mp4", ".gif",".png");
 
             var right_typeLen = right_type.length;
             var imgUrl = fileURL.toLowerCase();
@@ -133,17 +142,17 @@ export default {
 </script>
 
 <style scoped>
-.col_4{
-    width:33.3%;
+/* .col_4 {
+    width: 33.3%;
     float: left;
     text-align: center;
-    font-size: .35rem;
-}
+    font-size: 0.35rem;
+} */
 #diary_detail {
     /* margin-top: 1rem; */
 }
-#diary_detail .media_list{
-    padding: 0 .2rem;
+#diary_detail .media_list {
+    padding: 0 0.2rem;
 }
 #diary_detail .media_list video,
 img {
@@ -151,23 +160,33 @@ img {
     height: 100%;
 }
 #diary_detail .content p {
-    margin: .3rem;
-    font-size: 0.35rem;
+    margin: 0.3rem;
+    font-size: 0.3rem;
+}
+#diary_detail p.icon_days{
+    margin: .1rem .3rem;
+
 }
 #diary_detail .icon_days span {
     color: #fff;
-    font-size: 0.4rem;
+    font-size: 0.3rem;
     display: inline-block;
-    margin: 0.2rem;
     padding: 0.1rem 0.4rem;
     border-radius: 2rem;
     background-color: #ff8ea3;
 }
 #diary_detail .bottom {
     margin-bottom: 2rem;
-    padding: .2rem 0;
+    padding: 0.2rem 0;
 }
-#diary_detail .bottom p {
+#diary_detail .bottom .bottom_see {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0.1rem;
+    font-size: 0.3rem;
+    text-align: center;
+}
+/* #diary_detail .bottom p {
     margin: 0;
     padding: 0.3rem 0;
     font-size: 0.8rem;
@@ -176,21 +195,21 @@ img {
 #diary_detail .bottom .row span {
     font-size: 0.7rem;
     color: #aac;
-}
+} */
 #diary_detail div.footer {
     position: fixed;
-    right: .5rem;
+    right: 0.5rem;
     bottom: 2.5rem;
-    padding: .3rem .4rem;
+    padding: 0.2rem 0.2rem;
     border-radius: 50%;
-    font-size: 0.4rem;
-    background-color: rgb(255, 83, 112)
+    font-size: 0.3rem;
+    background-color: rgb(255, 83, 112);
 }
-#diary_detail div.footer .click_zan{
-    color:#fff;
+#diary_detail div.footer .click_zan {
+    color: #fff;
 }
 
-#diary_detail .footer_in{
+#diary_detail .footer_in {
     background-color: chocolate;
     color: #ff8ea3;
 }

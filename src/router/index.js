@@ -66,32 +66,24 @@ import chooseBank from '@/components/user_wallet/user_chooseBank'
 import balance from '@/components/user_wallet/user_balance'
 import recharge from '@/components/user_wallet/user_recharge'
 
-//图一图
-import atlasesList from '@/components/atlases/atlases_list'
-import atlasesDetail from '@/components/atlases/atlases_detail'
-import atlasesAdd from '@/components/atlases/add_atlases'
-import atlasesUpdate from '@/components/atlases/update_atlases'
-
 //评论
 import commentInput from '@/components/comment/comment_input'
 import commentList from '@/components/comment/comment_list'
 import commentDetail from '@/components/comment/comment_detail'
-import test from '@/components/comment/test'
-
-//视一视
-import RehaList from '@/components/reha_video/rehaList'
-import RehaDetail from '@/components/reha_video/reha_detail'
-import addVideo from '@/components/reha_video/add_video'
-import updateVideo from '@/components/reha_video/update_video'
-
-//文章
-import articleList from '@/components/article/article_list'
-import articleDetail from '@/components/article/article_detail'
 
 //素材
 import materialList from '@/components/material/material_list'
 import articledetail from '@/components/material/article_detail'
 import videodetail from '@/components/material/video_detail'
+
+//打赏
+import reward from '@/components/decorate/reward.vue'
+
+//上传媒体
+import upload from '@/components/upload/upload.vue'
+import mediaDisplay from '@/components/upload/media_display.vue'
+import aloneDisplay from '@/components/upload/alone_display.vue'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -99,6 +91,26 @@ const router = new Router({
     {
       path: '/',
       redirect:'/home/diaryList'
+    },
+    {
+      path: '/upload',
+      name: 'upload',
+      component : upload
+    },
+    {
+      path: '/mediaDisplay',
+      name: 'mediaDisplay',
+      component : mediaDisplay
+    },
+    {
+      path: '/aloneDisplay',
+      name: 'aloneDisplay',
+      component : aloneDisplay
+    },
+    {
+      path: '/reward',
+      name: 'reward',
+      component : reward
     },
     {
       path: '/materialList',
@@ -116,39 +128,9 @@ const router = new Router({
       component : videodetail,
     },
     {
-      path: '/articleList',
-      name: 'articleList',
-      component : articleList,
-    },
-    {
-      path: '/RehaList',
-      name: 'RehaList',
-      component : RehaList,
-    },
-    {
-      path: '/RehaDetail',
-      name: 'RehaDetail',
-      component : RehaDetail,
-    },
-    {
-      path: '/addVideo',
-      name: 'addVideo',
-      component : addVideo,
-    },
-    {
-      path: '/updateVideo',
-      name: 'updateVideo',
-      component : updateVideo,
-    },
-    {
       path: '/commentInput',
       name: 'commentInput',
       component : commentInput,
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component : test,
     },
     {
       path: '/commentList',
@@ -159,26 +141,6 @@ const router = new Router({
       path: '/commentDetail',
       name: 'commentDetail',
       component : commentDetail,
-    },
-    {
-      path: '/atlasesList',
-      name: 'atlasesList',
-      component : atlasesList,
-    },
-    {
-      path: '/atlasesDetail',
-      name: 'atlasesDetail',
-      component : atlasesDetail,
-    },
-    {
-      path: '/atlasesAdd',
-      name: 'atlasesAdd',
-      component : atlasesAdd,
-    },
-    {
-      path: '/atlasesUpdate',
-      name: 'atlasesUpdate',
-      component : atlasesUpdate,
     },
     {
       path: '/FMain',
@@ -236,6 +198,11 @@ const router = new Router({
     ]
     },
     {
+      path: '/diary/diaryOperate.vue',
+      name: 'diaryOperate',
+      component: ()=> import('@/components/diary/diary_children/diary_children/diary_operate.vue'),
+    },
+    {
       path: '/diary/diaryBackdrop.vue',
       name: 'diaryBackdrop',
       component: ()=> import('@/components/diary/diary_children/diary_backdrop.vue'),
@@ -252,21 +219,21 @@ const router = new Router({
       component: ()=> import('./../components/diary/diary_children/diary_backdrop_list.vue'),
     
     },
-    {
-      path:'/diary/diaryCreateDiary',
-      name:"diaryCreateDiary",
-      component: ()=> import('./../components/diary/diary_children/diary_children/diary_create_diary.vue'),
-    },
+    // {
+    //   path:'/diary/diaryCreateDiary',
+    //   name:"diaryCreateDiary",
+    //   component: ()=> import('./../components/diary/diary_children/diary_children/diary_create_diary.vue'),
+    // },
     {
       path:'/diary/diaryCreateBackdrop',
       name:"diaryCreateBackdrop",
       component: ()=> import('./../components/diary/diary_children/diary_children/diary_create_backdrop.vue'),
     },
-    {
-      path:'/diary/diaryUpdateBasic',
-      name:"diaryUpdateBasic",
-      component: ()=> import('./../components/diary/diary_children/diary_children/diary_update_basic.vue'),
-    },
+    // {
+    //   path:'/diary/diaryUpdateBasic',
+    //   name:"diaryUpdateBasic",
+    //   component: ()=> import('./../components/diary/diary_children/diary_children/diary_update_basic.vue'),
+    // },
     {
       path:'/diary/diaryReward',
       name:"diaryReward",
@@ -298,12 +265,6 @@ const router = new Router({
       component: mycart
 
     },
-    // {
-    //   path: '/login',
-    //   name: 'login',
-    //   component: login
-
-    // },
     {
       path: '/pay/:oid',
       name: 'pay',
@@ -381,11 +342,6 @@ const router = new Router({
       name: 'insDiary',
       component: insDiary
     },
-    // {
-    //   path: '/docAlbum/:doc_id',
-    //   name: 'docAlbum',
-    //   component: docAlbum
-    // },
     {
       path: '/docAlbum/:doc_id',
       name: 'docAlbum',
@@ -403,24 +359,6 @@ const router = new Router({
 
       ]
     },
-    // {
-    //   path: '/home',
-    //   name: 'home',
-    //   component: home,
-    //   children: [{
-    //     path: '/home/productList',
-    //     component: HProductList
-    //   },
-    //   {
-    //     path: '/home/doctorList',
-    //     component: HDoctorList
-    //   },
-    //   {
-    //     path: '/home/hospitalList',
-    //     component: HHospitalList
-    //   },
-    // ]
-    // },
     {
       path: '/doctorList',
       name: 'doctorList',
@@ -573,8 +511,23 @@ router.beforeEach((to, from, next) => {
           console.log(error);
       })
   }
-  
+
+  //图片浏览模式的状态
+  if(store.state.media_display.open_image_mode){
+    store.dispatch('Open_Image_Mode',false);
+    store.dispatch('Close_Image_Browse',true);
+    next(false);
+    return;
+  }
   next();
+})
+
+//在路由跳转之后设置页面的路径,并把路径传给谷歌统计
+router.afterEach(function (to) {
+  if (window.ga) {
+    window.ga('set', 'page', to.fullPath) // 你可能想根据请求参数添加其他参数，可以修改这里的 to.fullPath
+    window.ga('send', 'pageview')
+  }
 })
 
 export default router;
