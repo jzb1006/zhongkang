@@ -62,7 +62,6 @@ export default {
             api.login(postData).then(res=>{
                 console.log(res);
                 if(res.data.error_code==1){
-                    
                     if(this.backToPrevious){
                         this.$router.go(-1);
                     }else{

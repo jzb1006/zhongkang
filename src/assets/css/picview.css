@@ -1,0 +1,38 @@
+.pswp__caption {
+    position: absolute;
+    left: 0;
+    bottom: 1.5rem;
+    width: 100%;
+    font-size: .3rem;
+    max-height: 3rem;
+    overflow: hidden;
+}
+.pswp__counter {
+    position: fixed;
+    left: 0;
+    bottom: 5rem;
+    height: .5rem;
+    font-size: .3rem;
+    line-height: .5rem;
+    color: #fff;
+    opacity: .75;
+    padding: 0 10px;
+}
+.pswp__caption__center {
+    text-align: left;
+    max-width: 420px;
+    margin: 0 auto;
+    font-size: .25rem;
+    padding: 10px;
+    line-height: 20px;
+    color: #ccc;
+}
+.pswp__ui--idle .pswp__button--arrow--left, .pswp__ui--idle .pswp__button--arrow--right, .pswp__ui--idle .pswp__top-bar {
+    opacity: 1;
+}
+.pswp--touch .pswp__button--arrow--left, .pswp--touch .pswp__button--arrow--right {
+    visibility: inherit!important;
+}
+.pswp--touch .pswp__button--arrow--left, .pswp--touch .pswp__button--arrow--right {
+    visibility: inherit!important;
+}

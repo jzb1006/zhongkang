@@ -67,6 +67,7 @@ import chooseBank from '@/components/user_wallet/user_chooseBank'
 import balance from '@/components/user_wallet/user_balance'
 import recharge from '@/components/user_wallet/user_recharge'
 
+
 import customized from '@/components/customized/customized'
 import requirement from '@/components/customized/requirement'
 import confirmOrder from '@/components/customized/confirmOrder'
@@ -92,6 +93,17 @@ import adviserViewReply from '@/components/adviser/viewReply'
 import answer from '@/components/adviser/answer'
 
 
+//图一图
+import atlasesList from '@/components/atlases/atlases_list'
+import atlasesDetail from '@/components/atlases/atlases_detail'
+
+//评论
+import commentInput from '@/components/comment/comment_input'
+import commentList from '@/components/comment/comment_list'
+import commentDetail from '@/components/comment/comment_detail'
+
+//视一视
+import RehaList from '@/components/reha_video/rehaList'
 
 Vue.use(Router)
 
@@ -100,6 +112,36 @@ const router = new Router({
     {
       path: '/',
       redirect:'/home/diaryList'
+    },
+    {
+      path: '/RehaList',
+      name: 'RehaList',
+      component : RehaList,
+    },
+    {
+      path: '/commentInput',
+      name: 'commentInput',
+      component : commentInput,
+    },
+    {
+      path: '/commentList',
+      name: 'commentList',
+      component : commentList,
+    },
+    {
+      path: '/commentDetail',
+      name: 'commentDetail',
+      component : commentDetail,
+    },
+    {
+      path: '/atlasesList',
+      name: 'atlasesList',
+      component : atlasesList,
+    },
+    {
+      path: '/atlasesDetail',
+      name: 'atlasesDetail',
+      component : atlasesDetail,
     },
     {
       path: '/FMain',
@@ -631,5 +673,12 @@ router.beforeEach((to, from, next) => {
   next();
 })
 
+//在路由跳转之后设置页面的路径,并把路径传给谷歌统计
+router.afterEach(function (to) {
+  if (window.ga) {
+    window.ga('set', 'page', to.fullPath) // 你可能想根据请求参数添加其他参数，可以修改这里的 to.fullPath
+    window.ga('send', 'pageview')
+  }
+})
 
 export default router;

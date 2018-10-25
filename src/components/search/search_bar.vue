@@ -39,6 +39,7 @@ import {mapState,mapGetters} from 'vuex'
             let keyword = this.iptTxt;
             this.$store.dispatch('changeKeyword',keyword);
             this.bus.$emit('search',-1);
+            this.behavior.behavior_data(this.iptTxt,2);
         },
         cancel(){
           this.searchList=[];

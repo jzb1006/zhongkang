@@ -49,7 +49,9 @@ export default {
             }).catch(error=>{
                 console.log(error);
             })
+            window.network.logoutToApp();
         }
+        
 	},
     computed:{
         ...mapGetters([
