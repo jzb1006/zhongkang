@@ -5,6 +5,8 @@ import BMap from './modules/BMap'
 import fang from './modules/Fang'
 import user from './modules/user'
 import commont from './modules/commont'
+import diary from './modules/diary'
+import media_display from './modules/media_display'
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -13,7 +15,9 @@ const store = new Vuex.Store({
         BMap,
         fang,
         user,
-        commont
+        commont,
+        diary,
+        media_display
     }
    
 })

@@ -98,8 +98,8 @@
             this.$_ajax_licence(this.defaultItem);
             this.bus.$on('LoadMore', () => {
                 this.$_ajax_licence(this.defaultItem);
-                console.log("dfg");
-            })
+                
+            });
         }
     }
 </script>

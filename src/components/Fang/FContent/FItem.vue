@@ -119,12 +119,12 @@ export default {
 }
 #FItem .ol_list .ol_li {
     margin-bottom: 0.2rem;
-    padding: 0.5rem 0.4rem;
-    border-radius: 0.3rem;
+    padding: 0.3rem 0.4rem;
+    border-radius: 0.1rem;
     border: 1px solid #72dacf;
 }
 #FItem .ol_list .ol_li p.name {
-    font-size: 0.35rem;
+    font-size: 0.3rem;
     font-weight: 550;
 }
 </style>

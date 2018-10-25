@@ -2,7 +2,7 @@
     <div id="preciew">
         <img class="previewer-demo-img" v-for="(item, index) in list" :src="item.src" @click="show(index)" :key="index">
         <div v-if="list.length>0">
-            <previewer :list="list" ref="previewer" :options="options" @on-index-change="logIndexChange"></previewer>
+            <previewer :list="list" @on-close="close" ref="previewer" :options="options" @on-index-change="logIndexChange"></previewer>
         </div>
         <div v-else>
             <nosearch v-show="isRequesting" text="😕相册为空哦!"></nosearch>
@@ -60,18 +60,22 @@ export default {
                     // Good guide on how to get element coordinates:
                     // http://javascript.info/tutorial/coordinates
                 }
-            }
+            },
         };
     },
     methods: {
         logIndexChange(arg) {
-            console.log(arg);
+            this.$emit('IndexChange',arg.currentIndex+1);
         },
         show(index) {
             this.$refs.previewer.show(index);
+            this.$emit('show');
         },
         loadAlbum() {
             this.bus.$emit("LoadMore");
+        },
+        close(){
+             this.$emit('close');
         }
     },
     computed: {

@@ -100,10 +100,10 @@ export default {
     }
     #FResource .resource  span{
         display: inline-block;
-        font-size: .4rem;
-        width: 2rem;
-        height: 2rem;
-        line-height: 2rem;
+        font-size: .3rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        line-height: 1.5rem;
         color: rgb(255, 83, 112);
         border: 1px solid #72dacf;
         border-radius: 50%;

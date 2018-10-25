@@ -52,7 +52,7 @@ export default{
             font-weight: 550;
             padding: .1rem .2rem;
             color: #fff;
-            border-top-right-radius: .5rem;
+            border-top-right-radius: .4rem;
             background-color: rgb(255, 83, 112);
         }
 </style>

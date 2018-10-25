@@ -25,6 +25,21 @@ export const ajax3 = Axios.create({
   headers: { 'content-type': 'application/x-www-form-urlencoded'},
   timeout:3000,
 })
+
+export const ajax4 = Axios.create({
+  baseURL:'http://192.168.0.107/',
+  headers: { 'content-type': 'application/x-www-form-urlencoded'},
+  timeout:3000,
+})
+
+export const ajax5 = Axios.create({
+  baseURL: 'https://www.jzb1006.com/wx_jssdk/',
+  headers: {
+    'content-type': 'application/x-www-form-urlencoded'
+  },
+  timeout: 3000,
+})
+
 export const qs = Qs;
 
 //相片网址前缀

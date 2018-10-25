@@ -1,21 +1,18 @@
 <template>
     <div id="diary_backdrop">
         <DiaryBackdropUser></DiaryBackdropUser>
-        <DiaryBackdropFormerly></DiaryBackdropFormerly>
         <DiaryBackdropContent></DiaryBackdropContent>
     </div>
 </template>
 
 <script>
 import DiaryBackdropUser from "./diary_backdrop_user";
-import DiaryBackdropFormerly from "./diary_backdrop_formerly";
 import DiaryBackdropContent from "./diary_backdrop_content";
 export default {
     name: "diaryBackdrop",
     components: {
         DiaryBackdropUser,
         DiaryBackdropContent,
-        DiaryBackdropFormerly
     }
 };
 </script>

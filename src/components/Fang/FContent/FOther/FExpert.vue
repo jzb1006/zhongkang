@@ -112,13 +112,13 @@ export default {
 }
 </script>
 <style scoped>
-         #nursing{
+        #nursing{
 			margin:2rem .3rem .3rem .3rem;
 		}
 		#nursing p.title{
-			text-align: center;
+            text-align: center;
             padding: .2rem 0;
-            background-color: #72dacf;
+            background-color: rgb(255, 83, 112);
             font-size: .35rem;
             color: #fff;
 		}
@@ -126,11 +126,13 @@ export default {
 			margin: .2rem 0;
 			padding:.2rem;
 			font-size: .3rem;
-            border-radius: .2rem;
+            color: rgb(255, 83, 112);
+            border-radius: .1rem;
 			border:1px solid #72dacf;
 		}
 		#nursing .container2 .border p{
-			font-size: .4rem;
-            padding: .1rem;
+			font-size: .31rem;
+            padding: .1rem 0;
+            color: #000;
 		}
 </style>

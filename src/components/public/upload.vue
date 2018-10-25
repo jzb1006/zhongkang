@@ -1,5 +1,6 @@
 <template>
     <div id="upload">
+        <fileShow :file-url="fileUrls" :init-files="initFiles"></fileShow>
         <span class="tishi">
             <form id="form1" enctype="multipart/form-data">
                 <input type="file" name="sf_upfile" @change="changeFile($event)" class="position-absolute upfile btn btn-sm btn-outline-info">{{title}}
@@ -49,7 +50,7 @@ export default {
                 "文件类型只支持 MP4 格式的视频",
                 "文件类型支持 jpg,jpeg,gif和MP4"
             ],
-            loadinging:false,
+            loadinging: false
         };
     },
     watch:{
@@ -66,13 +67,15 @@ export default {
     methods: {
         //文件上传
         changeFile: function(e) {
-            this.loadinging = true;
-            if(!e){
-                this.loadinging = false;
+            // console.log(e);
+            // this.loadinging = true;
+            if (!e.target.files[0]) {
+                return false;
             }
             var self = this;
             if (this.limit(e.target.files[0].type)) {
                 if (this.examinationFormat(e.target.files[0].type)) {
+                    this.loadinging = true;
                     var formData = new FormData();
                     formData.append("sf_upfile", e.target.files[0]);
                     apiUp.ajaxUpload(formData).then(res => {
@@ -196,23 +199,25 @@ export default {
 
 <style scoped>
 #upload {
-    position: relative;
-    font-size: .4rem;
+    font-size: 0.4rem;
     text-align: center;
 }
-#upload .tishi{
+#upload .tishi {
+    position: relative;
     display: inline-block;
-    padding: .1rem .2rem;
-    font-size: .35rem;
+    font-size: 0.35rem;
     border: 1px solid rgb(255, 83, 112);
+}
+#upload .tishi form {
+    padding: 0.1rem 0.2rem;
 }
 input.upfile {
     position: absolute;
-    height: .6rem;
-    width: 3.5rem;
+    height: 100%;
+    width: 100%;
+    top: -0.01rem;
+    left: -0.005rem;
     opacity: 0;
-    left: 2rem;
-    top: 0;
 }
 </style>
 

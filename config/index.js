@@ -6,16 +6,17 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
     // Paths
-    
+
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
       '/m': {
-        target: 'http://localhost',
+        target: 'http://192.168.0.107',
         changeOrigin: true,
-        pathRewrite: {"^/m" : "/m"}
+        pathRewrite: {
+          "^/m": "/m"
+        }
       }
     },
 
@@ -28,7 +29,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */
