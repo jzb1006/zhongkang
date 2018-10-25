@@ -140,7 +140,7 @@
                     self.hospital = res.data.institution_info[0];
                     self.doctor_info = res.data.doctor_info;
                     self.cid = res.data.goodsinfo.cat_id;
-                    self.keyword = self.result.meta_keys+','+self.result.goods_name
+                    self.keyword = self.result.meta_keys+self.result.goods_name
                     
                 }).catch(error => {
                     console.log(error);
