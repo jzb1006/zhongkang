@@ -3,17 +3,11 @@
         <div v-for="(m,index) in material">
             <top title="视频"></top>
             <div class="reha_wrapper" id="media_wrapper" v-bind:class="{reha_wrapper_fixed1:reha_wrapper_fixed}">
-                <div v-for="(msg,index) in JSON.parse(m.material_content)" v-if="index == play_index">
+                <div class="video" v-for="(msg,index) in JSON.parse(m.material_content)" v-if="index == play_index">
                     <video controls controlsList="nodownload" @ended="videoFinish(JSON.parse(m.material_content).length)" :src="fileUrl()+msg.url"></video>
                 </div>
-                <div class="other">
-                    <div class="headimg">
-                        <img src="https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=75708ef69425bc31345d07986edf8de7/8694a4c27d1ed21b567175dda06eddc451da3f49.jpg" alt="">
-                    </div>
-                    <p>
-                        <span class="name">{{material.author}}</span>
-                        <span class="follow zk-icon-guanzhu">关注</span>
-                    </p>
+                <div class="authorInfo">
+                    <authorInfo :user=user></authorInfo>
                 </div>
             </div>
             <div class="summary">
@@ -39,7 +33,6 @@
                         </div>
                     </popup>
                 </div>
-                <commentList></commentList>
             </div>
         </div>
 
@@ -53,13 +46,19 @@ import top from "@/components/decorate/top_back_title.vue";
 import commentList from "@/components/comment/comment_list";
 import reward from "@/components/decorate/reward";
 export default {
+    props:{
+        healthyTalkId:{
+            default:""
+        }
+    },
     data() {
         return {
-            healthy_talk_id: "",
+            healthy_talk_id: this.healthyTalkId,
             material: [],
             play_index: 0,
             show: false,
-            reha_wrapper_fixed: false
+            reha_wrapper_fixed: false,
+            user:{}
         };
     },
     components: {
@@ -95,8 +94,13 @@ export default {
                     healthy_talk_id: this.healthy_talk_id
                 })
                 .then(res => {
-                    console.log(res.data);
                     self.material = res.data.material_once;
+
+                    self.user = {
+                        headimg:res.data.material_once[0].headimgurl,
+                        name:res.data.material_once[0].nickname,
+                        view:res.data.material_once[0].view_count
+                    }
                 });
         },
         fileUrl() {
@@ -115,10 +119,10 @@ export default {
         }
     },
     mounted() {
-        this.healthy_talk_id = this.$route.query.healthy_talk_id;
+        if(this.$route.query.healthy_talk_id){
+            this.healthy_talk_id = this.$route.query.healthy_talk_id;
+        }
         this.getData();
-        // window.addEventListener("scroll", this.handleScroll);
-        // document.getElementById(videoDetail).addEventListener("scroll", this.handleScroll);
     }
 };
 </script>
@@ -209,20 +213,25 @@ export default {
     left: 0;
     right: 0;
     width: 100%;
-    z-index: 501;
+    z-index: 500;
 }
 #videoDetail .reha_wrapper_fixed1 {
     position: fixed;
     top: 0;
     z-index: 501;
 }
-#videoDetail .reha_wrapper div:first-child {
+#videoDetail .reha_wrapper div.video {
     height: 4.16rem;
     background-color: #000000;
 }
 #videoDetail .reha_wrapper video {
     width: 100%;
     height: 100%;
+}
+#videoDetail .reha_wrapper .authorInfo{
+    height: auto;
+    padding:.2rem 0;
+    background-color: #fff;
 }
 #videoDetail .reha_wrapper .other {
     top: 2rem;

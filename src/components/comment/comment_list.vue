@@ -100,6 +100,6 @@ export default {
     #commentList{
         position: relative;
         background-color: #fff;
-        z-index: 500;
+        z-index: 550;
     }
 </style>

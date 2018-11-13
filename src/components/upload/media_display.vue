@@ -14,7 +14,7 @@
             </div>
             <span style="display:none" v-else></span>
             <div v-if="up_show" class="media_show">
-                <upload @getFileList=getFileList :filelist1=filelist1 :acceptTypeNum=acceptTypeNum></upload>
+                <uploadC @getFileList=getFileList :filelist1=filelist1 :acceptTypeNum=acceptTypeNum></uploadC>
             </div>
         </div>
         <div v-if="this.$store.state.media_display.open_image_mode">
@@ -27,7 +27,7 @@
 import bus from "@/assets/bus.js";
 import aloneDisplay from "./alone_display";
 import apiUp from "@/api/upload";
-import upload from "./upload";
+import uploadC from "./upload";
 import { mapGetters } from "vuex"   
 export default {
     props: {
@@ -53,7 +53,7 @@ export default {
         ])
     },
     components: {
-        upload,
+        uploadC,
         aloneDisplay
     },
     data() {

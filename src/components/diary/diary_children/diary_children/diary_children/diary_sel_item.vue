@@ -4,9 +4,9 @@
             <span class="submit" @click="sel_Ok()">OK</span>
         </p>
         <div class="items">
-            <span v-if="choose.length > 0">已选项目{{is_aesthetic_custom}}：</span>
+            <span v-if="choose.length > 0">已选项目：</span>
             <span v-for="ch in choose" @click="sel_item3(ch.id)">{{ch.name}}</span>
-            <span v-if="choose.length <= 0">请至少选择一个项目{{is_aesthetic_custom}} </span>
+            <span v-if="choose.length <= 0">请至少选择一个项目 </span>
         </div>
         <div class="show_sel clearfix ">
             <div class="col_4 show_items">
@@ -60,7 +60,7 @@ export default {
                     this.queryItem(this.itemList, val[index].id);
                 }
             } else {
-                this.$store.dispatch("Save_Aesthetic_Status", false);
+                Bus.$emit("changeAestheticStatus", false);
                 this.is_aesthetic_custom = 0;
             }
         }
@@ -75,7 +75,7 @@ export default {
                     ) {
                         this.aesthetic_status = false;
                         this.is_aesthetic_custom = 1;
-                        this.$store.dispatch("Save_Aesthetic_Status", true);
+                        Bus.$emit("changeAestheticStatus", true);
                         return true;
                     } else if (
                         items[index].parent_id == 0 &&
@@ -83,10 +83,7 @@ export default {
                     ) {
                         if (this.aesthetic_status) {
                             this.is_aesthetic_custom = 0;
-                            this.$store.dispatch(
-                                "Save_Aesthetic_Status",
-                                false
-                            );
+                            Bus.$emit("changeAestheticStatus", false);
                         }
                         return false;
                     } else {
@@ -110,7 +107,6 @@ export default {
         },
         sel_item1(data, is_aesthetic_custom) {
             this.item1 = data;
-            // this.is_aesthetic_custom = is_aesthetic_custom;
         },
         sel_item3(id, name) {
             var self = this;
@@ -273,9 +269,6 @@ export default {
     margin-bottom: 1rem;
     height: 80%;
     overflow-y: scroll;
-}
-ul.sel > li {
-    /* border-bottom: 1px solid #ccc; */
 }
 ul.sel > li > div {
     margin-bottom: 0.3rem;

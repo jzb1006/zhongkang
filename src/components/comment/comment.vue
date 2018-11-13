@@ -130,6 +130,7 @@ export default {
     height: 1.2rem;
     width: 100%;
     background-color: #fff;
+    z-index: 666;
 }
 #comment .head {
     height: 0.9rem;

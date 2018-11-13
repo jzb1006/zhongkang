@@ -58,7 +58,7 @@ import HUserEditEmail from '@/components/user/user_editemail.vue'
 import HUserWallet from '@/components/user/user_wallet.vue'
 
 import bill from '@/components/user_wallet/user_bill'
-import billDetail from '@/components/user_wallet/bill_Detail'
+import billDetail from '@/components/user_wallet/bill_detail'
 import cash from '@/components/user_wallet/user_cash'
 import bank from '@/components/user_wallet/user_bank'
 import addbank from '@/components/user_wallet/user_addbank'
@@ -84,13 +84,43 @@ import upload from '@/components/upload/upload.vue'
 import mediaDisplay from '@/components/upload/media_display.vue'
 import aloneDisplay from '@/components/upload/alone_display.vue'
 
+//Carousel
+import carousel from '@/components/decorate/carousel.vue'
+
+//容器
+import container from '@/container/container.vue'
+
+//素材数字信息
+import meta from '@/components/decorate/meta.vue'
+import authorInfo from '@/components/decorate/author_info.vue'
+
 Vue.use(Router)
 
 const router = new Router({
   routes: [
     {
       path: '/',
-      redirect:'/home/diaryList'
+      redirect:'/container'
+    },
+    {
+      path: '/container',
+      name: 'container',
+      component : container
+    },
+    {
+      path: '/authorInfo',
+      name: 'authorInfo',
+      component : authorInfo
+    },
+    {
+      path: '/meta',
+      name: 'meta',
+      component : meta
+    },
+    {
+      path: '/carousel',
+      name: 'carousel',
+      component : carousel
     },
     {
       path: '/upload',
@@ -219,21 +249,11 @@ const router = new Router({
       component: ()=> import('./../components/diary/diary_children/diary_backdrop_list.vue'),
     
     },
-    // {
-    //   path:'/diary/diaryCreateDiary',
-    //   name:"diaryCreateDiary",
-    //   component: ()=> import('./../components/diary/diary_children/diary_children/diary_create_diary.vue'),
-    // },
     {
       path:'/diary/diaryCreateBackdrop',
       name:"diaryCreateBackdrop",
       component: ()=> import('./../components/diary/diary_children/diary_children/diary_create_backdrop.vue'),
     },
-    // {
-    //   path:'/diary/diaryUpdateBasic',
-    //   name:"diaryUpdateBasic",
-    //   component: ()=> import('./../components/diary/diary_children/diary_children/diary_update_basic.vue'),
-    // },
     {
       path:'/diary/diaryReward',
       name:"diaryReward",
@@ -511,6 +531,11 @@ router.beforeEach((to, from, next) => {
           console.log(error);
       })
   }
+  // if(to.name=='container'){
+  //   to.query.id = 3;
+
+  // }
+  console.log(to);
 
   //图片浏览模式的状态
   if(store.state.media_display.open_image_mode){

@@ -1,7 +1,7 @@
 <template>
     <div id="diary_info">
         <!-- <p class="top">
-            <top title=""></top>
+            <top title="ha"></top>
             <span v-if="is_aesthetic_custom" class="submit" @click="submit(2)">下一步</span>
             <span v-else class="submit" @click="submit(1)">发表</span>
         </p> -->
@@ -20,9 +20,9 @@
                 </div>
             </li>
         </ul>
-        <div v-if="isShow">
+        <!-- <div v-if="isShow">
             <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
-        </div>
+        </div> -->
         
     </div>
 </template>

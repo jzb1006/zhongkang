@@ -61,12 +61,12 @@ export default {
     methods: {
         update_backdrop(bid){
             this.$store.dispatch('Save_Diary_Operate','ub');
-            this.$router.push({name:'diaryOperate',query:{bid:bid}})
+            this.$router.push({name:'diaryOperate',query:{operate:"ub",bid:bid}})
         },
         create_diary(bid){
             this.$store.dispatch('Save_Diary_Operate','cd');
             this.$store.dispatch("Save_Aesthetic_Status", false);
-            this.$router.push({name:'diaryOperate',query:{bid:bid}})
+            this.$router.push({name:'diaryOperate',query:{operate:"cd",bid:bid}})
         },
         create_backdrop(){
             this.$store.dispatch('Save_Diary_Operate','cb');
@@ -77,7 +77,6 @@ export default {
             api
                 .ajaxSearch("diary_select_basic")
                 .then(res => {
-                    console.log(res.data);
                     self.backdropList = res.data.backdrop;
                     self.itemName = res.data.item_name;
                     self.diaryCount = res.data.diary_count;

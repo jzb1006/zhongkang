@@ -1,4 +1,4 @@
-import {ajax,ajax4,qs,img_prifix} from './../ajax';
+import {ajax,ajax2,ajax4,qs,img_prifix} from './../ajax';
 import Axios from 'axios';
 export default {
 

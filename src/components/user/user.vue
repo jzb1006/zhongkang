@@ -89,6 +89,7 @@ export default {
            this.email=res.data.userinfo.email;
            this.loadinging=false;
         }).catch(error=>{
+          this.loadinging=false;
            console.log(error);
         })    
     },

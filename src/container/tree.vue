@@ -1,0 +1,48 @@
+<template>
+    <div>
+        <div v-for="(item,index) in model.child_component" :key="index">
+            <component v-if="item.type != 0"  :setId="JSON.parse(item.params)" :number=getNumber(item) :is="item.name"></component>
+        </div>
+
+        <div v-if="hasChild">
+            <tree v-for="(item,index) in model.child_component" :key="index" v-bind:model="item" v-bind:key="index"></tree>
+        </div>
+        <!-- <div v-for="(item,index) in model.child_component" :key="index"> -->
+            <!-- <component v-if="model.type != 0" :is="model.name"></component> -->
+        <!-- </div> -->
+    </div>
+</template>
+
+<script>
+export default {
+    name: "tree",
+    props: ["model"],
+    computed: {
+        hasChild() {
+            this.sort_asc();
+            return (
+                this.model.child_component && this.model.child_component.length
+            );
+        }
+    },
+    methods: {
+        getNumber(data){
+            if(JSON.parse(data.params).number){
+                return JSON.parse(data.params).number;
+            }
+            return "";
+        },
+        sort_asc() {
+            if (this.model.child_component) {
+                this.model.child_component.sort(this.sortId);
+            }
+        },
+        sortId(a, b) {
+            return a.rank - b.rank;
+        }
+    }
+};
+</script>
+
+<style>
+</style>

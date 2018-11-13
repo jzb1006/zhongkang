@@ -10,8 +10,7 @@
                     <defaultImg :imgPath="user.headimgurl" :styles="img_style"></defaultImg>
                 </div>
                 <div class="name">
-                    <span class="name" v-if="user.nickname">{{user.nickname}}</span>
-                    <span class="name" v-else>{{user.user_name}}</span>
+                    <span class="name">{{user.nickname ? user.nickname : ""}}</span>
                 </div>
             </div>
             <div class="down">
@@ -38,7 +37,7 @@
                         </div>
 
                     </li>
-                    <li>
+                    <!-- <li>
                         <ul class="other">
                             <li class="reward clearfix">
                                 <router-link :to="{name:'diaryReward'}" tag="div">
@@ -50,7 +49,7 @@
                                 </router-link>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li>
                         <div class="backdropImage" v-if="backList.length > 0" v-for="(backdrop,index) in backdropList">
                             <p v-if="index == '0'" class="title">过去的她</p>
@@ -76,7 +75,7 @@
                         <div class="operate">
                             <span class="operate_btn" v-if="is_user()" @click="update_backdrop(backhead.id)">
                                 <!-- <router-link :to="{name:'diaryOperate',query:{bid:backhead.id,operate:'ub'}}" tag="div"> -->
-                                    编辑 
+                                编辑
                                 <!-- </router-link> -->
                             </span>
                             <span class="operate_btn" v-else>关注</span>
@@ -95,8 +94,19 @@ import mediaDisplay from "@/components/upload/media_display";
 import top from "@/components/decorate/top_back_title.vue";
 import defaultImg from "@/components/decorate/default_img.vue";
 export default {
+    props: {
+        b_id: {
+            default: ""
+        },
+        setId: {
+            default: function() {
+                return {};
+            }
+        }
+    },
     data() {
         return {
+            bid: this.b_id,
             backdropList: [],
             diaryList: [],
             backList: [],
@@ -109,7 +119,7 @@ export default {
             keyword: this.$refs.keyword
         };
     },
-    props: ["bid"],
+
     components: {
         top,
         defaultImg,
@@ -118,7 +128,10 @@ export default {
     methods: {
         update_backdrop(bid) {
             this.$store.dispatch("Save_Diary_Operate", "ub");
-            this.$router.push({ name: "diaryOperate", query: { bid: bid } });
+            this.$router.push({
+                name: "diaryOperate",
+                query: { operate: "ub", bid: bid }
+            });
         },
         del_backdrop(bid) {
             api.ajaxSubmit("delBasic", { bid: bid }).then(res => {
@@ -164,28 +177,38 @@ export default {
         },
         $_ajax_getBackdrop: function() {
             var self = this;
-            let bid = this.$route.query.bid;
 
-            if (!bid) {
-                bid = this.bid;
+            if (!this.bid) {
+                this.bid = this.$route.query.bid;
             }
-            api.ajaxSearch("diary_detail_basic", { bid: bid }).then(res => {
-                self.diaryList = res.data.diary;
-                self.backdropList = res.data.backdrop;
-                self.memuList = res.data.item_name;
-                self.user = res.data.user;
-                self.diaryNum = res.data.tt;
-                self.s_uid = res.data.s_uid;
-                self.p_uid = res.data.b_uid;
+            api
+                .ajaxSearch("diary_detail_basic", { bid: this.bid })
+                .then(res => {
+                    self.diaryList = res.data.diary;
+                    self.backdropList = res.data.backdrop;
+                    self.memuList = res.data.item_name;
+                    self.user = res.data.user;
+                    self.diaryNum = res.data.tt;
+                    self.s_uid = res.data.s_uid;
+                    self.p_uid = res.data.b_uid;
 
-                if (res.data.backdrop[0].img1) {
-                    let arrImg = [];
-                    arrImg.push({ url: res.data.backdrop[0].img1, alt: "" });
-                    arrImg.push({ url: res.data.backdrop[0].img2, alt: "" });
-                    arrImg.push({ url: res.data.backdrop[0].img3, alt: "" });
-                    self.backList = arrImg;
-                }
-            });
+                    if (res.data.backdrop[0].img1) {
+                        let arrImg = [];
+                        arrImg.push({
+                            url: res.data.backdrop[0].img1,
+                            alt: ""
+                        });
+                        arrImg.push({
+                            url: res.data.backdrop[0].img2,
+                            alt: ""
+                        });
+                        arrImg.push({
+                            url: res.data.backdrop[0].img3,
+                            alt: ""
+                        });
+                        self.backList = arrImg;
+                    }
+                });
         },
         back() {
             this.$router.push({ path: "/" });
@@ -287,7 +310,7 @@ export default {
     font-size: 0.3rem;
 }
 #diary_backdrop_user .down .info li {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.3rem;
 }
 #diary_backdrop_user .down .info .item {
     white-space: nowrap;

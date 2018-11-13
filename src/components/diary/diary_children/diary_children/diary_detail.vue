@@ -1,6 +1,6 @@
 <template>
     <div id="diary_detail">
-        <DiaryDetailTop :bid=bid></DiaryDetailTop>
+        <diary-detail-top></diary-detail-top>
         <div v-for="(diary,index) in diaryContent" v-if="index == 0">
             <div class="content">
                 <p class="icon_days">
@@ -15,41 +15,33 @@
                 </div>
             </div>
             <div class="bottom">
-                <div class="bottom_see clearfix">
-                    <div class="col_4">
-                        <span>
-                            <i class="zk-icon-liulan"></i>{{transform_num(diary.view_count)}}</span>
-                    </div>
-                    <div class="col_4">
-                        <span>
-                            <i class="zk-icon-dianzan"></i> {{transform_num(diary.favor)}}</span>
-                    </div>
-                    <div class="col_4">
-                        <span>
-                            <i class="zk-icon-edit"></i> {{transform_num(commentNum)}}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer" @click="favor()" v-if="username">
-            <div class="click_zan">
-                赞
+                <e-mate :info="format_info(diary,diary.view_count,diary.favor,commentNum)"></e-mate>
             </div>
         </div>
         <Loading v-show="loadinging"></Loading>
     </div>
 </template>
 <script>
+import apiCom from "@/api/common";
 import api from "@/api/diary";
+import meta from "@/components/decorate/meta.vue";
 import DiaryDetailTop from "./diary_detail_top";
 import Loading from "@/components/decorate/loading.vue";
 export default {
+    props:{
+        b_id:{
+            default:""
+        },
+        d_id:{
+            default:""
+        }
+    },
     data() {
         return {
             diaryContent: [],
-            commentNum: 0,
-            bid: "",
-            did: "",
+            commentNum: "0",
+            bid: this.b_id,
+            did: this.d_id,
             mediaList: [],
             footer_in: false,
             username: "",
@@ -58,9 +50,19 @@ export default {
     },
     components: {
         DiaryDetailTop,
-        Loading
+        Loading,
+        "e-mate": meta
     },
     methods: {
+        format_info(item, browses, likes, comments) {
+            let data = {
+                item: { table: "recovery_diary", id: item.did },
+                browses: browses,
+                likes: likes,
+                comments: comments
+            };
+            return data;
+        },
         transform_num(index) {
             let num = parseInt(index);
             return num > 100000000
@@ -69,12 +71,12 @@ export default {
         },
         $_ajax_getDiaryDetail: function() {
             var self = this;
+            if(!this.bid || !this.did)
             this.did = this.$route.query.did;
             this.bid = this.$route.query.bid;
             api
                 .ajaxSearch("diary_detail_diary", { did: this.did })
                 .then(res => {
-                    console.log(res);
                     self.diaryContent = res.data.diary;
                     self.mediaList = res.data.media;
                     self.username = res.data.my_name[0].user_name;
@@ -93,7 +95,7 @@ export default {
             return arr;
         },
         checkImgType: function(fileURL) {
-            var right_type = new Array(".jpg", ".jpeg", ".mp4", ".gif",".png");
+            var right_type = new Array(".jpg", ".jpeg", ".mp4", ".gif", ".png");
 
             var right_typeLen = right_type.length;
             var imgUrl = fileURL.toLowerCase();
@@ -137,20 +139,16 @@ export default {
     },
     mounted() {
         this.$_ajax_getDiaryDetail();
+
+        apiCom.ajaxSubmit("common", "viewCount", {
+            table: "recovery_diary",
+            id: this.$route.query.did
+        });
     }
 };
 </script>
 
 <style scoped>
-/* .col_4 {
-    width: 33.3%;
-    float: left;
-    text-align: center;
-    font-size: 0.35rem;
-} */
-#diary_detail {
-    /* margin-top: 1rem; */
-}
 #diary_detail .media_list {
     padding: 0 0.2rem;
 }
@@ -163,9 +161,8 @@ img {
     margin: 0.3rem;
     font-size: 0.3rem;
 }
-#diary_detail p.icon_days{
-    margin: .1rem .3rem;
-
+#diary_detail p.icon_days {
+    margin: 0.1rem 0.3rem;
 }
 #diary_detail .icon_days span {
     color: #fff;
@@ -176,7 +173,6 @@ img {
     background-color: #ff8ea3;
 }
 #diary_detail .bottom {
-    margin-bottom: 2rem;
     padding: 0.2rem 0;
 }
 #diary_detail .bottom .bottom_see {

@@ -17,8 +17,8 @@
 
                     <div v-else="diary.check_status == '2'">
                         <img src="./../../../../static/images/nopass.png" alt="" />
-                        <p v-model="show" @click.native="showPlugin">点击查看详情</p>
-                        <alert v-model="show" title="拒绝原因">{{diary.reject_cause}}</alert>
+                        <p v-model="show" @click="showModule(diary.reject_cause)">点击查看详情</p>
+
                         <p></p>
                     </div>
                 </div>
@@ -27,7 +27,8 @@
                     <em>第{{transform_num(diaryNum - index)}}篇日记</em>
                 </p>
                 <div class="timeLine">
-                    <router-link :to="{name:'diaryDetail',query:{bid:bid,did:diary.id}}" tag="div">
+                    <!-- <router-link :to="{name:'container',query:{id:setId.id,bid:bid,did:diary.id}}" tag="div"> -->
+                    <router-link :to="{name:'diaryDetail',query:{bid:bid,did:diary.id}}" tag="a">   
                         <p class="title">{{memu}}
                             <span class="time">第{{getDays(backdropList.time,diary.course_time)}}天</span>
                         </p>
@@ -44,20 +45,11 @@
                         </ul>
                         <p v-else>媒体类型错误！！！无法显示</p>
                     </router-link>
-                    <div class="other clearfix">
-                        <div>
-                            <i class="zk-icon-liulan"></i> {{transform_num(diary.view_count)}}
-                        </div>
-                        <div>
-                            <i class="zk-icon-dianzan" @click="favor(diary.id)"></i> {{transform_num(diary.favor)}}
-                        </div>
-                    </div>
+                    <e-mate :info="format_info(diary,diary.view_count,diary.favor)"></e-mate>
                     <div v-if="s_uid == p_uid" class="operate_list">
-                        <!-- <router-link :to="{name:'diaryOperate',query:{operate:'ud',did:diary.id}}"> -->
                         <div class="operate_btn" @click="update_diary(diary.id)">
                             <i class="zk-icon-xiugai"></i>
                         </div>
-                        <!-- </router-link> -->
                         <div class="operate_btn" @click="delDiary(diary.id,index)">
                             <i class="zk-icon-icon "></i>
                         </div>
@@ -67,25 +59,34 @@
         </div>
         <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_getBackdrop"></LoadMore>
-        <!-- <router-link :to="{name:'diaryOperate',query:{bid:bid,operate:'cd'}}"> -->
         <p class="write_diary" v-if="s_uid == p_uid" @click="create_diary()">继续写日记</p>
-        <!-- </router-link> -->
     </div>
 </template>
 <script>
 import api from "@/api/diary";
 import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
-import { Alert } from "vux";
+import meta from "@/components/decorate/meta.vue";
+import { Alert, AlertModule } from "vux";
 export default {
+    props:{
+        b_id:{
+            default:"",
+        },
+        setId:{
+            default:function(){
+                return {}
+            }
+        }
+    },
     data() {
         return {
+            bid:this.b_id,
             diaryList: [],
             mediaList: [],
             diaryNum: 0,
             backdropList: [],
             memu: "",
-            bid: "",
             s_uid: 0,
             p_uid: 0,
             onlyVideo: true,
@@ -101,15 +102,24 @@ export default {
     components: {
         LoadMore,
         Loading,
-        Alert
+        Alert,
+        "e-mate": meta
     },
     methods: {
+        format_info(item, browses, likes) {
+            let data = {
+                browses: browses,
+                likes: likes,
+                item: { table: "recovery_diary", id: item.id }
+            };
+            return data;
+        },
         update_diary(did) {
             this.$store.dispatch("Save_Diary_Operate", "ud");
             this.$store.dispatch("Save_Aesthetic_Status", false);
             this.$router.push({
                 name: "diaryOperate",
-                query: { did: did }
+                query: { operate:'ud',did: did }
             });
         },
         create_diary() {
@@ -117,7 +127,7 @@ export default {
             this.$store.dispatch("Save_Aesthetic_Status", false);
             this.$router.push({
                 name: "diaryOperate",
-                query: { bid: this.bid }
+                query: { operate:"cd", bid: this.bid }
             });
         },
         delDiary(did, index) {
@@ -139,7 +149,11 @@ export default {
         $_ajax_getBackdrop: function() {
             var self = this;
             this.isBusy = true;
-            this.bid = this.$route.query.bid;
+
+            if(!this.bid){
+                this.bid = this.$route.query.bid;
+            }
+
             self.page = self.page + 1;
             let arr = {
                 num_list: 3,
@@ -205,7 +219,7 @@ export default {
             var days = Math.abs(minusDays); //取绝对值
 
             return days;
-        },
+        }, 
         seeOnlyVideo() {
             this.hiddenNum = this.hiddenNum == 1 ? 0 : 1;
             this.videoMessage =
@@ -223,15 +237,15 @@ export default {
             }
             return scrollTop;
         },
-        showPlugin() {
-            this.$vux.alert.show({
-                title: "VUX is Cool",
-                content: this.$t("Do you agree?"),
+        showModule(content) {
+            AlertModule.show({
+                title: "拒绝理由",
+                content: content,
                 onShow() {
-                    console.log("Plugin: I'm showing");
+                    console.log("Module: I'm showing");
                 },
                 onHide() {
-                    console.log("Plugin: I'm hiding now");
+                    console.log("Module: I'm hiding now");
                 }
             });
         },
@@ -294,9 +308,6 @@ div.check_status > div > p {
     font-size: 0.25rem;
     font-weight: 500;
     color: #fff;
-}
-#backdrop_content .list {
-    margin-bottom: 2rem;
 }
 #backdrop_content .list .list_content {
     position: relative;

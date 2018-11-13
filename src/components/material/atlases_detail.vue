@@ -2,7 +2,12 @@
 <template>
     <div id="atlases_detail">
         <div class="material">
+            <div class="author_info" v-show="atlases_content_show">
+                <authorInfo :user=user></authorInfo>
+            </div>
+
             <div class="atlases_wrapper" v-for="(img,index) in imgs" v-if="index == '0'">
+                <p class="content">{{info.title}}</p>
                 <div class="atlases">
                     <preciew :list="imgs" @IndexChange="getIndex" @show="show" @close="close"></preciew>
                     <span>{{imgs.length}}图</span>
@@ -10,7 +15,6 @@
                 <div v-show="atlases_content_show">
                     <p class="atlases_content" v-for="(msg,index) in JSON.parse(info.material_content)" v-show="content_show == (index+1)">{{msg.alt}}</p>
                 </div>
-                <p class="content">{{info.title}}</p>
                 <p class="author">{{info.author}}
                     <span class="comments">0评论</span>
                 </p>
@@ -20,6 +24,7 @@
 </template>
 
 <script>
+import apiCom from "@/api/common";
 import apiM from "@/api/material/index.js";
 import preciew from "@/components/decorate/preciew";
 export default {
@@ -28,20 +33,31 @@ export default {
             default: function() {
                 return {};
             }
+        },
+        healthyTalkId: {
+            default: ""
         }
     },
     data() {
         return {
+            healthy_talk_id: this.healthyTalkId,
             video_show: true,
             atlases_show: true,
             article_show: true,
             atlases_content_show: false,
             content_show: 1,
             imgs: [],
-            atlases_content_show: false
+            user: {}
         };
     },
     methods: {
+        add_view() {
+            var self = this;
+            apiCom.ajaxSubmit("common", "viewCount", {
+                table: "hm_healthy_talk",
+                id: self.healthyTalkId
+            });
+        },
         imgUrl() {
             return apiM.fileUrl();
         },
@@ -72,6 +88,13 @@ export default {
                 };
                 this.imgs.push(data1);
             }
+
+            this.user = {
+                headimg: this.info.headimgurl,
+                name: this.info.nickname,
+                view: this.info.view_count
+            };
+            this.add_view();
         },
         toJson: function(str) {
             let _str = new Function("", "return " + str)();
@@ -89,14 +112,23 @@ export default {
 
 <style scoped>
 #atlases_detail .material {
+    /* position: relative; */
     /* box-shadow: 1px 1px 0px #dbd6d6;
     border-bottom: 0.1rem solid #eceaea; */
+}
+#atlases_detail .material .author_info {
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    right: 0;
+    color: #fff;
+    z-index: 1501;
 }
 #atlases_detail .material .atlases_wrapper .atlases {
     position: relative;
     text-align: center;
     width: 100%;
-    height: 4rem;
+    height: 3.5rem;
     overflow: hidden;
     background-color: #fff;
 }
@@ -130,13 +162,20 @@ export default {
 }
 #atlases_detail .material .atlases_wrapper p.content {
     font-size: 0.3rem;
+    /* height: 0.8rem; */
     line-height: 0.4rem;
-    padding: 0.1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding: 0.1rem 0 0.2rem;
 }
 #atlases_detail .material .atlases_wrapper p.author {
     font-size: 0.25rem;
-    color: #aaa;
-    padding: 0.1rem;
+    color: #7d7d7d;
+    padding: 0.1rem 0;
+    margin-right: 0.2rem;
     /* box-shadow: 1px 1px 0px #dbd6d6; */
 }
 #atlases_detail .material .atlases_wrapper p.author span.comments {

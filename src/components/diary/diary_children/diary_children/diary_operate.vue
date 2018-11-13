@@ -7,18 +7,15 @@
         </p>
         <diaryInfo v-show="diary_show" ref="diary" :info=info></diaryInfo>
         <backdropInfo v-show="backdrop_show" @changeShowBackdrop=changeShowBackdrop ref="backdrop" :showbackdrop1=show_backdrop1 :info=info></backdropInfo>
-        <!-- <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert> -->
     </div>
 </template>
 
 <script>
 import api from "@/api/diary";
 import Bus from "@/assets/bus.js";
-// import Alert from "@/components/decorate/alert.vue";
 import top from "@/components/decorate/top_back_title.vue";
 import diaryInfo from "./diary_diary_info";
 import backdropInfo from "./diary_backdrop_info";
-import { mapGetters } from "vuex";
 export default {
     data() {
         return {
@@ -29,17 +26,16 @@ export default {
             bid: "",
             did: "",
             info: {},
-            backimg:[]
+            backimg: [],
+
+            getDiaryOperate: "cb",
+            getAestheticStatus: false
         };
     },
     components: {
         diaryInfo,
         backdropInfo,
-        top,
-        // Alert
-    },
-    computed: {
-        ...mapGetters(["getAestheticStatus", "getDiaryOperate"])
+        top
     },
     watch: {
         getAestheticStatus(val, oldVal) {}
@@ -59,6 +55,7 @@ export default {
                         break;
                     case "ud":
                         this.update_diary();
+                        break;
                     case "ub":
                         this.update_backdrop();
                         break;
@@ -182,7 +179,7 @@ export default {
                 .ajaxSearch("diary_update_basic", { bid: self.bid })
                 .then(res => {
                     self.info = res.data;
-                    if(this.getAestheticStatus){
+                    if (this.getAestheticStatus) {
                         let data = res.data.backdrop;
                     }
                 });
@@ -197,13 +194,24 @@ export default {
             this.did = this.$route.query.did;
         }
 
-        if (this.getDiaryOperate == "cd" || this.getDiaryOperate == "ud") {
-            this.backdrop_show = false;
+        if (this.$route.query.operate) {
+            this.getDiaryOperate = this.$route.query.operate;
+
+            if (
+                this.$route.query.operate == "cd" ||
+                this.$route.query.operate == "ud"
+            ) {
+                this.backdrop_show = false;
+            }
+
+            if (this.$route.query.operate == "ub") {
+                this.getBackdropData();
+            }
         }
 
-        if (this.getDiaryOperate == "ub") {
-            this.getBackdropData();
-        }
+        Bus.$on("changeAestheticStatus",res=>{
+            this.getAestheticStatus = res;
+        })
     }
 };
 </script>
@@ -211,6 +219,7 @@ export default {
 <style scoped>
 #diary_operate p.top {
     margin-bottom: 0.1rem;
+    height: 1rem;
 }
 #diary_operate p.top span.submit {
     position: absolute;

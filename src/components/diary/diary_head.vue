@@ -1,24 +1,6 @@
 <template>
-    <div id="diary_head">
+    <div id="diary_head" class="clearfix">
         <searchBar :title="'众康医疗'" :iconShow="true"></searchBar>
-        <p>
-            <router-link :to="{name:'diaryBackdropList'}">
-                <span>写日记</span>
-            </router-link>
-            <router-link :to="{name:'FMain'}">
-                <span>医导</span>
-            </router-link>
-            <router-link :to="{name:'commentList'}">
-                <span>评论列表</span>
-            </router-link>
-            <router-link :to="{name:'materialList'}">
-                <span>素材</span>
-            </router-link>
-            <router-link :to="{name:'reward'}">
-                <span>打赏</span>
-            </router-link>
-            <span @click="share">分享</span>
-        </p>
         <DiaryList></DiaryList>
     </div>
 </template>
@@ -43,11 +25,16 @@ export default {
         share() {
             commonShare(this, shareTitle, shareUrl, shareImg, shareDesc);
         }
+    },
+    mounted(){
     }
 };
 </script>
 
 <style scoped>
+#diary_head{
+    position: relative;
+}
 #diary_head p {
     text-align: right;
 }

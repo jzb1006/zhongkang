@@ -40,17 +40,11 @@ export default {
             console.log(file);
         },
         handleExceed(files, fileList) {
-            console.log(123123);
-            console.log(files);
-            return;
             this.$message.warning(
                 `当前限制选择 3 个文件，本次选择了 ${
                     files.length
                 } 个文件，共选择了 ${files.length + fileList.length} 个文件`
             );
-        },
-        limit_size(){
-
         },
         handleSuccess(response, file, fileList) {
             if (this.checkImgType) {
@@ -93,8 +87,8 @@ export default {
 
 <style scoped>
 #upload {
-    width: 100%;
-    height: 100%;
+    width: 2.2rem;
+    height: 2.2rem;
 }
 #upload .upload_wrapper {
     position: relative;

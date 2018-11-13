@@ -1,67 +1,141 @@
 <template>
-       
-        <div id="foot">
-            <tabbar>
-                <tabbar-item selected link="/home/diaryList">
-                    <span slot="icon" class="zk-icon-shouye icon"></span>
-                    <span slot="label">首页</span>
-                </tabbar-item>
-                <tabbar-item link='/hospitalList'>
-                    <span slot="icon" class="zk-icon-organization icon"></span>
-                    <span slot="label">机构</span>
-                </tabbar-item>
-                <tabbar-item link='/doctorList'>
-                    <span slot="icon" class="zk-icon-nanxingmale100 icon"></span>
-                    <span slot="label">医生</span>
-                </tabbar-item>
-                <tabbar-item link="/HProductList">
-                    <span slot="icon" class="zk-icon-project-o icon"></span>
-                    <span slot="label">项目</span>
-                </tabbar-item>
-                <tabbar-item link="/home/user">
-                    <span slot="icon" class="zk-icon-iconfonticon5 icon"></span>
-                    <span slot="label">个人中心</span>
-                </tabbar-item>
-            </tabbar>
+
+    <div id="foot">
+        <div class="fill"></div>
+        <tabbar>
+            <tabbar-item v-for="menu in menu_footer" selected link="/container">
+                <span slot="icon" class="zk-icon-shouye icon"></span>
+                <span slot="label">{{menu.name}}</span>
+            </tabbar-item>
+            <tabbar-item class="menu" @on-item-click="open()">
+                <span slot="icon" class="zk-icon-gengduo icon"></span>
+            </tabbar-item>
+            <tabbar-item link="/home/user">
+                <span slot="icon" class="zk-icon-iconfonticon5 icon"></span>
+                <span slot="label">个人中心</span>
+            </tabbar-item>
+        </tabbar>
+        <div v-if="menu_show" class="menu">
+            <div class="menulist">
+                <menuList @closeMenu=close></menuList>
+            </div>
+            <p class="close" @click="close()">
+                <span class="zk-icon-guanbi1"></span>
+            </p>
         </div>
+    </div>
 </template>
 <script>
-    import {
+import { Tabbar, TabbarItem } from "vux";
+import menuList from "@/components/decorate/menu_list";
+import common from "../../widget/lib/user";
+export default {
+    data() {
+        return {
+            menu_show: false,
+            menu_footer:[
+                {
+                    name:"index"
+                },
+                // {
+                //     name:"owner"
+                // },
+                // {
+                //     name:"owner"
+                // }
+            ]
+        };
+    },
+    components: {
         Tabbar,
-        TabbarItem
-    } from 'vux'
-    import common from '../../widget/lib/user'
-    export default {
-        components: {
-            Tabbar,
-            TabbarItem,
+        TabbarItem,
+        menuList
+    },
+    methods: {
+        close() {
+            this.menu_show = false;
+        },
+        open() {
+            this.menu_show = true;
         }
     }
+};
 </script>
 <style>
-    #foot {
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-        z-index: 500;
-    }
-    .weui-tabbar__icon {
-        width: 0.5rem!important;
-        height: 0.5rem!important;
-    }
-    #foot .icon {
-        font-size: 0.5rem;
-    }
-    .weui-tabbar__label {
-        font-size: 0.3rem!important;
-        line-height: 1.8!important;
-    }
-    .weui-bar__item_on {
-        color: red!important;
-    }
-    .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon,
-    .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon>i,
-    .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label {
-        color: #ff5370!important;
-    }
+#foot {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 500;
+}
+#foot .fill {
+    width: 100%;
+    height: 1rem;
+}
+#foot > .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 501;
+}
+#foot > .menu .menulist {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1rem;
+}
+#foot .menu p.close {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background-color: #cccc; */
+    border-top: 1px solid #ccc;
+    z-index: 502;
+    /* font-size: 1.4rem; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#foot .menu p.close span {
+    font-size: 0.4rem;
+    padding: 0.2rem;
+}
+.weui-tabbar__icon {
+    width: 0.5rem !important;
+    height: 0.5rem !important;
+}
+#foot .icon {
+    font-size: 0.5rem;
+}
+.weui-tabbar__label {
+    font-size: 0.3rem !important;
+    line-height: 1.8 !important;
+}
+.weui-bar__item_on {
+    color: red !important;
+}
+.weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon,
+.weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon > i,
+.weui-tabbar__item.weui-bar__item_on .weui-tabbar__label {
+    color: #ff5370 !important;
+}
+.menu .weui-tabbar__icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    width: 0.9rem !important;
+    height: 0.9rem !important;
+}
+.menu .weui-tabbar__icon .icon {
+    /* font-size: 0.6rem !important; */
+    padding: 0.1rem 0.1rem 0.08rem 0.1rem;
+    border: 1px solid #ff5370;
+    border-radius: 0.2rem;
+}
 </style>

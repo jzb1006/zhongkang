@@ -13,7 +13,7 @@ export default {
     components: {
         DiaryBackdropUser,
         DiaryBackdropContent,
-    }
+    },
 };
 </script>
 <style>

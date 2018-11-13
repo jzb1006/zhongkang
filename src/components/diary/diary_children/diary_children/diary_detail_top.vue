@@ -3,31 +3,30 @@
         <p class="top">
             <top title="美丽内容"></top>
         </p>
-
         <div v-for="backdrop in backdropList">
             <div class="head">
                 <div class="headImg">
-                    <img src="http://img2.imgtn.bdimg.com/it/u=1409135023,2233259101&fm=27&gp=0.jpg " alt="" />
+                    <img v-if="user.headimgurl" :src="getImgUrl()+user.headimgurl" alt="" />
                 </div>
-                <span class="user_name">{{user.nickname}}</span>
+                <span class="user_name">{{user.nickname?user.nickname:""}}</span>
                 <span class="time">{{backdrop.update_time.split(" ")[0]}}</span>
             </div>
             <div class="other">
                 <div class="info">
-                    <router-link :to="{name:'hospitalDetail',params:{ins_id:backdrop.institution_id}}">
+                    <router-link :to="{name:'hospitalDetail',params:{ins_id:backdrop.institution_id}}" tag="a">
                         <span class="icon_institution zk-icon-yiyuan"></span>
                         <span class="name" :title="backdrop.institution_name">{{backdrop.institution_name}}</span>
                     </router-link>
                 </div>
                 <div class="info">
-                    <router-link :to="{name:'doctorDetail',params:{doc_id:backdrop.doctor_id,ins_id:backdrop.institution_id}}">
+                    <router-link :to="{name:'doctorDetail',params:{doc_id:backdrop.doctor_id,ins_id:backdrop.institution_id}}" tag="a">
                         <span class="icon_doctor zk-icon-ys"></span>
                         <span class="name" :title="backdrop.doctor_name">{{backdrop.doctor_name}}</span>
                     </router-link>
                 </div>
             </div>
             <div class="info">
-                <router-link :to="{name:'diaryBackdrop',query:{bid:bid}}" tag="div" class="see_diary">
+                <router-link :to="{name:'diaryBackdrop',query:{bid:$route.query.bid}}" tag="a" class="see_diary">
                     <span>查看其他日记</span>
                 </router-link>
             </div>
@@ -53,6 +52,9 @@ export default {
         top
     },
     methods: {
+        getImgUrl() {
+            return api.imgUrl();
+        },
         $_ajax_getBackdrop: function() {
             var self = this;
             let bid = this.$route.query.bid;
@@ -103,24 +105,6 @@ export default {
     background-color: rgb(255, 83, 112);
     z-index: 999;
 }
-
-/* #detail_top .top {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: rgb(255, 83, 112);
-    color: #fff;
-    z-index: 999;
-}
-#detail_top .top p {
-    text-align: center;
-    font-size: .4rem;
-    margin-bottom: 0;
-}
-#detail_top .top span{
-    float: left;
-} */
 #detail_top .head {
     position: relative;
     margin-top: 1rem;
@@ -185,11 +169,8 @@ export default {
     font-size: 0.3rem;
     padding: 0.2rem;
     border-radius: 1rem;
-    /* color: #fff; */
-    /* background-color: rgb(255, 83, 112); */
 }
 #detail_top .other .info span.name {
-    /* width: 4rem; */
     white-space: nowrap;
     overflow: hidden;
     font-size: 0.3rem;
@@ -203,6 +184,7 @@ export default {
     display: inline-block;
 }
 .see_diary {
+    display: block;
     text-align: center;
     font-size: 0.3rem;
     color: #ff5370;
@@ -211,7 +193,7 @@ export default {
 .see_diary span {
     display: inline-block;
     width: 80%;
-    margin-bottom: .1rem;
+    margin-bottom: 0.1rem;
     padding: 0.1rem 0.2rem;
     box-shadow: #cbc7c7 0 0 20px;
     border: 4px solid #f8f8f8;

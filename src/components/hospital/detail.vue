@@ -110,7 +110,7 @@
                             <i class="zk-icon-jiantou" style="font-size: 0.3rem;"></i>
                      </router-link>
                 </div>
-                <diary :insId=ins_id :once = 1 :query=true></diary>
+                <diary :insId=ins_id :number = 1 :query=true></diary>
             </section>
         </div>
         <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
