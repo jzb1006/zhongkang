@@ -36,11 +36,6 @@
             Tabbar,
             TabbarItem,
         },
-        methods:{
-            link(){
-                this.$route.push('/home/user');
-            }
-        }
     }
 </script>
 <style>

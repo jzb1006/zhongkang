@@ -127,6 +127,14 @@ import addBank from '@/components/wallet/addBank.vue'
 import cash from "@/components/wallet/cash.vue"
 import recharge from "@/components/wallet/recharge.vue"
 import billDetailItem from "@/components/wallet/billDetailItem.vue"
+
+import userAdviserInfo from "@/components/user/list/adviserInfo.vue"
+import userAuthentication from "@/components/user/list/Authentication.vue"
+import userCustomized from "@/components/user/list/customized.vue"
+import usercusOrder from "@/components/user/list/cusOrder.vue"
+import userMoney from "@/components/user/list/money.vue"
+import userReceipt from "@/components/user/list/Receipt.vue"
+import userViewOrder from "@/components/user/list/viewOrder.vue"
 //模板
 // import avg from '@/model/avg.vue'
 
@@ -181,5 +189,13 @@ export default {
         Vue.component('cash',cash)
         Vue.component('recharge',recharge)
         Vue.component('billDetailItem',billDetailItem)
+
+        Vue.component('userAdviserInfo',userAdviserInfo)
+        Vue.component('userAuthentication',userAuthentication)
+        Vue.component('userCustomized',userCustomized)
+        Vue.component('userCusOrder',usercusOrder)
+        Vue.component('userMoney',userMoney)
+        Vue.component('userReceipt',userReceipt)
+        Vue.component('userViewOrder',userViewOrder)
     }
 }
