@@ -45,7 +45,7 @@ export default {
         width: 100%;
     }
     .balance{
-        margin: 0 0.25rem 0.25rem;
+        margin: 0.25rem;
         background:#fff;
         height: 2.5rem;
         padding: 0.4rem 0.5rem;

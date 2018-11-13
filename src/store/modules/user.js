@@ -1,25 +1,13 @@
 import Vue from 'vue'
 const state={
 	bus:new Vue(),
-	// page:'home',
     bank:'',
-    // mobile:'',
-    // email:'',
     userinfo:'',
+    otherId:'',
+    order_sn:'',
+    isBackToPrevious:true,
 }
 const getters={
-    // getmobile(state){
-    //     if(state.mobile==''){
-    //         state.mobile=sessionStorage.getItem('mobile');
-    //     }
-    //     return state.mobile;
-    // },
-    // getemail(state){
-    //     if(state.email==''){
-    //         state.email=sessionStorage.getItem('email');
-    //     }
-    //     return state.email;
-    // },
     getBank(state){
         if(state.bank==''){
             let bank=sessionStorage.getItem('userBank');
@@ -33,48 +21,72 @@ const getters={
             state.userinfo=JSON.parse(userinfo);
         }
         return state.userinfo;
-    }
+    },
+    getOtherId(state){
+        if(state.otherId==''){
+            state.otherId=sessionStorage.getItem('otherId');
+        }
+        return state.otherId;
+    },
+    getOrderSn(state){
+        if(state.order_sn==''){
+            state.order_sn=sessionStorage.getItem('order_sn');
+        }
+        
+        console.log(state.order_sn);
+        return state.order_sn;
+    },
+    getIsBackToPrevious(state){
+        // if(state.isBackToPrevious==''){
+        //     state.isBackToPrevious=sessionStorage.getItem('isBackToPrevious');
+        // }
+        
+        console.log(state.isBackToPrevious);
+        return state.isBackToPrevious;
+    },
 }
 const actions = {
-    changePage({commit},viewName){
-        commit('CHANGE_PAGE',viewName);
-    },
     changeBank({commit},viewName){
         commit('CHANGE_BANK',viewName);
     },
-    // changeMobile({commit},viewName){
-    //     // console.log('hello');
-    //     commit('CHANGE_MOBILE',viewName);
-    // },
-    // changeEmail({commit},viewName){
-    //     // console.log('hello');
-    //     commit('CHANGE_EMAIL',viewName);
-    // },
     changeUserinfo({commit},viewName){
         commit('CHANGE_USERINFO',viewName);
-    }
+    },
+    changeOtherId({commit},viewName){
+        console.log(viewName);
+        commit('CHANGE_OTHER_ID',viewName);
+    },
+    changeOrderSn({commit},viewName){
+        console.log(viewName);
+        commit('CHANGE_ORDER_SN',viewName);
+    },
+    changeIsBackToPrevious({commit},viewName){
+        console.log(viewName);
+        commit('CHANGE_IS_BACK_TO_PREVIOUS',viewName);
+    },
 }
 
 const mutations = {
-    CHANGE_PAGE(state,viewName){
-        state.page = viewName
-    },
     CHANGE_BANK(state,viewName){
         sessionStorage.setItem('userBank',JSON.stringify(viewName));
         state.bank = viewName
     },
-    // CHANGE_MOBILE(state,viewName){
-    //     sessionStorage.setItem('mobile',viewName);
-    //     state.mobile = viewName
-    // },
-    // CHANGE_EMAIL(state,viewName){
-    //     sessionStorage.setItem('email',viewName);
-    //     state.email = viewName
-    // },
     CHANGE_USERINFO(state,viewName){
         sessionStorage.setItem('userinfo',JSON.stringify(viewName));
         state.userinfo = viewName
-    }
+    },
+    CHANGE_OTHER_ID(state,viewName){
+        sessionStorage.setItem('otherId',viewName);
+        state.otherId=viewName;
+    },
+    CHANGE_ORDER_SN(state,viewName){
+        sessionStorage.setItem('order_sn',viewName);
+        state.order_sn=viewName;
+    },
+    CHANGE_IS_BACK_TO_PREVIOUS(state,viewName){
+        // sessionStorage.setItem('isBackToPrevious',viewName);
+        state.isBackToPrevious=viewName;
+    },
 }
 export default{
 	state,

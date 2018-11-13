@@ -62,14 +62,25 @@ export default {
                     self.params = res.data.data;
                     this.sort_asc();
                 });
+        },
+        getMyInfo(){
+            var self = this;
+            apiCommon
+                .ajaxSearch("container", "person_container")
+                .then(res => {
+                    console.log(res);
+                    self.params = res.data.data;
+                    this.sort_asc();
+                });
         }
     },
     mounted() {
-        if (this.$route.query.id) {
-            this.getData(this.$route.query.id);
-        }else{
-            this.get_homepage();
-        }
+        this.getMyInfo();
+        // if (this.$route.query.id) {
+        //     this.getData(this.$route.query.id);
+        // }else{
+        //     this.get_homepage();
+        // }
     }
 };
 </script>

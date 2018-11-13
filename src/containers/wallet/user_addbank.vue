@@ -1,0 +1,165 @@
+<template>
+	<div class="addbank">
+		<top :params="{title:'添加银行卡'}"></top>
+        <add-bank></add-bank>
+		<!-- <div class="content">
+                <div class="box">
+                      <span class="title">类型:</span>
+                      <select class="pw select" v-model="banknames">
+                             <option>支付宝</option>
+                             <option>微信</option>
+                      </select>
+                </div>
+                <div class="box">
+                      <span class="title">真实姓名:</span>
+                      <input type="text" v-model="unames"  class="pw">
+                </div>
+                <div class="box">
+                      <span class="title">账号:</span>
+                      <input type="text" v-model="banksn"  class="pw">
+                </div>
+                <div class="box">
+                      <div class="code">
+                          <verification-code :isHasPhone="false" @inputCode="inputCode"></verification-code>
+                      </div>
+                </div>
+                <div class="box confirm">
+                      <input type="button" class="submit" @click="update_user_bank" value="确认提交">
+                </div>
+        </div> -->
+  	</div>
+</template> 
+
+<script>
+// import api from "../../api/wallet"
+// import user from "../../api/user"
+import top from "@/components/decorate/top.vue";
+// import verificationCode from '@/components/common/verificationCode.vue'
+import addBank from '@/components/wallet/addBank.vue'
+export default {
+    name: 'addbank',
+    // data(){
+    //     return{
+    //         banknames:'支付宝',
+    //         unames:'',
+    //         banksn:'',
+    //         verificationCode:'',
+    //         codeText:'获取验证码',
+    //         flag:true,
+    //     }
+    // },
+    // methods:{
+    //     getVerificationCode(){
+    //         user.ajaxuserPost('yanzhengma').then(res=>{
+    //             var self=this;
+    //             alert(`验证码为${res.data},仅作测试用`);
+    //             var i=60;
+    //             var timeId=setInterval(()=>{
+    //                 self.flag=false;
+    //                 i=i-1;
+    //                 self.codeText=i.toString()+' 秒';
+    //                 if(i==0){
+    //                     clearInterval(timeId);
+    //                     self.flag=true;
+    //                     self.codeText="重新获取";
+    //                 }
+    //             },1000);
+    //         }).catch(error=>{
+    //             console.log(error);
+    //         }) 
+    //     },
+    //     update_user_bank(){
+    //         let banknames = this.banknames;
+    //         let unames = this.unames;
+    //         let banksns = this.banksn;
+    //         let yanzhengma=this.verificationCode;
+    //         let reg_mobile=/^1[3458]\d{9}$/g;
+    //         if(banknames==""){
+    //             alert('请输入银行单位');
+    //             return false;
+    //         }
+    //         if(unames==""){
+    //             alert('请输入真实姓名');
+    //             return false;
+    //         }
+    //         if(banksns==""){
+    //             alert('请输入账号');
+    //             return false;
+    //         }
+    //         if(yanzhengma==""){
+    //             alert('请输入验证码');
+    //             return false;
+    //         }
+    //         if(confirm('确认修改吗')){
+    //             api.update_user_bank({'bankname':banknames,'uname':unames,'banksn':banksns,'yanzheng':yanzhengma}).then(res=>{
+    //                   if(res.data.error==3){
+    //                       alert(res.data.message);
+    //                       this.$router.push('/login');
+    //                   }
+    //                   if(res.data.error==1){
+    //                       this.$router.go(-1);
+    //                   }else{
+    //                       alert(res.data.message);
+    //                       return false;
+    //                   }
+    //             })
+    //         }
+    //         return false;
+    //     },
+    //     inputCode(data){
+    //         this.verificationCode=data;
+    //     }
+    // },
+    components:{
+      top,
+      addBank,
+    //   verificationCode,
+    }
+}
+</script>
+
+<style scoped>
+   /* .content{
+       margin-top:0.1rem;
+       font-size: 0.3rem;
+       text-align: center;
+   }
+   .box{
+       margin-bottom:0.2rem;
+   }
+   .select{
+       font-size: 0.1rem;
+   }
+   .select option{
+       font-size: .15rem;
+   }
+   .title{
+		display:inline-block;
+		width:20%;
+		text-align:right;
+		padding-right:20px;
+	}
+   .pw{
+       width:60%;
+       border: 1px solid #ccc;
+       font-size: 0.3rem;
+       padding:0.2rem 0.2rem 0.2rem 0.1rem;
+   }
+   .submit{
+       width:40%;
+       padding:0.2rem 0.2rem 0.2rem 0.1rem;
+       font-size: 0.3rem;
+       background: #ff5370;
+       color:#fff;
+       border-radius:.2rem;
+   }
+   .code{
+       width:85%;
+       margin:0 auto;
+   }
+   .btn{
+       border: 1px solid #ccc;
+       font-size:.3rem;
+       padding:0.2rem 0.2rem 0.2rem 0.1rem;
+   } */
+</style>

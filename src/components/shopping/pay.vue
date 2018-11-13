@@ -38,7 +38,7 @@
         <p class="payTip">订单已生成，请在半小时内完成支付</p>
         <div style="text-align: center;"> 
           <button class="payBtn" id="zhibao" @click="fastpay()">确认支付</button>
-          <!-- <a href="http://192.168.0.117/m/mycart.php?type=fastpay2&oid=" target="_black">确认支付</a> -->
+          <!-- <a href="http://192.168.0.110/m/mycart.php?type=fastpay2&oid=" target="_black">确认支付</a> -->
           </div>
       </div>
     </div>
@@ -76,38 +76,38 @@ import { setInterval, setTimeout } from 'timers';
           });
       },
       fastpay() {
-        window.location="http://192.168.0.117/m/mycart.php?type=fastpay2&oid="+this.oid;
-        // api.fastpay({
-        //   'oid': this.oid,
-        // }).then(res => {
-        //   var result = res.data;
-        //   var code = result.error_code;
-        //   var msg = result.msg;
-        //   if (code == '0') {
-        //     // alert(msg);
-        //     this.alerttType = 'success';
-        //      this.text = msg;
-        //     this.show = true;
-        //     setTimeout(()=>{
-        //         this.$router.push({
-        //         'name':'orderList'
-        //       })
-        //     },2000)
-        //   } else {
-        //     // alert(msg);
-        //     this.alerttType = 'warn';
-        //     this.text = msg;
-        //     this.show = true;
-        //     setTimeout(()=>{
-        //         this.$router.push({
-        //         'name':'Search'
-        //       })
-        //     },2000)
-        //   }
-        //   console.log(res);
-        // }).catch(error => {
-        //   console.log(error);
-        // })
+        // window.location="http://192.168.0.110/m/mycart.php?type=fastpay2&oid="+this.oid;
+        api.fastpay({
+          'oid': this.oid,
+        }).then(res => {
+          var result = res.data;
+          var code = result.error_code;
+          var msg = result.msg;
+          if (code == '0') {
+            // alert(msg);
+            this.alerttType = 'success';
+             this.text = msg;
+            this.show = true;
+            setTimeout(()=>{
+                this.$router.push({
+                'name':'orderList'
+              })
+            },2000)
+          } else {
+            // alert(msg);
+            this.alerttType = 'warn';
+            this.text = msg;
+            this.show = true;
+            setTimeout(()=>{
+                this.$router.push({
+                'name':'Search'
+              })
+            },2000)
+          }
+          console.log(res);
+        }).catch(error => {
+          console.log(error);
+        })
       },
       img_path() {
         return api.imgUrl();

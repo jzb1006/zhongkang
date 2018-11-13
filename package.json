@@ -17,6 +17,8 @@
     "axios": "^0.18.0",
     "better-scroll": "^1.12.5",
     "element-ui": "^2.4.8",
+    "html-loader": "^0.5.5",
+    "js-md5": "^0.7.3",
     "less-loader": "^4.1.0",
     "mint-ui": "^1.0.2",
     "qs": "^6.5.2",

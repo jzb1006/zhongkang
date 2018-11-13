@@ -1,16 +1,14 @@
 <template>
-
     <div id="foot">
-        <div class="fill"></div>
         <tabbar>
-            <tabbar-item v-for="menu in menu_footer" selected link="/container">
+            <tabbar-item v-for="(menu,index) in menu_footer" :key="index" selected link="/container">
                 <span slot="icon" class="zk-icon-shouye icon"></span>
                 <span slot="label">{{menu.name}}</span>
             </tabbar-item>
             <tabbar-item class="menu" @on-item-click="open()">
                 <span slot="icon" class="zk-icon-gengduo icon"></span>
             </tabbar-item>
-            <tabbar-item link="/home/user">
+            <tabbar-item link="/container">
                 <span slot="icon" class="zk-icon-iconfonticon5 icon"></span>
                 <span slot="label">个人中心</span>
             </tabbar-item>
@@ -33,10 +31,10 @@ export default {
     data() {
         return {
             menu_show: false,
-            menu_footer:[
+            menu_footer: [
                 {
-                    name:"index"
-                },
+                    name: "index"
+                }
                 // {
                 //     name:"owner"
                 // },
@@ -57,6 +55,7 @@ export default {
         },
         open() {
             this.menu_show = true;
+            TabbarItem;
         }
     }
 };

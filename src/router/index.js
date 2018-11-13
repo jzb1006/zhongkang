@@ -44,27 +44,57 @@ import FExpert from '@/components/Fang/FContent/FOther/FExpert.vue'
 import FHospital from '@/components/Fang/FContent/FOther/FHospital.vue'
 import FNursing from '@/components/Fang/FContent/FOther/FNursing.vue'
 
-import login from '@/components/user/login.vue'
-import register from '@/components/user/register.vue'
-import forgetPassword from '@/components/user/forget_password.vue'
-import losephone from '@/components/user/losephone.vue'
-import retrievePassword from '@/components/user/retrieve_password.vue'
-import HUser from '@/components/user/user.vue'
-import HUserSetup from '@/components/user/user_setup.vue'
-import HUserSelfinfo from '@/components/user/user_selfinfo.vue'
-import HUserEditPhone from '@/components/user/user_editphone.vue'
-import HUserEditPassword from '@/components/user/user_editpassword.vue'
-import HUserEditEmail from '@/components/user/user_editemail.vue'
-import HUserWallet from '@/components/user/user_wallet.vue'
+import login from '@/containers/user/login.vue'
+import frequentLogin from '@/components/user/frequent_login.vue'
+import register from '@/containers/user/register.vue'
+import forgetPassword from '@/containers/user/forget_password.vue'
+import losephone from '@/containers/user/losephone.vue'
+import retrievePassword from '@/containers/user/retrieve_password.vue'
+import HUser from '@/containers/user/user.vue'
+import HUserSetup from '@/containers/user/user_setup.vue'
+import HUserSelfinfo from '@/containers/user/user_selfinfo.vue'
+import HUserEditPhone from '@/containers/user/user_editphone.vue'
+import HUserEditPassword from '@/containers/user/user_editpassword.vue'
+import HUserEditEmail from '@/containers/user/user_editemail.vue'
+import HUserWallet from '@/containers/user/user_wallet.vue'
 
 import bill from '@/components/user_wallet/user_bill'
-import billDetail from '@/components/user_wallet/bill_detail'
-import cash from '@/components/user_wallet/user_cash'
+import billDetail from '@/containers/wallet/bill_detail'
+import cash from '@/containers/wallet/user_cash'
 import bank from '@/components/user_wallet/user_bank'
-import addbank from '@/components/user_wallet/user_addbank'
+import addbank from '@/containers/wallet/user_addbank'
 import chooseBank from '@/components/user_wallet/user_chooseBank'
 import balance from '@/components/user_wallet/user_balance'
-import recharge from '@/components/user_wallet/user_recharge'
+import recharge from '@/containers/wallet/user_recharge'
+
+
+import customized from '@/components/customized/customized'
+import requirement from '@/components/customized/requirement'
+import confirmOrder from '@/containers/customized/confirmOrder'
+import cuspay from '@/components/customized/cuspay'
+import adviser from '@/components/adviser/list'
+import customizedOrder from '@/containers/customized/customizedOrder'
+import adviserAuthentication from '@/components/adviser/adviserAuthentication'
+import adviserAuthenticationState from '@/components/adviser/adviserAuthenticationState'
+import adviserReceipt from '@/containers/adviser/adviserReceipt'
+import receiptDetail from '@/components/adviser/receiptDetail'
+import customizedReply from '@/components/adviser/customizedReply'
+import programme from '@/components/adviser/addProgramme'
+import customizedOrderDetail from '@/containers/customized/customizedOrderDetail'
+import viewReply from '@/containers/customized/viewReply'
+import replyOrder from '@/containers/adviser/replyOrder'
+import replyOrderDetail from '@/containers/adviser/replyOrderDetail'
+import inquiries from '@/components/customized/inquiries'
+import ask from '@/containers/customized/ask'
+import customized_applyRefund from '@/components/customized/customized_applyRefund'
+import customized_appeal from '@/components/customized/customized_appeal'
+import appeal_confirm_consumption from '@/components/adviser/appeal_confirm_consumption'
+import editProgramme from '@/components/adviser/editProgramme'
+import adviserViewReply from '@/containers/adviser/viewReply'
+import answer from '@/containers/adviser/answer'
+
+
+
 
 //评论
 import commentInput from '@/components/comment/comment_input'
@@ -458,10 +488,130 @@ const router = new Router({
       ]
     },
     {
-      path:'/home/billDetail',
+      path:'/home/customized',
+      name:'customized',
+      component:customized
+    },
+    {
+      path:'/requirement',
+      name:'requirement',
+      component:requirement
+    },
+    {
+      path:'/confirmOrder',
+      name:'confirmOrder',
+      component:confirmOrder
+    },
+    {
+      path:'/cuspay',
+      name:'cuspay',
+      component:cuspay
+    },
+    {
+      path:'/adviser',
+      name:'adviser',
+      component:adviser
+    },
+    {
+      path:'/customizedOrder',
+      name:'customizedOrder',
+      component:customizedOrder
+    },
+    {
+      path:'/adviserAuthentication',
+      name:'adviserAuthentication',
+      component:adviserAuthentication
+    },
+    {
+      path:'/adviserAuthenticationState',
+      name:'adviserAuthenticationState',
+      component:adviserAuthenticationState
+    },
+    {
+      path:'/adviserReceipt',
+      name:'adviserReceipt',
+      component:adviserReceipt
+    },
+    {
+      path:'/receiptDetail',
+      name:'receiptDetail',
+      component:receiptDetail
+    },
+    {
+      path:'/customizedReply',
+      name:'customizedReply',
+      component:customizedReply
+    },
+    {
+      path:'/programme',
+      name:'programme',
+      component:programme
+    },
+    {
+      path:'/customizedOrderDetail',
+      name:'customizedOrderDetail',
+      component:customizedOrderDetail
+    },
+    {
+      path: '/customized_applyRefund/:tt/:oid/:status',
+      name: 'customized_applyRefund',
+      component: customized_applyRefund,
+    },
+    {
+      path: '/customized_appeal/:tt/:oid/:status',
+      name: 'customized_appeal',
+      component: customized_appeal,
+    },
+    {
+      path: '/appeal_confirm_consumption/:tt/:oid/:status',
+      name: 'appeal_confirm_consumption',
+      component: appeal_confirm_consumption,
+    },
+    {
+      path:'/viewReply',
+      name:'viewReply',
+      component:viewReply
+    },
+    {
+      path:'/adviserViewReply',
+      name:'adviserViewReply',
+      component:adviserViewReply
+    },
+    {
+      path:'/editProgramme',
+      name:'editProgramme',
+      component:editProgramme
+    },
+    {
+      path:'/replyOrder',
+      name:'replyOrder',
+      component:replyOrder
+    },
+    {
+      path:'/replyOrderDetail',
+      name:'replyOrderDetail',
+      component:replyOrderDetail
+    },
+    {
+      path:'/inquiries',
+      name:'inquiries',
+      component:inquiries
+    },
+    {
+      path:'/ask',
+      name:'ask',
+      component:ask
+    },
+    {
+      path:'/answer',
+      name:'answer',
+      component:answer
+    },
+    {
+      path:'/billDetail',
+      name:'billDetail',
       component:billDetail
     },
-    
     {
       path:'/home/recharge',
       name:'recharge',
@@ -489,6 +639,11 @@ const router = new Router({
       component: login
     },
     {
+      path: '/frequentLogin',
+      name: 'frequentLogin',
+      component: frequentLogin
+    },
+    {
       path: '/register',
       name: 'register',
       component: register
@@ -509,33 +664,44 @@ const router = new Router({
       component: retrievePassword
     },
     
-  ]
+  ],
+  // scrollBehavior (to, from, savedPosition) {
+  //   if (to.name=="ask") {
+  //     // return savedPosition
+  //     return { x: 0, y:document.body.ask.offsetHeight-window.innerHeight };
+  //   } 
+  // }
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.name=='productDetail' || to.name=='mycart' || to.name=='orderDetail'){
-    store.dispatch('changeTabShow',false);
-  }else{
-    store.dispatch('changeTabShow',true);
-  }
   if(to.name=='user'||to.name=='orderList'||to.name=='recharge'||to.name=='cash'||to.name=='addBank'||
     to.name=='userSelfinfo'||to.name=='userEditphone'||to.name=='userEditpassword'||to.name=='userEditemail'||
     to.name=='balance'||to.name=='bank'||to.name=='bill'||to.name=='userSetup'||to.name=='userWallet'||to.name=='orderList'||
-    to.name=='chooseBank' || to.name=='diaryBackdropList'){
-      api.ajaxloginPost('checkLogin').then(res=>{
+    to.name=='chooseBank' || to.name=='diaryBackdropList'||to.name=='customized'){
+      api.checkLogin('checkLogin').then(res=>{
           console.log(res.data);
           if(res.data.error==0){
-            router.push({name:'login'});
+            // router.push({name:'login'});
+            next('/login');
+          }else{
+            next();
           }
       }).catch(error=>{
           console.log(error);
       })
+  }else{
+    next();
   }
-  // if(to.name=='container'){
-  //   to.query.id = 3;
-
-  // }
-  console.log(to);
+})
+router.beforeEach((to, from, next) => {
+  if(to.name=='productDetail' || to.name=='mycart' || to.name=='orderDetail' ||to.name=='confirmOrder'||
+  to.name=='bill' || to.name=="customizedOrderDetail" || to.name=='receiptDetail' || to.name=='ask' ||
+  to.name=='answer' || to.name=='replyOrderDetail' || to.name=='viewReply' || to.name=='adviserViewReply'
+  || to.name=='programme'){
+    store.dispatch('changeTabShow',false);
+  }else{
+    store.dispatch('changeTabShow',true);
+  }
 
   //图片浏览模式的状态
   if(store.state.media_display.open_image_mode){
@@ -546,6 +712,7 @@ router.beforeEach((to, from, next) => {
   }
   next();
 })
+
 
 //在路由跳转之后设置页面的路径,并把路径传给谷歌统计
 router.afterEach(function (to) {

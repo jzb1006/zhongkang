@@ -32,7 +32,6 @@ export const ajax4 = Axios.create({
   baseURL: 'http://192.168.0.107/',
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
-    // 'Content-Type': 'multipart/form-data'
   },
   timeout: 3000,
 })

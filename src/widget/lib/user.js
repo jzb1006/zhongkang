@@ -65,27 +65,57 @@ export default{
         return Y+M+D+space+h+seperator+m+seperator+s;
     },
     //获取验证码,在手机号未存在时才能获取,参数为手机号
-    getVerificationCode(phoneNum){
+    getVerificationCode(phoneNum,self){
         api.ajaxuserPost('check_mobilephone',{'mobile':phoneNum}).then(res=>{
             if(res.data.error=='1'){
                alert(res.data.message);
             }else{
                api.ajaxuserPost('yanzhengma',{'mobile':phoneNum}).then(res=>{
-                   alert('验证码为'+res.data+' 仅作测试用');
+                    alert('验证码为'+res.data+' 仅作测试用');
+                    var i=60;
+                    var timeId=setInterval(()=>{
+                        self.flag=false;
+                        i=i-1;
+                        self.codeText=i.toString()+' 秒';
+                        if(i==0){
+                            clearInterval(timeId);
+                            self.flag=true;
+                            self.codeText="重新获取";
+                        }
+                    },1000);
+               }).catch(err=>{
+                    console.log(err);
                })
             }
+        }).catch(err=>{
+            console.log(err);
         })
     },
     //获取验证码,在手机号已存在时才能获取,参数为手机号
-    getVerificationCode_exit(phoneNum){
+    getVerificationCode_exit(phoneNum,self){
         api.ajaxuserPost('check_mobilephone',{'mobile':phoneNum}).then(res=>{
             if(res.data.error=='1'){
                 api.ajaxuserPost('yanzhengma',{'mobile':phoneNum}).then(res=>{
-                   alert('验证码为'+res.data+' 仅作测试用');
+                    alert('验证码为'+res.data+' 仅作测试用');
+                    var i=60;
+                    var timeId=setInterval(()=>{
+                        self.flag=false;
+                        i=i-1;
+                        self.codeText=i.toString()+' 秒';
+                        if(i==0){
+                            clearInterval(timeId);
+                            self.flag=true;
+                            self.codeText="重新获取";
+                        }
+                    },1000);
+                }).catch(err=>{
+                    console.log(err);
                 })
             }else{
                 alert(res.data.message);
             }
+        }).catch(err=>{
+            console.log(err);
         })
     }
     

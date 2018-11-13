@@ -8,7 +8,6 @@
         <div class="m_display">
             <mediaDisplay @getFileList=getBackList :limitnum1=3 :filelists=backList :acceptTypeNum=1></mediaDisplay>
         </div>
-
     </div>
 </template>
 

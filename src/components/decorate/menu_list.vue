@@ -149,7 +149,6 @@ export default {
             apiCommon
                 .ajaxSearch("container", "top_channel", { id: 1 })
                 .then(res => {
-                    console.log(res.data);
                     self.menuList = res.data.data;
                     this.sort_asc();
                 });
@@ -163,7 +162,7 @@ export default {
         },
         //----排序：end----
         sel(id) {
-            // this.$router.push({ name: "container", query: { id: id } });
+            this.$router.push({ name: "container", query: { id: id } });
             this.$emit("closeMenu");
         },
         set_page(index) {
