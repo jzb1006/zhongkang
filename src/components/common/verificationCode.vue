@@ -38,22 +38,25 @@ export default {
     methods:{
         get_yanzhengma(){
             if(!this.isHasPhone){
-                api.ajaxuserPost('yanzhengma').then(res=>{
-                    alert(`验证码为${res.data},仅作测试用`);
-                    var i=60;
-                    var timeId=setInterval(()=>{
-                        this.flag=false;
-                        i=i-1;
-                        this.codeText=i.toString()+' 秒';
-                        if(i==0){
-                            clearInterval(timeId);
-                            this.flag=true;
-                            this.codeText="重新获取";
-                        }
-                    },1000);
-                }).catch(error=>{
-                    console.log(error);
-                }) 
+                // api.ajaxuserPost('yanzhengma').then(res=>{
+                //     alert(`验证码为${res.data},仅作测试用`);
+                //     var i=60;
+                //     var timeId=setInterval(()=>{
+                //         this.disable=true;
+                //         this.flag=false;
+                //         i=i-1;
+                //         this.codeText=i.toString()+' 秒';
+                //         if(i==0){
+                //             clearInterval(timeId);
+                //             this.flag=true;
+                //             this.disable=false;
+                //             this.codeText="重新获取";
+                //         }
+                //     },1000);
+                // }).catch(error=>{
+                //     console.log(error);
+                // }) 
+                this.getCode('');
             }else{
                 if(!common.checkPhoneNum(this.phoneNum)){
                     return false;

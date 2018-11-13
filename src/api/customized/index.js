@@ -7,8 +7,8 @@ export default{
         params=qs.stringify(params);
         return ajax.post('customized.php?action=saveCustomizedDemand',params);
     },
-    queryCustomizedOrder(){
-        return ajax.get('customized.php?act=queryCustomizedOrder');
+    queryCustomizedOrder(params={}){
+        return ajax.get('customized.php?act=queryCustomizedOrder',{params});
     },
     getAdviserList(params={}){
         return ajax.get('customized.php?act=getAdviserList',{params});
@@ -43,8 +43,8 @@ export default{
         params=qs.stringify(params);
         return ajax.post('customized.php?action=updateSingleReply',params);
     },
-    queryReceiptOrder(){
-        return ajax.get('customized.php?act=queryReceiptOrder');
+    queryReceiptOrder(params={}){
+        return ajax.get('customized.php?act=queryReceiptOrder',{params});
     },
     queryReplyOrder(){
         return ajax.get('customized.php?act=queryReplyOrder');
@@ -103,6 +103,24 @@ export default{
     appeal_confirm_consumption(params={}){
         console.log(params);
         return ajax.post('user.php?action=appeal_confirm_consumption',qs.stringify(params))
+    },
+    //查看顾问认证状态
+    query_authentication_state(){
+        return ajax.get('customized.php?act=query_authentication_state');
+    },
+    //查询顾问资料
+    queryAdviserInfo(){
+        return ajax.get('customized.php?act=queryAdviserInfo');
+    },
+    //用户订单操作
+    userOrderOperation(params={}){
+        params=qs.stringify(params);
+        return ajax.post('customized.php?action=userOrderOperation',params);
+    },
+    //顾问订单操作
+    adviserOrderOperation(params={}){
+        params=qs.stringify(params);
+        return ajax.post('customized.php?action=adviserOrderOperation',params);
     },
     //相片网址前缀
     imgUrl(){

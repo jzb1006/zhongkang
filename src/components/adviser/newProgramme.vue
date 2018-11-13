@@ -1,0 +1,44 @@
+<template>
+    <div id="newProgramme">
+        <div class="add_programme">
+            <span class="btn" @click="add_programme">添加方案</span>
+        </div>    
+        <add-programme v-show="addNewProgramme" @passProgramme="getProgramme"></add-programme>
+    </div>
+</template>
+<script>
+import addProgramme from '@/components/adviser/addProgramme.vue'
+export default {
+    data(){
+        return{
+            addNewProgramme:false,
+        }
+    },
+    methods:{
+        add_programme(){
+            // this.$router.push({path:'/programme',query:{order_sn:this.order_sn}});
+            this.addNewProgramme=true;
+        },
+        getProgramme(data){
+            // this.programme.push(data);
+            this.addNewProgramme=false;
+        }
+    },
+    components:{
+        addProgramme,
+    }
+}
+</script>
+<style scoped>
+    .add_programme{
+        margin:.2rem;
+    }
+    .btn{
+        padding:.2rem;
+        background:#ff5370;
+        color:#fff;
+        font-size:.3rem;
+    }
+</style>
+
+

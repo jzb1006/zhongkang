@@ -1,5 +1,5 @@
 <template>
-    <div id="pay" v-show="show_pay_page">
+    <div id="pay" v-show="params1.show_pay_page">
         <div class="box">
             <div class="head vux-1px-b">
                 <i class="zk-icon-guanbi iconfont cancel" @click="cancel"></i>
@@ -7,12 +7,12 @@
             </div>
             <div class="money">
                 <div class="vertical">
-                    <i class="zk-icon-renminbi1 iconfont"></i><span>{{order_amount}}</span>
+                    <i class="zk-icon-renminbi1 iconfont"></i><span>{{params1.order_amount}}</span>
                 </div>
             </div>
             <div class="item">
                 <div class="left">订单金额</div>
-                <div class="right"><i class="zk-icon-renminbi1 iconfont"></i><span>{{order_amount}}</span></div>
+                <div class="right"><i class="zk-icon-renminbi1 iconfont"></i><span>{{params1.order_amount}}</span></div>
             </div>
             <div class="item vux-1px-t">
                 <div>付款方式 :</div>
@@ -80,32 +80,51 @@
 import api from "../../api/wallet"
 import Pay from "../../api/pay"
 import {mapState,mapGetters} from 'vuex'
+import Bus from '@/assets/bus.js'
 export default {
     data(){
         return{
             pay_id:'',
             balance:false,   
             showBalance:true,
+            params1:{},
+        }
+    },
+    watch:{
+        params:function(newV,oldV){
+            this.params1=newV;
+            if(Number(this.getUserinfo.user_money)>Number(this.params1.order_amount)){
+                this.pay_id="7";
+                this.balance=true;
+            }else{
+                // console.log('b');
+                this.pay_id="3";
+                this.balance=false;
+                // this.pay_method="支付宝";
+            }
         }
     },
     props:{
-        show_pay_page:{
-            type:[Boolean],
-            default:false,
+        params:{
+            type:[Object],
         },
-        order_amount:{
-            type:[String],
-            default:'0',
-        },
-        order_sn:{
-            type:[String]
-        },
-        jump_url:{
-            type:[String]
-        },
-        subject:{
-            type:[String]
-        }
+        // show_pay_page:{
+        //     type:[Boolean],
+        //     default:false,
+        // },
+        // order_amount:{
+        //     type:[String],
+        //     default:'0',
+        // },
+        // order_sn:{
+        //     type:[String]
+        // },
+        // jump_url:{
+        //     type:[String]
+        // },
+        // subject:{
+        //     type:[String]
+        // }
     },
     computed:{
         balance_class(){
@@ -123,15 +142,15 @@ export default {
     },
     methods:{
         cancel(){
-            this.$emit('cancel');
+            Bus.$emit('hidePay',false);
         },
         pay(){
             let postData={
                 'pay_id':this.pay_id.toString(),
-                'order_amount':this.order_amount,
-                'order_sn':this.order_sn,
-                'subject':this.subject,
-                'jump_url':this.jump_url,
+                'order_amount':this.params1.order_amount,
+                'order_sn':this.params1.order_sn,
+                'subject':this.params1.subject,
+                'jump_url':this.params1.jump_url,
             }
             console.log(postData);
             Pay.pay(postData).then(res=>{
@@ -140,8 +159,9 @@ export default {
                     alert(res.data.msg);
                     this.$router.push('/login');
                 }else if(res.data.error_code==1){
+                    console.log(res);
                     alert(res.data.msg);
-                    location.href=this.jump_url;
+                    location.href=this.params1.jump_url;
                 }else if(res.data.error_code==2){
                     console.log(res.data);
                     let url=res.data.data;
@@ -153,7 +173,7 @@ export default {
                 console.log(err);
             })
         },
-        pay_type(pay_id,event){    
+        pay_type(pay_id,event){
             this.pay_id = pay_id;
             console.log(this.pay_id);
         },
@@ -163,19 +183,14 @@ export default {
             }else{
                 this.showBalance=true;
             }
-            if(Number(this.getUserinfo.user_money)>Number(this.order_amount)){
-                this.pay_id="7";
-                this.balance=true;
-            }else{
-                // console.log('b');
-                this.pay_id="3";
-                this.balance=false;
-                // this.pay_method="支付宝";
-            }
+            
         }
     },
     mounted(){
         this.init_balance();
+    },
+    beforeDestroy () {
+        Bus.$off('hidePay');
     },
     components:{
         

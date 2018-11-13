@@ -7,6 +7,7 @@ import user from './modules/user'
 import commont from './modules/commont'
 import diary from './modules/diary'
 import media_display from './modules/media_display'
+import customized from './modules/customized'
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -17,7 +18,8 @@ const store = new Vuex.Store({
         user,
         commont,
         diary,
-        media_display
+        media_display,
+        customized,
     }
    
 })

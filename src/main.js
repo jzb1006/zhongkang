@@ -17,6 +17,11 @@ import 'element-ui/lib/theme-chalk/index.css';
 import { Toast } from 'vux'
 import VueTouch from 'vue-touch'//滑动事件
 
+
+import all_plug from './container/all_plug.js'
+Vue.use(all_plug);
+
+
 // import preview from 'vue-photo-preview'//图片预览
 // import 'vue-photo-preview/dist/skin.css'
 // Vue.use(preview)

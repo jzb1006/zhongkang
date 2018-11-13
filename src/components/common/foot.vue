@@ -20,7 +20,7 @@
                 </tabbar-item>
                 <tabbar-item link="/home/user">
                     <span slot="icon" class="zk-icon-iconfonticon5 icon"></span>
-                    <span slot="label">个人中心</span>
+                    <span slot="label">我的</span>
                 </tabbar-item>
             </tabbar>
         </div>
@@ -35,6 +35,11 @@
         components: {
             Tabbar,
             TabbarItem,
+        },
+        methods:{
+            link(){
+                this.$route.push('/home/user');
+            }
         }
     }
 </script>

@@ -69,7 +69,6 @@ import Vue from "vue";
 import api from "@/api/diary";
 import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
-
 export default {
     props: ["insId", "once", "docId", "cid", "query"],
     name: "diary_list",

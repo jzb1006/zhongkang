@@ -32,8 +32,11 @@ export default {
     };
   },
   props: {
-    direction: {
-      type: [Number, String]
+    // direction: {
+    //   type: [Number, String]
+    // },
+    params:{
+        type:[Object,Array]
     }
   },
   computed: {
@@ -43,6 +46,9 @@ export default {
       } else {
         return false;
       }
+    },
+    dir(){
+        return this.params.direction;
     }
   },
   methods: {
@@ -53,17 +59,17 @@ export default {
       if (this.text.trim() == "") {
         return false;
       }
-      console.log(this.direction);
+      // console.log(this.direction);
       let postdata = {
         user_id: sessionStorage.getItem("user_id"),
         adviser_id: sessionStorage.getItem("adviser_id"),
         message: this.text,
         add_time: new Date().getTime(),
         order_sn: sessionStorage.getItem("order_sn"),
-        direction: this.direction
+        direction: this.dir
       };
       api.saveUserChat(postdata).then(res => {
-          console.log(res);
+          // console.log(res);
           this.text = "";
           Bus.$emit("query");
       })
@@ -79,7 +85,7 @@ export default {
     },
     getUrl(data) {
       console.log(data);
-      console.log(this.direction);
+      // console.log(this.direction);
       let photo=data.join('');
       console.log(photo);
       let postdata = {
@@ -88,7 +94,7 @@ export default {
         chat_photo: photo,
         add_time: new Date().getTime(),
         order_sn: sessionStorage.getItem("order_sn"),
-        direction: this.direction
+        direction: this.dir
       };
       api.saveUserChat(postdata).then(res => {
           console.log(res);

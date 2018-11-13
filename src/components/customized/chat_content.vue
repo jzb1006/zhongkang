@@ -34,7 +34,7 @@
             allResult:[],
             order_sn:'',
             add_show:false,
-            dir:'',
+            // dir:'',
             isBusy:true,
             hasMore:0,
             page:1,
@@ -52,14 +52,22 @@
                 }
             })
         },
-        direction:function(newVal,oldVal){
-            this.dir=newVal;
-            this.init();
-        }
+        // direction:function(newVal,oldVal){
+        //     this.dir=newVal;
+        //     this.init();
+        // }
+        // params(newVal,oldVal){
+        //     console.log('1:'+newVal);
+        //     this.dir=newVal.direction;
+        //     this.init();
+        // }
     },
     props:{
-        direction:{
-            type:[Number,String]
+        // direction:{
+        //     type:[Number,String]
+        // }
+        params:{
+            type:[Object,Array]
         }
     },
     computed:{
@@ -73,7 +81,9 @@
                 return false;
             }
         },
-        
+        dir(){
+            return this.params.direction;
+        }
     },
     methods:{
         getHeadimgurl(argument){
@@ -116,9 +126,9 @@
             this.order_sn=sessionStorage.getItem('order_sn');
             this.user_id=sessionStorage.getItem('user_id');
             this.adviser_id=sessionStorage.getItem('adviser_id');
-            if(this.direction==0){
+            if(this.dir==0){
                 var uid=this.adviser_id;
-            }else if(this.direction==1){
+            }else if(this.dir==1){
                 var uid=this.user_id;
             }
             api.getImgByUserId({'user_id':uid}).then(res=>{
@@ -134,12 +144,13 @@
     },
     mounted(){
         console.log('a');
+        // console.log(this.params);
         this.init();
         Bus.$on('query',()=>{
             this.query();
         })
-        this.dir=this.direction;
-        console.log(this.dir);
+        // this.dir=this.params.direction;
+        // console.log(this.dir);
     },
     components:{
         top,

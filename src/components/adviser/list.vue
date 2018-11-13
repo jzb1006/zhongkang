@@ -1,32 +1,18 @@
 <template>
     <div id="chooseAdviser">
-        <top title="顾问">
-            <span slot="next" class="next" @click="next">下一步</span>
-        </top>
+        <top :params="params"></top>
         <div class="title vux-1px-b">
             <span class="text">请选择顾问:</span>
-            <!-- <span class="skip" @click="skip">可跳过</span> -->
         </div>
-        <div v-for="(item,index) in list" :key="index" class="item vux-1px-b" @click="selectAdviser(item.level_name,item.realname,item.user_id,item.consultation_price,index)">
-            <p class="first">
-                <span>{{item.realname}}</span>
-                <span>{{item.level_name}}</span>
-                <i class="zk-icon-weixuanzhong sel" :class="{isSelected:(index===count)}"></i>
-            </p>
-            <p>擅长:
-                <span v-for="(res,index) in item.advantage" :key="index" class="advantage">{{res}}</span>
-            </p>
-            <p>简介:{{item.brief_introduction}}</p>
-            <p>咨询价格:{{item.consultation_price}}</p>
-            <p>被咨询次数:{{item.counseling_count}}</p>
-            
-        </div>
+        <adviser-list></adviser-list>
         <div id="fill"></div>
     </div>
 </template>
 <script>
-  import top from '@/components/decorate/top_back_title.vue'
+  import top from '@/components/decorate/top.vue'
   import api from './../../api/customized'
+  import adviserList from '@/components/adviser/adviserList.vue'
+  import Bus from '@/assets/bus.js'
   export default {
     name: 'chooseAdviser',
     data(){
@@ -37,54 +23,40 @@
             count:'',
             price:'',
             level:'',
+            params:{
+                title:'定制',
+                hasBtn:true,
+                btnText:'下一步',
+                next:this.next,
+            }
         }
     },
     methods:{
-        selectAdviser(level,name,id,price,index){
-            if(id==this.adviser_id){
-                this.adviser_id="";
-                this.adviser_name="";
-                this.level="";
-                this.count=-1;
-            }else{
-                this.adviser_id=id;
-                this.adviser_name=name;
-                this.level=level;
-                this.count=index;
-            }
-            this.price=price;
-        },
-        skip(){
-            this.$router.push('/confirmOrder');
-        },
+        // selectAdviser(data){
+        //     if(data!=''){
+        //         this.adviser_id=data;
+        //     }
+        // },
         next(){
             if(this.adviser_id==''){
                 alert('请选择顾问');
                 return false;
             }
-            sessionStorage.setItem('adviser_id',this.adviser_id);
-            sessionStorage.setItem('adviser_name',this.adviser_name);
-            sessionStorage.setItem('level_name',this.level);
-            sessionStorage.setItem('price',this.price);
             this.$router.push('/confirmOrder');
         }
     },
     mounted(){
-        let data={
-            adviser_level:sessionStorage.getItem('level'),
-            operation_category:JSON.parse(sessionStorage.getItem('operation_category')),
-        }
-        console.log(data);
-        api.getAdviserList(data).then(res=>{
+        Bus.$on('selectAdviser',res=>{
             console.log(res);
-            this.list=res.data;
-            console.log(typeof this.list);
-        }).catch(err=>{
-            console.log(err);
+            this.adviser_id=res;
         })
+    },
+    beforeDestroy () {
+        Bus.$off('selectAdviser')
     },
     components:{
         top,
+        adviserList,
     }
   }
 </script>
@@ -112,6 +84,7 @@
     }
     .item p{
         margin-bottom:.2rem;
+        line-height:.4rem;
     }
     .item p.first{
         position: relative;
@@ -122,6 +95,13 @@
     }
     .advantage{
         margin-right:.15rem;
+    }
+    .brief{
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .footer{
         position:fixed;

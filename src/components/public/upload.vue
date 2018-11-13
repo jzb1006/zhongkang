@@ -1,6 +1,5 @@
 <template>
     <div id="upload">
-        <fileShow :file-url="fileUrls" :init-files="initFiles"></fileShow>
         <span class="tishi">
             <form id="form1" enctype="multipart/form-data">
                 <input type="file" name="sf_upfile" @change="changeFile($event)" class="position-absolute upfile btn btn-sm btn-outline-info">{{title}}
@@ -56,8 +55,11 @@ export default {
     watch:{
         oldPhoto:function(newValue,oldValue){
             console.log(newValue);
-            this.fileUrls=newValue;
-            this.initFiles = JSON.parse(JSON.stringify(this.fileUrls));
+            if(newValue[0]!=''){
+                this.fileUrls=newValue;
+                this.initFiles = JSON.parse(JSON.stringify(this.fileUrls));
+            }
+            
         }
     },
     components: {
@@ -92,6 +94,7 @@ export default {
         },
         toParent() {
             this.$emit("changeUrls", this.fileUrls);
+            Bus.$emit("changeUrls",this.fileUrls);
         },
         //文件支持上传的格式
         examinationFormat(fileURL) {

@@ -5,6 +5,7 @@ const state={
     userinfo:'',
     otherId:'',
     order_sn:'',
+    isBackToPrevious:true,
 }
 const getters={
     getBank(state){
@@ -34,7 +35,15 @@ const getters={
         
         console.log(state.order_sn);
         return state.order_sn;
-    }
+    },
+    getIsBackToPrevious(state){
+        // if(state.isBackToPrevious==''){
+        //     state.isBackToPrevious=sessionStorage.getItem('isBackToPrevious');
+        // }
+        
+        console.log(state.isBackToPrevious);
+        return state.isBackToPrevious;
+    },
 }
 const actions = {
     changeBank({commit},viewName){
@@ -50,7 +59,11 @@ const actions = {
     changeOrderSn({commit},viewName){
         console.log(viewName);
         commit('CHANGE_ORDER_SN',viewName);
-    }
+    },
+    changeIsBackToPrevious({commit},viewName){
+        console.log(viewName);
+        commit('CHANGE_IS_BACK_TO_PREVIOUS',viewName);
+    },
 }
 
 const mutations = {
@@ -69,7 +82,11 @@ const mutations = {
     CHANGE_ORDER_SN(state,viewName){
         sessionStorage.setItem('order_sn',viewName);
         state.order_sn=viewName;
-    }
+    },
+    CHANGE_IS_BACK_TO_PREVIOUS(state,viewName){
+        // sessionStorage.setItem('isBackToPrevious',viewName);
+        state.isBackToPrevious=viewName;
+    },
 }
 export default{
 	state,

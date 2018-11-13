@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <keep-alive include="requirement,customized">
+      <keep-alive include="requirement,customized,replyOrder,customizedOrder">
         <router-view class="child-view"></router-view>
       </keep-alive>
     </transition>
