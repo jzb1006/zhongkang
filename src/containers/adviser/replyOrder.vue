@@ -14,7 +14,7 @@
 <script>
     import api from "../../api/customized"
     import top from "@/components/decorate/top.vue"
-    import adviserOrderItem from '@/components/adviser/adviserOrderItem.vue'
+    import adviserOrderItem from '@/components/adviser/adviser_order_item.vue'
     export default {
         name:'replyOrder',
         data(){

@@ -12,9 +12,9 @@
     // import api from "../../api/customized"
     import top from "@/components/decorate/top.vue"
     // import pay from "@/components/common/pay.vue"
-    import detailItem from '@/components/customized/detailItem.vue'
+    import detailItem from '@/components/customized/detail_Item.vue'
     // import Bus from '@/assets/bus.js'
-    import submitOrder from '@/components/customized/submitOrder.vue'
+    import submitOrder from '@/components/customized/submit_order.vue'
     // import { mapGetters } from "vuex";
     export default {
         name:'confirmOrder',

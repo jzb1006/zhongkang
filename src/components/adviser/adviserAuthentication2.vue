@@ -1,5 +1,8 @@
 <template>
-    <div id="editInfo">
+    <div id="adviserAuthentication">
+        <top :params=params></top>
+        <!-- <edit-info></edit-info>
+        <certificate></certificate> -->
         <div class="content vux-1px">
             <div class="item vux-1px-b" @click="show_items">
                 <div class="span">请选择项目:</div>
@@ -10,21 +13,35 @@
             </div>
             <div class="item vux-1px-b">
                 <div class="span">咨询价格:</div>
-                <div class="include vux-1px"><input type="text" class="input" v-model="price" @input="getPrice(price)"></div>
+                <div class="include vux-1px"><input type="text" class="input" v-model="price"></div>
             </div>
             <div class="item vux-1px-b">
                 <div class="span">顾问级别:</div>
-                <!-- <div class="include vux-1px"><input type="text" class="input" v-model="level"></div> -->
-                <!-- <select class="select vux-1px" v-model="level" @change="getLevel(level)">
+                <!-- <select class="select vux-1px" v-model="level">
                     <option value="41">初级顾问</option>
                     <option value="42">中级顾问</option>
                     <option value="43">高级顾问</option>
                 </select> -->
-                <select-adviser-level :params="{'level':this.level}"></select-adviser-level>
+                <select-adviser-level :params="params1" class="select_adviser"></select-adviser-level>
             </div>
             <div class="item1">
                 <div class="span">简介:</div>
-                <textarea v-model="jianjie" @input="getJianjie(jianjie)"></textarea>
+                <textarea v-model="jianjie"></textarea>
+            </div>
+        </div>
+        <div class="content vux-1px margin-b">
+            <div class="addPic">顾问资格证书</div>
+            <!-- <div class="addPic">
+                <Upload :img-max-num=1 class="upload" @changeUrls="getPhotoUrl" :file-type=1 title="上传资格证书" :oldPhoto="this.photo"></Upload>
+            </div> -->
+            
+            <div class="upFile">
+                <mediaDisplay :limitnum1=1 @getFileList=getFileList :filelists="oldPhoto"></mediaDisplay>
+            </div>
+            <div class="addPic vux-1px-t">
+                <group>
+                    <calendar title="有效期:" v-model="time1" disable-future></calendar>
+                </group>
             </div>
         </div>
         <popup v-model="show_item" position="bottom" max-height="50%">
@@ -42,10 +59,12 @@
     import diarySelItem from "@/components/common/diary_sel_item.vue";
     import { Calendar,Group,Popup } from 'vux'
     import mediaDisplay from "@/components/upload/media_display";
-    import editInfo from "@/components/adviser/editInfo.vue"
-    import selectAdviserLevel from '@/components/customized/selectAdviserLevel' 
+    import editInfo from "@/components/adviser/edit_info.vue"
+    import certificate from "@/components/adviser/certificate"
+    import selectAdviserLevel from '@/components/customized/select_adviser_level'
+    import {mapGetters} from 'vuex'
     export default{
-        name:'editInfo',
+        name:'adviserAuthentication',
         data(){
             return{
                 level:'41',
@@ -54,33 +73,34 @@
                 jianjie:'',
                 price:'',
                 time1:'',
+                oldPhoto:[],
+                photo:[],
                 result:[],
                 selectedname:[],
                 show_item:false,
-                
+                params:{
+                    title:'顾问认证',
+                    hasBtn:true,
+                    btnText:'认证',
+                    next:this.next,
+                },
+                // params1:{
+                //     level:this.getLevel,
+                // }
             }
         },
-        // watch:{
-        //     params(newV,oldV){
-        //         console.log('b::::'+this.params);
-        //         this.level=newV.level;
-        //     }
-        // },
-        // props:{
-        //     params:{
-        //         type:[Object],
-        //     }
-        // },
+        computed:{
+            params1(){
+                return{
+                    level:this.level,
+                }
+                
+            },
+            ...mapGetters([
+                'getLevel'
+            ])
+        },
         methods:{
-            getJianjie(data){
-                Bus.$emit("getJianjie",data);
-            },
-            getPrice(data){
-                Bus.$emit("getPrice",data);
-            },
-            getLevel(data){
-                Bus.$emit("getLevel",data);
-            },
             show_items() {
                 this.show_item = true;
                 Bus.$emit("changeSelItem", true);
@@ -89,6 +109,11 @@
                 this.show_item = false;
             },
             next(){
+                // console.log(typeof this.chooseItem);
+                // console.log(this.level);
+                // console.log(this.jianjie);
+                // console.log(this.time1);
+                // console.log(this.photo[0]);
                 this.selected=[];
                 this.chooseItem.forEach(element => {
                     this.selected.push(element.id);
@@ -97,23 +122,26 @@
                     alert('请至少选择一个项目');
                     return false;
                 }
-                // if(this.chooseItem==""){
-                //     alert('请至少选择一个项目');
-                //     return false;
-                // }
-                api.adviserAuthentication({
+                console.log('555:'+this.level);
+                this.level=this.getLevel;
+                // this.level=this.$store.state.customized.level;
+                let postdata={
                     advantage:this.selected,
                     level:this.level,
                     brief_introduction:this.jianjie,
                     consultation_price:this.price,
                     certificates:this.photo[0],
                     certificates_validity_date:this.time1,
-                })
-                .then(res=>{
-                    alert(res.data.msg);
-                    this.$router.push('/home/user');
-                })
-                .catch(err=>{
+                }
+                
+                api.adviserAuthentication(postdata).then(res=>{
+                    if(res.data.error_code==1){
+                        alert(res.data.msg);
+                        this.$router.push('/home/user');
+                    }else{
+                        alert(res.data.msg);
+                    }
+                }).catch(err=>{
                     console.log(err);
                 })
             },
@@ -130,17 +158,12 @@
                 api.queryAdviserInfo().then(res=>{
                     if(res.data!=''){
                         this.chooseItem=res.data.advantage;
-                        Bus.$emit('toItem',this.chooseItem);
                         this.price=res.data.consultation_price;
-                        Bus.$emit('getPrice',this.price);
                         this.jianjie=res.data.brief_introduction;
-                        Bus.$emit('getJianjie',this.jianjie);
                         this.time1=res.data.certificates_validity_date;
                         this.level=res.data.adviser_level;
-                        console.log('a:'+this.level);
-                        Bus.$emit('getLevel',this.level);
-                        // this.photo.push(res.data.certificates);
-                        // this.oldPhoto.push({url:res.data.certificates,alt:''});
+                        this.photo.push(res.data.certificates);
+                        this.oldPhoto.push({url:res.data.certificates,alt:''});
                     }
                     
                 }).catch(err=>{
@@ -165,11 +188,33 @@
                 //     this.selectedname.push(element.name);
                 // });
             })
+            // Bus.$on("getJianjie",res=>{
+            //     this.jianjie=res;
+            //     console.log(this.jianjie);
+            // })
+            // Bus.$on("getPrice",res=>{
+            //     this.price=res;
+            // })
+            // Bus.$on("getLevel",res=>{
+            //     this.level=res;
+            //     console.log('what the fuck:'+this.level);
+            // })
+            // Bus.$on("getTime",res=>{
+            //     this.time1=res;
+            // })
+            // Bus.$on("getPhoto",res=>{
+            //     this.photo=res;
+            // })
+            // Bus.$on("getOldPhoto",res=>{
+            //     this.oldPhoto=res;
+            // })
         },
         beforeDestroy(){
-            Bus.$off("getJianjie");
-            Bus.$off("getPrice");
-            Bus.$off("getLevel");
+            // Bus.$off("getJianjie");
+            // Bus.$off("getPrice");
+            // Bus.$off("getLevel");
+            // Bus.$off("getTime");
+            // Bus.$off("getPhoto");
         },
         components:{
             top,
@@ -180,6 +225,7 @@
             mediaDisplay,
             Popup,
             editInfo,
+            certificate,
             selectAdviserLevel
         }
     }

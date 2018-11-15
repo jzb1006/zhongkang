@@ -1,5 +1,5 @@
 <template>
-    <div id="addReply" class="footer vux-1px-t" v-if="isHasEdit">
+    <div id="add_reply" class="footer vux-1px-t" v-if="isHasEdit">
         <span class="reply vux-1px" @click="add_programme()">增加回复</span>
         <!-- <span class="reply vux-1px" @click="edit(result.order_sn)">修改回复</span> -->
     </div>    
@@ -7,6 +7,7 @@
 <script>
 import {mapGetters} from 'vuex'
 export default {
+    name:'add_reply',
     data(){
         return{
             isHasEdit:'',

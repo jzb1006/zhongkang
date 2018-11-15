@@ -1,5 +1,5 @@
 <template>
-    <div id="submitOrder">
+    <div id="submit_order">
         <footer class="order-footer no-select clear">
             <div class="fbottom">
                 <div class="order-info">
@@ -10,17 +10,17 @@
             </div>
         </footer>
         <!-- <pay :show_pay_page="this.show_pay_page" @cancel="cancel" :order_sn="sn" :order_amount="this.price" jump_url="http://192.168.0.110:8080/#/customizedOrder" subject="4" v-if="this.price!=''"></pay> -->
-        <pay :params=params></pay>
+        <pay :params=params1></pay>
     </div>
 </template>
 <script>
     import api from "../../api/customized"
     import pay from "@/components/common/pay.vue"
-    import detailItem from '@/components/customized/detailItem.vue'
+    import detailItem from '@/components/customized/detail_Item.vue'
     import { mapGetters } from "vuex";
     import Bus from '@/assets/bus.js'
     export default {
-        name:'submitOrder',
+        name:'submit_order',
         data(){
             return{
                 pay_id:0,
@@ -31,13 +31,21 @@
         },
         computed: {
             ...mapGetters(["getLastName","getAge","getCustomizedDetail","getPhoto","getLevel"]),
-            params(){
+            params1(){
                 return {
                     show_pay_page:this.show_pay_page,
                     order_sn:this.sn,
                     order_amount:this.price,
                     jump_url:"http://192.168.0.110:8080/#/customizedOrder",
                     subject:"4",
+                }
+            }
+        },
+        props:{
+            params:{
+                type:Object,
+                default(){
+                    return {}
                 }
             }
         },
@@ -50,27 +58,54 @@
             //     this.show_pay_page=false;
             // },
             add_order(){
-                let detail=this.getCustomizedDetail
-                let lastName=this.$store.state.customized.lastName;
-                let age=this.$store.state.customized.age
-                let level=this.getLevel
-                let photo=this.getPhoto
-                let min=this.$store.state.customized.minPrice
-                let max=this.$store.state.customized.maxPrice
+                // let detail=this.getCustomizedDetail
+                // let lastName=this.$store.state.customized.lastName;
+                // let age=this.$store.state.customized.age
+                // let level=this.getLevel
+                // let photo=this.getPhoto
+                // let min=this.$store.state.customized.minPrice
+                // let max=this.$store.state.customized.maxPrice
+                let detail=this.params.detail;
+                let lastName=this.params.lastname;
+                let age=this.params.age;
+                let level=this.params.level;
+                let photo=this.params.photo;
+                let min=this.params.min_price;
+                let max=this.params.max_price;
+                let adviser_id=this.params.adviser_id;
+                let category=this.params.selected;
+                let order_amount=this.params.order_amount;
+                console.log(lastName);
+                console.log(detail);
+                // let postdata={
+                //     'lastname':lastName,
+                //     'age':age,
+                //     'level':sessionStorage.getItem('level'),
+                //     'money':sessionStorage.getItem('money'),
+                //     'adviser_id':sessionStorage.getItem('adviser_id'),
+                //     'detail':detail,
+                //     'cat':JSON.parse(sessionStorage.getItem('operation_category')),
+                //     'photo':JSON.parse(sessionStorage.getItem('photo')),
+                //     // 'order_sn':sn,
+                //     'minPrice':sessionStorage.getItem('minPrice'),
+                //     'maxPrice':sessionStorage.getItem('maxPrice'),
+                //     'pay_id':this.pay_id,
+                //     'order_amount':this.price,
+                // }
                 let postdata={
                     'lastname':lastName,
                     'age':age,
-                    'level':sessionStorage.getItem('level'),
-                    'money':sessionStorage.getItem('money'),
-                    'adviser_id':sessionStorage.getItem('adviser_id'),
+                    'level':level,
+                    // 'money':sessionStorage.getItem('money'),
+                    'adviser_id':adviser_id,
                     'detail':detail,
-                    'cat':JSON.parse(sessionStorage.getItem('operation_category')),
-                    'photo':JSON.parse(sessionStorage.getItem('photo')),
+                    'cat':category,
+                    'photo':photo,
                     // 'order_sn':sn,
-                    'minPrice':sessionStorage.getItem('minPrice'),
-                    'maxPrice':sessionStorage.getItem('maxPrice'),
+                    'minPrice':min,
+                    'maxPrice':max,
                     'pay_id':this.pay_id,
-                    'order_amount':this.price,
+                    'order_amount':order_amount,
                 }
                 console.log(postdata);
                 api.saveCustomizedDemand(postdata).then(res=>{

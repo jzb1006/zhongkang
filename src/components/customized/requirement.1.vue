@@ -3,7 +3,6 @@
         <top :params=params></top>
         <diaryInfo @getFileList=getFileList></diaryInfo>
         <requirement-content></requirement-content>
-        
     </div>
 </template>
 

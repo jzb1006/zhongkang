@@ -83,8 +83,9 @@ export default {
     },
     methods: {
         detail(value){
+            console.log(value);
             this.$emit('detail',value);
-            this.$store.dispatch('save_customized_detail',value);
+            // this.$store.dispatch('save_customized_detail',value);
         },
         getDiaryData() {
             var self = this;

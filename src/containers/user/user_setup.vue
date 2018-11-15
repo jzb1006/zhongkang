@@ -2,26 +2,28 @@
     <div id="setup">
         <top :params=params></top>
         <!-- <setup-con></setup-con> -->
-        <user-setup-row :params="params1"></user-setup-row>
+        <setup-selfinfo></setup-selfinfo>
+        <setup-phone></setup-phone>
+        <setup-password></setup-password>
+        <setup-email></setup-email>
+        <!-- <user-setup-row :params="params1"></user-setup-row>
 
         <user-phone-row></user-phone-row>
         
         <user-setup-row :params="params4"></user-setup-row>
 
-        <user-email-row></user-email-row>
-        <!-- <user-setup-row :params="params5"></user-setup-row>
-        <user-setup-row :params="params6"></user-setup-row> -->
+        <user-email-row></user-email-row> -->
         <logout></logout>
     </div>
 </template>
 
 <script>
-import top from "@/components/decorate/top.vue";
+// import top from "@/components/decorate/top.vue";
 // import setupCon from "@/components/user/setupCon.vue"
-import logout from "@/components/user/logout.vue"
-import userSetupRow from "@/components/user/row/userSetupRow.vue"
-import userPhoneRow from "@/components/user/row/userPhoneRow.vue"
-import userEmailRow from "@/components/user/row/userEmailRow.vue"
+// import logout from "@/components/user/logout.vue"
+// import userSetupRow from "@/components/user/row/userSetupRow.vue"
+// import userPhoneRow from "@/components/user/row/userPhoneRow.vue"
+// import userEmailRow from "@/components/user/row/userEmailRow.vue"
 // import {mapState,mapGetters} from 'vuex'
 export default {
     name: 'setup',
@@ -81,12 +83,12 @@ export default {
         },
     },
     components:{
-        top,
+        // top,
         // setupCon,
-        logout,
-        userSetupRow,
-        userPhoneRow,
-        userEmailRow
+        // logout,
+        // userSetupRow,
+        // userPhoneRow,
+        // userEmailRow
     }
 }
 </script>
@@ -94,6 +96,6 @@ export default {
 <style scoped>
 #setup{
     background:#f0f0f0;
-    font-size:.32rem;
+    /* font-size:.32rem; */
 }
 </style>

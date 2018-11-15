@@ -1,8 +1,8 @@
 <template>
-    <div id="adviserAuthentication">
+    <div id="adviser_authentication">
         <top :params=params></top>
-        <edit-info></edit-info>
-        <certificate></certificate>
+        <edit-info :params=params1></edit-info>
+        <certificate :params=params2></certificate>
         <!-- <div class="content vux-1px">
             <div class="item vux-1px-b" @click="show_items">
                 <div class="span">请选择项目:</div>
@@ -58,13 +58,13 @@
     import diarySelItem from "@/components/common/diary_sel_item.vue";
     import { Calendar,Group,Popup } from 'vux'
     import mediaDisplay from "@/components/upload/media_display";
-    import editInfo from "@/components/adviser/editInfo.vue"
+    import editInfo from "@/components/adviser/edit_info.vue"
     import certificate from "@/components/adviser/certificate"
     export default{
-        name:'adviserAuthentication',
+        name:'adviser_authentication',
         data(){
             return{
-                level:'41',
+                level:'',
                 chooseItem:[],
                 selected:[],
                 jianjie:'',
@@ -83,14 +83,23 @@
                 },
             }
         },
-        // computed:{
-        //     params1(){
-        //         return{
-        //             level:this.level,
-        //         }
+        computed:{
+            params1(){
+                return{
+                    level:this.level,
+                    chooseItem:this.chooseItem,
+                    price:this.price,
+                    jianjie:this.jianjie,
+                }
                 
-        //     }
-        // },
+            },
+            params2(){
+                return{
+                    time1:this.time1,
+                    oldPhoto:this.oldPhoto,
+                }
+            }
+        },
         methods:{
             show_items() {
                 this.show_item = true;
@@ -114,7 +123,7 @@
                     return false;
                 }
                 console.log('555:'+this.level);
-                this.level=this.$store.state.customized.level;
+                // this.level=this.$store.state.customized.level;
                 let postdata={
                     advantage:this.selected,
                     level:this.level,
@@ -147,13 +156,14 @@
             queryAdviserInfo(){
                 api.queryAdviserInfo().then(res=>{
                     if(res.data!=''){
-                        // this.chooseItem=res.data.advantage;
-                        // this.price=res.data.consultation_price;
-                        // this.jianjie=res.data.brief_introduction;
+                        this.chooseItem=res.data.advantage;
+                        this.price=res.data.consultation_price;
+                        this.jianjie=res.data.brief_introduction;
                         this.time1=res.data.certificates_validity_date;
-                        // this.level=res.data.adviser_level;
+                        this.level=res.data.adviser_level;
                         this.photo.push(res.data.certificates);
                         this.oldPhoto.push({url:res.data.certificates,alt:''});
+                        console.log(this.oldPhoto);
                     }
                     
                 }).catch(err=>{
@@ -169,7 +179,7 @@
             // }).catch(err=>{
             //     console.log(err);
             // })
-            // this.queryAdviserInfo();
+            this.queryAdviserInfo();
             Bus.$on("toItem", res => {
                 this.selectedname=[];
                 this.chooseItem=res;
@@ -194,6 +204,8 @@
             })
             Bus.$on("getPhoto",res=>{
                 this.photo=res;
+                console.log('didiisodfidfsdf');
+                console.log(this.photo);
             })
             Bus.$on("getOldPhoto",res=>{
                 this.oldPhoto=res;

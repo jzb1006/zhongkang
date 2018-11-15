@@ -1,5 +1,5 @@
 <template>
-    <div id="operationList">
+    <div id="operation_list">
         <ul class="nav">
             <li v-for="item in result" :key="item.operation_id" :class="{list:true,bg:istrue(item.operation_id)}" @click="select(item)">
                 {{item.operation_name}}
@@ -11,7 +11,7 @@
 <script>
     import customized from './../../api/customized'
     export default{
-        name:'operationList',
+        name:'operation_list',
         data(){
             return{
                 result:[],

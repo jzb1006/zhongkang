@@ -16,6 +16,9 @@ export default {
 }
 </script>
 <style scoped>
+    #userSetupRow{
+        font-size:.32rem;
+    }
     .item{
         background: #fff;
         text-align: left;

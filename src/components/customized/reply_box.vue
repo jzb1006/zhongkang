@@ -1,5 +1,5 @@
 <template>
-    <div id="replyBox">
+    <div id="reply_box">
         <div v-if="result==''">
             <nosearch text="暂无回复"></nosearch>
         </div>
@@ -55,6 +55,7 @@
   import nosearch from "@/components/nosearch/index.vue"
   import {mapGetters} from 'vuex'
     export default {
+        name:'reply_box',
         data(){
             return{
                 order_sn:'',

@@ -1,5 +1,5 @@
 <template>
-    <div id="newProgramme">
+    <div id="new_programme">
         <div class="add_programme">
             <span class="btn" @click="add_programme">添加方案</span>
         </div>    
@@ -7,8 +7,9 @@
     </div>
 </template>
 <script>
-import addProgramme from '@/components/adviser/addProgramme.vue'
+import addProgramme from '@/components/adviser/add_programme.vue'
 export default {
+    name:'new_programme',
     data(){
         return{
             addNewProgramme:false,

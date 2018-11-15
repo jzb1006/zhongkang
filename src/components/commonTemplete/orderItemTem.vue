@@ -36,7 +36,7 @@
 </script>
 
 <style scoped>
-    #orderItem{
+    #orderItemTem{
         padding:.2rem .3rem;
     }
     .time{

@@ -1,5 +1,5 @@
 <template>
-  <div id="detailItem">
+  <div id="detailItemTem">
         <div>
             <div class="item vux-1px-b">
                 <span class="left">订单金额</span>
@@ -54,7 +54,7 @@
 <script>
   import api from '@/api/customized'
   export default {
-    name: 'detailItem',
+    name: 'detailItemTem',
     props:{
         result:{
             type:[Array,Object]

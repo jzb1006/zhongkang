@@ -43,9 +43,9 @@
   import api from './../../api/customized'
   import Bus from '@/assets/bus.js'
   import Upload from '@/components/public/upload'
-  import addProgramme from '@/components/adviser/addProgramme.vue'
+  import addProgramme from '@/components/adviser/add_programme.vue'
   import replyItem from '@/components/customized/reply_item.vue'
-  import newProgramme from '@/components/adviser/newProgramme.vue'
+  import newProgramme from '@/components/adviser/new_programme.vue'
   export default {
     name: 'customizedReply',
     data(){

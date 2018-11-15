@@ -24,8 +24,8 @@
 <script>
   import top from '@/components/decorate/top.vue'
   import api from './../../api/customized'
-  import orderDetailItem from '@/components/customized/orderDetailItem.vue'
-  import adviserOrderOperation from '@/components/adviser/adviserOrderOperation.vue'
+  import orderDetailItem from '@/components/customized/order_detail_item.vue'
+  import adviserOrderOperation from '@/components/adviser/adviser_order_operation.vue'
   import {mapGetters} from 'vuex'
   export default {
     name: 'replyOrderDetail',

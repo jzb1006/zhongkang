@@ -28,22 +28,39 @@
             count:'',
             price:'',
             level:'',
+            level_name:'',
+        }
+    },
+    watch:{
+        params(){
+            console.log('a');
+            this.getData();
+        }
+    },
+    props:{
+        params:{
+            type:Object,
         }
     },
     methods:{
-        selectAdviser(level,name,id,price,index){
+        selectAdviser(level_name,name,id,price,index){
             if(id==this.adviser_id){
+                this.$emit('selectAdviser',{adviser_id:id,level_name:level_name,adviser_name:name,price:price});
+                Bus.$emit('selectAdviser',{adviser_id:id,level_name:level_name,adviser_name:name,price:price});
                 this.adviser_id="";
                 this.adviser_name="";
-                this.level="";
+                this.level_name="";
                 this.count=-1;
                 this.price=price;
 
-                Bus.$emit('selectAdviser',this.adviser_id);
+                // Bus.$emit('selectAdviser',{level_name:level,adviser_name:name,price:price});
+                
             }else{
+                this.$emit('selectAdviser',{adviser_id:id,level_name:level_name,adviser_name:name,price:price});
+                Bus.$emit('selectAdviser',{adviser_id:id,level_name:level_name,adviser_name:name,price:price});
                 this.adviser_id=id;
                 this.adviser_name=name;
-                this.level=level;
+                this.level_name=level_name;
                 this.count=index;
                 this.price=price;
                 sessionStorage.setItem('adviser_id',this.adviser_id);
@@ -51,7 +68,8 @@
                 sessionStorage.setItem('level_name',this.level);
                 sessionStorage.setItem('price',this.price);
 
-                Bus.$emit('selectAdviser',this.adviser_id);
+                // Bus.$emit('selectAdviser',{adviser_id:this.adviser_id,adviser_name:this.adviser_name,price:this.price});
+                
             }
             
         },
@@ -71,10 +89,12 @@
         },
         getData(){
             let data={
-                adviser_level:sessionStorage.getItem('level'),
-                operation_category:JSON.parse(sessionStorage.getItem('operation_category')),
+                // adviser_level:sessionStorage.getItem('level'),
+                // operation_category:JSON.parse(sessionStorage.getItem('operation_category')),
+                adviser_level:this.params.level,
+                operation_category:this.params.selected,
             }
-            console.log(data.operation_category);
+            // console.log(data.operation_category);
             api.getAdviserList(data).then(res=>{
                 console.log(res);
                 this.list=res.data;
@@ -85,7 +105,7 @@
         }
     },
     mounted(){
-        this.getData()
+        // this.getData()
     },
     // beforeDestroy () {
     //     Bus.$off('selectAdviser')

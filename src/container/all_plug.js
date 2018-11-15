@@ -86,20 +86,27 @@ import aloneDisplay from '@/components/upload/alone_display.vue'
 import container from '@/container/container.vue'
 
 //私人定制
-import submitOrder from '@/components/customized/submitOrder.vue'
+import submitOrder from '@/components/customized/submit_order.vue'
 import detailItemTem from '@/components/commonTemplete/detailItemTem.vue'
-import receiptOrderItem from "@/components/adviser/receiptOrderItem.vue"
-import adviserOrderItem from '@/components/adviser/adviserOrderItem.vue'
-import orderDetailItem from '@/components/customized/orderDetailItem.vue'
-import adviserOrderOperation from '@/components/adviser/adviserOrderOperation.vue'
-import replyBox from '@/components/customized/replyBox.vue'
-import addReply from '@/components/adviser/addReply.vue'
-import detailItem from '@/components/customized/detailItem.vue'
-import orderItem from '@/components/customized/orderItem'
+import receiptOrderItem from "@/components/adviser/receipt_order_item.vue"
+import adviserOrderItem from '@/components/adviser/adviser_order_item.vue'
+import orderDetailItem from '@/components/customized/order_detail_item.vue'
+import adviserOrderOperation from '@/components/adviser/adviser_order_operation.vue'
+import replyBox from '@/components/customized/reply_box.vue'
+import addReply from '@/components/adviser/add_reply.vue'
+import detailItem from '@/components/customized/detail_Item.vue'
+import orderItem from '@/components/customized/order_item'
 import tab from '@/components/customized/tab'
-import customizedOrderOperation from '@/components/customized/customizedOrderOperation.vue'
+import customizedOrderOperation from '@/components/customized/customized_order_operation.vue'
+import chat from '@/components/customized/chat.vue'
 import chatContent from  '@/components/customized/chat_content.vue'
 import chatFoot from '@/components/customized/chat_foot.vue'
+import customizedOrderBox from '@/components/customized/customized_order_box.vue'
+import requirement from '@/components/customized/requirement'
+import chooseAdviser from '@/components/adviser/list.vue'
+import customizedReply from '@/components/adviser/customized_reply.vue'
+import selectAdviserLevel from '@/components/customized/select_adviser_level.vue'
+
 
 //个人中心
 import userHead from '@/components/user/userHead.vue'
@@ -135,6 +142,12 @@ import usercusOrder from "@/components/user/list/cusOrder.vue"
 import userMoney from "@/components/user/list/money.vue"
 import userReceipt from "@/components/user/list/Receipt.vue"
 import userViewOrder from "@/components/user/list/viewOrder.vue"
+
+import setupEmail from "@/components/user/list/setupEmail.vue"
+import setupPassword from "@/components/user/list/setupPassword.vue"
+import setupPhone from "@/components/user/list/setupPhone.vue"
+import setupSelfinfo from "@/components/user/list/setupSelfinfo.vue"
+
 //模板
 // import avg from '@/model/avg.vue'
 
@@ -163,6 +176,13 @@ export default {
         Vue.component('customizedOrderOperation',customizedOrderOperation)
         Vue.component('chatContent',chatContent)
         Vue.component('chatFoot',chatFoot)
+        Vue.component('customizedOrderBox',customizedOrderBox)
+        Vue.component('requirement',requirement)
+        Vue.component('chooseAdviser',chooseAdviser)
+        Vue.component('customizedReply',customizedReply)
+        Vue.component('selectAdviserLevel',selectAdviserLevel)
+        Vue.component('chat',chat)
+        
 
         Vue.component('top',top)
         Vue.component('userHead',userHead)
@@ -197,5 +217,10 @@ export default {
         Vue.component('userMoney',userMoney)
         Vue.component('userReceipt',userReceipt)
         Vue.component('userViewOrder',userViewOrder)
+
+        Vue.component('setupEmail',setupEmail)
+        Vue.component('setupPassword',setupPassword)
+        Vue.component('setupPhone',setupPhone)
+        Vue.component('setupSelfinfo',setupSelfinfo)
     }
 }

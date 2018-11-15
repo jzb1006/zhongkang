@@ -1,5 +1,5 @@
 <template>
-    <div id="selectAdviserLevel">
+    <div id="select_adviser_level">
         <select class="select vux-1px" v-model="level" @change="getLevel(level)">
             <option value="41">初级顾问</option>
             <option value="42">中级顾问</option>
@@ -8,7 +8,9 @@
     </div>
 </template>
 <script>
+import Bus from "@/assets/bus.js";
 export default {
+    name:'select_adviser_level',
     data(){
         return{
             level:41,
@@ -27,11 +29,16 @@ export default {
     props:{
         params:{
             type:[Object],
+            default(){
+                return {};
+            }
         }
     },
     methods:{
         getLevel(data){
-            this.$store.dispatch('changeLevel',data);
+            // this.$store.dispatch('changeLevel',data);
+            this.$emit('getLevel',data);
+            Bus.$emit('getLevel',data)
         },
     }
 }

@@ -46,7 +46,7 @@ import diarySelItem from "@/components/common/diary_sel_item";
 // import Alert from "@/components/decorate/alert.vue";
 import { mapGetters } from "vuex";
 import priceRange from '@/components/common/price_range.vue'
-import selectAdviserLevel from '@/components/customized/selectAdviserLevel'
+import selectAdviserLevel from '@/components/customized/select_adviser_level'
 
 export default {
     data() {

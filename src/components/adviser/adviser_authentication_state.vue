@@ -1,5 +1,5 @@
 <template>
-    <div id="adviserAuthenticationState">
+    <div id="adviser_authentication_state">
         <authentication-state v-if="is_authentication"></authentication-state>
         <adviser-authentication v-else></adviser-authentication>
     </div>    
@@ -7,10 +7,10 @@
 
 <script>
     import api from "../../api/customized"
-    import adviserAuthentication from '@/components/adviser/adviserAuthentication'
-    import authenticationState from '@/components/adviser/authenticationState'
+    import adviserAuthentication from '@/components/adviser/adviser_authentication'
+    import authenticationState from '@/components/adviser/authentication_state'
     export default{
-        name:'adviserAuthenticationState',
+        name:'adviser_authentication_state',
         data(){
             return{
                 is_authentication:false,

@@ -1,5 +1,5 @@
 <template>
-  <div id="adviserOrderOperation">
+  <div id="adviser_order_operation">
         <div class="footer vux-1px-t">
             <!-- <span class="reply vux-1px" v-if="result['order_status']>=5" @click="answer(result.order_sn,result.user_id,result.adviser_id)">追答</span>
             <span class="reply vux-1px" v-if="result['order_status']==7" @click="reply(result.order_sn,result.order_status)">修改回复</span>
@@ -33,7 +33,7 @@
   import api from './../../api/customized'
   import {mapGetters} from 'vuex'
   export default {
-    name: 'adviserOrderOperation',
+    name: 'adviser_order_operation',
     data(){
         return{
             order_sn:'',

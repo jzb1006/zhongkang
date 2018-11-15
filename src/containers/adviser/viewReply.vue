@@ -11,8 +11,8 @@
   import api from './../../api/customized'
   import nosearch from "@/components/nosearch/index.vue"
   import replyItem from '@/components/customized/reply_item.vue'
-  import replyBox from '@/components/customized/replyBox.vue'
-  import addReply from '@/components/adviser/addReply.vue'
+  import replyBox from '@/components/customized/reply_box.vue'
+  import addReply from '@/components/adviser/add_reply.vue'
   import {mapGetters} from 'vuex'
   export default {
     name: 'adviserViewReply',

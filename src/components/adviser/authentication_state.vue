@@ -1,5 +1,5 @@
 <template>
-    <div id="authenticationState">
+    <div id="authentication_state">
         <top title="顾问认证">
         </top>
         <div class="content">
@@ -13,7 +13,7 @@
     import top from '@/components/decorate/top_back_title.vue'
     import api from "../../api/customized"
     export default{
-        name:'authenticationState',
+        name:'authentication_state',
         data(){
             return{
                 is_check:'',

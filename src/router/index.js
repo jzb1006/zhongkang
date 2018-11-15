@@ -68,18 +68,19 @@ import balance from '@/components/user_wallet/user_balance'
 import recharge from '@/containers/wallet/user_recharge'
 
 
-import customized from '@/components/customized/customized'
+// import customized from '@/components/customized/customized'
+import customized from '@/containers/customized/customized'
 import requirement from '@/components/customized/requirement'
 import confirmOrder from '@/containers/customized/confirmOrder'
 import cuspay from '@/components/customized/cuspay'
 import adviser from '@/components/adviser/list'
 import customizedOrder from '@/containers/customized/customizedOrder'
-import adviserAuthentication from '@/components/adviser/adviserAuthentication'
-import adviserAuthenticationState from '@/components/adviser/adviserAuthenticationState'
+import adviserAuthentication from '@/components/adviser/adviser_authentication'
+import adviserAuthenticationState from '@/components/adviser/adviser_authentication_state'
 import adviserReceipt from '@/containers/adviser/adviserReceipt'
-import receiptDetail from '@/components/adviser/receiptDetail'
-import customizedReply from '@/components/adviser/customizedReply'
-import programme from '@/components/adviser/addProgramme'
+import receiptDetail from '@/components/adviser/receipt_detail'
+import customizedReply from '@/containers/adviser/reply'
+import programme from '@/components/adviser/add_programme'
 import customizedOrderDetail from '@/containers/customized/customizedOrderDetail'
 import viewReply from '@/containers/customized/viewReply'
 import replyOrder from '@/containers/adviser/replyOrder'
@@ -89,7 +90,7 @@ import ask from '@/containers/customized/ask'
 import customized_applyRefund from '@/components/customized/customized_applyRefund'
 import customized_appeal from '@/components/customized/customized_appeal'
 import appeal_confirm_consumption from '@/components/adviser/appeal_confirm_consumption'
-import editProgramme from '@/components/adviser/editProgramme'
+import editProgramme from '@/components/adviser/edit_programme'
 import adviserViewReply from '@/containers/adviser/viewReply'
 import answer from '@/containers/adviser/answer'
 
@@ -467,10 +468,15 @@ const router = new Router({
       },
       ]
     },
+    // {
+    //   path:'/home/customized',
+    //   name:'customized',
+    //   component:customized
+    // },
     {
-      path:'/home/customized',
+      path:'/customized',
       name:'customized',
-      component:customized
+      component:customized,
     },
     {
       path:'/requirement',

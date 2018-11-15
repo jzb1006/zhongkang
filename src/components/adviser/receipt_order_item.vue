@@ -1,5 +1,5 @@
 <template>
-    <div id="receiptOrderItem">
+    <div id="receipt_order_item">
         <div v-if="result==''">
             <nosearch text="您的定制订单为空"></nosearch>
         </div>
@@ -17,7 +17,7 @@
     import Loading from "@/components/decorate/loading.vue"
     import orderItemTem from "@/components/commonTemplete/orderItemTem.vue"
     export default {
-        name:'receiptOrderItem',
+        name:'receipt_order_item',
         data(){
             return{
                 result:[],

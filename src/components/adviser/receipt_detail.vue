@@ -1,5 +1,5 @@
 <template>
-  <div id="receiptDetail">
+  <div id="receipt_detail">
         <top title="接单详情"></top>
         <detail-item :result="result"></detail-item>
         <!-- <div class="jiedan" @click="reply(result.order_sn)">接单</div> -->
@@ -27,9 +27,9 @@
 <script>
   import top from '@/components/decorate/top_back_title.vue'
   import api from './../../api/customized'
-  import detailItem from '@/components/customized/detailItem.vue'
+  import detailItem from '@/components/customized/detail_Item.vue'
   export default {
-    name: 'receiptDetail',
+    name: 'receipt_detail',
     data(){
         return{
             order_sn:'',

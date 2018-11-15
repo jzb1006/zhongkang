@@ -1,5 +1,5 @@
 <template>
-    <div id="adviserOrderItem">
+    <div id="adviser_order_item">
         <!-- <router-link :to="{name:'customizedOrderDetail',params:{order_sn:item.order_sn}}"> -->
         <tab>
             <tab-item :selected="selected === 0" @on-item-click="onItemClick(0)">
@@ -42,10 +42,10 @@
 
     import api from "../../api/customized"
     import nosearch from "@/components/nosearch/index.vue"
-    import orderItemTem from "@/components/customized/orderItemTem.vue"
+    import orderItemTem from "@/components/customized/order_item_tem.vue"
     import {Tab,TabItem} from 'vux'
     export default {
-        name:'adviserOrderItem',
+        name:'adviser_order_item',
         data(){
             return{
                 result:[],
@@ -63,7 +63,7 @@
             },
             detail(order_sn){
                 this.$store.dispatch('changeOrderSn',order_sn);
-                this.$router.push({'path':'/replyOrderDetail',query:{'order_sn':order_sn}});
+                this.$router.push({'name':'replyOrderDetail',params:{'sn':order_sn}});
             },
             queryReceiptOrder(index){
                 api.queryReceiptOrder({'type':index})

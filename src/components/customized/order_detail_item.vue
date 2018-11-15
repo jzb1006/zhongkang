@@ -1,5 +1,5 @@
 <template>
-  <div id="detailItem">
+  <div id="order_detail_item">
         <!-- <div>
             <div class="item vux-1px-b">
                 <span class="left">订单金额</span>
@@ -57,10 +57,11 @@
   import { mapGetters } from "vuex";
   import detailItemTem from '@/components/commonTemplete/detailItemTem.vue';
   export default {
-    name: 'detailItem',
+    name: 'order_detail_item',
     data(){
         return{
             result:[],
+            order_sn:'',
         }
     },
     // props:{
@@ -68,39 +69,33 @@
     //         type:[Array,Object]
     //     }
     // },
-     computed: {
-        ...mapGetters(["getLastName","getAge","getCustomizedDetail","getPhoto"]),
-     },
+    // watch:{
+    //     $route(){
+    //         this.order_sn=this.$route.params.sn;
+    //         this.get_order_detail();
+    //     }
+    // },
+    // computed: {
+    //     ...mapGetters(['getOrderSn']),
+    // },
     methods:{
         url(i){
             return api.imgUrl()+i;
         },
         get_order_detail(){
-                let detail=this.getCustomizedDetail
-                let lastName=this.$store.state.customized.lastName;
-                let age=this.$store.state.customized.age
-                let level=this.$store.state.customized.level
-                let photo=this.getPhoto
-                let min=this.$store.state.customized.minPrice
-                let max=this.$store.state.customized.maxPrice
-                this.result={
-                    'lastname':this.getLastName,
-                    'age':this.getAge,
-                    'level_name':sessionStorage.getItem('level_name'),
-                    'money':sessionStorage.getItem('money'),
-                    'realname':sessionStorage.getItem('adviser_name'),
-                    'detail':detail,
-                    'category':JSON.parse(sessionStorage.getItem('operation_category_name')),
-                    'photo':photo,
-                    // 'order_sn':'',
-                    'min_price':sessionStorage.getItem('minPrice'),
-                    'max_price':sessionStorage.getItem('maxPrice'),
-                    // 'pay_id':this.pay_id,
-                    'order_amount':sessionStorage.getItem('price'),
-                }
-            }
+            api.customizedOrderDetail({'order_sn':this.order_sn}).then(res=>{
+                console.log(res);
+                this.result=res.data;
+                sessionStorage.setItem('user_id',res.data.user_id);
+                sessionStorage.setItem('adviser_id',res.data.adviser_id);
+                sessionStorage.setItem('order_sn',res.data.order_sn);
+            }).catch(err=>{
+                console.log(err);
+            })
+        }
     },
     mounted(){
+        this.order_sn=this.$route.params.sn;
         this.get_order_detail();
     },
   }

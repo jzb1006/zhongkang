@@ -1,5 +1,5 @@
 <template>
-    <div id="editProgramme">
+    <div id="edit_programme">
         <top title="修改方案" :params="{title:'修改方案',hasBtn:true,btnText:'确定',next:this.add,}">
             <!-- <span slot="next" class="next" @click="add">确定</span> -->
         </top>
@@ -68,7 +68,7 @@
   import { XTextarea, Popup, PopupRadio } from "vux";
  import mediaDisplay from "@/components/upload/media_display";
   export default {
-    name: 'editProgramme',
+    name: 'edit_programme',
     data(){
         return{
             text:'',

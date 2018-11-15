@@ -16,7 +16,7 @@
 </template>
 <script>
   import top from '@/components/decorate/top.vue'
-  import receiptOrderItem from "@/components/adviser/receiptOrderItem.vue"
+  import receiptOrderItem from "@/components/adviser/receipt_order_item.vue"
   export default {
     name: 'adviserReceipt',
     data(){

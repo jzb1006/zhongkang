@@ -51,7 +51,7 @@
 //   import api from './../../api/customized'
 //   import nosearch from "@/components/nosearch/index.vue"
 //   import replyItem from './reply_item.vue'
-  import replyBox from '@/components/customized/replyBox.vue'
+  import replyBox from '@/components/customized/reply_box.vue'
   export default {
     name: 'viewReply',
     data(){

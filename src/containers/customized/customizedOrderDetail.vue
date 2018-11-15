@@ -30,8 +30,8 @@
 //   import api from './../../api/customized'
 //   import Bus from '@/assets/bus.js'
 //   import apiOrder from "../../api/order";
-  import orderDetailItem from '@/components/customized/orderDetailItem.vue'
-  import customizedOrderOperation from '@/components/customized/customizedOrderOperation.vue'
+  import orderDetailItem from '@/components/customized/order_detail_item.vue'
+  import customizedOrderOperation from '@/components/customized/customized_order_operation.vue'
 //   import pay from "@/components/common/pay.vue"
 //   import {mapGetters} from 'vuex'
   export default {

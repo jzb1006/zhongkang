@@ -11,7 +11,7 @@
 <script>
   import top from '@/components/decorate/top.vue'
   import api from './../../api/customized'
-  import adviserList from '@/components/adviser/adviserList.vue'
+  import adviserList from '@/components/adviser/adviser_list.vue'
   import Bus from '@/assets/bus.js'
   export default {
     name: 'chooseAdviser',

@@ -10,7 +10,7 @@ export default {
         return {
              params:{
                     
-                    link:"/requirement",
+                    link:"/customized",
                     iconClass:"zk-icon-dingzhijiaju",
                     text:'私人定制',
                     // isShow:true,

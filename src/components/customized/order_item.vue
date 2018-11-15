@@ -1,5 +1,5 @@
 <template>
-    <div id="orderItem">
+    <div id="order_item">
         <div v-if="result==''">
             <nosearch text="您的定制订单为空"></nosearch>
         </div>
@@ -40,7 +40,7 @@
     import LoadMore from '@/components/loadMore/index.vue'
     import Bus from "@/assets/bus.js";
     export default {
-        name:'orderItem',
+        name:'order_item',
         data(){
             return{
                 result:[],
