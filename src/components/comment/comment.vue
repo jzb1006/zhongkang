@@ -42,6 +42,7 @@
 import commentInput from "./comment_input";
 import bus from "@/assets/bus.js"
 export default {
+    name:"comment",
     props: {
         limitnum: {
             default: ""
@@ -130,6 +131,7 @@ export default {
     height: 1.2rem;
     width: 100%;
     background-color: #fff;
+    z-index: 666;
 }
 #comment .head {
     height: 0.9rem;

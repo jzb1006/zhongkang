@@ -23,7 +23,7 @@
     import operationList from './operation_list'
     import top from '@/components/decorate/top_back_title.vue'
     import Bus from "@/assets/bus.js";
-    import diarySelContent from "@/components/diary/diary_children/diary_children/diary_children/diary_sel_content.vue";
+    import diarySelContent from "@/components/diary/diary_sel_content.vue";
     export default{
         name:'customized',
         data(){

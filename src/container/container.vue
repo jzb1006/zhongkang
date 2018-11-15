@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div v-for="(param,index) in params" v-dragging="{ item: param, list: params, group: 'color' }" :key="index" class="container">
+        <videoDetail></videoDetail>
+        <div v-if="params.child" v-for="(param,index) in params.child" :key="index" :class="{container:is_need()}">
             <my-tree :model="param"></my-tree>
         </div>
-        <span @click="submitBtn">提交 </span>
     </div>
 </template>
 <script>
-// import apiCommon from "@/api/common";
+import apiCommon from "@/api/common";
 import mytree from "./tree";
 import Vue from "vue";
 export default {
@@ -20,59 +20,76 @@ export default {
             params: []
         };
     },
+    watch: {
+        $route() {
+            if (this.$route.query.id) {
+                this.getData(this.$route.query.id);
+            } else if (this.$route.query.name) {
+                if (this.$route.query.name == "home_page") {
+                    this.get_homepage();
+                } else if (this.$route.query.name == "person_container") {
+                    this.getMyInfo();
+                }
+            } else {
+                this.get_homepage();
+            }
+        },
+        params(val, oldVal) {
+            this.params = val;
+        }
+    },
     methods: {
+        is_need() {
+            if (this.params.length > 1) {
+                return true;
+            } else {
+                return false;
+            }
+        },
         //----排序：start----
         sort_asc() {
-            this.params.sort(this.sortId);
+            let data = this.params.child;
+            data.sort(this.sortId);
         },
         sortId(a, b) {
             return a.rank - b.rank;
         },
         //----排序：end----
-
-        getData() {
+        get_homepage() {
+            var self = this;
+            apiCommon.ajaxSearch("container", "home_container").then(res => {
+                self.params = res.data.data;
+                self.sort_asc();
+            });
+        },
+        getData(id) {
             var self = this;
             apiCommon
-                .ajaxSearch("container", "container", { id: 1 })
+                .ajaxSearch("container", "container", { id: id })
                 .then(res => {
-                    console.log(res.data);
                     self.params = res.data.data;
-                    this.sort_asc();
+                    self.sort_asc();
                 });
         },
-        submitBtn(data) {
-            console.log(this.info);
+        getMyInfo() {
             var self = this;
-            apiCommon
-                .ajaxSearch("container", "changeSite", { info: self.info })
-                .then(res => {
-                    console.log(res);
-                });
-        },
-        change(data) {
-            this.info = [];
-            for (let index in data) {
-                let da = {
-                    rank: index,
-                    id: data[index].id,
-                    type: data[index].type
-                };
-                this.info.push(da);
-            }
+            apiCommon.ajaxSearch("container", "person_container").then(res => {
+                self.params = res.data.data;
+                this.sort_asc();
+            });
         }
     },
     mounted() {
-        this.getData();
-        this.$dragging.$on("dragged", ({ value }) => {
-            this.change(value.list);
-        });
-        this.$dragging.$on("dragend", () => {});
+        if (this.$route.query.id) {
+            this.getData(this.$route.query.id);
+        } else {
+            this.get_homepage();
+        }
     }
 };
 </script>
 <style scoped>
 .container {
-    padding: 0.2rem;
     border-bottom: 0.15rem solid #f3f3f3;
 }
 </style>

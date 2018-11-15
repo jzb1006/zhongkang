@@ -1,23 +1,23 @@
 <template>
     <div id="diary_list">
-        <div class="diary_third" v-for="(backdrop,index) in backdropList" v-if="checkOnce(index)">
+        <div class="diary" v-for="(backdrop,index) in backdropList" v-if="checknumber(index)">
             <div class="top">
+                <router-link :to="{name:'container',query:{id:params.user_page,bid:backdrop.id}}">
                 <div class="headImg">
                     <img v-if="handbookList[backdrop.id].headimgurl" :src="getImgUrl()+handbookList[backdrop.id].headimgurl" alt="" />
                 </div>
-                <span class="user_name" v-if="handbookList[backdrop.id].nickname">{{handbookList[backdrop.id].nickname}}</span>
-                <span class="user_name" v-else>{{handbookList[backdrop.id].user_name}}</span>
-                <span class="time">{{diaryList[backdrop.id].course_time.split(" ")[0]}}</span>
+                </router-link>
+                <span class="user_name">{{handbookList[backdrop.id].nickname?handbookList[backdrop.id].nickname:""}}</span>
+                <p class="content">{{diaryList[backdrop.id].content}}{{number}}</p>
             </div>
-            <router-link :to="{name:'diaryBackdrop',query:{bid:backdrop.id}}" tag="div" class="vux-1px-b">
+            <!-- <router-link :to="{name:'diaryBackdrop',query:{bid:backdrop.id}}" tag="a"> -->
+                <router-link :to="{name:'container',query:{id:params.diary_page,bid:backdrop.id}}" tag="div">
                 <div class="middle clearfix">
                     <div class="avg" v-if="mediaList[diaryList[backdrop.id].id].type == '1'">
-                        <div v-if="backdrop.img1.length == 0" class="alone_img">
-                            <div class="no_back">
-                                <img v-lazy="getImgUrl()+getMediaImg(mediaList[diaryList[backdrop.id].id].origin_urls)">
-                            </div>
+                        <div class="one_img" v-if="backdrop.img1.length == 0">
+                            <img v-lazy="getImgUrl()+getMediaImg(mediaList[diaryList[backdrop.id].id].origin_urls)">
                         </div>
-                        <div v-else class="lr_avg">
+                        <div class="lr_avg" v-else>
                             <div class="b_left contrast_img">
                                 <img v-lazy="getImgUrl()+backdrop.img1">
                                 <span class="img_tip before">Before</span>
@@ -27,50 +27,45 @@
                                 <span class="img_tip">After</span>
                             </div>
                         </div>
-
                     </div>
                     <div class="show_video" v-else-if="mediaList[diaryList[backdrop.id].id].type == '2'">
-                        <video controls :src="getImgUrl()+mediaList[diaryList[backdrop.id].id].origin_urls"></video>
+                        <video controls controlsList="nodownload" :src="getImgUrl()+mediaList[diaryList[backdrop.id].id].origin_urls"></video>
                     </div>
                     <div v-else>
 
                     </div>
-
                 </div>
             </router-link>
             <div class="bottom">
-                <p class="content">{{diaryList[backdrop.id].content}}</p>
                 <p class="item">
                     <span v-for="memu in memuList[backdrop.id]">#{{memu.cat_name}}</span>
                 </p>
-                <div class="other clearfix">
-                    <div class="other_see">
-                        <span>
-                            <i class="zk-icon-liulan"></i> {{transform_num(diaryList[backdrop.id].view_count)}}</span>
-                    </div>
-                    <div class="other_see">
-                        <span @click="favor(diaryList[backdrop.id].id)">
-                            <i class="zk-icon-dianzan"></i> {{transform_num(diaryList[backdrop.id].favor)}}</span>
-                    </div>
-                    <div class="other_see">
-                        <span>
-                            <i class="zk-icon-edit"></i> {{transform_num(handbookList[backdrop.id].total_comment)}}</span>
-                    </div>
-                </div>
+                <e-meta :info="format_info(diaryList[backdrop.id],diaryList[backdrop.id].course_time,diaryList[backdrop.id].view_count,diaryList[backdrop.id].favor,handbookList[backdrop.id].total_comment)"></e-meta>
             </div>
-
+        </div>
+        <div class="write_diary" v-show="has_limit()">
+            <router-link :to="{name:'diaryBackdropList'}">
+                <span class="zk-icon-edit"></span>
+            </router-link>
         </div>
         <Loading v-show="loadinging"></Loading>
-        <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_get_diary"></LoadMore>
+        <div v-show="loadmore">
+            <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_get_diary"></LoadMore>
+        </div>
+
     </div>
 </template>
 <script>
 import Vue from "vue";
 import api from "@/api/diary";
+import apiCom from "@/api/common";
 import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
+import { mixin } from "@/assets/js/mixins";
+
 export default {
-    props: ["insId", "once", "docId", "cid", "query"],
+    mixins: [mixin],
+    props: ["insId", "docId", "cid", "query"],
     name: "diary_list",
     data() {
         return {
@@ -83,7 +78,8 @@ export default {
             page: 0,
             isBusy: false,
             hasMore: 0,
-            loadinging: true
+            loadinging: true,
+            loadmore: true
         };
     },
     components: {
@@ -91,6 +87,22 @@ export default {
         Loading
     },
     methods: {
+        has_limit() {
+            if (this.number) {
+                return false;
+            }
+            return true;
+        },
+        format_info(item, time, browses, likes, comments) {
+            let data = {
+                date: time,
+                browses: browses,
+                likes: likes,
+                comments: comments,
+                item: { table: "recovery_diary", id: item.id }
+            };
+            return data;
+        },
         transform_num(index) {
             let num = parseInt(index);
             return num > 100000000
@@ -114,7 +126,6 @@ export default {
             api
                 .ajaxSearch("diary_index", arr)
                 .then(res => {
-                    console.log(res);
                     this.hasMore = res.data.hasMore;
                     self.handbookList = Object.assign(
                         self.handbookList,
@@ -158,19 +169,15 @@ export default {
             }
             return scrollTop;
         },
-        checkOnce(index) {
-            if (this.once) {
-                if (index < this.once) {
+        checknumber(index) {
+            if (this.number) {
+                this.loadmore = false;
+                if (index < this.number) {
                     return true;
                 }
                 return false;
             }
             return true;
-        },
-        favor(did) {
-            api.ajaxSubmit("add_favor", { did: did }).then(res => {
-                alert(res.data.message);
-            });
         }
     },
     mounted() {
@@ -179,7 +186,7 @@ export default {
 };
 </script>
 <style>
-p.top {
+/* #diary_list p.top {
     position: fixed;
     top: 0;
     left: 0;
@@ -192,64 +199,94 @@ p.top {
     border-bottom: 1px solid #ccc;
     background-color: rgb(255, 83, 112);
     z-index: 999;
-}
-video::-webkit-media-controls-enclosure {
-    overflow: hidden;
-}
-video::-webkit-media-controls-panel {
-    width: calc(100% + 30px);
-}
+} */
 </style>
 
 <style scoped>
 #diary_list {
-    margin-top: 0.5rem;
+    /* margin-top: 0.5rem; */
 }
-#diary_list .diary_third {
+#diary_list .write_diary {
+    position: fixed;
+    font-size: 0.6rem;
+    background: -webkit-linear-gradient(
+        180deg,
+        #fff,
+        #f500ff
+    ); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(
+        180deg,
+        #fff,
+        #f500ff
+    ); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(
+        180deg,
+        #fff,
+        #f500ff
+    ); /* Firefox 3.6 - 15 */
+    background: linear-gradient(180deg, #fff, #f500ff);
+    /* 标准的语法（必须放在最后） */
+    bottom: 2rem;
+    right: 0.2rem;
     padding: 0.2rem;
+    border-radius: 1rem;
 }
-#diary_list .diary_third .top {
+#diary_list .write_diary span {
+    font-size: 0.6rem;
+    color: #fff;
+}
+#diary_list .diary {
+    padding: 0.2rem;
+    border-bottom: 1px solid #f3f3f3;
+}
+#diary_list .diary .top {
     position: relative;
 }
-#diary_list .diary_third .top .headImg {
+#diary_list .diary .top p.content {
+    margin-left: 1rem;
+    font-size: 0.28rem;
+    line-height: 0.4rem;
+    color: #643232;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+#diary_list .diary .top .headImg {
     width: 0.7rem;
     height: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
     border-radius: 50%;
     background-color: rgb(255, 83, 112);
 }
-#diary_list .diary_third .top .headImg img {
+#diary_list .diary .top .headImg img {
     max-width: 100%;
     min-height: 100%;
 }
-#diary_list .diary_third .top .user_name {
+#diary_list .diary .top .user_name {
     position: absolute;
     left: 1rem;
-    top: 0.05rem;
+    top: 0.1rem;
     width: 3rem;
     font-size: 0.3rem;
     overflow: hidden;
 }
-#diary_list .diary_third .top .time {
+#diary_list .diary .top .time {
     position: absolute;
     left: 1rem;
     top: 0.4rem;
     font-size: 0.25rem;
     color: #ccc;
 }
-
-#diary_list .diary_third .middle {
+#diary_list .diary .middle {
+    margin-left: 1rem;
     margin-top: 0.2rem;
 }
-
-#diary_list .diary_third .middle .avg {
-}
-#diary_list .diary_third .middle .avg .lr_avg {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 0.1rem;
-}
-#diary_list .diary_third .middle .avg .no_back {
+#diary_list .diary .middle .avg .one_img {
     width: 100%;
     height: 3.5rem;
     display: flex;
@@ -257,10 +294,26 @@ video::-webkit-media-controls-panel {
     align-items: center;
     overflow: hidden;
 }
-#diary_list .diary_third .middle .avg .no_back img {
+#diary_list .diary .middle .avg .one_img img {
     width: 100%;
 }
-#diary_list .diary_third .middle .avg .contrast_img {
+#diary_list .diary .middle .avg .lr_avg {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0.1rem;
+}
+#diary_list .diary .middle .avg .no_back {
+    width: 100%;
+    height: 3.5rem;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    overflow: hidden;
+}
+#diary_list .diary .middle .avg .no_back img {
+    width: 100%;
+}
+#diary_list .diary .middle .avg .contrast_img {
     position: relative;
     width: 100%;
     height: 3.5rem;
@@ -271,7 +324,7 @@ video::-webkit-media-controls-panel {
     display: -webkit-flex;
     align-items: center;
 }
-#diary_list .diary_third .middle .show_video {
+#diary_list .diary .middle .show_video {
     text-align: center;
     width: 100%;
     height: 3.5rem;
@@ -280,11 +333,11 @@ video::-webkit-media-controls-panel {
     align-items: center;
     overflow: hidden;
 }
-#diary_list .diary_third .middle .show_video video {
+#diary_list .diary .middle .show_video video {
     width: 100%;
     /* max-height: 4.5rem; */
 }
-#diary_list .diary_third .middle .avg .contrast_img .img_tip {
+#diary_list .diary .middle .avg .contrast_img .img_tip {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -294,45 +347,38 @@ video::-webkit-media-controls-panel {
     border-top-right-radius: 0.1rem;
     background-color: rgba(255, 83, 112, 0.7);
 }
-#diary_list .diary_third .middle .avg .contrast_img .before {
+#diary_list .diary .middle .avg .contrast_img .before {
     background-color: rgba(0, 0, 0, 0.7);
 }
-#diary_list .diary_third .middle .avg .contrast_img img {
+#diary_list .diary .middle .avg .contrast_img img {
     width: 100%;
     min-height: 100%;
 }
-#diary_list .diary_third .bottom p.content {
-    font-size: 0.28rem;
-    line-height: 0.4rem;
-    color: #643232;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    margin: 0.2rem 0;
+#diary_list .diary .bottom {
+    margin-left: 1rem;
 }
-#diary_list .diary_third .bottom p.item {
-    padding-bottom: 0.3rem;
+#diary_list .diary .bottom p.item {
+    padding: 0.2rem 0;
     font-size: 0.25rem;
     color: rgb(255, 83, 112);
 }
-#diary_list .diary_third .bottom p.item span {
+#diary_list .diary .bottom p.item span {
     display: inline-block;
     margin-right: 0.2rem;
 }
-#diary_list .diary_third .bottom .other {
+#diary_list .diary .bottom .other {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 0.2rem;
-    font-size: 0.3rem;
-    text-align: center;
+    grid-template-columns: 28% 24% 24% 24%;
+    font-size: 0.27rem;
     color: #524c4c;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
 }
-#diary_list .diary_third .bottom .other span {
+#diary_list .diary .bottom .other span {
     vertical-align: middle;
 }
-#diary_list .diary_third .bottom .other span i {
+#diary_list .diary .bottom .other span i {
     color: #ccc;
 }
 </style>

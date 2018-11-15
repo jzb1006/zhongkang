@@ -60,7 +60,7 @@
                      </router-link>
                 </div>
                 
-                <diary :docId=doc_id :once = 1 :query=true></diary>
+                <diary :docId=doc_id :number = 1 :query=true></diary>
             </section>
         </div>
         <div id="fill"></div>

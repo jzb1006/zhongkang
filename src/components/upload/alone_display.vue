@@ -37,6 +37,7 @@
 import bus from "@/assets/bus.js";
 import apiUp from "@/api/upload";
 export default {
+    name:"alone_display",
     props: {
         filelistss: {
             default: function() {

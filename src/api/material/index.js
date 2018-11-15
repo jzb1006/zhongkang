@@ -10,7 +10,7 @@ export default{
         return ajax3.post(`material.php?action=${module}`,params);
     },
     act_material(module = "",params={}){
-        console.log(params);        
+        // console.log(params);        
         return ajax.get(`material.php?act=${module}`,{params});
     }
 }

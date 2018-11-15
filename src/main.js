@@ -10,22 +10,27 @@ import VueScroller from 'vue-scroller'
 import "./assets/css/iconfont.css"
 import "./assets/css/Base.css";
 import "./assets/css/routeAnimate.css";
-import VueTextareaAutosize from 'vue-textarea-autosize' 
-import VueLazyload from 'vue-lazyload'  //引入这个懒加载插件
+import VueTextareaAutosize from 'vue-textarea-autosize'
+import VueLazyload from 'vue-lazyload' //引入这个懒加载插件
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import { Toast } from 'vux'
-import VueTouch from 'vue-touch'//滑动事件
-
-
-import all_plug from './container/all_plug.js'
-Vue.use(all_plug);
-
-
+import {
+  Toast
+} from 'vux'
+import VueTouch from 'vue-touch' //滑动事件
 // import preview from 'vue-photo-preview'//图片预览
 // import 'vue-photo-preview/dist/skin.css'
 // Vue.use(preview)
-Vue.use(VueTouch, {name: 'v-touch'})
+import all_plug from './container/all_plug.js'
+Vue.use(all_plug);
+
+import VueDND from 'awe-dnd'
+Vue.use(VueDND)
+
+
+Vue.use(VueTouch, {
+  name: 'v-touch'
+})
 Vue.use(ElementUI);
 Vue.component('toast', Toast)
 Vue.use(VueTextareaAutosize)
@@ -43,7 +48,8 @@ new Vue({
   el: '#app',
   router,
   store,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })
-

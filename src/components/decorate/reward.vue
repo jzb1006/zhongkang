@@ -1,7 +1,6 @@
 <template>
     <div id="reward">
         <!-- 打赏的按钮 -->
-
         <div class="pay_btn" @click="pay_btn" v-show="paytype == 'pay_btn'">
             <span>
                 赏
@@ -45,12 +44,13 @@
 
 <script>
 export default {
+    name:"reward",
     props: {
         getprice: {
             default: "2"
         },
         paytype: {
-            default: "pay_btn"
+            default: "pay_btn" //pay_player and  pay_btn
         }
     },
     data() {
@@ -63,12 +63,17 @@ export default {
     },
     watch: {
         custom_price(val, oldval) {
-            this.price = val;
+            if (val) {
+                this.price = val;
+            }
         }
     },
     methods: {
         sel_price(index) {
             this.price = index;
+            if (index != 0) {
+                this.custom_price = "";
+            }
         },
         pay_btn() {
             this.payalert = true;
@@ -85,11 +90,10 @@ export default {
 
 <style scoped>
 #reward {
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
+    display: -webkit-box;
     position: relative;
-    display: inline-block;
-    z-index: 999999;
 }
 #reward .sel_money_wrapper {
     position: fixed;
@@ -98,6 +102,7 @@ export default {
     right: 0;
     bottom: 0;
     background-color: #00000080;
+    z-index: 600;
 }
 #reward .sel_money_wrapper .sel_money {
     font-size: 0.35rem;
@@ -127,10 +132,12 @@ export default {
     font-size: 0.4rem;
 }
 #reward .sel_money_wrapper .sel_money .pay_price {
+    position: absolute;
+    bottom: 0.1rem;
     font-size: 0.5rem;
     font-weight: 550;
     color: #ff7000;
-    margin: 0.5rem 0.2rem;
+    margin: 0.1rem 0.2rem;
 }
 #reward .sel_money_wrapper .sel_money .pay_price span {
     font-size: 0.5rem;
@@ -175,41 +182,34 @@ export default {
     color: #fff;
 }
 #reward .pay_btn {
-    font-size: .3rem;
-    color: #000;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-top: -0.15rem;
-    margin-left: -0.15rem;
-    bottom: 0;
-    /* background-color: #ff7000 */
+    width: 100%;
+    text-align: center;
+    font-size: 0.3rem;
+    /* padding: .2rem .4rem; */
+    /* background-color: #ff7000; */
+    /* border-radius:1rem; */
 }
 #reward .pay_btn span {
-    /* text-align: center;
-    line-height: 1rem;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 1rem;
-    height: 1rem;
-    margin-left: -0.5rem;
-    margin-top: -0.5rem; */
+    display: inline-block;
+    margin-bottom: 0.2rem;
+    padding: 0.2rem 0.4rem;
+    background-color: #ff7000;
+    color: #fff;
+    border-radius: 1rem;
 }
 #reward .media_wrapper {
     text-align: center;
     position: relative;
     width: 100%;
-    height: 100%;
+    min-height: 3rem;
     background: #00000050;
-    /* background: url(http://puui.qpic.cn/vcover_hz_pic/0/zivij6ur7dd4p8e1538275270/0); */
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
 #reward .media_wrapper p.login {
     position: absolute;
-    top: 60%;
+    top: 65%;
     left: 0;
     right: 0;
     text-align: center;
@@ -233,7 +233,7 @@ export default {
     width: 2rem;
     margin: 0 auto;
     margin-top: -0.5rem;
-    padding: 0.3rem 0.3rem;
+    padding: 0.3rem;
     color: #fff;
     border-radius: 0.5rem;
     background: #db4633;

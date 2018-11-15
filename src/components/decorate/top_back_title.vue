@@ -13,18 +13,18 @@
 </template>
 <script>
 export default {
-    props:{
-        title:{
+    props: {
+        title: {
             // type:String,
-            required:true
+            required: true
         }
     },
-    methods:{
-        back(){
+    methods: {
+        back() {
             this.$router.back(-1);
         }
     }
-}
+};
 </script>
 <style scoped>  
     .navbar {

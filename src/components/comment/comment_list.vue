@@ -8,6 +8,7 @@ import apiCom from './../../api/comment'
 import comment from './comment'; 
 import bus from "@/assets/bus.js"
 export default {
+    name:"comment_list",
     props:{
         m_id:{
             default:'12'
@@ -100,6 +101,6 @@ export default {
     #commentList{
         position: relative;
         background-color: #fff;
-        z-index: 500;
+        z-index: 550;
     }
 </style>

@@ -27,39 +27,11 @@ import HProductList from '@/components/home/product_list.vue'
 import HDoctorList from '@/components/home/doctor_list.vue'
 import HHospitalList from '@/components/home/hospital_list.vue'
 
-import FMain from '@/components/Fang/FMain.vue'
-import FFooter from '@/components/Fang/FFooter.vue'
-import FItem from '@/components/Fang/FContent/FItem.vue'
-import FTreatMethods from '@/components/Fang/FContent/FTreatMethods.vue'
-import FResource from '@/components/Fang/FContent/FResource.vue'
-import FBrand from '@/components/Fang/FContent/FBrand.vue'
-import FProduct from '@/components/Fang/FContent/FProduct.vue'
-import FOther from '@/components/Fang/FContent/FOther.vue'
-import FExpert from '@/components/Fang/FContent/FOther/FExpert.vue'
-import FHospital from '@/components/Fang/FContent/FOther/FHospital.vue'
-import FNursing from '@/components/Fang/FContent/FOther/FNursing.vue'
-
-// import login from '@/components/user/login.vue'
-// import register from '@/components/user/register.vue'
-// import forgetPassword from '@/components/user/forget_password.vue'
-// import losephone from '@/components/user/losephone.vue'
-// import retrievePassword from '@/components/user/retrieve_password.vue'
-// import HUser from '@/components/user/user.vue'
-// import HUserSetup from '@/components/user/user_setup.vue'
-// import HUserSelfinfo from '@/components/user/user_selfinfo.vue'
-// import HUserEditPhone from '@/components/user/user_editphone.vue'
-// import HUserEditPassword from '@/components/user/user_editpassword.vue'
-// import HUserEditEmail from '@/components/user/user_editemail.vue'
-// import HUserWallet from '@/components/user/user_wallet.vue'
-
 import bill from '@/components/user_wallet/user_bill'
 import billDetail from '@/components/user_wallet/bill_detail'
-// import cash from '@/components/user_wallet/user_cash'
 import bank from '@/components/user_wallet/user_bank'
-// import addbank from '@/components/user_wallet/user_addbank'
 import chooseBank from '@/components/user_wallet/user_chooseBank'
 import balance from '@/components/user_wallet/user_balance'
-// import recharge from '@/components/user_wallet/user_recharge'
 
 //评论
 import commentInput from '@/components/comment/comment_input'
@@ -68,22 +40,30 @@ import commentDetail from '@/components/comment/comment_detail'
 
 //素材
 import materialList from '@/components/material/material_list'
-import articledetail from '@/components/material/article_detail'
-import videodetail from '@/components/material/video_detail'
+import articleDetail from '@/components/material/article_detail'
+import videoDetail from '@/components/material/video_detail'
+import atlasesDetail from '@/components/material/atlases_detail'
 
-//打赏
+//公共
 import reward from '@/components/decorate/reward.vue'
-
-//上传媒体
 import upload from '@/components/upload/upload.vue'
 import mediaDisplay from '@/components/upload/media_display.vue'
 import aloneDisplay from '@/components/upload/alone_display.vue'
-
-//Carousel
-// import carousel from '@/components/decorate/carousel.vue'
-
-//容器
+import carousel from '@/components/decorate/carousel.vue'
 import container from '@/container/container.vue'
+import eMeta from '@/components/decorate/eMeta.vue'
+import authorInfo from '@/components/decorate/author_info.vue'
+import listHeader from '@/components/decorate/list_header.vue' //头部
+import listFooter from '@/components/decorate/list_footer.vue' // 尾部
+
+//diary
+import diaryList from '@/components/diary/diary_list.vue'
+import diaryBackdropUser from '@/components/diary/diary_backdrop_user.vue'
+import diaryBackdropContent from '@/components/diary/diary_backdrop_content.vue'
+import diaryDetailTop from '@/components/diary/diary_detail_top.vue'
+import diaryDetail from '@/components/diary/diary_detail.vue'
+import diaryBackdropList from '@/components/diary/diary_backdrop_list.vue'
+import diaryOperate from '@/components/diary/diary_operate.vue'
 
 //私人定制
 import submitOrder from '@/components/customized/submit_order.vue'
@@ -97,9 +77,14 @@ import addReply from '@/components/adviser/add_reply.vue'
 import detailItem from '@/components/customized/detail_Item.vue'
 import orderItem from '@/components/customized/order_item'
 import tab from '@/components/customized/tab'
+<<<<<<< HEAD
 import customizedOrderOperation from '@/components/customized/customized_order_operation.vue'
 import chat from '@/components/customized/chat.vue'
 import chatContent from  '@/components/customized/chat_content.vue'
+=======
+import customizedOrderOperation from '@/components/customized/customizedOrderOperation.vue'
+import chatContent from '@/components/customized/chat_content.vue'
+>>>>>>> d08708acebc006ed57e0b2a01fbd975ce47800d7
 import chatFoot from '@/components/customized/chat_foot.vue'
 import customizedOrderBox from '@/components/customized/customized_order_box.vue'
 import requirement from '@/components/customized/requirement'
@@ -142,6 +127,7 @@ import usercusOrder from "@/components/user/list/cusOrder.vue"
 import userMoney from "@/components/user/list/money.vue"
 import userReceipt from "@/components/user/list/Receipt.vue"
 import userViewOrder from "@/components/user/list/viewOrder.vue"
+<<<<<<< HEAD
 
 import setupEmail from "@/components/user/list/setupEmail.vue"
 import setupPassword from "@/components/user/list/setupPassword.vue"
@@ -150,11 +136,24 @@ import setupSelfinfo from "@/components/user/list/setupSelfinfo.vue"
 
 //模板
 // import avg from '@/model/avg.vue'
+=======
+>>>>>>> d08708acebc006ed57e0b2a01fbd975ce47800d7
 
-//素材数字信息
-// import meta from '@/components/decorate/meta.vue'
+//医导
+import hospitalGuide from "@/components/hospital_guide/hospital_guide.vue";
+import hgHeader from "@/components/hospital_guide/hg_header.vue";
+import hgFooter from "@/components/hospital_guide/hg_footer.vue";
+import hgItem from "@/components/hospital_guide/hg_item.vue";
+import hgTreatMethods from "@/components/hospital_guide/hg_treat_methods.vue";
+import hgResource from "@/components/hospital_guide/hg_resource.vue";
+import hgBrand from "@/components/hospital_guide/hg_brand.vue";
+import hgProduct from "@/components/hospital_guide/hg_product.vue";
+import hgNursing from "@/components/hospital_guide/hg_nursing.vue";
+import hgHospital from "@/components/hospital_guide/hg_hospital.vue";
+import hgExpert from "@/components/hospital_guide/hg_expert.vue";
 
 export default {
+<<<<<<< HEAD
     install(Vue,options){
         // Vue.component('e-mate',meta)
         // Vue.component('carousel',carousel)
@@ -223,4 +222,103 @@ export default {
         Vue.component('setupPhone',setupPhone)
         Vue.component('setupSelfinfo',setupSelfinfo)
     }
+=======
+  install(Vue, options) {
+    Vue.component('submitOrder', submitOrder)
+    Vue.component('detailItemTem', detailItemTem)
+    Vue.component('receiptOrderItem', receiptOrderItem)
+    Vue.component('adviserOrderItem', adviserOrderItem)
+    Vue.component('orderDetailItem', orderDetailItem)
+    Vue.component('adviserOrderOperation', adviserOrderOperation)
+    Vue.component('replyBox', replyBox)
+    Vue.component('addReply', addReply)
+    Vue.component('detailItem', detailItem)
+    Vue.component('orderItem', orderItem)
+    Vue.component('tab', tab)
+    Vue.component('customizedOrderOperation', customizedOrderOperation)
+    Vue.component('chatContent', chatContent)
+    Vue.component('chatFoot', chatFoot)
+
+    Vue.component('top', top)
+    Vue.component('user-head', userHead)
+    Vue.component('userOrder', userOrder)
+    Vue.component('userRow', userRow)
+    Vue.component('forgetPassword', forgetPassword)
+    Vue.component('userLogin', userLogin)
+    Vue.component('losePhoneNum', losePhoneNum)
+    Vue.component('userRegister', userRegister)
+    Vue.component('findPassword', findPassword)
+    Vue.component('emailTop', emailTop)
+    Vue.component('modifyEmail', modifyEmail)
+    Vue.component('modifyPassword', modifyPassword)
+    Vue.component('showPhone', showPhone)
+    Vue.component('modifyPhone', modifyPhone)
+    Vue.component('phoneTop', phoneTop)
+    Vue.component('selfinfo', selfinfo)
+    Vue.component('logout', logout)
+    Vue.component('userSetupRow', userSetupRow)
+    Vue.component('userPhoneRow', userPhoneRow)
+    Vue.component('userEmailRow', userEmailRow)
+    Vue.component('walletTab', walletTab)
+    Vue.component('addBank', addBank)
+    Vue.component('cash', cash)
+    Vue.component('recharge', recharge)
+    Vue.component('billDetailItem', billDetailItem)
+
+    //公共        
+    Vue.component('container', container)
+    Vue.component('e-meta', eMeta)
+    Vue.component('carousel', carousel)
+    Vue.component('upload', mediaDisplay)
+    Vue.component('aloneDisplay',aloneDisplay)
+    Vue.component('authorInfo', authorInfo)
+    Vue.component('listHeader', listHeader)
+    Vue.component('listFooter', listFooter)
+    Vue.component('reward', reward);
+    //diary
+    Vue.component('diaryList', diaryList)
+    Vue.component('diaryBackdropUser', diaryBackdropUser)
+    Vue.component('diaryBackdropContent', diaryBackdropContent)
+    Vue.component('diaryDetailTop', diaryDetailTop)
+    Vue.component('diaryDetail', diaryDetail)
+    Vue.component('diaryBackdropList', diaryBackdropList)
+    Vue.component('diaryOperate', diaryOperate)
+    //素材
+    Vue.component('materialList', materialList)
+    Vue.component('articleDetail', articleDetail)
+    Vue.component('videoDetail', videoDetail)
+    Vue.component('atlasesDetail', atlasesDetail)
+    //医生
+    Vue.component('doctorList', HDoctorList)
+    //产品
+    Vue.component('HProductList', HProductList)
+    //机构
+    Vue.component('hospitalList', HHospitalList)
+    //评论
+    Vue.component('commentList', commentList);
+    Vue.component('commentInput', commentInput);
+    Vue.component('commentDetail', commentDetail);
+
+    Vue.component('userAdviserInfo',userAdviserInfo)
+    Vue.component('userAuthentication',userAuthentication)
+    Vue.component('userCustomized',userCustomized)
+    Vue.component('userCusOrder',usercusOrder)
+    Vue.component('userMoney',userMoney)
+    Vue.component('userReceipt',userReceipt)
+    Vue.component('userViewOrder',userViewOrder)
+
+    //医导
+    Vue.component("hospitalGuide",hospitalGuide)
+    Vue.component('hgFooter',hgFooter)
+    Vue.component('hgHeader',hgHeader)
+    Vue.component('hgItem',hgItem)
+    Vue.component('hgTreatMethods',hgTreatMethods)
+    Vue.component('hgResource',hgResource)
+    Vue.component('hgBrand',hgBrand)
+    Vue.component('hgProduct',hgProduct)
+    Vue.component('hgExpert',hgExpert)
+    Vue.component('hgHospital',hgHospital)
+    Vue.component('hgNursing',hgNursing)
+  }
+>>>>>>> d08708acebc006ed57e0b2a01fbd975ce47800d7
 }

@@ -32,18 +32,6 @@ import HProductList from '@/components/home/product_list.vue'
 import HDoctorList from '@/components/home/doctor_list.vue'
 import HHospitalList from '@/components/home/hospital_list.vue'
 
-import FMain from '@/components/Fang/FMain.vue'
-import FFooter from '@/components/Fang/FFooter.vue'
-import FItem from '@/components/Fang/FContent/FItem.vue'
-import FTreatMethods from '@/components/Fang/FContent/FTreatMethods.vue'
-import FResource from '@/components/Fang/FContent/FResource.vue'
-import FBrand from '@/components/Fang/FContent/FBrand.vue'
-import FProduct from '@/components/Fang/FContent/FProduct.vue'
-import FOther from '@/components/Fang/FContent/FOther.vue'
-import FExpert from '@/components/Fang/FContent/FOther/FExpert.vue'
-import FHospital from '@/components/Fang/FContent/FOther/FHospital.vue'
-import FNursing from '@/components/Fang/FContent/FOther/FNursing.vue'
-
 import login from '@/containers/user/login.vue'
 import frequentLogin from '@/components/user/frequent_login.vue'
 import register from '@/containers/user/register.vue'
@@ -115,13 +103,49 @@ import upload from '@/components/upload/upload.vue'
 import mediaDisplay from '@/components/upload/media_display.vue'
 import aloneDisplay from '@/components/upload/alone_display.vue'
 
+//Carousel
+import carousel from '@/components/decorate/carousel.vue'
+
+//容器
+import container from '@/container/container.vue'
+
+//素材数字信息
+import eMeta from '@/components/decorate/eMeta.vue'
+import authorInfo from '@/components/decorate/author_info.vue'
+
+import hospitalGuide from '@/components/hospital_guide/hospital_guide.vue'
 Vue.use(Router)
 
 const router = new Router({
   routes: [
     {
       path: '/',
-      redirect:'/home/diaryList'
+      redirect:'/container'
+    },
+    {
+      path: '/container',
+      name: 'container',
+      component : container
+    },
+    {
+      path: '/hospitalGuide',
+      name: 'hospitalGuide',
+      component : hospitalGuide
+    },
+    {
+      path: '/authorInfo',
+      name: 'authorInfo',
+      component : authorInfo
+    },
+    {
+      path: '/eMeta',
+      name: 'eMeta',
+      component : eMeta
+    },
+    {
+      path: '/carousel',
+      name: 'carousel',
+      component : carousel
     },
     {
       path: '/upload',
@@ -174,106 +198,41 @@ const router = new Router({
       component : commentDetail,
     },
     {
-      path: '/FMain',
-      name: 'FMain',
-      component : FMain,
-      redirect:'/FMain/FItem',
-      children:[{
-        path:'/FMain/FItem',
-        name:'FItem',
-        component:FItem
-      },
-      {
-        path:'/FMain/FTreatMethods',
-        name:'FTreatMethods',
-        component:FTreatMethods
-      },
-      {
-        path:'/FMain/FResource',
-        name:'FResource',
-        component:FResource
-      },
-      {
-        path:'/FMain/FBrand',
-        name:'FBrand',
-        component:FBrand
-      },
-      {
-        path:'/FMain/FProduct',
-        name:'FProduct',
-        component:FProduct
-      },
-      {
-        path:'/FMain/FOther',
-        name:'FOther',
-        component:FOther,
-        redirect:'/FMain/FOther/FNursing',
-        children:[
-          {
-            path:'/FMain/FOther/FNursing',
-            name:"FNursing",
-            component:FNursing,
-          },
-          {
-            path:'/FMain/FOther/FHospital',
-            name:"FHospital",
-            component:FHospital,
-          },
-          {
-            path:'/FMain/FOther/FExpert',
-            name:"FExpert",
-            component:FExpert,
-          }
-        ]
-      }
-    ]
-    },
-    {
       path: '/diary/diaryOperate.vue',
       name: 'diaryOperate',
-      component: ()=> import('@/components/diary/diary_children/diary_children/diary_operate.vue'),
+      component: ()=> import('@/components/diary/diary_operate.vue'),
     },
     {
       path: '/diary/diaryBackdrop.vue',
       name: 'diaryBackdrop',
-      component: ()=> import('@/components/diary/diary_children/diary_backdrop.vue'),
+      component: ()=> import('@/components/diary/diary_backdrop.vue'),
     },
     {
       path:'/diary/diaryDetail',
       name:"diaryDetail",
-      component: ()=> import('./../components/diary/diary_children/diary_children/diary_detail.vue'),
+      component: ()=> import('./../components/diary/diary_detail.vue'),
     
     },
     {
       path:'/diary/diaryBackdropList',
       name:"diaryBackdropList",
-      component: ()=> import('./../components/diary/diary_children/diary_backdrop_list.vue'),
+      component: ()=> import('./../components/diary/diary_backdrop_list.vue'),
     
     },
-    // {
-    //   path:'/diary/diaryCreateDiary',
-    //   name:"diaryCreateDiary",
-    //   component: ()=> import('./../components/diary/diary_children/diary_children/diary_create_diary.vue'),
-    // },
     {
       path:'/diary/diaryCreateBackdrop',
       name:"diaryCreateBackdrop",
-      component: ()=> import('./../components/diary/diary_children/diary_children/diary_create_backdrop.vue'),
+      component: ()=> import('./../components/diary/diary_operate_back.vue'),
     },
-    // {
-    //   path:'/diary/diaryUpdateBasic',
-    //   name:"diaryUpdateBasic",
-    //   component: ()=> import('./../components/diary/diary_children/diary_children/diary_update_basic.vue'),
-    // },
     {
       path:'/diary/diaryReward',
       name:"diaryReward",
-      component: ()=> import('./../components/diary/diary_children/diary_children/diary_reward.vue'),
+      component: ()=> import('./../components/diary/diary_reward.vue'),
     },
     {
       path:'/diary/diarySelItem',
       name:"diarySelItem",
-      component: ()=> import('./../components/diary/diary_children/diary_children/diary_children/diary_sel_item.vue'),
+      component: ()=> import('./../components/diary/diary_sel_item.vue'),
     },
     {
       path: '/search',
@@ -403,7 +362,7 @@ const router = new Router({
     {
       path: '/home/diaryList',
       name: 'diaryList',
-      component: ()=> import('@/components/diary/diary_head.vue'),
+      component: ()=> import('@/components/diary/diary_list.vue'),
     },
     {
       path: '/hospitalList',
@@ -688,7 +647,6 @@ router.beforeEach((to, from, next) => {
   }else{
     store.dispatch('changeTabShow',true);
   }
-  
 
   //图片浏览模式的状态
   if(store.state.media_display.open_image_mode){

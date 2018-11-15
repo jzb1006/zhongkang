@@ -67,7 +67,7 @@
                                 <i class="zk-icon-jiantou" style="font-size: 0.3rem;"></i>
                         </router-link>
                     </div>
-                    <diary :cid=cid :once = 2 :query=true></diary>
+                    <diary :cid=cid :number = 2 :query=true></diary>
                 </section>
                 
             </div>
