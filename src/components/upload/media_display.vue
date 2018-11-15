@@ -30,6 +30,7 @@ import apiUp from "@/api/upload";
 import uploadC from "./upload";
 import { mapGetters } from "vuex"   
 export default {
+    name:"media_display",
     props: {
         limitnum1: {
             default: -1

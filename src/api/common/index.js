@@ -3,7 +3,6 @@ export default {
 
     //搜索所有
     ajaxSearch(name = '',module = 'index',params={}){
-        console.log(params);
         return ajax6.get(`${name}.php?act=${module}`, {params});
     },
 

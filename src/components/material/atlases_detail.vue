@@ -5,7 +5,6 @@
             <div class="author_info" v-show="atlases_content_show">
                 <authorInfo :user=user></authorInfo>
             </div>
-
             <div class="atlases_wrapper" v-for="(img,index) in imgs" v-if="index == '0'">
                 <p class="content">{{info.title}}</p>
                 <div class="atlases">
@@ -13,7 +12,7 @@
                     <span>{{imgs.length}}图</span>
                 </div>
                 <div v-show="atlases_content_show">
-                    <p class="atlases_content" v-for="(msg,index) in JSON.parse(info.material_content)" v-show="content_show == (index+1)">{{msg.alt}}</p>
+                    <p class="atlases_content" v-for="(msg,index) in JSON.parse(info.material_content)" v-show="content_show == (index+1)" v-if="msg.alt">{{msg.alt}}</p>
                 </div>
                 <p class="author">{{info.author}}
                     <span class="comments">0评论</span>
@@ -28,6 +27,7 @@ import apiCom from "@/api/common";
 import apiM from "@/api/material/index.js";
 import preciew from "@/components/decorate/preciew";
 export default {
+    name: "atlases_detail",
     props: {
         info: {
             default: function() {
@@ -76,25 +76,25 @@ export default {
             this.atlases_content_show = false;
         },
         getData() {
-            // console.log(this.info.material_content);
-            let data = JSON.parse(this.info.material_content);
-            // console.log(data);
-            for (let index in data) {
-                let data1 = {
-                    w: 0,
-                    h: 0,
-                    msrc: this.imgUrl() + data[index].url,
-                    src: this.imgUrl() + data[index].url
-                };
-                this.imgs.push(data1);
-            }
+            if (this.info.material_content) {
+                let data = JSON.parse(this.info.material_content);
+                for (let index in data) {
+                    let data1 = {
+                        w: 0,
+                        h: 0,
+                        msrc: this.imgUrl() + data[index].url,
+                        src: this.imgUrl() + data[index].url
+                    };
+                    this.imgs.push(data1);
+                }
 
-            this.user = {
-                headimg: this.info.headimgurl,
-                name: this.info.nickname,
-                view: this.info.view_count
-            };
-            this.add_view();
+                this.user = {
+                    headimg: this.info.headimgurl,
+                    name: this.info.nickname,
+                    view: this.info.view_count
+                };
+                this.add_view();
+            }
         },
         toJson: function(str) {
             let _str = new Function("", "return " + str)();
@@ -111,11 +111,6 @@ export default {
 </script>
 
 <style scoped>
-#atlases_detail .material {
-    /* position: relative; */
-    /* box-shadow: 1px 1px 0px #dbd6d6;
-    border-bottom: 0.1rem solid #eceaea; */
-}
 #atlases_detail .material .author_info {
     position: absolute;
     top: 1rem;

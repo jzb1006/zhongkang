@@ -31,6 +31,7 @@
 import apiCommon from "@/api/common";
 import { IcSlider, IcSliderItem } from "vue-better-slider";
 export default {
+    name:"menu_list",
     props: {
         rows: {
             default: "multiple" //single and multiple
@@ -79,12 +80,6 @@ export default {
                     },
                     {
                         icon_url: "zk-icon-nanxingmale100",
-                        show_name: "医导",
-                        container_id: "FMain",
-                        color: "#4F94CD"
-                    },
-                    {
-                        icon_url: "zk-icon-nanxingmale100",
                         show_name: "打赏",
                         container_id: "reward",
                         color: "#6B8E23"
@@ -123,6 +118,11 @@ export default {
                         icon_url: 'zk-icon-nanxingmale100',
                         show_name:'评论列表',
                         container_id:'commentList',
+                    },
+                    {
+                        icon_url: 'zk-icon-nanxingmale100',
+                        show_name:'医导',
+                        container_id:'hospitalGuide',
                     }
                 ];
             }
@@ -149,7 +149,7 @@ export default {
             apiCommon
                 .ajaxSearch("container", "top_channel", { id: 1 })
                 .then(res => {
-                    self.menuList = res.data.data;
+                    // self.menuList = res.data.data;
                     this.sort_asc();
                 });
         },
@@ -162,7 +162,7 @@ export default {
         },
         //----排序：end----
         sel(id) {
-            this.$router.push({ name: "container", query: { id: id } });
+            // this.$router.push({ name: "container", query: { id: id } });
             this.$emit("closeMenu");
         },
         set_page(index) {

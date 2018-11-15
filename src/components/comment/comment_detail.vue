@@ -5,6 +5,7 @@
 import apiCom from '@/api/comment'
 import comment from './comment'; 
 export default {
+    name:"comment_detail",
     data(){
         return{
             total:[],

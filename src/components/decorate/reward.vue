@@ -44,6 +44,7 @@
 
 <script>
 export default {
+    name:"reward",
     props: {
         getprice: {
             default: "2"

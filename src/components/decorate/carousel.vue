@@ -13,26 +13,11 @@
 <script>
 import { IcSlider, IcSliderItem } from "vue-better-slider";
 export default {
+    name: "carousel",
     props: {
         carouselItems: {
             default: function() {
-                return [
-                    {
-                        link: "",
-                        picUrl:
-                            "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=659517059,3335815202&fm=26&gp=0.jpg"
-                    },
-                    {
-                        link: "",
-                        picUrl:
-                            "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3860369940,2318070815&fm=26&gp=0.jpg"
-                    },
-                    {
-                        link: "",
-                        picUrl:
-                            "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2582303490,1747479728&fm=200&gp=0.jpg"
-                    }
-                ];
+                return [];
             }
         },
         autoplay: {

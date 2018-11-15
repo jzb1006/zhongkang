@@ -1,17 +1,17 @@
 <template>
     <div id="foot">
         <tabbar>
-            <tabbar-item v-for="(menu,index) in menu_footer" :key="index" selected link="/container">
-                <span slot="icon" class="zk-icon-shouye icon"></span>
+            <tabbar-item v-for="(menu,index) in menu_footer" :key="index" selected @on-item-click="open($event)" :link="{name:'container',query:{'name':menu.url}}">
+                <span slot="icon" class="icon" :class="menu.icon"></span>
                 <span slot="label">{{menu.name}}</span>
             </tabbar-item>
-            <tabbar-item class="menu" @on-item-click="open()">
+            <!-- <tabbar-item class="menu" @on-item-click="open()">
                 <span slot="icon" class="zk-icon-gengduo icon"></span>
             </tabbar-item>
-            <tabbar-item link="/container">
+            <tabbar-item :link="{name:'container',query:{'name':'person_container'}}">
                 <span slot="icon" class="zk-icon-iconfonticon5 icon"></span>
                 <span slot="label">个人中心</span>
-            </tabbar-item>
+            </tabbar-item> -->
         </tabbar>
         <div v-if="menu_show" class="menu">
             <div class="menulist">
@@ -28,19 +28,29 @@ import { Tabbar, TabbarItem } from "vux";
 import menuList from "@/components/decorate/menu_list";
 import common from "../../widget/lib/user";
 export default {
+    name:"foot",
     data() {
         return {
             menu_show: false,
             menu_footer: [
                 {
-                    name: "index"
+                    id: "1",
+                    name: "首页",
+                    icon: "zk-icon-shouye",
+                    url: "home_page"
+                },
+                {
+                    id: "2",
+                    name: "more",
+                    icon: "zk-icon-gengduo",
+                    url:"",
+                },
+                {
+                    id: "3",
+                    name: "个人中心",
+                    icon: "zk-icon-iconfonticon5",
+                    url: "person_container"
                 }
-                // {
-                //     name:"owner"
-                // },
-                // {
-                //     name:"owner"
-                // }
             ]
         };
     },
@@ -53,9 +63,10 @@ export default {
         close() {
             this.menu_show = false;
         },
-        open() {
-            this.menu_show = true;
-            TabbarItem;
+        open(index) {
+            if (index == 1) {
+                this.menu_show = true;
+            }
         }
     }
 };

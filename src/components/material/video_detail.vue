@@ -1,7 +1,6 @@
 <template>
     <div id="videoDetail">
         <div v-for="(m,index) in material">
-            <top title="视频"></top>
             <div class="reha_wrapper" id="media_wrapper" v-bind:class="{reha_wrapper_fixed1:reha_wrapper_fixed}">
                 <div class="video" v-for="(msg,index) in JSON.parse(m.material_content)" v-if="index == play_index">
                     <video controls controlsList="nodownload" @ended="videoFinish(JSON.parse(m.material_content).length)" :src="fileUrl()+msg.url"></video>
@@ -46,6 +45,7 @@ import top from "@/components/decorate/top_back_title.vue";
 import commentList from "@/components/comment/comment_list";
 import reward from "@/components/decorate/reward";
 export default {
+    name:"video_detail",
     props:{
         healthyTalkId:{
             default:""
@@ -121,8 +121,8 @@ export default {
     mounted() {
         if(this.$route.query.healthy_talk_id){
             this.healthy_talk_id = this.$route.query.healthy_talk_id;
+            this.getData();
         }
-        this.getData();
     }
 };
 </script>

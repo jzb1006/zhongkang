@@ -42,6 +42,7 @@
 import commentInput from "./comment_input";
 import bus from "@/assets/bus.js"
 export default {
+    name:"comment",
     props: {
         limitnum: {
             default: ""

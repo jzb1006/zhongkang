@@ -10,6 +10,7 @@
 
 <script>
 export default {
+    name:"upload",
     props: {
         filelist1: {
             type: Array,

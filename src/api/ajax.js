@@ -45,7 +45,7 @@ export const ajax5 = Axios.create({
 })
 
 export const ajax6 = Axios.create({
-  baseURL: 'http://192.168.0.115/m',
+  baseURL: 'http://192.168.0.107/m',
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },

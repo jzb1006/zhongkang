@@ -1,13 +1,16 @@
 <template>
-  <div id="app">
-    <transition :name="transitionName">
-      <!-- <router-view></router-view> -->
+    <div id="app">
+        <keep-alive include="requirement,customized,replyOrder,customizedOrder">
+            <router-view></router-view>
+        </keep-alive>
+        <!-- <transition :name="transitionName">
+
       <keep-alive include="requirement,customized,replyOrder,customizedOrder">
         <router-view class="child-view"></router-view>
       </keep-alive>
-    </transition>
-    <foot v-show="navbarShow"></foot>
-  </div>
+    </transition> -->
+        <foot v-show="navbarShow"></foot>
+    </div>
 </template>
 
 <script>

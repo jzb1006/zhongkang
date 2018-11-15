@@ -1,15 +1,12 @@
 <template>
     <div>
         <div v-for="(item,index) in model.child_component" :key="index">
-            <component v-if="item.type != 0"  :setId="JSON.parse(item.params)" :number=getNumber(item) :is="item.name"></component>
+            <component v-if="item.type != 0" :params="getParams(item.params)" :number=getNumber(item) :is="item.name"></component>
         </div>
 
         <div v-if="hasChild">
             <tree v-for="(item,index) in model.child_component" :key="index" v-bind:model="item" v-bind:key="index"></tree>
         </div>
-        <!-- <div v-for="(item,index) in model.child_component" :key="index"> -->
-            <!-- <component v-if="model.type != 0" :is="model.name"></component> -->
-        <!-- </div> -->
     </div>
 </template>
 
@@ -26,9 +23,16 @@ export default {
         }
     },
     methods: {
-        getNumber(data){
-            if(JSON.parse(data.params).number){
-                return JSON.parse(data.params).number;
+        getParams(data) {
+            if (data) {
+                return JSON.parse(data);
+            }
+            return "";
+        },
+        getNumber(data) {
+            if (data.params) {
+                if (JSON.parse(data.params).number)
+                    return JSON.parse(data.params).number;
             }
             return "";
         },

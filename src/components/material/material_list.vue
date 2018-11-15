@@ -1,6 +1,5 @@
 <template>
     <div id="materialList">
-        <top title="素材"> </top>
         <div class="material_tab" v-show="loadmore">
             <button-tab>
                 <button-tab-item @on-item-click="select_material_type" selected>
@@ -79,6 +78,7 @@ import { ButtonTab, ButtonTabItem } from "vux";
 import preciew from "@/components/decorate/preciew.vue";
 import {mixin} from '@/assets/js/mixins';
 export default {
+    name:"material_list",
     mixins:[mixin],
     data() {
         return {

@@ -1,6 +1,5 @@
 <template>
-    <div id="articleDetail">
-        <!-- <top title="文章"></top> -->
+    <div id="articleDetail" v-if="Object.keys(material).length">
         <div class="authorInfo">
             <authorInfo :user=user></authorInfo>
         </div>
@@ -14,7 +13,6 @@
             </div>
         </div>
         <reward paytype='pay_btn'></reward>
-
     </div>
 </template>
 
@@ -24,6 +22,7 @@ import reward from "@/components/decorate/reward.vue";
 import apiM from "@/api/material/index.js";
 import top from "@/components/decorate/top_back_title.vue";
 export default {
+    name: "article_detail",
     props: {
         healthyTalkId: {
             default: ""
@@ -49,23 +48,24 @@ export default {
                 })
                 .then(res => {
                     self.material = res.data.material_once;
+                    let data = res.data.material_once[0];
                     self.user = {
-                        headimg: res.data.material_once[0].headimgurl,
-                        name: res.data.material_once[0].nickname,
-                        view: res.data.material_once[0].view_count
+                        headimg: data.headimgurl,
+                        name: data.nickname,
+                        view: data.view_count
                     };
                 });
         }
     },
     mounted() {
-        if(this.$route.query.healthy_talk_id){
+        if (this.$route.query.healthy_talk_id) {
             this.healthy_talk_id = this.$route.query.healthy_talk_id;
+            this.getData();
         }
         apiCom.ajaxSubmit("common", "viewCount", {
             table: "hm_healthy_talk",
             id: this.$route.query.healthy_talk_id
         });
-        this.getData();
     }
 };
 </script>

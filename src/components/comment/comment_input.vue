@@ -19,6 +19,7 @@ import apiCom from "@/api/comment";
 import { mapGetters } from "vuex";
 import bus from "@/assets/bus.js";
 export default {
+    name:"comment_input",
     props: {
         tip: {
             default: "写评论..."

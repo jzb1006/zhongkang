@@ -1,8 +1,8 @@
 <template>
     <div id="list_footer">
-        <div class="foot">
-            <router-link :to="{name:'container',query:{id:5}}">
-                <span class="title">进入康复日记</span>
+        <div class="foot" v-if="params.title">
+            <router-link :to="{name:'container',query:{id:params.to_cid}}">
+                <span class="title">{{params.title}}</span>
                 <span class="icon">></span>
             </router-link>
         </div>
@@ -10,7 +10,19 @@
 </template>
 
 <script>
-export default {};
+export default {
+    name:"list_footer",
+    props:{
+        params:{
+            default:function(){
+                return {
+                    to_cid:'',
+                    title:'',
+                }
+            }
+        }
+    }
+};
 </script>
 
 <style scoped>

@@ -2,14 +2,16 @@
     <div id="diary_list">
         <div class="diary" v-for="(backdrop,index) in backdropList" v-if="checknumber(index)">
             <div class="top">
+                <router-link :to="{name:'container',query:{id:params.user_page,bid:backdrop.id}}">
                 <div class="headImg">
                     <img v-if="handbookList[backdrop.id].headimgurl" :src="getImgUrl()+handbookList[backdrop.id].headimgurl" alt="" />
                 </div>
+                </router-link>
                 <span class="user_name">{{handbookList[backdrop.id].nickname?handbookList[backdrop.id].nickname:""}}</span>
                 <p class="content">{{diaryList[backdrop.id].content}}{{number}}</p>
             </div>
-            <router-link :to="{name:'diaryBackdrop',query:{bid:backdrop.id}}" tag="a">
-                <!-- <router-link :to="{name:'container',query:{id:7,bid:backdrop.id}}" tag="div"> -->
+            <!-- <router-link :to="{name:'diaryBackdrop',query:{bid:backdrop.id}}" tag="a"> -->
+                <router-link :to="{name:'container',query:{id:params.diary_page,bid:backdrop.id}}" tag="div">
                 <div class="middle clearfix">
                     <div class="avg" v-if="mediaList[diaryList[backdrop.id].id].type == '1'">
                         <div class="one_img" v-if="backdrop.img1.length == 0">
@@ -27,7 +29,7 @@
                         </div>
                     </div>
                     <div class="show_video" v-else-if="mediaList[diaryList[backdrop.id].id].type == '2'">
-                        <video controls :src="getImgUrl()+mediaList[diaryList[backdrop.id].id].origin_urls"></video>
+                        <video controls controlsList="nodownload" :src="getImgUrl()+mediaList[diaryList[backdrop.id].id].origin_urls"></video>
                     </div>
                     <div v-else>
 
@@ -38,7 +40,7 @@
                 <p class="item">
                     <span v-for="memu in memuList[backdrop.id]">#{{memu.cat_name}}</span>
                 </p>
-                <e-mate :info="format_info(diaryList[backdrop.id],diaryList[backdrop.id].course_time,diaryList[backdrop.id].view_count,diaryList[backdrop.id].favor,handbookList[backdrop.id].total_comment)"></e-mate>
+                <e-meta :info="format_info(diaryList[backdrop.id],diaryList[backdrop.id].course_time,diaryList[backdrop.id].view_count,diaryList[backdrop.id].favor,handbookList[backdrop.id].total_comment)"></e-meta>
             </div>
         </div>
         <div class="write_diary" v-show="has_limit()">

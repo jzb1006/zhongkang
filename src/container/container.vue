@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div v-for="(param,index) in params.child" :key="index" :class="{container:is_need()}">
+        <videoDetail></videoDetail>
+        <div v-if="params.child" v-for="(param,index) in params.child" :key="index" :class="{container:is_need()}">
             <my-tree :model="param"></my-tree>
         </div>
     </div>
@@ -23,9 +24,18 @@ export default {
         $route() {
             if (this.$route.query.id) {
                 this.getData(this.$route.query.id);
-            }else{
+            } else if (this.$route.query.name) {
+                if (this.$route.query.name == "home_page") {
+                    this.get_homepage();
+                } else if (this.$route.query.name == "person_container") {
+                    this.getMyInfo();
+                }
+            } else {
                 this.get_homepage();
             }
+        },
+        params(val, oldVal) {
+            this.params = val;
         }
     },
     methods: {
@@ -38,21 +48,19 @@ export default {
         },
         //----排序：start----
         sort_asc() {
-            this.params.sort(this.sortId);
+            let data = this.params.child;
+            data.sort(this.sortId);
         },
         sortId(a, b) {
             return a.rank - b.rank;
         },
         //----排序：end----
-        get_homepage(){
+        get_homepage() {
             var self = this;
-            apiCommon
-                .ajaxSearch("container", "home_container")
-                .then(res => {
-                    console.log(res);
-                    self.params = res.data.data;
-                    this.sort_asc();
-                });
+            apiCommon.ajaxSearch("container", "home_container").then(res => {
+                self.params = res.data.data;
+                self.sort_asc();
+            });
         },
         getData(id) {
             var self = this;
@@ -60,27 +68,23 @@ export default {
                 .ajaxSearch("container", "container", { id: id })
                 .then(res => {
                     self.params = res.data.data;
-                    this.sort_asc();
+                    self.sort_asc();
                 });
         },
-        getMyInfo(){
+        getMyInfo() {
             var self = this;
-            apiCommon
-                .ajaxSearch("container", "person_container")
-                .then(res => {
-                    console.log(res);
-                    self.params = res.data.data;
-                    this.sort_asc();
-                });
+            apiCommon.ajaxSearch("container", "person_container").then(res => {
+                self.params = res.data.data;
+                this.sort_asc();
+            });
         }
     },
     mounted() {
-        this.getMyInfo();
-        // if (this.$route.query.id) {
-        //     this.getData(this.$route.query.id);
-        // }else{
-        //     this.get_homepage();
-        // }
+        if (this.$route.query.id) {
+            this.getData(this.$route.query.id);
+        } else {
+            this.get_homepage();
+        }
     }
 };
 </script>

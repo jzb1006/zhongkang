@@ -2,15 +2,14 @@
     <div id="author_info">
         <div class="author_wrapper">
             <div class="img_wrapper">
-                <img v-if="author.headimg" :src="getFileUrl()+author.headimg" alt="">
-                <img v-else/>
+                <img :src="getFileUrl()+author.headimg" alt="">
             </div>
             <div class="info">
-                <p class="name">{{author.name?author.name:''}}</p>
-                <p class="view">{{transform_num(author.view)}}浏览</p>
+                <p class="name">{{author.name}}</p>
+                <p class="view" v-if="parseInt(author.view) > -1">{{transform_num(author.view)}}浏览</p>
             </div>
             <span v-if="follow_status" class="follow">已关注</span>
-            <span v-else class="follow zk-icon-guanzhu">+ </span>
+            <span v-else class="follow zk-icon-guanzhu">+</span>
         </div>
     </div>
 </template>
@@ -18,10 +17,15 @@
 <script>
 import apiCom from "@/api/common";
 export default {
+    name:"author_info",
     props: {
         user: {
             default: function() {
-                return {};
+                return {
+                    view:"-1",
+                    name:"",
+                    headinmg:""
+                };
             }
         }
     },

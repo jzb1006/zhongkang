@@ -22,16 +22,24 @@
     
     <user-head></user-head>
     <user-order></user-order>
+    <user-money></user-money>
+    <user-adviser-info></user-adviser-info>
+    <user-customized></user-customized>
+    <user-cus-order></user-cus-order>
+    <user-receipt></user-receipt>
+    <user-view-order></user-view-order>
+    <user-authentication></user-authentication>
+
     <!-- <user-content></user-content> -->
-    <user-row :params="params"></user-row>
+    <!-- <user-row :params="params"></user-row>
     <user-row :params="params4"></user-row>
     <user-row :params="params5"></user-row>
-    <user-row :params="params6"></user-row>
+    <user-row :params="params6"></user-row> -->
     <!-- <br> -->
-    <user-row :params="params1"></user-row>
+    <!-- <user-row :params="params1"></user-row>
     <user-row :params="params2"></user-row>
     <user-row :params="params3"></user-row>
-    
+     -->
     
     <!-- <div class="usercontent"> -->
         <!-- <div class="item" @click="toOrder(0)">
