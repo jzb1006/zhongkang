@@ -13,26 +13,30 @@
                </button-tab-item>
             </button-tab>
         </div>
-        <div id="view" style="padding: 0 .2rem;">
-            <router-view></router-view>
+      <div id="imgList" style="padding: 0 .2rem;" v-if="tab==1">
+           <imgList></imgList>
+        </div>
+         <div id="licence" style="padding: 0 .2rem;" v-if="tab==0">
+            <licence></licence>
         </div>
     </div>
 </template>
 <script>
     import top from "@/components/decorate/top_back_title.vue";
+    import imgList from '@/components/doctor/img_list.vue'
+    import licence from '@/components/doctor/licence.vue'
     import {
         ButtonTab,
         ButtonTabItem,
-        Divider,
-        Previewer, TransferDom
     } from 'vux'
     export default {
         components: {
             top,
             ButtonTab,
             ButtonTabItem,
-            Divider,
-            Previewer, TransferDom
+            imgList,
+            licence
+
         },
         data() {
             return {
@@ -40,12 +44,15 @@
                 tab: this.$route.params.tab,
             }
         },
-        methods:{
+         methods:{
             imgList(){
-              this.$router.push({name:'DocImgList',params:{doc_id:this.doc_id,tab:1}})
+                this.tab==1
+            //   this.$router.push({name:'InsImgList',params:{ins_id:this.ins_id,'tab':0}})
             },
              licence(){
-              this.$router.push({name:'DocLicence',params:{doc_id:this.doc_id,tab:0}})
+                 this.tab==0
+  
+            //   this.$router.push({name:'InsLicence',params:{ins_id:this.ins_id,'tab':1}})
             }
         }
     }

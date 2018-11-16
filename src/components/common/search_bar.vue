@@ -5,7 +5,7 @@
                 <div class="searchbar-input">
                     <span class="zk-icon-sousuo"></span>
                     <form action="#" onsubmit="return false" class="search-wrapper">
-                        <input id="searchInput" type="search">
+                        <input id="searchInput" type="search" >
                     </form>
                 </div>
             </router-link>
@@ -19,6 +19,7 @@
     } from 'vuex'
     import BMap from '@/api/BMap';
     export default {
+        name:"search_bar",
         data() {
             return {
                 //   address:''
@@ -29,7 +30,14 @@
                 address: state => state.BMap.city
             })
         },
-       
+        props: {
+            title: {
+                default: ''
+            },
+            iconShow: {
+                default: false
+            }
+        },
         methods: {
             $_ajax_location() {
                 BMap.addressDetail(this)
@@ -90,31 +98,8 @@
         position: fixed;
         text-align: center;
     }
-    a,
-    body,
-    canvas,
-    div,
-    figcaption,
-    figure,
-    footer,
-    header,
-    html,
-    img,
-    li,
-    nav,
-    p,
-    section,
-    span,
-    ul {
-        -webkit-user-select: none;
-    }
-    a {
-        margin: 0;
-        font-size: 100%;
-        vertical-align: baseline;
-        background: 0 0;
-        color: #666;
-    }
+
+   
     .-widget-top-bar .icon {
         font-size: 0.4rem;
         color: #ee003e;

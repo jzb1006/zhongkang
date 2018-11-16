@@ -1,14 +1,11 @@
 <template>
     <div id="map">
-        <!-- 头部 -->
-        <top title="医院地图"></top>
         <div id="allmap" ref="allmap"></div>
     </div>
 </template>
 <script>
-
-    import top from "@/components/decorate/top_back_title.vue";
     export default {
+        name:"map",
         data() {
             return {
                 lat: this.$route.params.lat,
@@ -19,7 +16,6 @@
             }
         },
         components: {
-            top
         },
         methods: {
             point() {

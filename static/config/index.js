@@ -1,4 +1,4 @@
 const config={
-    'GA':true,
+    'GA':false,
     'user_behavior':true
 }

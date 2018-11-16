@@ -24,14 +24,14 @@
 </template>
 
 <script>
-import {
-    commonShare,
-    shareTitle,
-    shareUrl,
-    shareImg,
-    shareDesc
-} from "@/assets/share";
-import common from "../../widget/lib/user";
+// import {
+//     commonShare,
+//     shareTitle,
+//     shareUrl,
+//     shareImg,
+//     shareDesc
+// } from "@/assets/share";
+// import common from "../../widget/lib/user";
 import DiaryList from "./diary_list";
 import searchBar from "@/components/home/search_bar.vue";
 export default {
@@ -40,9 +40,9 @@ export default {
         searchBar
     },
     methods: {
-        share() {
-            commonShare(this, shareTitle, shareUrl, shareImg, shareDesc);
-        }
+        // share() {
+        //     commonShare(this, shareTitle, shareUrl, shareImg, shareDesc);
+        // }
     }
 };
 </script>
