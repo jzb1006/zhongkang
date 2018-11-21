@@ -5,7 +5,6 @@
                 <top title="医生日记"></top>
             </p>
         </div>
-        
         <diary :docId=doc_id :query=true></diary>
     </div>
 </template>

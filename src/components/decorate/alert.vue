@@ -17,22 +17,28 @@ export default {
         },
         alerttType: {
             type: String,
-            default: "success"
+            default: "success" //warn,error,success
         },
         alertText: {
             type: String,
             default: ""
         }
     },
-    data() {
-        return {
-            Showing: this.Show
-        };
+    data(){
+        return{
+            Showing:this.Show
+        }
     },
     watch:{
+        Show(val,oldVal){
+            this.Showing = val;
+        },
         Showing(val,oldVal){
-            console.log(val);
+            this.$emit('update:Show', val)
         }
+    },
+    methods:{
+
     },
     components: {
         Toast

@@ -5,7 +5,7 @@
 </template>
 <script>
 import apiCom from './../../api/comment'
-import comment from './comment'; 
+import comment from '@/templates/comment/comment'; 
 import bus from "@/assets/bus.js"
 export default {
     name:"comment_list",

@@ -1,30 +1,22 @@
 <template>
-    <div id="FItem">
-        <ul class="ol_list">
-            <li class="ol_li" v-for="(item, $index) in itemlist" @click="selectStyle (item, item.id) " :class="{'f_active':check_item == item.id}">
-                <p class="name">{{item.name}}</p>
-            </li>
-        </ul>
+    <div>
+        <hgItemT :itemlist=itemlist></hgItemT>
         <Loading v-show="loadinging"></Loading>
     </div>
 </template>
 
 <script>
-import Vue from "vue";
 import api from "@/api/fang";
-import Bus from "./../../assets/bus.js";
 import Loading from "@/components/decorate/loading.vue";
+import hgItemT from "@/templates/hospital_guide/hg_item";
 import { mapState } from "vuex";
-
 export default {
-    name: "FItem",
-    components:{
+    components: {
+        hgItemT,
         Loading
     },
     data() {
         return {
-            check_item: null,
-            f_active: false,
             itemlist: [],
             cid: "",
             loadinging: true
@@ -34,57 +26,18 @@ export default {
         ...mapState(["pageOne"])
     },
     methods: {
-        $_ajax_item: function() {
-            var keyword = "";
+        $_ajax_item() {
             var self = this;
-            api
-                .ajaxSearch("get_items")
-                .then(res => {
-                    for (let index in res.data) {
-                        if (Object.keys(res.data[index].cat_id).length > 0) {
-                            this.tree(res.data[index].cat_id);
-                        } else {
-                            self.itemlist = self.itemlist.concat(
-                                res.data[index]
-                            );
-                        }
+            api.ajaxSearch("get_items").then(res => {
+                for (let index in res.data) {
+                    if (Object.keys(res.data[index].cat_id).length > 0) {
+                        this.tree(res.data[index].cat_id);
+                    } else {
+                        self.itemlist = self.itemlist.concat(res.data[index]);
                     }
-                    self.loadinging = false;
-                    let check_ids = this.$store.state.fang.check_ids;
-                    for (let index in check_ids) {
-                        if (check_ids[index].num == 1) {
-                            let id = check_ids[index].cat_id;
-                            for (let val in self.itemlist) {
-                                if (self.itemlist[val].id == id) {
-                                    self.check_item = id;
-                                    this.addData(id);
-                                }
-                            }
-                        }
-                    }
-                })
-                .catch(error => {
-                    self.loadinging = false;
-                });
-        },
-        selectStyle: function(item, index) {
-            this.check_item = index;
-            // this.$store.dispatch('Content_Type',true);
-            this.$store.dispatch("Is_Sel", true);
-            this.cid = index;
-            let arr = {
-                num: 1,
-                cat_id: this.cid
-            };
-            this.$store.dispatch("Check_Ids", arr);
-            this.addData(index);
-        },
-        addData: function(id) {
-            let arr = {
-                page:'1',
-                cid: id
-            };
-            this.$store.dispatch("Content_Data", arr);
+                }
+                self.loadinging = false;
+            });
         },
         tree(data) {
             for (let index in data) {
@@ -97,44 +50,10 @@ export default {
         }
     },
     mounted() {
-        this.$store.dispatch("Is_Sel", false);
-        Bus.$emit("Content_Type", "1");
-        this.$store.dispatch("Content_Jump", "hgTreat");
-        Bus.$emit("changeTitle", "选择项目");
         this.$_ajax_item();
-        let check_ids = this.$store.state.fang.check_ids;
-        for (let index in check_ids) {
-            if (check_ids[index].num == 1) {
-                this.check_item = check_ids[index].id;
-                this.$store.dispatch("Is_Sel", true);
-            }
-        }
-
-        this.$emit("jumpNext","hgTreat");
-        this.$emit("changeTitle","选择项目");
-        this.$emit("getPage","hgItem");
     }
 };
 </script>
 
-<style scoped>
-#FItem {
-    margin: 2rem 0;
-    padding: 0.1rem 0.3rem;
-}
-#FItem .ol_list {
-    padding: 0;
-}
-#FItem .ol_list .ol_li {
-    margin-bottom: 0.2rem;
-    padding: 0.3rem 0.4rem;
-    border-radius: 0.1rem;
-    border: 1px solid #72dacf;
-}
-#FItem .ol_list .ol_li p.name {
-    font-size: 0.3rem;
-    font-weight: 550;
-}
+<style>
 </style>
-
-

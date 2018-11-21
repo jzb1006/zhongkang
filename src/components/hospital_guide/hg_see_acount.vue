@@ -22,7 +22,6 @@ export default {
             this.fshow = !this.fshow;
             this.price_data = this.$store.state.fang.Price_Data;
             Bus.$emit("toAcount", this.price_data);
-            // Bus.$emit("Content_Type", "9");
         }
     },
     components: {

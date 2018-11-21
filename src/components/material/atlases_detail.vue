@@ -89,6 +89,7 @@ export default {
                 }
 
                 this.user = {
+                    user_id: this.info.user_id,
                     headimg: this.info.headimgurl,
                     name: this.info.nickname,
                     view: this.info.view_count

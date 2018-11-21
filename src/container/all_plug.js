@@ -45,6 +45,7 @@ import videoDetail from '@/components/material/video_detail'
 import atlasesDetail from '@/components/material/atlases_detail'
 
 //公共
+import Alert from "@/components/decorate/alert.vue";
 import reward from '@/components/decorate/reward.vue'
 import upload from '@/components/upload/upload.vue'
 import mediaDisplay from '@/components/upload/media_display.vue'
@@ -55,6 +56,7 @@ import eMeta from '@/components/decorate/eMeta.vue'
 import authorInfo from '@/components/decorate/author_info.vue'
 import listHeader from '@/components/decorate/list_header.vue' //头部
 import listFooter from '@/components/decorate/list_footer.vue' // 尾部
+import topHide from '@/components/decorate/top_hide.vue' // 尾部
 
 //diary
 import diaryList from '@/components/diary/diary_list.vue'
@@ -182,6 +184,8 @@ export default {
     Vue.component('listHeader', listHeader)
     Vue.component('listFooter', listFooter)
     Vue.component('reward', reward);
+    Vue.component('topHide', topHide);
+    Vue.component('Alert',Alert);
     //diary
     Vue.component('diaryList', diaryList)
     Vue.component('diaryBackdropUser', diaryBackdropUser)
@@ -198,7 +202,8 @@ export default {
     //医生
     Vue.component('doctorList', HDoctorList)
     //产品
-    Vue.component('HProductList', HProductList)
+    // Vue.component('productList',productList)
+    Vue.component('productList', HProductList)
     //机构
     Vue.component('hospitalList', HHospitalList)
     //评论

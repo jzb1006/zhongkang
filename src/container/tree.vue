@@ -5,7 +5,7 @@
         </div>
 
         <div v-if="hasChild">
-            <tree v-for="(item,index) in model.child_component" :key="index" v-bind:model="item" v-bind:key="index"></tree>
+            <tree v-for="(item,index) in model.child_component" :key="index" v-bind:model="item"></tree>
         </div>
     </div>
 </template>
@@ -24,13 +24,13 @@ export default {
     },
     methods: {
         getParams(data) {
-            if (data) {
+            if (data.trim()) {
                 return JSON.parse(data);
             }
             return "";
         },
         getNumber(data) {
-            if (data.params) {
+            if (data.params.trim()) {
                 if (JSON.parse(data.params).number)
                     return JSON.parse(data.params).number;
             }

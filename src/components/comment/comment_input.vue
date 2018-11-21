@@ -14,7 +14,6 @@
     </div>
 </template>
 <script>
-// import Axios from "axios";
 import apiCom from "@/api/comment";
 import { mapGetters } from "vuex";
 import bus from "@/assets/bus.js";
@@ -64,15 +63,6 @@ export default {
             this.show_input = false;
             this.toParent();
             var self = this;
-            // var formData = new FormData();
-            // formData.append('comment_post_ID',self.info.comment_post_ID);
-            // formData.append('author',self.getUserinfo.nickname);
-            // formData.append('comment_parent',self.info.comment_parent);
-            // formData.append('comment_form',self.info.comment_form);
-            // formData.append('comment_form_id',self.info.comment_form_id);
-            // formData.append('comment',self.info.comment_content);
-            // formData.append('uid',self.getUserinfo.user_id);
-            // formData.append('parent_id',self.info.parent_id);
             let formData = {
                 comment_post_ID: self.info.comment_post_ID, //数据库文章id
                 author: self.getUserinfo.nickname, //评论者名字

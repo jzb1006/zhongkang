@@ -1,28 +1,16 @@
 <template>
-    <div id="articleDetail" v-if="Object.keys(material).length">
-        <div class="authorInfo">
-            <authorInfo :user=user></authorInfo>
-        </div>
-
-        <div class="contents" v-for="m in material">
-            <p class="title">{{m.title}}</p>
-            <p class="other">{{m.author}}
-                <span class="time">{{m.time}}</span>
-            </p>
-            <div class="content" v-html="m.material_content">
-            </div>
-        </div>
-        <reward paytype='pay_btn'></reward>
+    <div id="Carticle_detail">
+        <articleDetailc :material=material :user=user></articleDetailc>
     </div>
 </template>
 
 <script>
 import apiCom from "@/api/common";
-import reward from "@/components/decorate/reward.vue";
 import apiM from "@/api/material/index.js";
-import top from "@/components/decorate/top_back_title.vue";
+import materialTab from "./material_tab";
+import articleDetailc from "@/templates/material/article_detail";
+import { mixin } from "@/assets/js/mixins.js";
 export default {
-    name: "article_detail",
     props: {
         healthyTalkId: {
             default: ""
@@ -36,8 +24,7 @@ export default {
         };
     },
     components: {
-        top,
-        reward
+        articleDetailc
     },
     methods: {
         getData() {
@@ -50,6 +37,7 @@ export default {
                     self.material = res.data.material_once;
                     let data = res.data.material_once[0];
                     self.user = {
+                        user_id: data.user_id,
                         headimg: data.headimgurl,
                         name: data.nickname,
                         view: data.view_count
@@ -71,26 +59,4 @@ export default {
 </script>
 
 <style>
-body {
-    padding-bottom: 1rem;
-}
-#articleDetail .authorInfo {
-    padding: 0.1rem 0;
-}
-#articleDetail div.contents {
-    margin: 0.2rem;
-    font-size: 0.3rem;
-    overflow: hidden;
-}
-#articleDetail p.title {
-    font-size: 0.45rem;
-    line-height: 1rem;
-}
-#articleDetail p.other {
-    line-height: 0.5rem;
-}
-#articleDetail .content {
-    margin: 0.2rem;
-    line-height: 0.5rem;
-}
 </style>

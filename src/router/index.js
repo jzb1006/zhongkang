@@ -201,11 +201,11 @@ const router = new Router({
       name: 'diaryOperate',
       component: ()=> import('@/components/diary/diary_operate.vue'),
     },
-    {
-      path: '/diary/diaryBackdrop.vue',
-      name: 'diaryBackdrop',
-      component: ()=> import('@/components/diary/diary_backdrop.vue'),
-    },
+    // {
+    //   path: '/diary/diaryBackdrop.vue',
+    //   name: 'diaryBackdrop',
+    //   component: ()=> import('@/components/diary/diary_backdrop.vue'),
+    // },
     {
       path:'/diary/diaryDetail',
       name:"diaryDetail",

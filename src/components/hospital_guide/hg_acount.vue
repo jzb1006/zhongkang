@@ -1,32 +1,32 @@
 <template>
-	<div id="FAcount" v-show="acount"  @click="close()">
-		<div class="acount_wrapper">
-			<button type="button" class="close" aria-label="Close" @click="close()">
-				<i class="zk-icon-guanbi"></i>
-			</button>
-			<p class="title">
-				<span>模拟账单</span>
-			</p>
-			<ul class="list_acount">
-				<li class="li_acount" v-for="acount1 in aountlist">
-					<p class="name">{{acount1.name}}</p>
-					<p class="price">￥
-						<span>{{acount1.min_price}}</span>~￥
-						<span>{{acount1.max_price}}</span>
-					</p>
-				</li>
-			</ul>
-			<div class="bottom">
-				<p class="total_title">总费用：</p>
+    <div id="FAcount" v-show="acount" @click="close()">
+        <div class="acount_wrapper">
+            <button type="button" class="close" aria-label="Close" @click="close()">
+                <i class="zk-icon-guanbi"></i>
+            </button>
+            <p class="title">
+                <span>模拟账单</span>
+            </p>
+            <ul class="list_acount">
+                <li class="li_acount" v-for="acount1 in aountlist">
+                    <p class="name">{{acount1.name}}</p>
+                    <p class="price">￥
+                        <span>{{acount1.min_price}}</span>~￥
+                        <span>{{acount1.max_price}}</span>
+                    </p>
+                </li>
+            </ul>
+            <div class="bottom">
+                <p class="total_title">总费用：</p>
 
-				<p class="total_price text-danger">￥
-					<span>{{totalMinAcount}}</span>~￥
-					<span>{{totalMaxAcount}}</span>
-				</p>
-			</div>
-			<p class="tip">(*当前价格仅供参考，实际价格以各医院为准！)</p>
-		</div>
-	</div>
+                <p class="total_price text-danger">￥
+                    <span>{{totalMinAcount}}</span>~￥
+                    <span>{{totalMaxAcount}}</span>
+                </p>
+            </div>
+            <p class="tip">(*当前价格仅供参考，实际价格以各医院为准！)</p>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -60,26 +60,28 @@ export default {
 };
 </script>
 <style scoped>
-#FAcount{
-	    position: fixed;
-		top: 0;
-		right: 0;
-		left: 0;
-		bottom: 0;
-		background-color: #060404d9;
-		z-index:500;
+#FAcount {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #060404d9;
+    z-index: 500;
 }
-#FAcount .acount_wrapper{
+#FAcount .acount_wrapper {
     position: fixed;
     left: 0.1rem;
     right: 0.1rem;
-    bottom: 1rem;
+    top: 50%;
+    height: 10rem;
+    margin-top: -5rem;
     font-size: 0.35rem;
     background-color: #fffdd5;
     padding: 0.2rem;
     border-top-left-radius: 0.2rem;
     border-top-right-radius: 0.2rem;
-	z-index: 501
+    z-index: 501;
 }
 #FAcount button {
     float: right;

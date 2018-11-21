@@ -39,7 +39,7 @@ export default {
         background: #ff5370;
         letter-spacing: 0.028rem;
         font-size: 15px;
-        z-index:1000;
+        z-index:500;
     }
     .navbar .title {
         font-size: .3rem;

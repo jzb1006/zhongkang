@@ -5,13 +5,6 @@
                 <span slot="icon" class="icon" :class="menu.icon"></span>
                 <span slot="label">{{menu.name}}</span>
             </tabbar-item>
-            <!-- <tabbar-item class="menu" @on-item-click="open()">
-                <span slot="icon" class="zk-icon-gengduo icon"></span>
-            </tabbar-item>
-            <tabbar-item :link="{name:'container',query:{'name':'person_container'}}">
-                <span slot="icon" class="zk-icon-iconfonticon5 icon"></span>
-                <span slot="label">个人中心</span>
-            </tabbar-item> -->
         </tabbar>
         <div v-if="menu_show" class="menu">
             <div class="menulist">

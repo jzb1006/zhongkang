@@ -1,7 +1,7 @@
 <template>
     <div id="author_info">
-        <div class="author_wrapper">
-            <div class="img_wrapper">
+        <div class="author_wrapper" v-if="author.user_id">
+            <div class="img_wrapper" v-if="author.headimg">
                 <img :src="getFileUrl()+author.headimg" alt="">
             </div>
             <div class="info">
@@ -22,9 +22,10 @@ export default {
         user: {
             default: function() {
                 return {
+                    user_id:"",
                     view:"-1",
                     name:"",
-                    headinmg:""
+                    headimg:""
                 };
             }
         }
