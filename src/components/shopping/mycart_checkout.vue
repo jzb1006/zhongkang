@@ -72,7 +72,11 @@
 <script>
     import api from "../../api/goods"
     import top from "@/components/decorate/top_back_title.vue";
+   import { mixin } from "@/assets/js/mixins";
+
     export default {
+    mixins: [mixin],
+
         data() {
             return {
                 result: {},
@@ -83,7 +87,9 @@
                 title: '购物车',
                 isDisable: false,
                 pay_id:0,
-                keyword:this.$refs
+                keyword:this.$refs,
+                 pay_link:"container",
+                pay_con_id:this.params['pay_con_id']
             }
         },
         methods: {
@@ -160,8 +166,9 @@
                        var oid = result.data;
                        if(code==1){
                           this.$router.push({
-                              name:'pay',
-                              params:{
+                              name:this.pay_link,
+                              query:{
+                                  id:this.pay_con_id,
                                   oid:oid
                               }
                           })

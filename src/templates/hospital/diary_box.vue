@@ -9,10 +9,10 @@
             </router-link>
         </div>
         <div v-if="ins_id!=-0">
-            <diary :insId=ins_id :once=1 :query=true></diary>
+            <diary :insId=ins_id :number="number" :query=true></diary>
         </div>
         <div v-else>
-            <diary :docId=doc_id :once=1 :query=true></diary>
+            <diary :docId=doc_id :number="number" :query=true></diary>
         </div>
     </div>
 </template>
@@ -40,6 +40,10 @@
                 default: -0
             },
             doc_id: {
+                type: Number,
+                default: -0
+            },
+             number: {
                 type: Number,
                 default: -0
             },

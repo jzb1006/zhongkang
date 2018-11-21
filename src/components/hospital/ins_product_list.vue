@@ -1,14 +1,16 @@
 <template>
     <div id="doc_list">
-        <product :list="doctorList"></product>
+        <product :list="doctorList" :con_id="params['product_con_id']" ></product>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_productList"></LoadMore>
     </div>
 </template>
 <script>
     import top from "@/components/decorate/top_back_title.vue";
-    import product from '@/components/product/list.vue'
+    import product from '@/templates/product/list.vue'
     import LoadMore from '@/components/loadMore/index.vue'
     import api from '@/api/product';
+   import { mixin } from "@/assets/js/mixins";
+
     export default {
         name:'ins_product_list',
         components: {
@@ -18,9 +20,9 @@
         },
         data() {
             return {
-                id: this.$route.params.id,
-                type: this.$route.params.type,
-                name: this.$route.params.name,
+                id: this.$route.query.ins_id,
+                type: this.$route.query.type,
+                name: this.$route.query.name,
                 result: [],
                 hasMore: 0,
                 isBusy: false,
@@ -37,6 +39,8 @@
                 return this.name
             }
         },
+    mixins: [mixin],
+
         methods: {
             $_ajax_productList() {
                 var self = this;

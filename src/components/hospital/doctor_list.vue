@@ -1,19 +1,23 @@
 <!--  -->
 <template>
     <div>
-        <doctor :list="doctorList"></doctor>
+        <doctor :list="doctorList" :route_link="'container'" :con_id="params['doc_detail_con_id']"></doctor>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_docList"></LoadMore>
     </div>
 </template>
 
 <script>
-    import doctor from '@/components/doctor/list.vue'
+    import doctor from '@/templates/doctor/list.vue'
     import LoadMore from '@/components/loadMore/index.vue'
      import api from '@/api/doctor';
+   import { mixin } from "@/assets/js/mixins";
+
     export default {
+    mixins: [mixin],
+
         data() {
             return {
-                ind_id: this.$route.params.ins_id,
+                ind_id: this.$route.query.ins_id,
                 result: [],
                 hasMore: 0,
                 isBusy: false,

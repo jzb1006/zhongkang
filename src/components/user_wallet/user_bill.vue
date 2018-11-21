@@ -36,7 +36,7 @@
 	                <span>总收入{{income}}</span>
 	                <span>总支出{{cost}}</span>
 		    	</div>
-		    	
+		    	<!-- <billitem :result="result"></billitem> -->
 		    	<billitem v-if="r.order_sn!=''&&r.order_sn!=null" v-for="r in result" v-bind:item="r" v-bind:key="r.order_sn"></billitem>
 		    	<LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="query" class="bg"></LoadMore>
 		    </div>
@@ -50,7 +50,7 @@
 <script>
 import api from "../../api/wallet"
 import common from "../../widget/lib/user"
-import billitem from '@/components/user_wallet/bill_item'
+import billitem from '@/components/wallet/bill_item.vue'
 import LoadMore from '@/components/loadMore/index.vue'
 import Loading from "@/components/decorate/loading.vue";
 import nosearch from "@/components/nosearch/index.vue";
@@ -172,6 +172,9 @@ export default {
 </script>
 <style>
 @import url("./../../assets/css/calandar.css");
+.weui-cells {
+    padding: .4rem .2rem!important;
+}
 </style>
 <style scoped>
 	#bill{

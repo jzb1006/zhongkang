@@ -2,8 +2,11 @@
 <template>
     <div class="recommend_box">
         <div class="box-ls border-bot" id="tpl-1">
-            <product v-if="goods_list.length!=0" :list="goods_list"></product>
-            <router-link :to="{name:'productList',params:router_params}">
+            <product v-if="goods_list.length!=0" 
+            :list="goods_list" 
+            :route_link="product_link" 
+            :con_id="product_con_id"></product>
+            <router-link :to="{name:routeLink,query:router_params}">
                 <div class="footer border-top">
                     查看全部{{goods_total}}个商品
                 </div>
@@ -13,7 +16,7 @@
 </template>
 
 <script>
-    import product from '@/components/product/list.vue'
+    import product from '@/templates/product/list.vue'
     export default {
         name: 'product_box',
         data() {
@@ -32,9 +35,21 @@
                     return {}
                 }
             },
+            routeLink:{
+               type:String,
+               default:''
+            },
             goods_total: {
                 type: Number,
                 default: 0
+            },
+            product_link:{
+                type:String,
+               default:''
+            },
+            product_con_id:{
+                type:String,
+               default:''
             }
         },
         components: {

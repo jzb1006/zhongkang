@@ -8,8 +8,8 @@
                 <img :src="imgPrifix()+item['url']">
             </li>
             <li>
-                <router-link :to="{name:'InsImgList',params:router_params}" class="chinese">
-                    <span>查看更多asd</span>
+                <router-link :to="{name:link_name,query:router_params}" class="chinese">
+                    <span>查看更多</span>
                     <span class="english">View More</span>
                 </router-link>
             </li>
@@ -32,6 +32,10 @@
                 default () {
                     return {}
                 }
+            },
+            link_name:{
+                type:String,
+                default:''
             }
         },
         data() {

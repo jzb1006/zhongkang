@@ -31,7 +31,6 @@
     </div> 
 </template>
 <script>
-
     import detaileHead from "@/components/hospital/header.vue";
     import top from "@/components/decorate/top_back_title.vue";
     import docBox from '@/components/hospital/doctor_box.vue'

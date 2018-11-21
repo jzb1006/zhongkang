@@ -1,7 +1,7 @@
 <!--  -->
 <template>
     <div>
-        <mapBox :title="ins_info['name']" :value="'点击查看🔍'" :link="{name:'hospitalDetail',params:{ins_id:ins_info['id']}}">
+        <mapBox :title="ins_info['name']" :value="'点击查看🔍'" :link="{name:'container',query:{ins_id:ins_info['id'],id:params['ins_con_id']}}">
         </mapBox>
         <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
@@ -11,11 +11,15 @@
     import Alert from "@/components/decorate/alert.vue";
     import api from "../../api/doctor";
     import mapBox from "@/templates/hospital/map_box.vue";
+ import { mixin } from "@/assets/js/mixins";
+
     export default {
+    mixins: [mixin],
+
         data() {
             return {
-                doc_id: this.$route.params.doc_id,
-                ins_id: this.$route.params.ins_id,
+                doc_id: this.$route.query.doc_id,
+                ins_id: this.$route.query.ins_id,
                 ins_info: [],
                 doc_info: [],
                 goods: [],

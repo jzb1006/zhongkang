@@ -1,6 +1,6 @@
 <template>
     <div id="doc_list">
-        <hospital :list="result"></hospital>
+        <hospital :list="result" :container_id="params.container_id"></hospital>
         <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_docList"></LoadMore>
     </div>
@@ -10,12 +10,14 @@ import hospital from "@/templates/hospital/list.vue";
 import LoadMore from "@/components/loadMore/index.vue";
 import Loading from "@/components/decorate/loading.vue";
 import api from "@/api/home";
+   import { mixin } from "@/assets/js/mixins";
 export default {
     components: {
         hospital,
         LoadMore,
         Loading
     },
+    mixins: [mixin],
     data() {
         return {
             result: [],
@@ -23,7 +25,7 @@ export default {
             isBusy: false,
             ins_info: [],
             page: 1,
-            num_list: 10,
+            num_list: this.params.number,
             loadinging: true
         };
     },
@@ -34,6 +36,9 @@ export default {
         ins_name() {
             return this.ins_info["name"];
         }
+    },
+    props:{
+     
     },
     methods:{
        $_ajax_docList(){
@@ -64,6 +69,7 @@ export default {
        }
     },
     mounted() {
+      console.log(this.params)
         this.$_ajax_docList();
     }
 };

@@ -1,10 +1,5 @@
 <template>
     <div id="insDiary">
-        <div class="head">
-            <p class="top">
-                <top title="医院日记"></top>
-            </p>
-        </div>
         <diary :insId=ins_id :query=true></diary>
     </div>
 </template>

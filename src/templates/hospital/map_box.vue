@@ -27,18 +27,11 @@
             link: {
                 type: Object,
                 default () {
-                    return {
-                        name: 'Map',
-                        params: {
-                            lat: ins_info['lat'],
-                            lon: ins_info['lon'],
-                            name: ins_info['name'],
-                            address: ins_info['address']
-                        }
-                    }
+                    return {}
                 }
             }
         },
+
         data() {
             return {
             };

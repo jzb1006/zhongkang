@@ -1,13 +1,13 @@
 <template>
     <div id="customizedReply">
-        <top title="定制回复">
-            <span slot="next" class="next" @click="next">确定</span>
-        </top>
-        <div class="add_programme">
+        <top :params="params"></top>
+        <!-- <div class="add_programme">
             <span class="btn" @click="add_programme">添加方案</span>
-        </div>
-        <div class="container">
-            <div class="item" v-for="(item,index) in programme" :key="index">
+        </div> -->
+        <!-- <div class="container"> -->
+        <new-programme></new-programme>
+        <reply-item></reply-item>
+            <!-- <div class="item" v-for="(item,index) in programme" :key="index">
                 <div class="item vux-1px-b" @click="showList(index)">
                     方案{{index+1}}
                 </div>
@@ -32,17 +32,20 @@
                         </p>
                     </div>
                 </div>
-            </div>
-        </div>
-        <add-programme v-show="addNewProgramme" @passProgramme="getProgramme"></add-programme>
+            </div> -->
+        <!-- </div> -->
+        <!-- <add-programme v-show="addNewProgramme" @passProgramme="getProgramme"></add-programme> -->
         <div id="fill"></div>
     </div>
 </template>
 <script>
-  import top from '@/components/decorate/top_back_title.vue'
+  import top from '@/components/decorate/top.vue'
   import api from './../../api/customized'
+  import Bus from '@/assets/bus.js'
   import Upload from '@/components/public/upload'
   import addProgramme from '@/components/adviser/addProgramme.vue'
+  import replyItem from '@/components/customized/reply_item.vue'
+  import newProgramme from '@/components/adviser/newProgramme.vue'
   export default {
     name: 'customizedReply',
     data(){
@@ -54,12 +57,19 @@
             addNewProgramme:false,
             programme:[],
             sign:'',
+            params:{
+                title:'定制回复',
+                hasBtn:true,
+                btnText:'确定',
+                next:this.next,
+            }
         }
     },
     methods:{
         next(){
 
             let postdata=this.programme;
+            console.log(postdata);
             api.saveCustomizedReply(postdata).then(res=>{
                 console.log(res);
                 this.$router.push('/replyOrder');
@@ -85,13 +95,18 @@
                 this.sign=index;
             }
         },
-        getProgramme(data){
-            this.programme.push(data);
-            this.addNewProgramme=false;
-        }
+        // getProgramme(data){
+        //     this.programme.push(data);
+        //     this.addNewProgramme=false;
+        // }
     },
     mounted(){
-        
+        Bus.$on('passProgramme',res=>{
+            this.programme.push(res);
+        })
+    },
+    beforeDestroy(){
+        Bus.$off('passProgramme');
     },
     beforeRouteEnter(to, from, next){
         next( vm => {
@@ -112,6 +127,8 @@
         top,
         Upload,
         addProgramme,
+        replyItem,
+        newProgramme
     }
   }
 </script>

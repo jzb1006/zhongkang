@@ -7,28 +7,35 @@
             </div>
             <div v-show="WisShow(index)">
                 <p class="row">
-                    <span class="left">顾问:</span>
-                    <span class="right">{{item.realname}}</span>
+                    <!-- <span class="left">顾问:</span>
+                    <span class="right">{{item.realname}}</span> -->
+                    <slot name="adviser" :myname="item.realname"></slot>
                 </p>
-                <p class="row">
-                    <span class="left">方案:</span>
-                    <span class="right">
+                <div class="row">
+                    <div class="left">方案:</div>
+                    <div class="right">
                         <p class="wenben">{{item.programme[0]}}</p>
-                        <p class="imgbox" v-for="(i,index) in item.programme.slice(1,item.programme.height)" :key="index">
-                            <img :src="url(i)" class="img">
-                        </p>
-                    </span>
-                </p>
+                        <div class="imgbox" v-for="(i,index) in item.programme.slice(1,item.programme.height)" :key="index">
+                            <img :src="url(i)" class="img2">
+                        </div>
+                        <!-- <div class="box">
+                            <mediaDisplay :filelists="backList(item.programme.slice(1,item.programme.height))" :upshow1=false></mediaDisplay>
+                        </div> -->
+                    </div>
+                </div>
                 <p class="row">
                     <span class="left">价格:</span>
                     <span class="right">{{item.operation_price}}</span>
                 </p>
                 <div class="item">
                     <p>案例图:</p> 
-                    <div class="box">
+                    <!-- <div class="box">
                         <p class="imgbox" v-for="(i,index) in item.photo" :key="index">
-                            <img :src="url(i)" class="img">
+                            <img :src="url(i)" class="img2">
                         </p>
+                    </div> -->
+                    <div class="box">
+                        <mediaDisplay :filelists="backList(item.photo)" :upshow1=false></mediaDisplay>
                     </div>
                 </div>
                 <div class="row">
@@ -40,6 +47,8 @@
 </template>
 <script>
   import api from './../../api/customized'
+  import mediaDisplay from "@/components/upload/media_display";
+  import Bus from '@/assets/bus.js'
     export default {
         data(){
             return{
@@ -47,13 +56,14 @@
                 count:'',
                 selected_programme:'',
                 isShow:{},
+                result:[],
             }
         },
-        props:{
-            result:{
-                type:[Object,Array],
-            }
-        },
+        // props:{
+        //     result:{
+        //         type:[Object,Array],
+        //     }
+        // },
         methods:{
             url(i){
                 return api.imgUrl()+i;
@@ -96,6 +106,25 @@
             edit(selected_programme){
                 this.$router.push({path:'/editProgramme',query:{'order_sn':this.order_sn,'programme':selected_programme}});
             },
+            backList(arr){
+                let arrImg=[];
+                arr.forEach(element => {
+                    arrImg.push({url:element,alt:""});
+                });
+                return arrImg;
+            }
+        },
+        components:{
+            mediaDisplay
+        },
+        mounted(){
+            Bus.$on('passProgramme',res=>{
+                console.log(res);
+                this.result.push(res);
+            })
+        },
+        beforeDestroy(){
+            Bus.$off('passProgramme')
         }
     }
 </script>
@@ -136,7 +165,7 @@
     }
     .wenben{
         width: 100%;
-        height: auto;
+        min-height: .6rem;
         word-wrap:break-word;
         word-break:break-all;
         overflow: hidden;
@@ -145,20 +174,29 @@
         border:1px solid #ccc;
         padding:.2rem;
     }
+    .box{
+        margin-top:.1rem;
+    }
     .box::after{
         content:'';
         display:block;
         clear:both;
     }
     .imgbox{
-        float:left;
-        width:33%;
+        /* float:left; */
+        display: inline-block;
+        width:50%;
         margin-top:.2rem;
     }
-    .img{
+    .img2{
         width:1.8rem;
         height:1.8rem;
     }
+    /* .img1 {
+        width: 100% !important;
+        min-height: 100% !important;
+        height: 100% !important;
+    } */
     .footer{
         position: fixed;
         bottom: 0;

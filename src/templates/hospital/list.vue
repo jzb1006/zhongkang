@@ -1,7 +1,7 @@
 <template>
   <div id="SearchHospital">
     <div data-hospitalid="24402" class="hospital" :key="index" v-for="(item,index) in list">
-      <router-link :to="{name:'hospitalDetail',params:{ins_id:item['id']}}">
+      <router-link :to="{name:'container',query:{id:container_id,ins_id:item['id']}}">
       <div class="hospital-info">
         <div class="hospital-avatar"> <defaultImg :imgPath="item.profile_photo"></defaultImg></div>
         <div class="hospital-main">
@@ -44,6 +44,10 @@
       list: {
         type: [Array, Object],
         request: true
+      },
+      container_id:{
+         type: String,
+         default:''
       }
     },
     methods: {

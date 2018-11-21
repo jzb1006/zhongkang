@@ -3,7 +3,7 @@
     <div>
       <div id="title_back">
           <div class="navbar">
-            <span class="title">{{title}}</span>
+            <span class="title">{{params.title}}</span>
             <span class="zk-icon-fanhui fanhui" @click="back()"></span>
             <slot name="next" class="next"></slot>
           </div>
@@ -12,19 +12,23 @@
     </div>
 </template>
 <script>
+ import { mixin } from "@/assets/js/mixins";
+
 export default {
-    props:{
-        title:{
-            // type:String,
-            required:true
-        }
+    mixins: [mixin],
+    props: {
+        // title: {
+        //     // type:String,
+        //     required: true
+        // }
     },
-    methods:{
-        back(){
+    methods: {
+        back() {
             this.$router.back(-1);
         }
     }
-}
+    
+};
 </script>
 <style scoped>  
     .navbar {

@@ -14,26 +14,38 @@ export const ajax = Axios.create({
 
 export const ajax2 = Axios.create({
   baseURL: '/m/',
-  headers: {                
-    'Content-Type': 'multipart/form-data'            
+  headers: {
+    'Content-Type': 'multipart/form-data'
   },
   timeout: 3000,
 })
 
 export const ajax3 = Axios.create({
-  baseURL:'/m',
-  headers: { 'content-type': 'application/x-www-form-urlencoded'},
-  timeout:3000,
+  baseURL: '/m',
+  headers: {
+    'content-type': 'application/x-www-form-urlencoded'
+  },
+  timeout: 3000,
 })
 
 export const ajax4 = Axios.create({
-  baseURL:'http://192.168.0.107/',
-  headers: { 'content-type': 'application/x-www-form-urlencoded'},
-  timeout:3000,
+  baseURL: 'http://192.168.0.107/',
+  headers: {
+    'content-type': 'application/x-www-form-urlencoded'
+  },
+  timeout: 3000,
 })
 
 export const ajax5 = Axios.create({
   baseURL: 'https://www.jzb1006.com/wx_jssdk/',
+  headers: {
+    'content-type': 'application/x-www-form-urlencoded'
+  },
+  timeout: 3000,
+})
+
+export const ajax6 = Axios.create({
+  baseURL: 'http://localhost/m',
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },

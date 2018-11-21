@@ -1,6 +1,6 @@
 <template>
   <div id="detailItem">
-        <div>
+        <!-- <div>
             <div class="item vux-1px-b">
                 <span class="left">订单金额</span>
                 <span class="right">{{result.order_amount}}</span>
@@ -29,57 +29,86 @@
                 <p class="item">
                     <span class="left">手术类别</span>
                     <span class="right">
-                        <span class="juli" v-for="(i,index) in result.category" :key="index">{{i}}</span>
+                        <span class="juli" v-for="(i,index) in result.category" :key="index.id">{{i.name}}</span>
                     </span>
                 </p>
                 <p class="item" v-show="result.order_sn!=''&&result.order_sn!=null">
                     <span class="left">订单号</span>
                     <span class="right">{{result.order_sn}}</span>
                 </p>
-                <p class="item">
-                    <span class="left">详细需求</span>
-                    <span class="right">{{result.detail}}</span>
+                <div class="item1">
+                    <p class="l">详细需求:</p>
+                    <p class="r t">{{result.detail}}</p>
+                </div>
+            </div>
+            <div class="item1 bottom">
+                <p class="l">当前照片:</p>
+                <p class="r">
+                    <img :src="url(i)" class="img" v-for="(i,index) in result.photo" :key="index">
                 </p>
             </div>
-            <div class="item bottom">
-                <p>当前照片:</p>
-                <p class="imgbox" v-for="(i,index) in result.photo" :key="index">
-                    <img :src="url(i)" class="img">
-                </p>
-            </div>
-             <!--
-            <p>姓氏:{{result.lastname}}</p>
-            <p>预算区间:{{result.money}}</p>
-            <p>顾问级别:{{result.level_name}}</p>
-            <p>顾问:{{result.realname}}</p>-->
-            <br>
-            <!-- <p>手术类别:
-                <span v-for="(i,index) in result.category" :key="index">{{i}}</span>
-            </p> -->
             
-        </div>
+        </div> -->
+        <detail-item-tem :result="result"></detail-item-tem>
   </div>
 </template>
 <script>
   import api from '@/api/customized'
+  import { mapGetters } from "vuex";
+  import detailItemTem from '@/components/commonTemplete/detailItemTem.vue';
   export default {
     name: 'detailItem',
-    props:{
-        result:{
-            type:[Array,Object]
+    data(){
+        return{
+            result:[],
         }
     },
+    // props:{
+    //     result:{
+    //         type:[Array,Object]
+    //     }
+    // },
+     computed: {
+        ...mapGetters(["getLastName","getAge","getCustomizedDetail","getPhoto"]),
+     },
     methods:{
         url(i){
             return api.imgUrl()+i;
         },
+        get_order_detail(){
+                let detail=this.getCustomizedDetail
+                let lastName=this.$store.state.customized.lastName;
+                let age=this.$store.state.customized.age
+                let level=this.$store.state.customized.level
+                let photo=this.getPhoto
+                let min=this.$store.state.customized.minPrice
+                let max=this.$store.state.customized.maxPrice
+                this.result={
+                    'lastname':this.getLastName,
+                    'age':this.getAge,
+                    'level_name':sessionStorage.getItem('level_name'),
+                    'money':sessionStorage.getItem('money'),
+                    'realname':sessionStorage.getItem('adviser_name'),
+                    'detail':detail,
+                    'category':JSON.parse(sessionStorage.getItem('operation_category_name')),
+                    'photo':photo,
+                    // 'order_sn':'',
+                    'min_price':sessionStorage.getItem('minPrice'),
+                    'max_price':sessionStorage.getItem('maxPrice'),
+                    // 'pay_id':this.pay_id,
+                    'order_amount':sessionStorage.getItem('price'),
+                }
+            }
+    },
+    mounted(){
+        this.get_order_detail();
     },
   }
 </script>
 <style scoped>
     #detailItem{
         font-size:.35rem;
-        margin-bottom:1rem;
+        /* margin-bottom:.8rem; */
     }
     .item{
         position: relative;
@@ -91,10 +120,35 @@
     .right{
         position:absolute;
         right:.2rem;
+        /* width:70%; */
+        margin-left:30%;
     }
     .juli{
         display: inline-block;
         margin-left:.1rem;
+    }
+    .item1::after{
+        content:'';
+        display:block;
+        clear:both;
+    }
+    .item1 .l{
+        float:left;
+        width:30%;
+        padding:.2rem;
+        box-sizing: border-box;
+    }
+    .item1 .r{
+        float:right;
+        width:70%;
+        padding:.2rem;
+        box-sizing: border-box;
+    }
+    .item1 .t{
+        word-wrap:break-word;
+        word-break:break-all;
+        line-height: .4rem;
+        text-align:right;
     }
     .imgbox{
         float:left;
@@ -104,6 +158,7 @@
     .img{
         width:1.8rem;
         height:1.8rem;
+        margin:.1rem .1rem 0 0;
     }
     .bottom{
         margin-bottom:1.2rem;

@@ -1,7 +1,6 @@
 <template>
     <div id="materialList">
-        <top title="素材"> </top>
-        <div class="material_tab">
+        <div class="material_tab" v-show="loadmore">
             <button-tab>
                 <button-tab-item @on-item-click="select_material_type" selected>
                     <i class="zk-icon-all"></i>
@@ -16,58 +15,56 @@
         </div>
         <div class="list">
             <!-- 文章 -->
-            <div class="material" v-for="material in materiallist" v-if="material.material_type == 'article'" v-show="article_show">
-                <router-link :to="{name:'articledetail',query:{healthy_talk_id:material.hid}}">
-                    <div class="article clearfix">
-                        <div class="img_wrapper">
-                            <img :src="material.material_cover" alt="">
-                        </div>
-                        <p class="content">
-                            {{material.title}}
-                        </p>
-                        <div class="other">
-                            <span class="icon zk-icon-icon-1"></span>
-                            <span class="author">{{material.author}}</span>
-                            <span class="comment">{{material.comments_count}}评论</span>
-                        </div>
-                    </div>
-                </router-link>
-            </div>
-            <!-- 图集 -->
-            <div class="material" v-else-if="material.material_type == 'atlases'" v-show="atlases_show">
-                <atlasesdetail :info=material></atlasesdetail>
-            </div>
-            <!-- 视频 -->
-            <div class="material" v-else-if="material.material_type == 'video'" v-show="video_show">
-                <div class="RehaList_wrapper">
-                    <router-link :to="{name:'videodetail',query:{healthy_talk_id:material.hid}}">
-                        <p class="title">
-                            {{material.title}}
-                            <span class="play">{{material.view_count}}次播放</span>
-                        </p>
-                        <div class="reha img_wrapper" v-for="(msg,index) in JSON.parse(material.material_content)" v-if="index == 0">
-                            <img v-if="material.material_cover" :src="material.material_cover" alt="">
-                            <video v-else :src="fileUrl()+msg.url"></video>
-                            <span class="time">04:21</span>
+            <div v-for="(material,index) in materiallist" :key="index" v-if="has_limit(index)">
+                <div class="material" v-if="material.material_type == '1'" v-show="article_show">
+                    <router-link :to="{name:'articledetail',query:{healthy_talk_id:material.hid}}">
+                        <div class="article clearfix">
+                            <div class="img_wrapper">
+                                <img :src="material.material_cover" alt="">
+                            </div>
+                            <p class="content">
+                                {{material.title}}
+                            </p>
+                            <div class="other">
+                                <span class="author">{{material.author}}</span>
+                                <span class="comment">{{material.comments_count}}评论</span>
+                            </div>
                         </div>
                     </router-link>
-                    <div class="other">
-                        <div class="headimg">
-                            <img src="https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=75708ef69425bc31345d07986edf8de7/8694a4c27d1ed21b567175dda06eddc451da3f49.jpg" alt="">
+                </div>
+                <!-- 图集 -->
+                <div class="material" v-else-if="material.material_type == '3'" v-show="atlases_show">
+                    <atlasesdetail :info=material :healthyTalkId=material.hid></atlasesdetail>
+                </div>
+                <!-- 视频 -->
+                <div class="material" v-else-if="material.material_type == '2'" v-show="video_show">
+                    <div class="RehaList_wrapper">
+                        <router-link :to="{name:'videodetail',query:{healthy_talk_id:material.hid}}">
+                            <p class="title">
+                                {{material.title}}
+                            </p>
+                            <div class="reha img_wrapper" v-for="(msg,index) in JSON.parse(material.material_content)" v-if="index == 0">
+                                <img v-if="material.material_cover" :src="material.material_cover" alt="">
+                                <div v-else>
+                                    <video :src="fileUrl()+msg.url" id="player"></video>
+                                    <span class="time">{{get_time()}}</span>
+                                </div>
+                            </div>
+                        </router-link>
+                        <div class="other">
+                            <p>
+                                <span class="name">{{material.author}}</span>
+                            </p>
                         </div>
-                        <p>
-                            <span class="name">{{material.author}}</span>
-                            <span class="favor">· · ·</span>
-                            <span class="comments zk-icon-edit">{{material.comments_count}}</span>
-                            <span class="follow zk-icon-guanzhu">关注</span>
-                        </p>
                     </div>
                 </div>
+                <div v-else></div>
             </div>
-            <div v-else></div>
         </div>
         <Loading v-show="loadinging"></Loading>
-        <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="getData"></LoadMore>
+        <div v-show="loadmore">
+            <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="getData"></LoadMore>
+        </div>
     </div>
 </template>
 
@@ -79,7 +76,10 @@ import atlasesdetail from "./atlases_detail";
 import apiM from "@/api/material/index.js";
 import { ButtonTab, ButtonTabItem } from "vux";
 import preciew from "@/components/decorate/preciew.vue";
+import {mixin} from '@/assets/js/mixins';
 export default {
+    name:"material_list",
+    mixins:[mixin],
     data() {
         return {
             video_show: true,
@@ -93,6 +93,7 @@ export default {
             page: 0,
             isBusy: false,
             hasMore: 0,
+            loadmore:true,
             loadinging: true,
             healthy_talk_id: ""
         };
@@ -107,6 +108,23 @@ export default {
         LoadMore
     },
     methods: {
+        has_limit(index) {
+            if (this.number == "") {
+                return true;
+            } else {
+                this.loadmore = false;
+                if (index + 1 <= this.number) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        },
+        get_time() {
+            var pl = document.getElementById("player");
+
+            return pl.duration;
+        },
         fileUrl() {
             return apiM.fileUrl();
         },
@@ -134,9 +152,9 @@ export default {
             if (index == 0) {
                 this.condition = "";
             } else if (index == 1) {
-                this.condition = "atlases";
+                this.condition = "3";
             } else {
-                this.condition = "video";
+                this.condition = "2";
             }
             this.getData();
         },
@@ -171,19 +189,19 @@ export default {
 };
 </script>
 <style>
-.vux-button-group > a.vux-button-tab-item-last,.vux-button-group > a.vux-button-group-current,.vux-button-group > a.vux-button-tab-item-last:after{
-    border-radius: 0!important;
+.vux-button-group > a.vux-button-tab-item-last,
+.vux-button-group > a.vux-button-group-current,
+.vux-button-group > a.vux-button-tab-item-last:after {
+    border-radius: 0 !important;
 }
 </style>
 
 <style scoped>
-
 #materialList {
     height: auto !important;
-    margin-bottom: 1rem;
 }
 #materialList .material_tab {
-    padding: .1rem .1rem .2rem .1rem;
+    padding: 0.1rem 0.1rem 0.2rem 0.1rem;
     height: 0.5rem;
     position: sticky;
     top: 0rem;
@@ -194,11 +212,7 @@ export default {
     float: right;
 }
 #materialList .list .material {
-    box-shadow: 1px 1px 0px #dbd6d6;
-    border-bottom: 0.1rem solid #eceaea;
-}
-#materialList .list .article {
-    margin: 0.3rem 0;
+    padding: 0.1rem;
 }
 #materialList .list .article .img_wrapper {
     float: left;
@@ -223,10 +237,10 @@ export default {
     -webkit-box-orient: vertical;
 }
 #materialList .list .article .other {
-    margin: 0.35rem 0.3rem 0 3rem;
+    margin: 0.5rem 0.3rem 0 3rem;
     font-size: 0.25rem;
     line-height: 0.4rem;
-    color: #ccc;
+    color: #7d7d7d;
 }
 #materialList .list .article .other span {
     margin-right: 0.2rem;
@@ -285,20 +299,20 @@ export default {
     position: relative;
 }
 #materialList .list .RehaList_wrapper p.title {
-    position: absolute;
-    top: 0.2rem;
-    left: 0.2rem;
-    right: 0.2rem;
     font-size: 0.3rem;
+    padding: 0.1rem 0 0.2rem;
     line-height: 0.4rem;
-    color: #fff;
-    z-index: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 #materialList .list .RehaList_wrapper span.play {
-    display: block;
-    font-size: 0.2rem;
-    line-height: 0.4rem;
-    color: #fff;
+    /* display: block; */
+    /* font-size: 0.2rem; */
+    /* line-height: 0.4rem; */
+    /* color: #fff; */
 }
 #materialList .list .RehaList_wrapper .img_wrapper {
     position: relative;
@@ -313,7 +327,7 @@ export default {
 #materialList .list .RehaList_wrapper .reha {
     position: relative;
     width: 100%;
-    height: 4rem;
+    height: 3.5rem;
     overflow: hidden;
     background-color: #00000080;
 }
@@ -348,16 +362,17 @@ export default {
     min-height: 100%;
 }
 #materialList .list .RehaList_wrapper div.other p {
-    font-size: 0.3rem;
-    margin: 0.1rem 0 0.1rem 0.8rem;
-    padding: 0.3rem;
+    font-size: 0.25rem;
+    /* margin: 0.1rem 0 0.1rem 0.8rem; */
+    padding: 0.1rem 0;
+    color: #7d7d7d;
 }
-#materialList .list .RehaList_wrapper div.other p span.name {
+/* #materialList .list .RehaList_wrapper div.other p span.name {
     width: 2rem;
     height: 1em;
     overflow: hidden;
     display: inline-block;
-}
+} */
 #materialList .list .RehaList_wrapper div.other p span.follow,
 span.comments,
 span.favor {

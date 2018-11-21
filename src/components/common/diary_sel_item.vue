@@ -1,28 +1,26 @@
 <template>
-    <div id="diarySelItem" :style="{height:clientHeight}" v-show="status">
-        <p class="top">
-            <span class="badge_l" @click="close()">
-                <i class="zk-icon-fanhui"></i></span>选择项目
-                    <span class="submit" @click="sel_Ok()">完成</span>
+    <div id="diarySelItem" v-show="status">
+        <p class="sel_ok clearfix">
+            <span class="submit" @click="sel_Ok()">OK</span>
         </p>
-        <p class="title">从目录选取</p>
-        <p class="items">
-            <span class="detail_selected" v-for="ch in choose" :key="ch.id" @click="sel_item3(ch.id)">{{ch.name}}</span>
-            <span class="detail_selected" v-if="choose.length <= 0">请至少选择一个项目</span>
-        </p>
+        <div class="items">
+            <span v-if="choose.length > 0">已选项目{{is_aesthetic_custom}}：</span>
+            <span v-for="ch in choose" @click="sel_item3(ch.id)">{{ch.name}}</span>
+            <span v-if="choose.length <= 0">请至少选择一个项目{{is_aesthetic_custom}} </span>
+        </div>
         <div class="show_sel clearfix ">
             <div class="col_4 show_items">
                 <ul class="sel_item">
-                    <li v-for="item in itemList" :key="item.id" v-if="item.parent_id == 0" @click="sel_item1(item.id)" :class = "{item1_selected:item.id == item1}">{{item.name}}</li>
+                    <li v-for="item in itemList" v-if="item.parent_id == 0" @click="sel_item1(item.id,item.is_aesthetic_custom)" :class="{item1_selected:item.id == item1}">{{item.name}}</li>
                 </ul>
             </div>
-            <div class="col_8 show_items">
+            <div class="col_8 show_items2">
                 <ul class="sel">
-                    <li v-for="item in itemList" :key="item.id" v-show="item1 == item.id">
-                        <div v-for="item2 in item.cat_id" :key="item2.id">
+                    <li v-for="item in itemList" v-show="item1 == item.id">
+                        <div v-for="item2 in item.cat_id">
                             <p class="md">{{item2.name}}</p>
                             <p class="bottom">
-                                <span class="detail_btn" v-for="item3 in item2.cat_id" :key="item3.id" :class="{detail_selected:duoxuan(item3.id)}" @click="sel_item3(item3.id,item3.name)">{{item3.name}}</span>
+                                <span v-for="item3 in item2.cat_id" class="detail_btn" :class="{detail_selected:duoxuan(item3.id)}" @click="sel_item3(item3.id,item3.name)">{{item3.name}}</span>
                             </p>
                         </div>
                     </li>
@@ -35,6 +33,13 @@
 import Bus from "@/assets/bus.js";
 import api from "@/api/diary";
 export default {
+    props: {
+        itemList1: {
+            default: function() {
+                return [];
+            }
+        }
+    },
     data() {
         return {
             clientHeight: "",
@@ -42,11 +47,58 @@ export default {
             itemList: [],
             item1: "",
             item3: "",
-            choose: []
+            choose: this.itemList1,
+            is_aesthetic_custom: 0,
+            aesthetic_status: true
         };
     },
-    computed: {},
+    watch: {
+        choose(val, oldVal) {
+            this.aesthetic_status = true;
+            if (val.length > 0) {
+                for (let index in val) {
+                    this.queryItem(this.itemList, val[index].id);
+                }
+            } else {
+                this.$store.dispatch("Save_Aesthetic_Status", false);
+                this.is_aesthetic_custom = 0;
+            }
+        }
+    },
     methods: {
+        queryItem(items, id) {
+            for (let index in items) {
+                if (items[index].id == id) {
+                    if (
+                        items[index].parent_id == 0 &&
+                        items[index].is_aesthetic_custom == 1
+                    ) {
+                        this.aesthetic_status = false;
+                        this.is_aesthetic_custom = 1;
+                        this.$store.dispatch("Save_Aesthetic_Status", true);
+                        return true;
+                    } else if (
+                        items[index].parent_id == 0 &&
+                        items[index].is_aesthetic_custom == 0
+                    ) {
+                        if (this.aesthetic_status) {
+                            this.is_aesthetic_custom = 0;
+                            this.$store.dispatch(
+                                "Save_Aesthetic_Status",
+                                false
+                            );
+                        }
+                        return false;
+                    } else {
+                        this.queryItem(this.itemList, items[index].parent_id);
+                    }
+                } else {
+                    if (Object.keys(items[index].cat_id).length > 0) {
+                        this.queryItem(items[index].cat_id, id);
+                    }
+                }
+            }
+        },
         close() {
             this.status = false;
         },
@@ -56,14 +108,17 @@ export default {
                 self.itemList = res.data;
             });
         },
-        sel_item1(data) {
+        sel_item1(data, is_aesthetic_custom) {
             this.item1 = data;
+            // this.is_aesthetic_custom = is_aesthetic_custom;
         },
         sel_item3(id, name) {
+            var self = this;
             if (this.choose.length <= 0) {
                 let arr = {
                     id: id,
-                    name: name
+                    name: name,
+                    is_aesthetic_custom: self.is_aesthetic_custom
                 };
                 this.choose.push(arr);
             } else {
@@ -75,7 +130,8 @@ export default {
                 }
                 let arr = {
                     id: id,
-                    name: name
+                    name: name,
+                    is_aesthetic_custom: self.is_aesthetic_custom
                 };
                 this.choose.push(arr);
             }
@@ -94,7 +150,6 @@ export default {
         }
     },
     mounted() {
-        this.clientHeight = document.documentElement.clientHeight + "px";
         this.$_ajax_getItem();
         Bus.$on("changeSelItem", res => {
             this.status = res;
@@ -109,56 +164,53 @@ export default {
 };
 </script>
 <style scoped>
-.col_4{
-    width: 33.3%;
+.col_4 {
+    width: 22%;
 }
-.col_8{
-    width: 66.6%;
+.col_8 {
+    width: 73%;
 }
 .detail_btn {
     display: inline-block;
     font-size: 0.3rem;
     padding: 0.1rem 0.2rem;
     margin-right: 0.2rem;
-    color: #fff;
-    border-radius: 1rem;
-    background-color: rgba(123, 123, 123, 0.5);
+    color: #aaa;
+    border-right: 1px solid #ccc;
 }
-
 
 .detail_selected {
     display: inline-block;
+    font-size: 0.3rem;
     padding: 0.1rem 0.2rem;
     border-radius: 1rem;
     font-size: 0.3rem;
-    color: #fff;
-    background-color: #17a2b8 !important;
+    color: #17a2b8;
 }
 
 #diarySelItem {
     position: fixed;
-    top: 0;
     right: 0;
     left: 0;
     bottom: 0;
     z-index: 1111;
+    height: 8rem;
     overflow: hidden;
     background-color: #fff;
 }
-#diarySelItem div {
+#diarySelItem > div {
     height: 100%;
 }
-#diarySelItem .top{
-    color: #fff;
-    font-size: .35rem;
+#diarySelItem .sel_ok {
+    color: #000;
+    font-size: 0.35rem;
     text-align: center;
     padding: 0.3rem;
-    background-color: rgb(255, 83, 112);
 }
-#diarySelItem .top .badge_l{
+#diarySelItem .sel_ok .badge_l {
     float: left;
 }
-#diarySelItem .top .submit{
+#diarySelItem .sel_ok .submit {
     float: right;
 }
 
@@ -166,54 +218,73 @@ export default {
     background-color: #17a2b8 !important;
 }
 #diarySelItem p.title {
-    padding: .2rem 0;
-    font-size: .4rem;
+    padding: 0.2rem 0;
+    font-size: 0.4rem;
 }
-#diarySelItem  span.tip {
+#diarySelItem span.tip {
     color: #fff;
 }
-#diarySelItem .show_sel{
-    margin-top: .5rem;
+#diarySelItem .items {
+    padding: 0 0.2rem;
+    font-size: 0.3rem;
+    height: 0.4rem;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
 }
-#diarySelItem .show_items{
+#diarySelItem .items span {
+    display: inline-block;
+    margin-right: 0.3rem;
+    padding: 0.1rem 0;
+    color: #17a2b8;
+}
+#diarySelItem .show_sel {
+    margin-top: 0.3rem;
+}
+#diarySelItem .show_items {
     float: left;
+    height: 8rem;
+}
+#diarySelItem .show_items2 {
+    float: right;
+    height: 8rem;
 }
 #diarySelItem ul.sel_item {
+    text-align: center;
     list-style: none;
-    font-size: 0.4rem;
+    font-size: 0.3rem;
     padding: 0 0 8rem 0;
     margin-bottom: 1rem;
-    /* overflow-x: hidden; */
     height: 80%;
     overflow-y: scroll;
 }
 #diarySelItem ul.sel_item > li {
+    overflow: hidden;
     padding: 0.3rem 0;
-    background-color: #ccc;
+    background-color: #f0f0f0;
 }
-#diarySelItem ul.sel_item > li.item1_selected{
+#diarySelItem ul.sel_item > li.item1_selected {
     background-color: #fff;
 }
 #diarySelItem ul.sel {
     list-style: none;
-    font-size: 0.5rem;
+    font-size: 0.3rem;
     padding: 0 0 8rem 0;
     margin-bottom: 1rem;
-    /* overflow-x: hidden; */
     height: 80%;
     overflow-y: scroll;
 }
 ul.sel > li {
-    border-bottom: 1px solid #ccc;
+    /* border-bottom: 1px solid #ccc; */
 }
-ul.sel > li > div{
-    margin-bottom: .3rem;
+ul.sel > li > div {
+    margin-bottom: 0.3rem;
     padding: 0 15px;
 }
 p.md {
-    font-size: .4rem;
-    padding: .2rem .1rem 0;
-    margin-bottom: .2rem;
+    font-size: 0.25rem;
+    font-weight: 550;
+    padding: 0.2rem 0.1rem 0;
+    margin-bottom: 0.2rem;
 }
-
 </style>

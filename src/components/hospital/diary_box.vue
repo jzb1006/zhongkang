@@ -1,10 +1,11 @@
 <!--  -->
 <template>
   <div>
-     <diary  :ins_id="parseInt(ins_id)"
+     <TDiary  :ins_id="parseInt(ins_id)"
                :title="'商家日志'"
-               :links="{'router':'insDiary','query':{ins_id:ins_id}}"
-               ></diary>
+               :links="{'router':'container','query':{id:params['diary_con_id'],ins_id:ins_id}}"
+               :number="params['number']"
+               ></TDiary>
      <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
 
   </div>
@@ -13,11 +14,13 @@
 <script>
  import Alert from "@/components/decorate/alert.vue";
   import api from "../../api/hospital";
- import diary from "@/templates/hospital/diary_box.vue";
+ import TDiary from "@/templates/hospital/diary_box.vue";
+   import { mixin } from "@/assets/js/mixins";
+
 export default {
   data () {
     return {
-        ins_id: this.$route.params.ins_id,
+        ins_id: this.$route.query.ins_id,
         ins_info: [],
         doc_count: 0,
         doc_team: [],
@@ -30,13 +33,15 @@ export default {
         evaluate: [],
     };
   },
+    mixins: [mixin],
+
 computed: {
             isShow() {
                 return this.alertShow;
             }
         },
   components: {
-      diary,
+      TDiary,
       Alert
   },
 

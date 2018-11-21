@@ -122,7 +122,7 @@
         background: #fff;
     }
     .reply{
-        width:16%;
+        width:18%;
         height: 0.6rem;
         font-size: 0.22rem;
         float: right;

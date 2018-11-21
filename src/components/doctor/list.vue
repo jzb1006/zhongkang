@@ -1,7 +1,7 @@
 <template>
     <div id="doc_list">
         <!-- 头部 -->
-         <doctor :list="doctorList"></doctor>
+         <doctor :list="doctorList" :route_link="'container'" :con_id="params['doc_detail_con_id']"></doctor>
          <Loading v-show="loadinging"></Loading>
          <LoadMore :state='hasMore' :isLoading='isBusy'  @loadmore="$_ajax_docList"></LoadMore>
     </div>
@@ -10,6 +10,8 @@
  import doctor from '@/templates/doctor/list.vue'
  import LoadMore from '@/components/loadMore/index.vue'
  import Loading from "@/components/decorate/loading.vue"
+   import { mixin } from "@/assets/js/mixins";
+
  import api from '@/api/home';
 export default {
     components:{
@@ -17,6 +19,8 @@ export default {
         LoadMore,
         Loading
     },
+    mixins: [mixin],
+
     data(){
         return{
             result:[],
@@ -24,7 +28,7 @@ export default {
             isBusy:false,
             ins_info:[],
             page:1,
-            num_list:10,
+            num_list:this.params['number'],
             loadinging:true
         }
     },

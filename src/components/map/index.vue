@@ -8,10 +8,10 @@
         name:"map",
         data() {
             return {
-                lat: this.$route.params.lat,
-                lon: this.$route.params.lon,
-                name: this.$route.params.name,
-                address: this.$route.params.address,
+                lat: this.$route.query.lat,
+                lon: this.$route.query.lon,
+                name: this.$route.query.name,
+                address: this.$route.query.address,
                
             }
         },

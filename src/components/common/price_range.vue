@@ -2,17 +2,18 @@
     <div id="price_range">
         <div class="content">
             <div class="include vux-1px">
-                <input type="number" class="range" v-model="min" @blur="getMin">
+                <input type="number" class="range" v-model="min" @blur="getMin" @keyup="check(min,$event)">
             </div>
             <div class="float">-</div>
             <div class="include vux-1px">
-                <input type="number" class="range" v-model="max" @blur="getMax">
+                <input type="number" class="range" v-model="max" @blur="getMax" @keyup="check(max,$event)">
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import Bus from '@/assets/bus.js'
     export default {
         name:'price_range',
         data(){
@@ -23,17 +24,15 @@
         },
         methods:{
             getMin(){
-                if(this.min<0){
-                    alert('值不能小于0');
-                    return false;
-                }
-                this.$emit('getMin',this.min);
+                this.$emit('getMin',Number(this.min));
+                Bus.$emit('getMin',Number(this.min));
             },
             getMax(){
-                if(Number(this.min)>Number(this.max)){
-                    alert('最小值不能大于最大值');
-                }
-                this.$emit('getMax',this.max);
+                this.$emit('getMax',Number(this.max));
+                Bus.$emit('getMax',Number(this.max));
+            },
+            check(value,event){
+                event.target.value = event.target.value.replace(/\-/g,""); 
             }
         }
     }

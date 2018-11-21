@@ -1,10 +1,11 @@
 <!--  -->
 <template>
   <div>
-     <business
+     <TBusiness
                 :photos="pic['photo']"
-                :router_params="{name:'InsImgList',params:{'ins_id':ins_id,tab:1}}"
-                ></business>
+                :router_params="{'id':params['album_con_id'],'ins_id':ins_id,tab:params['tab']}"
+                :routeLink="'container'"
+                ></TBusiness>
      <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
 
   </div>
@@ -13,11 +14,13 @@
 <script>
  import Alert from "@/components/decorate/alert.vue";
   import api from "../../api/hospital";
- import business from "@/templates/hospital/business_box.vue";
+ import TBusiness from "@/templates/hospital/business_box.vue";
+   import { mixin } from "@/assets/js/mixins";
+
 export default {
   data () {
     return {
-        ins_id: this.$route.params.ins_id,
+        ins_id: this.$route.query.ins_id,
         ins_info: [],
         doc_count: 0,
         doc_team: [],
@@ -30,9 +33,10 @@ export default {
         evaluate: [],
     };
   },
+    mixins: [mixin],
 
   components: {
-      business,
+      TBusiness,
       Alert
   },
 computed: {

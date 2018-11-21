@@ -13,8 +13,8 @@
 import searchTab from '@/components/search/search_result_tab.vue'
 import searchAll from '@/components/search/search_result_all.vue'
 import searchProduct from '@/components/search/search_result_Product.vue'
-import searchDoctor from '@/components/search/search_result_Doctor.vue'
-import searchHospital from '@/components/search/search_result_Hospital.vue'
+import searchDoctor from '@/components/search/search_result_doctor.vue'
+import searchHospital from '@/components/search/search_result_hospital.vue'
 export default {
     name:'searchResult',
     data(){

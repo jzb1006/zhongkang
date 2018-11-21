@@ -3,7 +3,7 @@
     <div>
         <div class="doctor_box">
             <div class="title">医师团队
-                <router-link :to="{name:'docList',params:{ins_id:ins_id}}" class="fr right">
+                <router-link :to="{name:docListRouter['name'],query:docListRouter['params']}" class="fr right">
                     共{{doc_count}}个医师
                     <i class="zk-icon-jiantou" style="font-size: 0.3rem;"></i>
                 </router-link>
@@ -11,7 +11,7 @@
             <ul class="box-ls teacher ">
                 <!-- 美容师不进入医师主页 -->
                 <li class="part" :key="index" v-for="(item,index) in doc_team_list">
-                    <router-link :to="{name:'doctorDetail',params:{doc_id:item['id'],ins_id:ins_id}}" class="img-box">
+                    <router-link :to="{name:'doctorDetail',query:{doc_id:item['id'],ins_id:ins_id}}" class="img-box">
                         <defaultImg :imgPath="item['avatar']"></defaultImg>
                         <div class="right">
                             <span class="tit">
@@ -46,6 +46,10 @@
             ins_id: {
                 type: Number,
                 default: 0
+            },
+            docListRouter:{
+                type:Object,
+                default:{}
             }
         },
         data() {
@@ -59,6 +63,9 @@
     }
 </script>
 <style scoped>
+.doctor_box{
+    overflow: hidden;
+}
     .doctor_box .title {
         height: 1.00rem;
         line-height: 1.00rem;

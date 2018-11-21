@@ -1,7 +1,7 @@
 <!--  -->
 <template>
     <div>
-        <diary :doc_id="parseInt(doc_id)" :title="'医生日志'" :links="{'router':'doctorDiary','query':{doc_id:doc_id}}"></diary>
+        <diary :doc_id="parseInt(doc_id)" :title="'医生日志'" :number="params['number']" :links="{'router':'container','query':{id:params['diary_con_id'],doc_id:doc_id}}"></diary>
         <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
 </template>
@@ -10,11 +10,14 @@
     import Alert from "@/components/decorate/alert.vue";
     import api from "../../api/doctor";
     import diary from "@/templates/hospital/diary_box.vue";
+ import { mixin } from "@/assets/js/mixins";
+
     export default {
+    mixins: [mixin],
         data() {
             return {
-                doc_id: this.$route.params.doc_id,
-                ins_id: this.$route.params.ins_id,
+                doc_id: this.$route.query.doc_id,
+                ins_id: this.$route.query.ins_id,
                 ins_info: [],
                 doc_info: [],
                 goods: [],

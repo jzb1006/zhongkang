@@ -26,10 +26,10 @@
                         </div>
                     </div>
                     <div class="ls-box">
-                         <router-link :to="{name:boxOne['link'],params:boxOne['params']}">
+                         <router-link :to="{name:boxOne['link'],query:boxOne['params']}">
                             <a class="child-ls" href="#"><span style="font-size: 0.5rem;display: block;" :class="boxOne['class']"></span><span>{{boxOne['text']}}</span></a>
                         </router-link>
-                       <router-link :to="{name:boxTwe['link'],params:boxTwe['params']}">
+                       <router-link :to="{name:boxTwe['link'],query:boxTwe['params']}">
                             <a class="child-ls" href="#"><span style="font-size: 0.5rem;display: block;" :class="boxTwe['class']"></span><span>{{boxTwe['text']}}</span></a>
                         </router-link>
                         

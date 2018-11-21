@@ -11,7 +11,7 @@ export default {
     },
     user_center(){
         // params=qs.stringify(params);
-        return ajax.get(`user.php?act=index`);
+        return ajax.get(`user.php?act=user_center`);
     },
     login(params={}){
         params=qs.stringify(params);
@@ -42,4 +42,7 @@ export default {
     checkLogin(){
         return ajax.post(`login_register.php?action=checkLogin`);
     },
+    getUserInfo(){
+        return ajax.get(`user.php?act=get_user_basic_info`);
+    }
 }

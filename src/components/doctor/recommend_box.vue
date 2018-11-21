@@ -1,7 +1,7 @@
 <!--  -->
 <template>
     <div>
-        <recommend :goods_list="goods" :router_params="{id:ins_id,type:2,name:ins_info['name']}" :goods_total="parseInt(goods_total)"></recommend>
+        <recommend :goods_list="goods" :routeLink="'container'" :router_params="{id:params['product_con_id'],ins_id:ins_id,type:2,name:ins_info['name']}" :goods_total="parseInt(goods_total)"></recommend>
         <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
 </template>
@@ -10,11 +10,15 @@
     import Alert from "@/components/decorate/alert.vue";
     import api from "../../api/doctor";
     import recommend from "@/templates/hospital/recommend_box.vue";
+   import { mixin } from "@/assets/js/mixins";
+
     export default {
+    mixins: [mixin],
+
         data() {
             return {
-                doc_id: this.$route.params.doc_id,
-                ins_id: this.$route.params.ins_id,
+                doc_id: this.$route.query.doc_id,
+                ins_id: this.$route.query.ins_id,
                 ins_info: [],
                 doc_info: [],
                 goods: [],

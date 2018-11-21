@@ -1,7 +1,7 @@
 <template>
   <div id="SearchDoctor">
     <div data-doctorid="" v-if="list!==''" :key="index" class="doctor" v-for="(item,index) in list">
-    <router-link :to="{name:'doctorDetail',params:{doc_id:item['id'],ins_id:item['from_institution_id']}}">
+    <router-link :to="{name:route_link,query:{id:con_id,doc_id:item['id'],ins_id:item['from_institution_id']}}">
       <div class="doctor-info">
         <!-- <div class="doctor-avatar"><img alt="" :src="getImgUrl()+item.avatar" lazy="loaded"></div> -->
         <div class="doctor-avatar">
@@ -48,6 +48,14 @@
       list: {
         type: [Array, Object],
         request: true
+      },
+      route_link:{
+        type:String,
+        default:''
+      },
+      con_id:{
+        type:String,
+        default:''
       }
     },
     methods: {

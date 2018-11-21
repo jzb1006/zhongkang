@@ -7,14 +7,14 @@
            :star="evaluate['total_evaluate']"
            :commentInfo="[{text:'服务',value:evaluate['service']},{text:'医生',value:evaluate['doctor']},{text:'效果',value:evaluate['effect']}]"
            :boxOne='{
-                    link:"docList",
-                    params:{"ins_id":this.ins_id},
+                    link:"container",
+                    params:{"id":params["doc_list_con_id"],"ins_id":this.ins_id},
                     class:"zk-icon-yisheng",
                     text:this.doc_count+"医生"
                 }'
             :boxTwe='{
-                    link:"InsLicence",
-                    params:{"ins_id":this.ins_id,"tab":0},
+                    link:"container",
+                    params:{"id":params["album_con_id"],"ins_id":this.ins_id,"tab":params["tab"]},
                     class:"zk-icon-yingyezhizhao",
                     text:"医疗执业许可"
             }'
@@ -25,10 +25,11 @@
 <script>
   import api from "../../api/hospital";
  import detaileHead from "@/components/common/detaile_head.vue";
+ import { mixin } from "@/assets/js/mixins";
 export default {
   data () {
     return {
-        ins_id: this.$route.params.ins_id,
+        ins_id: this.$route.query.ins_id,
         ins_info: [],
         doc_count: 0,
         doc_team: [],
@@ -40,8 +41,9 @@ export default {
         alertText: '',
         evaluate: [],
     };
+    
   },
-
+  mixins: [mixin],
   components: {
       detaileHead
   },

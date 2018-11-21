@@ -3,13 +3,12 @@ import Vue from 'vue'
 const state = {
     bus:new Vue(),
     //模拟整形
-    contentJump:'Fitem',//保存要跳转的页面
-    contentData:{},//保存参数
+    contentJump:'Fitem',//保存下一步要跳转的页面
+    contentData:[],//保存参数
     content_type:1,//保存页数
     Price_Data:[],//保存价格
     check_ids:[],//保存选中值的id
     is_sel:false,//是否选择
-
 }
 const actions = {
     Content_Jump({commit},name){
@@ -40,7 +39,13 @@ const mutations = {
         state.contentJump = name;
     },
     CONTENT_DATA(state,data){
-        state.contentData = data;
+        // state.contentData = data;
+        state.contentData.forEach((item,index)=>{
+            if(data.page == item.page){
+                state.contentData.splice(index,state.contentData.length-index);
+            }
+        });
+        state.contentData.push(data);
     },
     CONTENT_TYPE(state,data){
         state.content_type = !state.content_type;

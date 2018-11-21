@@ -1,11 +1,12 @@
 <!--  -->
 <template>
   <div>
-     <docBox
+     <TDocBox
                 :doc_count="parseInt(doc_count)"
                 :doc_team_list="doc_team"
                 :ins_id="parseInt(ins_id)"
-                ></docBox>
+                :docListRouter="{'name':'container',params:{'id':params['doc_list_con_id'],'ins_id':ins_id}}"
+                ></TDocBox>
      <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
 
   </div>
@@ -14,11 +15,13 @@
 <script>
  import Alert from "@/components/decorate/alert.vue";
   import api from "../../api/hospital";
- import docBox from "@/templates/hospital/doctor_box.vue";
+ import TDocBox from "@/templates/hospital/doctor_box.vue";
+   import { mixin } from "@/assets/js/mixins";
+
 export default {
   data () {
     return {
-        ins_id: this.$route.params.ins_id,
+        ins_id: this.$route.query.ins_id,
         ins_info: [],
         doc_count: 0,
         doc_team: [],
@@ -36,8 +39,10 @@ computed: {
                 return this.alertShow;
             }
         },
+    mixins: [mixin],
+
   components: {
-      docBox,
+      TDocBox,
       Alert
   },
 

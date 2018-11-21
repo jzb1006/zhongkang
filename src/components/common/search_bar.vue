@@ -1,7 +1,7 @@
 <template>
     <div id="search">
         <div class="-widget-top-bar" id="searchbar-head">
-            <router-link :to="{name:'Search'}">
+            <router-link :to="{name:'container',query:{id:params.container_id}}">
                 <div class="searchbar-input">
                     <span class="zk-icon-sousuo"></span>
                     <form action="#" onsubmit="return false" class="search-wrapper">
@@ -17,6 +17,7 @@
     import {
         mapState
     } from 'vuex'
+    import { mixin } from "@/assets/js/mixins";
     import BMap from '@/api/BMap';
     export default {
         name:"search_bar",
@@ -25,6 +26,7 @@
                 //   address:''
             }
         },
+        mixins: [mixin],
         computed: {
             ...mapState({
                 address: state => state.BMap.city

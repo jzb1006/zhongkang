@@ -32,7 +32,7 @@ import api from "../../api/hospital";
        },
        data(){
            return{
-               ins_id:this.$route.params.ins_id,
+               ins_id:this.$route.query.ins_id,
                result:[],
                alertShow:false,
                alerttType:'warn',
