@@ -1,8 +1,8 @@
 <template>
     <div id="selfinfo">
-        <div class="content">
+        <selfinfoTem :params="params"></selfinfoTem>
+        <!-- <div class="content">
             <div class="item distance vux-1px-b">
-                <!-- <div class="left">修改头像</div> -->
                 <div class="left"><img class="headimg" v-bind:src="nopre"></div>    
                 <Upload @changeUrls="getUrl" :file-type=1 sign="headimg" title="修改头像"><span class="text"></span></Upload> 
                 <div class="clear"></div>
@@ -25,9 +25,6 @@
                 <div class="vux-1px right"><input type="text" class="input" v-model="realname"></div>
                 <div class="clear"></div>
             </div>
-
-                <!-- <span class="left">生日</span> -->
-                <!-- <vue-datepicker-local class="right" v-model="birthday"/> -->
                 <group class="birth">
                     <calendar title="生日:" v-model="birthday" disable-future></calendar>
                 </group>
@@ -35,7 +32,7 @@
             <div class="save">
                 <input type="button" class="saveBtn" value="保存" @click="saveUserinfo">
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -43,7 +40,7 @@
 import user from "../../api/user";
 import api from "../../api/setup";
 import common from "../../widget/lib/user"
-// import Bus from './../../assets/bus.js';
+import Bus from './../../assets/bus.js';
 import Upload from '@/components/public/upload.vue'
 import {mapState,mapGetters} from 'vuex'
 import { Calendar,Group } from 'vux'
@@ -59,9 +56,15 @@ export default {
             realname:'',
             birthday:'',
             sex:'',
-            title:'个人信息',
             sign:'headimgurl',
-            temporary:''
+            // params:{
+            //     nopre:this.nopre,
+            //     headimgurl:this.headimgurl,
+            //     nickname:this.nickname,
+            //     realname:this.realname,
+            //     birthday:this.birthday,
+            //     sex:this.sex,
+            // }
         }
     },
     methods:{
@@ -120,10 +123,11 @@ export default {
                 'headimgurl':headimgurl
             };
             api.update_userinfo(postData).then(res=>{
-                if(res.data.error==7){
-                    alert(res.data.message);
-                    this.$router.push('/login');
-                }else if(res.data.error==0){
+                // if(res.data.error==7){
+                //     alert(res.data.message);
+                //     this.$router.push('/login');
+                // }else 
+                if(res.data.error==0){
                     this.getUserinfo.nickname=nickname;
                     this.getUserinfo.sex=sex;
                     this.getUserinfo.realname=realname;
@@ -152,34 +156,50 @@ export default {
 			b ? b.setAttribute("content", a) : (b = f.createElement("meta"), b.setAttribute("name", "viewport"), b.setAttribute("content", a), (f.head || g.firstElementChild).appendChild(b))
 			})();
 			})(window, window.FT || (window.FT = {}));
-		}
+        },
+        getData(){
+            var data;
+            if(this.getUserinfo){
+                data=this.getUserinfo;
+            }else{
+                api.ajaxSetupGet('selfinfo').then(res=>{
+                    data=res.data;
+                }).catch(error=>{
+                    console.log(error);
+                })
+            }
+            this.nickname=this.getNickname(data);
+            this.nopre=this.getHeadimgurl(data);
+            this.headimgurl=data.headimgurl;
+            this.realname=data.realname;
+            this.birthday=this.getBirthday(data);
+            this.sex=data.sex;
+        },
     },
     computed:{
         ...mapGetters([
-            'getUserinfo'    
+            'getUserinfo'
         ]),
         ...mapState({
           bus:state=>state.user.bus
-        })
+        }),
+        params(){
+            return {
+                nopre:this.nopre,
+                headimgurl:this.headimgurl,
+                nickname:this.nickname,
+                realname:this.realname,
+                birthday:this.birthday,
+                sex:this.sex,
+                // getData:this.getData,
+                // getUrl:this.getUrl,
+                // saveUserinfo:this.saveUserinfo,
+            }
+        }
     },
     mounted(){
-        var data;
-        if(this.getUserinfo){
-            data=this.getUserinfo;
-        }else{
-            api.ajaxSetupGet('selfinfo').then(res=>{
-                data=res.data;
-            }).catch(error=>{
-                console.log(error);
-            })
-        }
-        this.nickname=this.getNickname(data);
-        this.nopre=this.getHeadimgurl(data);
-        this.headimgurl=data.headimgurl;
-        this.realname=data.realname;
-        this.birthday=this.getBirthday(data);
-        this.sex=data.sex;
-        this.bus.$on('changeUrls',params=>{
+        this.getData();
+        Bus.$on('changeUrls',params=>{
             this.headimgurl=params[0];
             this.nopre=api.imgUrl()+params[0];
         })
@@ -198,9 +218,9 @@ export default {
 }
 </style>
 <style scoped>
-    /* #selfinfo{
+    #selfinfo{
         background:#f0f0f0;
-    } */
+    }
     .text{
         font-size:.3rem;
         display:inline-block;

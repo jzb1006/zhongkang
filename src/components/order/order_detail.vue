@@ -1,6 +1,12 @@
 <template>
     <div>
-        <orderDetailT @changeOrderStatus=changeOrderStatus :params=params :orderDetailInfo=orderDetailInfo></orderDetailT>
+        <orderDetailT 
+        @changeOrderStatus=changeOrderStatus 
+        :params=params 
+        :orderDetailInfo=orderDetailInfo 
+        :doc_link="{name:'container',id:params['doc_con_id']}" 
+        :ins_link="{name:'container',id:params['ins_con_id']}"
+        ></orderDetailT>
     </div>
 </template>
 

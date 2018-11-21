@@ -82,6 +82,7 @@ import Pay from "../../api/pay"
 import {mapState,mapGetters} from 'vuex'
 import Bus from '@/assets/bus.js'
 export default {
+    name:'pay',
     data(){
         return{
             pay_id:'',

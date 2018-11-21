@@ -1,5 +1,5 @@
 <template>
-	<div id="phone">
+	<div id="frequent_login">
 		<top title="手机验证码"></top>
 		<div class="content_phone">
 			<div class="div1">
@@ -24,7 +24,7 @@ import api from "../../api/setup";
 import common from "../../widget/lib/user"
 import top from '@/components/decorate/top_back_title.vue'
 export default {
-	name:'phone',
+	name:'frequent_login',
 	data(){
 		return {
 			newphone:'',

@@ -1,7 +1,7 @@
 <template>
   <div class="userlogin">
     <top :params="{title:'登录'}"></top>
-    <user-login></user-login>
+    <userLogin></userLogin>
     <!-- <div class="content_login">
          <div class="text">
                 <div class="vux-1px include"><input  placeholder="手机/邮箱" type="text" v-model="username" class="input"></div>
@@ -31,8 +31,8 @@
 // import api from '../../api/user'
 // import common from '../../widget/lib/user'
 import top from '@/components/decorate/top.vue'
-import userLogin from '@/components/user/userLogin.vue'
-// import verificationCode from '@/components/common/verificationCode.vue'
+import userLogin from '@/components/user/user_login.vue'
+// import verificationCode from '@/components/common/verification_code.vue'
 // import md5 from 'js-md5';
 export default {
     name: 'userlogin',

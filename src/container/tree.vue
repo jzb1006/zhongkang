@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div v-for="(item,index) in model.child_component" :key="index">
-            <component v-if="item.type != 0" :params="getParams(item.params)" :number=getNumber(item) :is="item.name"></component>
+        <div v-if="model.type == 0" v-for="(item,index) in model.child_component" :key="index">
+            <component :params="getParams(item.params)" :number=getNumber(item) :is="item.name"></component>
         </div>
 
-        <div v-if="hasChild">
-            <tree v-for="(item,index) in model.child_component" :key="index" v-bind:model="item"></tree>
+        <div v-if="model.type == 1">
+            <tree v-for="(item,index) in model.child_component.child" :key="index" v-bind:model="item"></tree>
         </div>
     </div>
 </template>
@@ -14,14 +14,6 @@
 export default {
     name: "tree",
     props: ["model"],
-    computed: {
-        hasChild() {
-            this.sort_asc();
-            return (
-                this.model.child_component && this.model.child_component.length
-            );
-        }
-    },
     methods: {
         getParams(data) {
             if (data.trim()) {

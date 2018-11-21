@@ -10,9 +10,10 @@
 <script>
 export default {
     props:{
-        title:{
-            // type:String,
-            required:true
+        params:{
+            default:function(){
+                return {}
+            }
         }
     },
     methods:{

@@ -30,6 +30,7 @@ export default {
         goods_total: 0,
         pic: [],
         alertShow: false,
+        num_list:1,
         alerttType: 'wran',
         alertText: '',
         evaluate: [],
@@ -52,7 +53,8 @@ computed: {
        $_ajax_ins_info() {
         var self = this;
         api.detail({
-            id: this.ins_id
+            id: this.ins_id,
+            num_list:this.num_list
         }).then(res => {
             var result = res.data.data;
             var errcode = res.data.error_code;

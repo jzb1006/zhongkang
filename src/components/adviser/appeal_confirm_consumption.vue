@@ -1,7 +1,7 @@
 <template>
     <div id="appeal_confirm_consumption">
          <!-- 头部 -->
-        <top title="向平台申诉"></top>
+        <!-- <top title="向平台申诉"></top> -->
         <!-- 单选框 -->
          <upload @changeUrls="getImg" :title="'点击添加图片'"></upload>
         <!-- 文本框 -->
@@ -28,7 +28,7 @@
     </div>
 </template>
 <script>
-import top from "@/components/decorate/top_back_title.vue";
+// import top from "@/components/decorate/top_back_title.vue";
 import upload from "@/components/public/upload.vue";
 import Alert from "@/components/decorate/alert.vue";
  import api from "../../api/customized";
@@ -40,11 +40,12 @@ import Alert from "@/components/decorate/alert.vue";
         Confirm 
     } from 'vux'
     export default {
+        name:'appeal_confirm_consumption',
         data() {
             return {
-                tt:this.$route.params.tt,
-                oid:this.$route.params.oid,
-                status:this.$route.params.status,
+                tt:this.$route.query.tt,
+                oid:this.$route.query.oid,
+                status:this.$route.query.status,
                 confirmShow:false,
                 textarea:'',
                 order_action:'向机构提交取消订单',
@@ -57,7 +58,7 @@ import Alert from "@/components/decorate/alert.vue";
         components: {
             XTextarea,
             Group,
-            top,
+            // top,
             XButton,
             Confirm,
             Alert,

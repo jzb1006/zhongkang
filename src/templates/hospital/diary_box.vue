@@ -45,7 +45,7 @@
                 type: Number,
                 default: -0
             },
-             number: {
+            number: {
                 type: Number,
                 default: -0
             },
@@ -58,7 +58,7 @@
         },
         methods: {
             getParams(){
-                return {number:"1"};
+                return {number:"1",is_more:"0"};
             }
             
         },

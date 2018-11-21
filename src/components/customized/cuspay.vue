@@ -1,5 +1,5 @@
 <template>
-  <div id="confirmOrder">
+  <div id="cuspay">
     <top title="支付"></top>
     <div id="price_info">
         <div class="moneyBox">

@@ -1,7 +1,7 @@
 <template>
   <div class="findpass">
     <top :params="{title:'找回密码'}"></top>
-    <find-password></find-password>
+    <findPassword></findPassword>
     <!-- <div class="content">
          <div class="div1">
                 <input type="password" class="input" placeholder="请输入新密码" v-model="newpass">
@@ -17,7 +17,7 @@
 // import api from '../../api/user'
 // import common from '../../widget/lib/user'
 import top from '@/components/decorate/top.vue'
-import findPassword from '@/components/user/findPassword.vue'
+import findPassword from '@/components/user/find_password.vue'
 // import md5 from 'js-md5';
 export default {
     name: 'findpass',

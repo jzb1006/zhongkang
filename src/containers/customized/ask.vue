@@ -9,17 +9,19 @@
                 <p :class="{chat_img_right:value.direction==0,chat_img_left:!(value.direction==0)}"><img :src="getChatImg(value.chat_photo[0])" v-if="value.chat_photo[0]!=''"></p>
             </div>
         </div> -->
-        <chat-content :params="params1"></chat-content>
-        <chat-foot :params="params1"></chat-foot>
+        <chat :params="params1"></chat>
+        <!-- <chat-content :params="params1"></chat-content>
+        <chat-foot :params="params1"></chat-foot> -->
   </div>
 </template>
 
 <script>
-  import top from '@/components/decorate/top.vue'
+//   import top from '@/components/decorate/top.vue'
 //   import api from '@/api/customized'
 //   import {mapGetters} from 'vuex'
-  import chatContent from  '@/components/customized/chat_content.vue'
-  import chatFoot from '@/components/customized/chat_foot.vue'
+//   import chatContent from  '@/components/customized/chat_content.vue'
+//   import chatFoot from '@/components/customized/chat_foot.vue'
+//   import chat from '@/components/customized/chat.vue'
   export default {
     name: 'ask',
     data(){
@@ -103,13 +105,13 @@
     },
     mounted(){
         // this.init();
-        this.direction=sessionStorage.getItem('direction');
-        console.log(this.direction);
+        // this.direction=sessionStorage.getItem('direction');
+        // console.log(this.direction);
     },
     components:{
-        top,
-        chatContent,
-        chatFoot,
+        // top,
+        // chatContent,
+        // chatFoot,
     }
   }
 </script>

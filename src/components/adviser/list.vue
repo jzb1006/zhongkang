@@ -4,14 +4,14 @@
         <div class="title vux-1px-b">
             <span class="text">请选择顾问:</span>
         </div>
-        <adviser-list></adviser-list>
+        <adviserList></adviserList>
         <div id="fill"></div>
     </div>
 </template>
 <script>
   import top from '@/components/decorate/top.vue'
   import api from './../../api/customized'
-  import adviserList from '@/components/adviser/adviserList.vue'
+  import adviserList from '@/components/adviser/adviser_list.vue'
   import Bus from '@/assets/bus.js'
   export default {
     name: 'chooseAdviser',

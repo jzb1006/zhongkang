@@ -20,15 +20,18 @@
     <!-- </div> -->
     
     
-    <user-head></user-head>
-    <user-order></user-order>
-    <user-money></user-money>
-    <user-adviser-info></user-adviser-info>
-    <user-customized></user-customized>
-    <user-cus-order></user-cus-order>
-    <user-receipt></user-receipt>
-    <user-view-order></user-view-order>
-    <user-authentication></user-authentication>
+    <!-- <userHead></userHead>
+    <userOrder></userOrder>
+    <userMoney></userMoney>
+    <userCustomized></userCustomized>
+    <userCusOrder></userCusOrder>
+    <userAuthentication></userAuthentication>
+    
+    
+    <userReceipt></userReceipt>
+    <userViewOrder></userViewOrder>
+    <userAdviserInfo></userAdviserInfo> -->
+    
 
     <!-- <user-content></user-content> -->
     <!-- <user-row :params="params"></user-row>
@@ -227,7 +230,7 @@ export default {
       },
       params4(){
         return{
-          link:"/requirement",
+          link:"/customized",
           iconClass:"zk-icon-dingzhijiaju",
           text:'私人定制',
           // isShow:!this.isAdviser,
