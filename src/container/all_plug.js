@@ -208,26 +208,26 @@ import hgExpert from "@/components/hospital_guide/hg_expert.vue";
 
 /*   模板     */
 //个人中心
-import userHeadTem from "@/templete/user/user_head_tem.vue"
-import userRowTem from "@/templete/user/list/user_row_tem.vue"
-import userSetupRow from "@/templete/user/list/user_setup_row.vue"
-import selfinfoTem from "@/templete/user/selfinfo_tem.vue"
-import balanceTem from "@/templete/wallet/balance_tem.vue"
-import bankTem from "@/templete/wallet/bank_tem.vue"
-import billQueryTem from "@/templete/wallet/bill_query_tem.vue"
-import billListTem from "@/templete/wallet/bill_list_tem.vue"
-import billDetailTem from "@/templete/wallet/bill_detail_tem.vue"
+import userHeadTem from "@/templates/user/user_head_tem.vue"
+import userRowTem from "@/templates/user/list/user_row_tem.vue"
+import userSetupRow from "@/templates/user/list/user_setup_row.vue"
+import selfinfoTem from "@/templates/user/selfinfo_tem.vue"
+import balanceTem from "@/templates/wallet/balance_tem.vue"
+import bankTem from "@/templates/wallet/bank_tem.vue"
+import billQueryTem from "@/templates/wallet/bill_query_tem.vue"
+import billListTem from "@/templates/wallet/bill_list_tem.vue"
+import billDetailTem from "@/templates/wallet/bill_detail_tem.vue"
 
 //私人定制
-import receiptOrderTem from "@/templete/adviser/receipt_order_tem.vue"
-import adviserOrderTem from "@/templete/adviser/adviser_order_tem.vue"
-import adviserAuthenticationTem from "@/templete/adviser/adviser_authentication_tem.vue"
+import receiptOrderTem from "@/templates/adviser/receipt_order_tem.vue"
+import adviserOrderTem from "@/templates/adviser/adviser_order_tem.vue"
+import adviserAuthenticationTem from "@/templates/adviser/adviser_authentication_tem.vue"
 
 
-import replyBoxTem from "@/templete/customized/reply_box_tem.vue"
-import editProgrammeTem from "@/templete/adviser/edit_programme_tem.vue"
-import chatContentTem from "@/templete/customized/chat_content_tem.vue"
-import detailItemTem from "@/templete/customized/detail_item_tem.vue"
+import replyBoxTem from "@/templates/customized/reply_box_tem.vue"
+import editProgrammeTem from "@/templates/adviser/edit_programme_tem.vue"
+import chatContentTem from "@/templates/customized/chat_content_tem.vue"
+import detailItemTem from "@/templates/customized/detail_item_tem.vue"
 
 
 export default {

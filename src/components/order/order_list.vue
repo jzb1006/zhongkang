@@ -1,6 +1,6 @@
 <template>
     <div id="order_list">
-        <top title="订单列表"></top>
+        <!-- <top title="订单列表"></top> -->
         <orderTab @changeItem=changeItem></orderTab>
         <div id="container">
             <orderItem v-if="list.length != 0" :list="list"></orderItem>

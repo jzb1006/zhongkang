@@ -1,7 +1,7 @@
 <template>
     <div id="order_detail">
         <!-- 头部 -->
-        <top title="订单详情"></top>
+        <!-- <top title="订单详情"></top> -->
         <!-- 商品的详情 -->
         <panelOrder :path="goods_info['goods_thumb']" :title="goods_info['goods_name']" :price="goods_info['pifa_price']" :totalPricePanelShow="datePanel" :datePanelShow="datePanel" :borderShow="borderShow">
         </panelOrder>

@@ -1,50 +1,36 @@
 <template>
-    <div id="user_order">
-        <div class="usercontent">
-            <div class="item" @click="toOrder(0)">
-                <span class="zk-icon-icon- icon single"></span>
-                <span class="text">我的订单</span>
-                <span class="zk-icon-fanhui1 icon next"></span>
-            </div>
-            <tabbar class="cat">
-                <tabbar-item selected @on-item-click="toOrder(0)">
-                    <span slot="icon" class="zk-icon-icon- icon"></span>
-                    <span slot="label">全部订单</span>
-                </tabbar-item>
-                <tabbar-item @on-item-click="toOrder(1)">
-                    <span slot="icon" class="zk-icon-Group icon"></span>
-                    <span slot="label">未付款</span>
-                </tabbar-item>
-                <tabbar-item @on-item-click="toOrder(2)">
-                    <span slot="icon" class="zk-icon-yifukuan icon"></span>
-                    <span slot="label">已付款</span>
-                </tabbar-item>
-            </tabbar>
-        </div>
-    </div>
+  <div id="user_row" class="vux-1px-b">
+      <!-- v-if="params.isShow" -->
+        <!-- <router-link :to="{name:'container',}" tag="div" class="item vux-1px-b"> -->
+            <span class="icon single" :class="params.iconClass"></span>
+            <span class="text">{{params.text}}</span>
+            <span class="zk-icon-fanhui1 icon next"></span>
+        <!-- </router-link> -->
+  </div>
 </template>
 
 <script>
-import { Tabbar, TabbarItem } from 'vux'
 export default {
-    name: 'user_order',
-    methods:{
-        toOrder(type){
-            this.$router.push({name:'container',query:{id:'35'}})
+    name: 'user_row',
+    props:{
+        params:{
+            type:[Object]
         }
     },
-    components:{
-        Tabbar,
-        TabbarItem,
-    }
+    // params:{
+    //   link:'',
+    //   iconClass:'',
+    //   text:'',
+    // }
+    
 }
 </script>
 <style scoped>
-  #user_order{
-    /* background:#f0f0f0; */
-    /* min-height:100%;
-    height:auto; */
-    /* margin-bottom:.4rem; */
+  #user_row{
+    font-size:.32rem;
+    background: #fff;
+    padding:.3rem 0 .3rem .15rem;
+    box-sizing: border-box;
   }
   .cat{
     position: relative;
