@@ -284,6 +284,8 @@ export default {
     // Vue.component('cardDetail', cardDetail);
     Vue.component('cardCheckOut', cardCheckOut);
     Vue.component('cardPay', cardPay);
+    Vue.component('orderList',orderList)
+    Vue.component('orderDetail',orderDetail)
     
     //评论
     Vue.component('commentList', commentList);

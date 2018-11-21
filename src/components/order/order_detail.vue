@@ -60,7 +60,7 @@ export default {
             var self = this;
             api
                 .get_order_detail({
-                    order_sn: this.$route.params.orderSn
+                    order_sn: this.$route.query.orderSn
                 })
                 .then(res => {
                     var result = res.data.data;
