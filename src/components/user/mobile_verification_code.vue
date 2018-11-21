@@ -1,5 +1,5 @@
 <template>
-	<div id="verification_code">
+	<div id="mobile_verification_code">
 		<top v-bind:title="title"></top>
 		<div class="content_phone">
 			<div class="div1">
@@ -25,7 +25,7 @@ import common from "../../widget/lib/user"
 import top from '@/components/decorate/top_back_title.vue'
 
 export default {
-	name:'verification_code',
+	name:'mobile_verification_code',
 	data(){
 		return {
 			newphone:'',

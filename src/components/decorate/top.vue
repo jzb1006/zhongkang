@@ -1,7 +1,7 @@
 <template>
     <!--头部返回-->
     <div>
-      <div id="title_back">
+      <div id="top_next">
           <div class="navbar">
             <span class="title">{{params.title}}</span>
             <span class="zk-icon-fanhui fanhui" @click="back()"></span>
@@ -13,6 +13,7 @@
 </template>
 <script>
 export default {
+    name:'top_next',
     props:{
         // title:{
         //     // type:String,

@@ -9,8 +9,8 @@
                 <p :class="{chat_img_right:value.direction==1,chat_img_left:!(value.direction==1)}"><img :src="getChatImg(value.chat_photo[0])" v-if="value.chat_photo[0]!=''"></p>
             </div>
         </div> -->
-        <chat-content :direction=1></chat-content>
-        <chat-foot @query="query" :addShow="this.add_show" @clickAdd="clickAdd" :direction=1></chat-foot>
+        <chatContent :direction=1></chatContent>
+        <chatFoot @query="query" :addShow="this.add_show" @clickAdd="clickAdd" :direction=1></chatFoot>
   </div>
 </template>
 

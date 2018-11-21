@@ -2,7 +2,8 @@
     <div id="requirement">
         <top :params=params></top>
         <diaryInfo @getFileList=getFileList></diaryInfo>
-        <requirement-content></requirement-content>
+        <requirementcontent></requirementContent>
+        
     </div>
 </template>
 
@@ -10,7 +11,7 @@
 import Bus from "@/assets/bus.js"
 import top from "@/components/decorate/top.vue"
 import diaryInfo from "@/components/common/diary_diary_info"
-import requirementContent from '@/components/customized/requirementContent.vue'
+import requirementContent from '@/components/customized/requirement_content.vue'
 import { mapGetters } from "vuex"
 export default {
     name:'requirement',

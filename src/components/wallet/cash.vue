@@ -1,6 +1,8 @@
 <template>
 	<div id="cash">
-        <router-link to="/home/chooseBank" tag="div" class="metext content">{{way}}</router-link>
+        <!-- <router-link to="/home/chooseBank" tag="div" class="metext content">{{way}}</router-link> -->
+        <div class="metext content" @click="showChoose">{{way}}</div>
+        <userChooseBank v-show="chooseBank" @chooseBank="choose"></userChooseBank>
         <div class="main">
                  <div class="div1 text">
                         <span class="span">提现金额:</span>
@@ -27,7 +29,7 @@
 import api from "../../api/wallet"
 import user from "../../api/user"
 import common from "../../widget/lib/user"
-import verificationCode from '@/components/common/verificationCode.vue'
+import verificationCode from '@/components/common/verification_code.vue'
 import {mapState,mapGetters} from 'vuex'
 export default {
     name: 'cash',
@@ -37,6 +39,7 @@ export default {
             amount:'',
             verificationCode:'',
             cashway:'支付宝',
+            chooseBank:false,
         }
     },
     computed:{
@@ -55,9 +58,16 @@ export default {
             }else{
                 return false;
             }
-        }
+        },
     },
     methods:{
+        showChoose(){
+            this.chooseBank=true;
+        },
+        choose(data){
+            this.cashway=data;
+            this.chooseBank=false;
+        },
         all(){
             this.amount=this.result.user_money;
         },

@@ -3,7 +3,7 @@
         <div class="content vux-1px margin-b">
             <div class="addPic">顾问资格证书</div>
             <div class="upFile">
-                <mediaDisplay :limitnum1=1 @getFileList=getFileList :filelists="oldPhoto"></mediaDisplay>
+                <mediaDisplay :limitnum1=1 @getFileList=getFileList :filelists="this.params.oldPhoto"></mediaDisplay>
             </div>
             <div class="addPic vux-1px-t">
                 <group>
@@ -23,7 +23,7 @@
     import diarySelItem from "@/components/common/diary_sel_item.vue";
     import { Calendar,Group,Popup } from 'vux'
     import mediaDisplay from "@/components/upload/media_display";
-    import editInfo from "@/components/adviser/editInfo.vue"
+    import editInfo from "@/components/adviser/edit_info.vue"
     export default{
         name:'certificate',
         data(){
@@ -39,13 +39,27 @@
                 result:[],
                 selectedname:[],
                 show_item:false,
-                params:{
-                    title:'顾问认证',
-                    hasBtn:true,
-                    btnText:'认证',
-                    next:this.next,
-                },
+                // params:{
+                //     title:'顾问认证',
+                //     hasBtn:true,
+                //     btnText:'认证',
+                //     next:this.next,
+                // },
             }
+        },
+        watch:{
+            params(newVal,oldVal){
+                this.time1=newVal.time1;
+            }
+        },
+        props:{
+            params:{
+                type:Object,
+                default(){
+                    return {}
+                }
+            }
+            
         },
         // computed:{
         //     params1(){
@@ -138,7 +152,7 @@
             // }).catch(err=>{
             //     console.log(err);
             // })
-            this.queryAdviserInfo();
+            // this.queryAdviserInfo();
             // Bus.$on("toItem", res => {
             //     this.selectedname=[];
             //     this.chooseItem=res;

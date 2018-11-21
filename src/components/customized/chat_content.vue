@@ -1,6 +1,7 @@
 <template>
   <div id="chat_content" ref="chat_content">
-        <drop-down :state='hasMore' :isLoading='isBusy' @loadmore="queryChatRecord"></drop-down>
+        <dropDown :state='hasMore' :isLoading='isBusy' @loadmore="queryChatRecord"></dropDown>
+        <!-- <chatContentTem :allResult=allResult :dir="this.dir"></chatContentTem> -->
         <div class="content" @click="cancel">
             <div :class="{item:value.direction==dir,item1:value.direction!=dir}" v-for="(value,index) in allResult" v-if="value.direction" :key="index">
                 <img :src="headimgurl" v-if="value.direction==dir" class="img_right">
@@ -20,7 +21,7 @@
   import api from '@/api/customized'
   import {mapGetters} from 'vuex'
   import Bus from "@/assets/bus.js"
-  import dropDown from '@/components/loadMore/dropDown.vue'
+  import dropDown from '@/components/loadMore/drop_down.vue'
   export default {
     name: 'chat_content',
     data(){
@@ -67,7 +68,10 @@
         //     type:[Number,String]
         // }
         params:{
-            type:[Object,Array]
+            type:[Object,Array],
+            default(){
+                return []
+            }
         }
     },
     computed:{
@@ -160,6 +164,11 @@
 </script>
 
 <style scoped>
+    #chat_content{
+        background:#f0f0f0;
+        min-height:100%;
+        height:auto;
+    }
     .content{
         margin-bottom:1rem;
         padding-bottom:.3rem;

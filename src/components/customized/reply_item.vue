@@ -119,7 +119,7 @@
         },
         mounted(){
             Bus.$on('passProgramme',res=>{
-                console.log(res);
+                console.log('aa:'+res);
                 this.result.push(res);
             })
         },

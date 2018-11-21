@@ -1,19 +1,20 @@
 <template>
-  <div id="ask">
+  <div id="answer">
         <top :params="params"></top>
-        <chat-content :params="params1"></chat-content>
-        <chat-foot :params="params1"></chat-foot>
+        <chat :params="params1"></chat>
+        <!-- <chat-content :params="params1"></chat-content>
+        <chat-foot :params="params1"></chat-foot> -->
   </div>
 </template>
 
 <script>
-  import top from '@/components/decorate/top.vue'
+//   import top from '@/components/decorate/top.vue'
 //   import api from '@/api/customized'
 //   import {mapGetters} from 'vuex'
-  import chatContent from  '@/components/customized/chat_content.vue'
-  import chatFoot from '@/components/customized/chat_foot.vue'
+//   import chatContent from  '@/components/customized/chat_content.vue'
+//   import chatFoot from '@/components/customized/chat_foot.vue'
   export default {
-    name: 'ask',
+    name: 'answer',
     data(){
         return{
             // headimgurl:'',
@@ -45,13 +46,13 @@
         //         return false;
         //     }
         // },
-        title(){
-            if(this.direction==0){
-                return '追问';
-            }else{
-                return '追答';
-            }
-        }
+        // title(){
+        //     if(this.direction==0){
+        //         return '追问';
+        //     }else{
+        //         return '追答';
+        //     }
+        // }
     },
     methods:{
         // getHeadimgurl(argument){
@@ -95,19 +96,19 @@
     },
     mounted(){
         // this.init();
-        this.direction=sessionStorage.getItem('direction');
-        console.log(this.direction);
+        // this.direction=sessionStorage.getItem('direction');
+        // console.log(this.direction);
     },
     components:{
-        top,
-        chatContent,
-        chatFoot,
+        // top,
+        // chatContent,
+        // chatFoot,
     }
   }
 </script>
 
 <style scoped>
-    #ask{
+    /* #answer{
         background:#f0f0f0;
         min-height:100%;
         height:auto;
@@ -121,13 +122,11 @@
         text-align:right;
         padding-right:.2rem;
         padding-top:.2rem;
-        /* width:70%; */
     }
     .item1{
         text-align:left;
         padding-left:.2rem;
         padding-top:.2rem;
-        /* width:70%; */
     }
     .item::after,.item1::after{
         content:'';
@@ -137,10 +136,7 @@
     .img_left,.img_right{
         width:.8rem;
         height:.8rem;
-        /* border-radius:.5rem; */
-        /* vertical-align: top; */
         display:block;
-        /* width:15%; */
     }
     .img_right{
         float:right;
@@ -148,9 +144,6 @@
     .img_left{
         float:left;
     }
-    /* .chat_img_right,.chat_img_left{
-        text-align:left;
-    } */
     .chat_img_right img,.chat_img_left img{
         max-width:2rem;
         max-height:2rem;
@@ -165,8 +158,6 @@
     }
     .span_left,.span_right{
         font-size:.35rem;
-        /* vertical-align: center;
-        display:inline-block; */
         background:#fff;
         padding:.2rem;
         color:#000;
@@ -176,11 +167,9 @@
         position: relative;
         border-radius:.1rem;
         min-height: .8rem;
-        /* line-height: .8rem; */
         box-sizing: border-box;
         word-wrap:break-word;
         word-break:break-all;
-        /* overflow: hidden; */
     }
     .span_right{
         float:right;
@@ -201,7 +190,6 @@
         position: absolute;
         top:.4rem;
         transform:translateY(-50%);
-        /* right:-.4rem; */
         
     }
     .span_right::after{
@@ -240,7 +228,6 @@
         font-size:.7rem;
         position:absolute;
         top:50%;
-        /* transform:translateY(-50%); */
     }
     .biaoqing{
         left:70%;
@@ -259,7 +246,6 @@
         position:absolute;
         top:50%;
         left:15%;
-        /* transform:translateY(-50%); */
     }
     .huanyuan{
         transform:translateY(-50%);
@@ -272,10 +258,9 @@
         padding:.2rem;
         position:absolute;
         top:50%;
-        /* transform:translateY(-50%); */
         left:85%;
         margin-right:2%;
         background: #ff5370;
         color:#fff;
-    }
+    } */
 </style>

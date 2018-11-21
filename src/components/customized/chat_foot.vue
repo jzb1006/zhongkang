@@ -131,7 +131,7 @@ export default {
   width: 100%;
   height: 1rem;
   box-sizing: border-box;
-  z-index: 10;
+  z-index: 502;
 }
 .hei {
   height: 5rem;

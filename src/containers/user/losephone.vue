@@ -1,7 +1,7 @@
 <template>
   <div class="losephone">
     <top :params="{title:'丢失手机号'}"></top>
-    <lose-phone-num></lose-phone-num>
+    <losePhoneNum></losePhoneNum>
     <!-- <div class="content">
          <div class="div1">
                 <div class="vux-1px include"><input type="text" class="email" placeholder="邮箱" v-model="email"></div>
@@ -17,7 +17,7 @@
 // import api from '../../api/user'
 // import common from '../../widget/lib/user'
 import top from '@/components/decorate/top.vue'
-import losePhoneNum from '@/components/user/losePhoneNum.vue'
+import losePhoneNum from '@/components/user/lose_phone_num.vue'
 export default {
     name: 'losephone',
     // data(){

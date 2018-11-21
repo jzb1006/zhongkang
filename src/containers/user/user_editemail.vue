@@ -1,14 +1,14 @@
 <template>
 	<div id="email">
-		<email-top></email-top>
-		<modify-email></modify-email>
+		<emailTop></emailTop>
+		<modifyEmail></modifyEmail>
 	</div>
 </template>
 
 <script>
 // import top from '@/components/decorate/top.vue'
-import emailTop from '@/components/user/emailTop'
-import modifyEmail from '@/components/user/modifyEmail'
+import emailTop from '@/components/user/email_top'
+import modifyEmail from '@/components/user/modify_email'
 // import {mapState,mapGetters} from 'vuex'
 export default {
 	name:'email',

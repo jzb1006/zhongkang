@@ -1,13 +1,13 @@
 <template>
   <div id="register">
     <top :params="{title:'注册'}"></top>
-    <user-register></user-register>
+    <userRegister></userRegister>
   </div>
 </template>
 
 <script>
 import top from '@/components/decorate/top.vue'
-import userRegister from '@/components/user/userRegister.vue'
+import userRegister from '@/components/user/user_register.vue'
 export default {
     name: 'register',
     // data(){

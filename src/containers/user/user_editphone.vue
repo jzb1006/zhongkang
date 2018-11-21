@@ -3,18 +3,18 @@
 		<!-- <top :params="{
 				title:this.title,
 			}"></top> -->
-		<phone-top></phone-top>
-		<show-phone></show-phone>
-		<modify-phone></modify-phone>
+		<phoneTop></phoneTop>
+		<showPhone></showPhone>
+		<modifyPhone></modifyPhone>
 	</div>
 </template>
 
 <script>
 import top from '@/components/decorate/top.vue'
 import {mapState,mapGetters} from 'vuex'
-import showPhone from '@/components/user/showPhone.vue'
-import modifyPhone from '@/components/user/modifyPhone.vue'
-import phoneTop from '@/components/user/phoneTop.vue'
+import showPhone from '@/components/user/show_phone.vue'
+import modifyPhone from '@/components/user/modify_phone.vue'
+import phoneTop from '@/components/user/phone_top.vue'
 export default {
 	name:'phone',
 	// computed:{

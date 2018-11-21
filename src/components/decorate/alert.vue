@@ -9,48 +9,47 @@
 </template>
 <script>
 import { Toast } from "vux";
+import { setTimeout } from "timers";
 export default {
-    props: {
-        Show: {
-            type: Boolean,
-            default: false
-        },
-        alerttType: {
-            type: String,
-            default: "success" //warn,error,success
-        },
-        alertText: {
-            type: String,
-            default: ""
-        }
+  props: {
+    Show: {
+      type: Boolean,
+      default: false
     },
-    data(){
-        return{
-            Showing:this.Show
-        }
+    alerttType: {
+      type: String,
+      default: "success"
     },
-    watch:{
-        Show(val,oldVal){
-            this.Showing = val;
-        },
-        Showing(val,oldVal){
-            this.$emit('update:Show', val)
-        }
-    },
-    methods:{
-
-    },
-    components: {
-        Toast
+    alertText: {
+      type: String,
+      default: ""
     }
+  },
+  data() {
+    return {
+      Showing: this.Show
+    };
+  },
+  watch: {
+    Show(val, oldVal) {
+      this.Showing = val;
+    },
+    Showing(val, oldVal) {
+      this.$emit("update:Show", val);
+    },
+    
+  },
+  components: {
+    Toast
+  }
 };
 </script>
 <style>
 .weui-toast {
-    min-height: 1.5rem !important;
-    top: 50% !important;
+  min-height: 1.5rem !important;
+  top: 50% !important;
 }
 .alert_mag {
-    font-size: 0.3rem;
+  font-size: 0.3rem;
 }
 </style>

@@ -56,6 +56,7 @@ export default {
         get_homepage() {
             var self = this;
             apiCommon.ajaxSearch("container", "home_container").then(res => {
+                console.log(res);
                 self.params = res.data.data;
                 self.sort_asc();
             });
@@ -88,7 +89,7 @@ export default {
             this.getMyInfo();
         } else if (this.$route.query.id) {
             this.getData(this.$route.query.id);
-        } else {
+        } else if(this.$route.query.name == 'home_page'){
             this.get_homepage();
             // this.$router.back(-1);
         }
