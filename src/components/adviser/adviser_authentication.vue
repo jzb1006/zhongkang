@@ -1,9 +1,8 @@
 <template>
     <div id="adviser_authentication">
-        <!-- <top :params=params></top>
+        <top :params=params></top>
         <editInfo :params=params1></editInfo>
-        <certificate :params=params2></certificate> -->
-        <adviserAuthenticationTem :result="result"></adviserAuthenticationTem>
+        <certificate :params=params2></certificate>
         <!-- <div class="content vux-1px">
             <div class="item vux-1px-b" @click="show_items">
                 <div class="span">请选择项目:</div>
@@ -73,7 +72,7 @@
                 time1:'',
                 oldPhoto:[],
                 photo:[],
-                // result:[],
+                result:[],
                 selectedname:[],
                 show_item:false,
                 params:{
@@ -85,85 +84,75 @@
             }
         },
         computed:{
-            result(){
+            params1(){
                 return{
                     level:this.level,
                     chooseItem:this.chooseItem,
                     price:this.price,
                     jianjie:this.jianjie,
+                }
+                
+            },
+            params2(){
+                return{
                     time1:this.time1,
                     oldPhoto:this.oldPhoto,
                 }
-            },
-            // params1(){
-            //     return{
-            //         level:this.level,
-            //         chooseItem:this.chooseItem,
-            //         price:this.price,
-            //         jianjie:this.jianjie,
-            //     }
-                
-            // },
-            // params2(){
-            //     return{
-            //         time1:this.time1,
-            //         oldPhoto:this.oldPhoto,
-            //     }
-            // }
+            }
         },
         methods:{
-            // show_items() {
-            //     this.show_item = true;
-            //     Bus.$emit("changeSelItem", true);
-            // },
-            // hide_items() {
-            //     this.show_item = false;
-            // },
-            // next(){
-            //     // console.log(typeof this.chooseItem);
-            //     // console.log(this.level);
-            //     // console.log(this.jianjie);
-            //     // console.log(this.time1);
-            //     // console.log(this.photo[0]);
-            //     this.selected=[];
-            //     this.chooseItem.forEach(element => {
-            //         this.selected.push(element.id);
-            //     });
-            //     if(this.selected==""){
-            //         alert('请至少选择一个项目');
-            //         return false;
-            //     }
-            //     console.log('555:'+this.level);
-            //     // this.level=this.$store.state.customized.level;
-            //     let postdata={
-            //         advantage:this.selected,
-            //         level:this.level,
-            //         brief_introduction:this.jianjie,
-            //         consultation_price:this.price,
-            //         certificates:this.photo[0],
-            //         certificates_validity_date:this.time1,
-            //     }
+            show_items() {
+                this.show_item = true;
+                Bus.$emit("changeSelItem", true);
+            },
+            hide_items() {
+                this.show_item = false;
+            },
+            next(){
+                // console.log(typeof this.chooseItem);
+                // console.log(this.level);
+                // console.log(this.jianjie);
+                // console.log(this.time1);
+                // console.log(this.photo[0]);
+                this.selected=[];
+                this.chooseItem.forEach(element => {
+                    this.selected.push(element.id);
+                });
+                if(this.selected==""){
+                    alert('请至少选择一个项目');
+                    return false;
+                }
+                console.log('555:'+this.level);
+                // this.level=this.$store.state.customized.level;
+                let postdata={
+                    advantage:this.selected,
+                    level:this.level,
+                    brief_introduction:this.jianjie,
+                    consultation_price:this.price,
+                    certificates:this.photo[0],
+                    certificates_validity_date:this.time1,
+                }
                 
-            //     api.adviserAuthentication(postdata).then(res=>{
-            //         if(res.data.error_code==1){
-            //             alert(res.data.msg);
-            //             this.$router.push('/home/user');
-            //         }else{
-            //             alert(res.data.msg);
-            //         }
-            //     }).catch(err=>{
-            //         console.log(err);
-            //     })
-            // },
-            // getPhotoUrl(data){
-            //     this.photo=data;
-            // },
-            // getFileList(data) {
-            //     this.photo=[];
-            //     data.forEach(ele=>{
-            //         this.photo.push(ele.url);
-            //     })
-            // },
+                api.adviserAuthentication(postdata).then(res=>{
+                    if(res.data.error_code==1){
+                        alert(res.data.msg);
+                        this.$router.push({name:'container',query:{id:'9'}});
+                    }else{
+                        alert(res.data.msg);
+                    }
+                }).catch(err=>{
+                    console.log(err);
+                })
+            },
+            getPhotoUrl(data){
+                this.photo=data;
+            },
+            getFileList(data) {
+                this.photo=[];
+                data.forEach(ele=>{
+                    this.photo.push(ele.url);
+                })
+            },
             queryAdviserInfo(){
                 api.queryAdviserInfo().then(res=>{
                     if(res.data!=''){
@@ -191,43 +180,43 @@
             //     console.log(err);
             // })
             this.queryAdviserInfo();
-            // Bus.$on("toItem", res => {
-            //     this.selectedname=[];
-            //     this.chooseItem=res;
-            //     this.hide_items();
-            //     // this.chooseItem.forEach(element => {
-            //     //     this.selectedname.push(element.name);
-            //     // });
-            // })
-            // Bus.$on("getJianjie",res=>{
-            //     this.jianjie=res;
-            //     console.log(this.jianjie);
-            // })
-            // Bus.$on("getPrice",res=>{
-            //     this.price=res;
-            // })
-            // Bus.$on("getLevel",res=>{
-            //     this.level=res;
-            //     console.log('what the fuck:'+this.level);
-            // })
-            // Bus.$on("getTime",res=>{
-            //     this.time1=res;
-            // })
-            // Bus.$on("getPhoto",res=>{
-            //     this.photo=res;
-            //     console.log('didiisodfidfsdf');
-            //     console.log(this.photo);
-            // })
-            // Bus.$on("getOldPhoto",res=>{
-            //     this.oldPhoto=res;
-            // })
+            Bus.$on("toItem", res => {
+                this.selectedname=[];
+                this.chooseItem=res;
+                this.hide_items();
+                // this.chooseItem.forEach(element => {
+                //     this.selectedname.push(element.name);
+                // });
+            })
+            Bus.$on("getJianjie",res=>{
+                this.jianjie=res;
+                console.log(this.jianjie);
+            })
+            Bus.$on("getPrice",res=>{
+                this.price=res;
+            })
+            Bus.$on("getLevel",res=>{
+                this.level=res;
+                console.log('what the fuck:'+this.level);
+            })
+            Bus.$on("getTime",res=>{
+                this.time1=res;
+            })
+            Bus.$on("getPhoto",res=>{
+                this.photo=res;
+                console.log('didiisodfidfsdf');
+                console.log(this.photo);
+            })
+            Bus.$on("getOldPhoto",res=>{
+                this.oldPhoto=res;
+            })
         },
         beforeDestroy(){
-            // Bus.$off("getJianjie");
-            // Bus.$off("getPrice");
-            // Bus.$off("getLevel");
-            // Bus.$off("getTime");
-            // Bus.$off("getPhoto");
+            Bus.$off("getJianjie");
+            Bus.$off("getPrice");
+            Bus.$off("getLevel");
+            Bus.$off("getTime");
+            Bus.$off("getPhoto");
         },
         components:{
             top,
@@ -242,4 +231,131 @@
         }
     }
 </script>
-
+<style>
+@import url("./../../assets/css/calandar.css");
+.weui-cells {
+    padding: .4rem .2rem!important;
+}
+</style>
+<style scoped>
+    .upFile {
+        min-height: 4rem;
+        padding: 0 0.3rem;
+    }
+    .content{
+        width:90%;
+        margin:.2rem auto;
+        font-size:.3rem;
+        box-sizing: border-box;
+    }
+    .margin{
+        margin-top:1.2rem;
+    }
+    .item:after{
+        content:" ";
+        display: block;
+        clear:both;
+    }
+    .item{
+        height:.8rem;
+        padding:.1rem .3rem .1rem .3rem;
+        position:relative;
+    }
+    .item1{
+        height:3rem;
+        padding:.1rem .3rem .1rem .3rem;
+        position:relative;
+    }
+    .item1 textarea{
+        width:62%;
+        padding:.1rem;
+        box-sizing: border-box;
+        position: absolute;
+        top:50%;
+        transform: translateY(-50%);
+        height:2.6rem;
+    }
+    .span{
+        width:30%;
+        float:left;
+        box-sizing: border-box;
+        line-height: .8rem;
+    }
+    .include{
+        width:70%;
+        float:left;
+        padding:.1rem;
+        box-sizing: border-box;
+        top:50%;
+        transform: translateY(-50%);
+	}
+	.input{
+		position: relative;
+        z-index:100;
+        display:block;
+        width:96%;
+        margin:0 auto;
+		box-sizing: border-box;
+        font-size: .3rem;
+    }
+    .select{
+        width:62%;
+        padding:.1rem;
+        box-sizing: border-box;
+        position: absolute;
+        top:50%;
+        transform: translateY(-50%);
+    }
+    .badge_r{
+        width:6%;
+        padding:.1rem;
+        box-sizing: border-box;
+        position: absolute;
+        top:50%;
+        left:90%;
+        transform: translateY(-50%);
+    }
+    .category{
+        margin-right:.2rem;
+        padding-left:.2rem;
+        overflow: hidden;
+    }
+    .addPic{
+        padding:.2rem;
+    }
+    .upload{
+        text-align:left!important;
+    }
+    .margin-b{
+        margin-bottom:1.5rem;
+    }
+    .footer{
+        position:fixed;
+        bottom:0;
+        left:0;
+        height:1rem;
+        width:100%;
+        /* margin:.3rem auto 0; */
+        margin:0 auto;
+        z-index:999;
+        background:#fff;
+    }
+    /* .amount{
+        margin-right:40%;
+        font-size:.3rem;
+        padding:.2rem;
+    } */
+    /* .next{
+        float:right;
+        width:40%;
+        position: absolute;
+        right:0;
+        bottom:0;
+        line-height:1rem;
+        text-align: center;
+        font-size:.3rem;
+        background:#ff5370;
+        color:#ffffff;
+        
+    } */
+</style>

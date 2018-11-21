@@ -72,7 +72,7 @@
                 time1:'',
                 oldPhoto:[],
                 photo:[],
-                result:[],
+                res:[],
                 selectedname:[],
                 show_item:false,
                 params:{
@@ -81,6 +81,11 @@
                     btnText:'认证',
                     next:this.next,
                 },
+            }
+        },
+        watch:{
+            result(newV,oldV){
+                this.res=newV;
             }
         },
         props:{
@@ -94,17 +99,17 @@
         computed:{
             params1(){
                 return{
-                    level:this.result.level,
-                    chooseItem:this.result.chooseItem,
-                    price:this.result.price,
-                    jianjie:this.result.jianjie,
+                    level:this.res.level,
+                    chooseItem:this.res.chooseItem,
+                    price:this.res.price,
+                    jianjie:this.res.jianjie,
                 }
                 
             },
             params2(){
                 return{
-                    time1:this.result.time1,
-                    oldPhoto:this.result.oldPhoto,
+                    time1:this.res.time1,
+                    oldPhoto:this.res.oldPhoto,
                 }
             }
         },
