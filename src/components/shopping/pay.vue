@@ -62,7 +62,7 @@ import { setInterval, setTimeout } from 'timers';
         show:false,
         text:'',
         alerttType:'text',
-        order_list_con_id:params['order_list_con_id'],
+        order_list_con_id:this.params['order_list_con_id'],
         order_link:'container'
       };
     },
@@ -97,7 +97,7 @@ import { setInterval, setTimeout } from 'timers';
             setTimeout(()=>{
                 this.$router.push({
                 'name':this.order_link,
-                 query:this.order_list_con_id
+                 query:{id:this.order_list_con_id}
               })
             },2000)
           } else {
