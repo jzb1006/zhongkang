@@ -2,7 +2,7 @@
     <div id="item">
         <div>
             <div v-for="(item,index) in list" :key="index">
-                <router-link :to="{ name: 'container', query: {id:36, orderSn: item['order_sn'] }}" tag="div">
+                <router-link :to="{ name: route_link, query: {id:container_id, orderSn: item['order_sn'] }}" tag="div">
                     <panelOrder :date="item['add_time']" :status="item['status']" :path="item['goods'][0]['goods_thumb']" :title="item['goods'][0]['goods_name']" :price="item['total_fee']" :goodsNumber="item['goods_number']" :totalPrice="item['order_amount']">
                     </panelOrder>
                 </router-link>
@@ -20,6 +20,14 @@
         props: {
             list: {
                 type: [Object, Array]
+            },
+            route_link:{
+                type:'',
+                default:''
+            },
+            container_id:{
+                 type:'',
+                default:''
             }
         },
         methods: {

@@ -14,7 +14,6 @@
         </div>
     </div>
 </template>
-
 <script>
     import product from '@/templates/product/list.vue'
     export default {

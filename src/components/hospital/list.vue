@@ -2,7 +2,7 @@
     <div id="doc_list">
         <hospital :list="result" :container_id="params.container_id"></hospital>
         <Loading v-show="loadinging"></Loading>
-        <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_docList"></LoadMore>
+        <LoadMore v-if="parseInt(is_more)" :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_docList"></LoadMore>
     </div>
 </template>
 <script>
@@ -26,6 +26,8 @@ export default {
             ins_info: [],
             page: 1,
             num_list: this.params.number,
+            // is_more
+            is_more:this.params['is_more']||1,
             loadinging: true
         };
     },
