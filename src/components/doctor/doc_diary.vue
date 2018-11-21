@@ -5,7 +5,6 @@
                 <top title="医生日记"></top>
             </p>
         </div>
-        
         <diary :docId=doc_id :query=true></diary>
     </div>
 </template>
@@ -24,6 +23,7 @@ export default {
         diary,
     },
     created(){
+        console.log(this.$route.query.doc_id);
         this.doc_id = this.$route.query.doc_id;
     }
 }

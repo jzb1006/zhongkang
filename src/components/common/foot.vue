@@ -5,13 +5,6 @@
                 <span slot="icon" class="icon" :class="menu.icon"></span>
                 <span slot="label">{{menu.name}}</span>
             </tabbar-item>
-            <!-- <tabbar-item class="menu" @on-item-click="open()">
-                <span slot="icon" class="zk-icon-gengduo icon"></span>
-            </tabbar-item>
-            <tabbar-item :link="{name:'container',query:{'name':'person_container'}}">
-                <span slot="icon" class="zk-icon-iconfonticon5 icon"></span>
-                <span slot="label">个人中心</span>
-            </tabbar-item> -->
         </tabbar>
         <div v-if="menu_show" class="menu">
             <div class="menulist">
@@ -28,7 +21,7 @@ import { Tabbar, TabbarItem } from "vux";
 import menuList from "@/components/decorate/menu_list";
 import common from "../../widget/lib/user";
 export default {
-    name:"foot",
+    name: "foot",
     data() {
         return {
             menu_show: false,
@@ -43,7 +36,7 @@ export default {
                     id: "2",
                     name: "more",
                     icon: "zk-icon-gengduo",
-                    url:"",
+                    url: ""
                 },
                 {
                     id: "3",

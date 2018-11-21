@@ -8,6 +8,8 @@
         <div class="m_display">
             <mediaDisplay @getFileList=getBackList :limitnum1=3 :filelists=backList :acceptTypeNum=1></mediaDisplay>
         </div>
+        <Alert v-bind:Show.sync="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
+
     </div>
 </template>
 
@@ -16,7 +18,7 @@ import { mapGetters } from "vuex";
 import mediaDisplay from "@/components/upload/media_display";
 import api from "@/api/diary";
 export default {
-    name:"diary_operate_back",
+    name: "diary_operate_back",
     props: {
         backdropFirst: {
             default: false
@@ -29,6 +31,10 @@ export default {
     },
     data() {
         return {
+            isShow: false,
+            alerttType: "",
+            alertText: "",
+
             backList: this.backimg,
             bid: ""
         };
@@ -89,16 +95,16 @@ export default {
             } else {
             }
         },
-        ajax_submit(formData) {},
         examination() {
             if (this.backList.length < 3) {
-                alert("请添加三张图片");
+                this.isShow = true;
+                this.alerttType = "warn";
+                this.alertText = "请添加三张图片";
                 return false;
             }
             return true;
         }
-    },
-    mounted() {}
+    }
 };
 </script>
 

@@ -36,7 +36,8 @@ export default {
     },
     Showing(val, oldVal) {
       this.$emit("update:Show", val);
-    }
+    },
+    
   },
   components: {
     Toast

@@ -38,23 +38,38 @@
             <li>
             </li>
         </ul>
-        <popup v-model="show_item" position="bottom" max-height="50%">
-            <diarySelItem ref="items" :itemList1=chooseItem></diarySelItem>
-        </popup>
         <div v-show="show_backdrop">
             <backdrop @closeBackdrop=close_backdrop @getBackUrl=getBackUrl :backimg=backdrop_img></backdrop>
         </div>
+        <div v-transfer-dom>
+            <popup v-model="show_item" position="bottom" max-height="50%">
+                <diarySelItem ref="items" :itemList1=chooseItem></diarySelItem>
+            </popup>
+        </div>
+        <Alert v-bind:Show.sync="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
 </template>
 
 <script>
 import Bus from "@/assets/bus.js";
 import apiH from "@/api/hospital";
-import backdrop from "./diary_operate_back";
-import { Group, Calendar, Popup } from "vux";
-import diarySelItem from "./diary_sel_item";
+import backdrop from "@/components/diary/diary_operate_back";
+import { TransferDom, Group, Calendar, Popup, Cell, XButton } from "vux";
+import diarySelItem from "@/components/diary//diary_sel_item";
 export default {
-    name:"diary_operate_backdrop",
+    name: "diary_operate_backdrop",
+    directives: {
+        TransferDom
+    },
+    components: {
+        Group,
+        Calendar,
+        Popup,
+        backdrop,
+        diarySelItem,
+        Cell,
+        XButton
+    },
     props: {
         showbackdrop1: {
             default: false
@@ -67,6 +82,10 @@ export default {
     },
     data() {
         return {
+            isShow: false,
+            alerttType: "",
+            alertText: "",
+
             institutionList: [],
             doctorList: [],
             is_show_institution: false,
@@ -115,13 +134,7 @@ export default {
             }
         }
     },
-    components: {
-        Group,
-        Calendar,
-        Popup,
-        backdrop,
-        diarySelItem
-    },
+
     methods: {
         getBackdrop() {
             let pd = this.examination();
@@ -151,17 +164,23 @@ export default {
         },
         examination() {
             if (this.chooseItem.length <= 0) {
-                alert("请选择项目！！");
+                this.isShow = true;
+                this.alerttType = "warn";
+                this.alertText = "请选择项目！！";
                 return false;
             }
 
             if (this.institution_name.length <= 0) {
-                alert("请填写机构名称");
+                this.isShow = true;
+                this.alerttType = "warn";
+                this.alertText = "请填写机构名称";
                 return false;
             }
 
             if (this.doctor_name.length <= 0) {
-                alert("请填写医生姓名");
+                this.isShow = true;
+                this.alerttType = "warn";
+                this.alertText = "请填写医生姓名";
                 return false;
             }
 
@@ -231,7 +250,6 @@ export default {
                 this.is_aesthetic_custom = true;
             } else {
                 this.is_aesthetic_custom = false;
-                // this.backdrop_img = [];
             }
         }
     },

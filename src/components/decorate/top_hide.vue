@@ -12,19 +12,16 @@
     </div>
 </template>
 <script>
-import Bus from '@/assets/bus.js'
+// import Bus from '@/assets/bus.js'
 export default {
     props:{
         params:{
-            type:Object,
-            default(){
-                return {}
-            }
+            type:[Object]
         }
     },
     methods:{
         hide(){
-            Bus.$emit('hide');
+            this.$emit('hide');
         }
     }
 }

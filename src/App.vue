@@ -9,6 +9,7 @@
         <router-view class="child-view"></router-view>
       </keep-alive>
     </transition> -->
+        <div class="fill" style="heght:1rem"></div>
         <foot v-show="navbarShow"></foot>
     </div>
 </template>

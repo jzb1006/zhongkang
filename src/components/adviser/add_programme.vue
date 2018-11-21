@@ -1,6 +1,6 @@
 <template>
     <div id="add_programme">
-        <top :params="{title:'添加方案',hasBtn:true,btnText:'确定',next:this.add}">
+        <top :params="{title:'添加方案',hasBtn:true,btnText:'确定',next:this.add}" @hide="hide">
             <!-- <span slot="next" class="next" @click="add">确定</span> -->
         </top>
         <div>
@@ -78,6 +78,9 @@ import mediaDisplay from "@/components/upload/media_display";
         }
     },
     methods:{
+        hide(){
+            this.$emit('hide')
+        },
         add(){
             // console.log('a:::'+this.price);
             this.programme.push(this.text);

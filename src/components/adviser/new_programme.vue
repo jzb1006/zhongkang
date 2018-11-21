@@ -3,7 +3,7 @@
         <div class="add_programme">
             <span class="btn" @click="add_programme">添加方案</span>
         </div>    
-        <addProgramme v-show="addNewProgramme" @passProgramme="getProgramme"></addProgramme>
+        <addProgramme v-show="addNewProgramme" @passProgramme="getProgramme" @hide="hide"></addProgramme>
     </div>
 </template>
 <script>
@@ -17,6 +17,9 @@ export default {
         }
     },
     methods:{
+        hide(){
+            this.addNewProgramme=false;
+        },
         add_programme(){
             // this.$router.push({path:'/programme',query:{order_sn:this.order_sn}});
             this.addNewProgramme=true;

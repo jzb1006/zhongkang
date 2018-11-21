@@ -1,4 +1,5 @@
-import Search from '@/components/search/search.vue'
+import search from '@/components/search/search.vue'
+import searchBar from "@/components/common/search_bar.vue";
 import productDetail from '@/components/product/detail.vue'
 import proDiary from '@/components/product/pro_diary.vue'
 import mycart from '@/components/shopping/mycart_checkout.vue'
@@ -8,24 +9,58 @@ import orderDetail from '@/components/order/order_detail.vue'
 import applyRefund from '@/components/order/apply_refund.vue'
 import appeal from '@/components/order/appeal.vue'
 import scanQR from '@/components/order/scanQR.vue'
-import hospitalDetail from '@/components/hospital/detail.vue'
-import insAlbum from '@/components/hospital/ins_album.vue'
+// import insAlbum from '@/containers/hospital/ins_album.vue'
 import ins_imgList from '@/components/hospital/img_list.vue'
 import ins_licence from '@/components/hospital/licence.vue'
 import insDiary from '@/components/hospital/ins_diary.vue'
-import docList from '@/components/hospital/doc_list.vue'
-import Map from '@/components/hospital/to_Map.vue'
+import docList from '@/components/hospital/doctor_list.vue'
+import Map from '@/containers/hospital/to_Map.vue'
 
-import productList from '@/components/common/product_list.vue'
-import docAlbum from '@/components/doctor/doc_album.vue'
 import doc_imgList from '@/components/doctor/img_list.vue'
 import doc_licence from '@/components/doctor/licence.vue'
 import doctorDetail from '@/components/doctor/detail.vue'
 import doctorDiary from '@/components/doctor/doc_diary.vue'
 
-import HProductList from '@/components/home/product_list.vue'
-import HDoctorList from '@/components/home/doctor_list.vue'
-import HHospitalList from '@/components/home/hospital_list.vue'
+//医生
+import doctorList from '@/components/doctor/list.vue'
+import docDetaileHead from "@/components/doctor/header.vue";
+import docMapBox from '@/components/doctor/map_box.vue'
+import docRecommend from '@/components/doctor/recommend_box.vue';
+import docDiary from '@/components/doctor/diary_box.vue'
+import docAlbum from '@/components/doctor/doc_album.vue'
+
+
+
+//商品
+
+import productList from '@/components/product/list.vue'
+import productTop from "@/components/common/top_bar.vue";
+import productSlide from '@/components/product/slide.vue'
+import productPrice from '@/components/product/price.vue'
+import productInsInfo from '@/components/product/ins_info.vue'
+import productDocInfo from '@/components/product/doc_info.vue'
+import productContent from '@/components/product/product_content.vue'
+import productAddFoot from '@/components/product/add_foot.vue'
+import productDiary from '@/components/product/pro_diary.vue'
+
+
+//机构
+import hospitalList from "@/components/hospital/list.vue";
+import hospitalDetailHead from "@/components/hospital/header.vue";
+import recommendBox from "@/components/hospital/recommend_box.vue";
+import mapBox from "@/components/hospital/map_box.vue";
+import docBox from '@/components/hospital/doctor_box.vue'
+import businessBox from '@/components/hospital/business_box.vue'
+import diaryBox from '@/components/hospital/diary_box.vue'
+import insDoctors from '@/components/hospital/doctor_list.vue'
+import insAlbum from '@/components/hospital/ins_album.vue'
+import insToMap from '@/components/hospital/to_map.vue'
+import insProductList from "@/components/hospital/ins_product_list.vue";
+import insDiaryList from "@/components/hospital/ins_diary.vue";
+
+
+
+
 
 // import bill from '@/components/wallet/user_bill'
 import billDetail from '@/components/wallet/bill_detail'
@@ -45,6 +80,7 @@ import videoDetail from '@/components/material/video_detail'
 import atlasesDetail from '@/components/material/atlases_detail'
 
 //公共
+import Alert from "@/components/decorate/alert.vue";
 import reward from '@/components/decorate/reward.vue'
 import upload from '@/components/upload/upload.vue'
 import mediaDisplay from '@/components/upload/media_display.vue'
@@ -55,6 +91,14 @@ import eMeta from '@/components/decorate/eMeta.vue'
 import authorInfo from '@/components/decorate/author_info.vue'
 import listHeader from '@/components/decorate/list_header.vue' //头部
 import listFooter from '@/components/decorate/list_footer.vue' // 尾部
+import topHide from '@/components/decorate/top_hide.vue' // 尾部
+import topBackTitle from "@/components/decorate/top_back_title.vue";
+
+//订单
+// import cardDetail from "@/components/shopping/card_detail.vue";
+import cardCheckOut from "@/components/shopping/mycart_checkout.vue";
+import cardPay from "@/components/shopping/pay.vue";
+
 
 //diary
 import diaryList from '@/components/diary/diary_list.vue'
@@ -269,6 +313,8 @@ export default {
 
     //公共        
     Vue.component('container', container)
+    Vue.component('searchBar', searchBar)
+    Vue.component('search', search)
     Vue.component('e-meta', eMeta)
     Vue.component('carousel', carousel)
     Vue.component('upload', mediaDisplay)
@@ -277,6 +323,9 @@ export default {
     Vue.component('listHeader', listHeader)
     Vue.component('listFooter', listFooter)
     Vue.component('reward', reward);
+    Vue.component('topHide', topHide);
+    Vue.component('Alert',Alert);
+    Vue.component('topBackTitle', topBackTitle);
     //diary
     Vue.component('diaryList', diaryList)
     Vue.component('diaryBackdropUser', diaryBackdropUser)
@@ -291,11 +340,48 @@ export default {
     Vue.component('videoDetail', videoDetail)
     Vue.component('atlasesDetail', atlasesDetail)
     //医生
-    Vue.component('doctorList', HDoctorList)
+    Vue.component('doctorList', doctorList)
+    Vue.component('docDetaileHead', docDetaileHead)
+    Vue.component('docMapBox', docMapBox)
+    Vue.component('docRecommend', docRecommend)
+    Vue.component('docDiary', docDiary)
+    Vue.component('docAlbum', docAlbum)
     //产品
-    Vue.component('HProductList', HProductList)
+    // Vue.component('productList',productList)
+    // Vue.component('productList', HProductList)
+    Vue.component('productList', productList)
+    Vue.component('productTop', productTop)
+    Vue.component('productSlide', productSlide)
+    Vue.component('productPrice', productPrice)
+    Vue.component('productInsInfo', productInsInfo)
+    Vue.component('productDocInfo', productDocInfo)
+    Vue.component('productContent', productContent)
+    Vue.component('productAddFoot', productAddFoot)
+    Vue.component('productDiary', productDiary)
     //机构
-    Vue.component('hospitalList', HHospitalList)
+    // Vue.component('hospitalList', HHospitalList)
+    Vue.component('hospitalList', hospitalList)
+    Vue.component('hospitalDetailHead', hospitalDetailHead)
+    Vue.component('mapBox', mapBox)
+    Vue.component('recommendBox', recommendBox)
+    Vue.component('docBox', docBox)
+    Vue.component('businessBox', businessBox)
+    Vue.component('diaryBox', diaryBox)
+    Vue.component('insDoctors', insDoctors)
+    Vue.component('insAlbum', insAlbum)
+    Vue.component('insToMap', insToMap)
+    Vue.component('insProductList', insProductList)
+    Vue.component('insDiaryList', insDiaryList)
+    
+
+    //订单
+    
+    // Vue.component('cardDetail', cardDetail);
+    Vue.component('cardCheckOut', cardCheckOut);
+    Vue.component('cardPay', cardPay);
+    Vue.component('orderList',orderList)
+    Vue.component('orderDetail',orderDetail)
+    
     //评论
     Vue.component('commentList', commentList);
     Vue.component('commentInput', commentInput);

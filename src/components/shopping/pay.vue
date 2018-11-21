@@ -48,16 +48,22 @@
   import api from "../../api/goods";
   import { Toast } from 'vux'
 import { setInterval, setTimeout } from 'timers';
+   import { mixin } from "@/assets/js/mixins";
+
   export default {
+    mixins: [mixin],
+
     data() {
       return {
-        oid: this.$route.params.oid,
+        oid: this.$route.query.oid,
         result: {},
         orderinfo: {},
         paymentlist: {},
         show:false,
         text:'',
-        alerttType:'text'
+        alerttType:'text',
+        order_list_con_id:this.params['order_list_con_id'],
+        order_link:'container'
       };
     },
     methods: {
@@ -90,7 +96,8 @@ import { setInterval, setTimeout } from 'timers';
             this.show = true;
             setTimeout(()=>{
                 this.$router.push({
-                'name':'orderList'
+                'name':this.order_link,
+                 query:{id:this.order_list_con_id}
               })
             },2000)
           } else {

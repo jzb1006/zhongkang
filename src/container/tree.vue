@@ -24,13 +24,13 @@ export default {
     },
     methods: {
         getParams(data) {
-            if (data) {
+            if (data.trim()) {
                 return JSON.parse(data);
             }
             return "";
         },
         getNumber(data) {
-            if (data.params) {
+            if (data.params.trim()) {
                 if (JSON.parse(data.params).number)
                     return JSON.parse(data.params).number;
             }

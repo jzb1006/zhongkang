@@ -26,7 +26,7 @@
         },
         data() {
             return {
-                doc_id: this.$route.params.doc_id,
+                doc_id: this.$route.query.doc_id,
                 result: [],
                 alertShow: false,
                 alerttType: 'warn',

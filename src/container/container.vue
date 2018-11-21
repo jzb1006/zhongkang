@@ -1,6 +1,6 @@
 <template>
     <div>
-        <videoDetail></videoDetail>
+        <carousel></carousel>
         <div v-if="params.child" v-for="(param,index) in params.child" :key="index" :class="{container:is_need()}">
             <my-tree :model="param"></my-tree>
         </div>
@@ -22,14 +22,12 @@ export default {
     },
     watch: {
         $route() {
-            if (this.$route.query.id) {
+            if (this.$route.query.name == "home_page") {
+                this.get_homepage();
+            } else if (this.$route.query.name == "person_container") {
+                this.getMyInfo();
+            } else if (this.$route.query.id) {
                 this.getData(this.$route.query.id);
-            } else if (this.$route.query.name) {
-                if (this.$route.query.name == "home_page") {
-                    this.get_homepage();
-                } else if (this.$route.query.name == "person_container") {
-                    this.getMyInfo();
-                }
             } else {
                 this.get_homepage();
             }
@@ -68,8 +66,12 @@ export default {
             apiCommon
                 .ajaxSearch("container", "container", { id: id })
                 .then(res => {
-                    self.params = res.data.data;
-                    self.sort_asc();
+                    if (res.data.data.container_info != null) {
+                        self.params = res.data.data;
+                        self.sort_asc();
+                    } else {
+                        this.$router.back(-1);
+                    }
                 });
         },
         getMyInfo() {
@@ -81,12 +83,15 @@ export default {
         }
     },
     mounted() {
-        if (this.$route.query.id) {
+        if (this.$route.query.name == "home_page") {
+            this.get_homepage();
+        } else if (this.$route.query.name == "person_container") {
+            this.getMyInfo();
+        } else if (this.$route.query.id) {
             this.getData(this.$route.query.id);
         } else if(this.$route.query.name == 'home_page'){
             this.get_homepage();
-        }else if(this.$route.query.name == 'person_container'){
-            this.getMyInfo();
+            // this.$router.back(-1);
         }
     }
 };

@@ -3,7 +3,7 @@
     <div>
       <div id="title_back">
           <div class="navbar">
-            <span class="title">{{title}}</span>
+            <span class="title">{{params.title}}</span>
             <span class="zk-icon-fanhui fanhui" @click="back()"></span>
             <slot name="next" class="next"></slot>
           </div>
@@ -12,18 +12,22 @@
     </div>
 </template>
 <script>
+ import { mixin } from "@/assets/js/mixins";
+
 export default {
+    mixins: [mixin],
     props: {
-        title: {
-            // type:String,
-            required: true
-        }
+        // title: {
+        //     // type:String,
+        //     required: true
+        // }
     },
     methods: {
         back() {
             this.$router.back(-1);
         }
     }
+    
 };
 </script>
 <style scoped>  
@@ -39,7 +43,7 @@ export default {
         background: #ff5370;
         letter-spacing: 0.028rem;
         font-size: 15px;
-        z-index:1000;
+        z-index:500;
     }
     .navbar .title {
         font-size: .3rem;

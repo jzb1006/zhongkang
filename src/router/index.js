@@ -15,19 +15,19 @@ import orderDetail from '@/containers/order/order_detail_box.vue'
 import applyRefund from '@/components/order/apply_refund.vue'
 import appeal from '@/components/order/appeal.vue'
 import scanQR from '@/components/order/scanQR.vue'
-import hospitalDetail from '@/components/hospital/detail.vue'
-import insAlbum from '@/components/hospital/ins_album.vue'
+import hospitalDetail from '@/containers/hospital/detail.vue'
+import insAlbum from '@/containers/hospital/ins_album.vue'
 import ins_imgList from '@/components/hospital/img_list.vue'
 import ins_licence from '@/components/hospital/licence.vue'
 import insDiary from '@/components/hospital/ins_diary.vue'
-import docList from '@/components/hospital/doc_list.vue'
-import Map from '@/components/hospital/to_Map.vue'
+import docList from '@/containers/hospital/doctor_list.vue'
+import Map from '@/containers/hospital/to_Map.vue'
 
-import productList from '@/components/common/product_list.vue'
-import docAlbum from '@/components/doctor/doc_album.vue'
+import productList from '@/containers/hospital/ins_product_list.vue'
+import docAlbum from '@/containers/doctor/doc_album.vue'
 import doc_imgList from '@/components/doctor/img_list.vue'
 import doc_licence from '@/components/doctor/licence.vue'
-import doctorDetail from '@/components/doctor/detail.vue'
+import doctorDetail from '@/containers/doctor/detail.vue'
 import doctorDiary from '@/components/doctor/doc_diary.vue'
 
 import HProductList from '@/components/home/product_list.vue'
@@ -205,11 +205,11 @@ const router = new Router({
       name: 'diaryOperate',
       component: ()=> import('@/components/diary/diary_operate.vue'),
     },
-    {
-      path: '/diary/diaryBackdrop.vue',
-      name: 'diaryBackdrop',
-      component: ()=> import('@/components/diary/diary_backdrop.vue'),
-    },
+    // {
+    //   path: '/diary/diaryBackdrop.vue',
+    //   name: 'diaryBackdrop',
+    //   component: ()=> import('@/components/diary/diary_backdrop.vue'),
+    // },
     {
       path:'/diary/diaryDetail',
       name:"diaryDetail",

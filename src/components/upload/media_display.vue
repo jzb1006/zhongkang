@@ -63,22 +63,16 @@ export default {
             del_show: false,
             btnStatus: true,
             filelist1: this.filelists,
-
-            // media_browse_status: false,
             sel_index: 0,
             limitnum: this.limitnum1
         };
     },
     watch: {
-        filelist(val, oldval) {
-            console.log(val);
-            console.log(val.length);
+        filelists(val, oldval) {
             this.filelist1 = val;
             this.limitnums(val.length);
         },
         filelist1(val,oldval){
-            console.log(val);
-            console.log(val.length);
             this.limitnums(val.length);
         }
     },
