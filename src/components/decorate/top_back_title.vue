@@ -11,7 +11,8 @@
 export default {
     props:{
         params:{
-            default:function(){
+            type:Object,
+            default(){
                 return {}
             }
         }

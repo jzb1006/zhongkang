@@ -30,7 +30,7 @@ export default {
     name: 'user_order',
     methods:{
         toOrder(type){
-            this.$router.push({path:'/orderList',query:{index:type}})
+            this.$router.push({name:'container',query:{id:'35'}})
         }
     },
     components:{

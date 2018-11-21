@@ -20,7 +20,7 @@
 <script>
 import api from "../../api/user";
 // import Loading from "@/components/decorate/loading.vue";
-import userHeadTem from "@/templete/user/user_head_tem"
+import userHeadTem from "@/templates/user/user_head_tem"
 export default {
     name: 'user_head',
     data(){

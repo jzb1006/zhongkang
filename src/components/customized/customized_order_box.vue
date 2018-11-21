@@ -36,7 +36,7 @@
     import {Tab,TabItem} from 'vux'
     import LoadMore from '@/components/loadMore/index.vue'
     import orderItemTem from "@/components/commonTemplete/order_item_tem.vue"
-    import customizedOrderBoxTem from "@/templete/customized/customized_orderbox_tem.vue"
+    import customizedOrderBoxTem from "@/templates/customized/customized_orderbox_tem.vue"
     export default {
         name:'customized_order_box',
         data(){
