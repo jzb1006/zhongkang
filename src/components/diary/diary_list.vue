@@ -1,6 +1,6 @@
 <template>
     <div>
-        <diaryListC @changeLoadmore=changeLoadmore :diaryListInfo=diaryListInfo :params=params></diaryListC>
+        <diaryListC v-show="isShow" @changeLoadmore=changeLoadmore :diaryListInfo=diaryListInfo :params=params></diaryListC>
         <!-- <diaryListC @changeLoadmore=changeLoadmore :params=params :memuList=memuList :diaryList=diaryList :backdropList=backdropList :handbookList=handbookList :mediaList=mediaList></diaryListC> -->
         <Loading v-show="loadinging"></Loading>
         <LoadMore v-show="loadmore" :state='hasMore' :isLoading='isBusy' @loadmore="$_get_diary"></LoadMore>
@@ -40,7 +40,8 @@ export default {
             isBusy: false,
             hasMore: 0,
             loadinging: true,
-            loadmore: true
+            loadmore: true,
+            isShow:false
         };
     },
     methods: {
@@ -87,6 +88,10 @@ export default {
                         memuList: self.memuList,
                         backdropList: self.backdropList
                     };
+                    
+                    if(self.backdropList.length > 0){
+                        self.isShow = true;
+                    }
 
                     this.isBusy = false;
                     self.loadinging = false;
