@@ -9,7 +9,7 @@
     </div>
 </template>
 
-<script>
+<script>    
 import Alert from "@/components/decorate/alert.vue";
 import api from "../../api/doctor";
 import diary from "@/templates/hospital/diary_box.vue";

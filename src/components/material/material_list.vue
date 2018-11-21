@@ -3,7 +3,7 @@
         <materialTab v-show="loadmore" @materialType=material_type></materialTab>
         <materialList1 :materiallist=materiallist :params=params></materialList1>
         <Loading v-if="loadinging"></Loading>
-        <LoadMore v-if="loadmore" :state='hasMore' :isLoading='isBusy' @loadmore="getData"></LoadMore>
+        <LoadMore v-if="parseInt(is_more)" :state='hasMore' :isLoading='isBusy' @loadmore="getData"></LoadMore>
     </div>
 </template>
 
@@ -30,7 +30,9 @@ export default {
             loadmore: true,
             loadinging: true,
             materiallist: [],
-            page: 0
+            page: 0,
+            is_more: this.params["is_more"] || 1,
+            pageList: this.params.number
         };
     },
     methods: {
@@ -56,6 +58,7 @@ export default {
                     condition: this.condition,
                     type: "public",
                     page: self.page,
+                    pageList:self.pageList,
                     healthy_talk_id: self.healthy_talk_id
                 })
                 .then(res => {
@@ -73,7 +76,10 @@ export default {
     },
     mounted() {
         this.getData();
-        if (this.params.hasOwnProperty("number") && this.params.number.length > 0) {
+        if (
+            this.params.hasOwnProperty("number") &&
+            this.params.number.length > 0
+        ) {
             this.loadmore = false;
         }
     }

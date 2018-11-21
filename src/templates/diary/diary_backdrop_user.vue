@@ -4,10 +4,6 @@
             <diaryOperate @back=click_back></diaryOperate>
         </keep-alive>
         <div v-else>
-            <p class="top">
-                <top :title="getUserName()+'的美丽日记'"></top>
-            </p>
-
             <div v-for="backhead in backdropList">
                 <div class="up">
                     <div class="img_head">
@@ -41,19 +37,6 @@
                             </div>
 
                         </li>
-                        <!-- <li>
-                        <ul class="other">
-                            <li class="reward clearfix">
-                                <router-link :to="{name:'diaryReward'}" tag="div">
-                                    <p>
-                                        <i class="zk-icon-liwu left_icon"></i>
-                                        查看日记奖励
-                                        <i class="zk-icon-fanhui1 icon_right badge"></i>
-                                    </p>
-                                </router-link>
-                            </li>
-                        </ul>
-                    </li> -->
                         <li>
                             <div class="backdropImage" v-if="backList.length > 0" v-for="(backdrop,index) in backdropList">
                                 <p v-if="index == '0'" class="title">过去的她</p>
@@ -96,49 +79,18 @@ import api from "@/api/diary";
 import mediaDisplay from "@/components/upload/media_display";
 import top from "@/components/decorate/top_back_title.vue";
 import defaultImg from "@/components/decorate/default_img.vue";
-import { rejects } from 'assert';
+import { rejects } from "assert";
 export default {
     name: "diary_backdrop_user",
     props: {
         b_id: {
             default: ""
         },
-        diaryBackdropUserInfo:{
-            default:function(){
-                return {}
+        diaryBackdropUserInfo: {
+            default: function() {
+                return {};
             }
-        },
-        // backdropList: {
-        //     default: function() {
-        //         return [];
-        //     }
-        // },
-        // memuList: {
-        //     default: function() {
-        //         return [];
-        //     }
-        // },
-        // user: {
-        //     default:function(){
-        //         return {}
-        //     }
-        // },
-        // diaryList:{
-        //     default:function(){
-        //         return []
-        //     }
-        // },
-        // sUid: {
-        //     default: ""
-        // },
-        // pUid: {
-        //     default: ""
-        // },
-        // backList: {
-        //     default: function() {
-        //         return [];
-        //     }
-        // }
+        }
     },
     data() {
         return {
@@ -157,8 +109,8 @@ export default {
             keyword: this.$refs.keyword
         };
     },
-    watch:{
-        diaryBackdropUserInfo(val,oldVal){
+    watch: {
+        diaryBackdropUserInfo(val, oldVal) {
             this.backdropList = val.backdropList;
             this.diaryList = val.diaryList;
             this.backList = val.backList;
@@ -181,10 +133,6 @@ export default {
             this.$store.dispatch("Save_Bid", bid);
             this.$store.dispatch("Save_Diary_Operate", "ub");
             this.is_operate = true;
-            // this.$router.push({
-            //     name: "diaryOperate",
-            //     query: { operate: "ub", bid: bid }
-            // });
         },
         del_backdrop(bid) {
             api.ajaxSubmit("delBasic", { bid: bid }).then(res => {
@@ -228,50 +176,12 @@ export default {
             }
             return true;
         },
-        // $_ajax_getBackdrop: function() {
-        //     var self = this;
-
-        //     if (!this.bid) {
-        //         this.bid = this.$route.query.bid;
-        //     }
-        //     api
-        //         .ajaxSearch("diary_detail_basic", { bid: this.bid })
-        //         .then(res => {
-        //             self.diaryList = res.data.diary;
-        //             self.backdropList = res.data.backdrop;
-        //             self.memuList = res.data.item_name;
-        //             self.user = res.data.user;
-        //             self.diaryNum = res.data.tt;
-        //             self.sUid = res.data.sUid;
-        //             self.pUid = res.data.b_uid;
-
-        //             if (res.data.backdrop[0].img1) {
-        //                 let arrImg = [];
-        //                 arrImg.push({
-        //                     url: res.data.backdrop[0].img1,
-        //                     alt: ""
-        //                 });
-        //                 arrImg.push({
-        //                     url: res.data.backdrop[0].img2,
-        //                     alt: ""
-        //                 });
-        //                 arrImg.push({
-        //                     url: res.data.backdrop[0].img3,
-        //                     alt: ""
-        //                 });
-        //                 self.backList = arrImg;
-        //             }
-        //         });
-        // },
         back() {
             this.$router.push({ path: "/" });
         },
         getImgUrl() {
             return api.imgUrl();
         }
-    },
-    mounted() {
-        // this.$_ajax_getBackdrop();
     }
 };
 </script>
@@ -297,7 +207,7 @@ export default {
     max-width: 100%;
     min-height: 100%;
 }
-#diary_backdrop_user > p.top {
+/* #diary_backdrop_user > p.top {
     position: fixed;
     top: 0;
     left: 0;
@@ -310,7 +220,7 @@ export default {
     border-bottom: 1px solid #ccc;
     background-color: rgb(255, 83, 112);
     z-index: 999;
-}
+} */
 
 #diary_backdrop_user .up {
     text-align: center;

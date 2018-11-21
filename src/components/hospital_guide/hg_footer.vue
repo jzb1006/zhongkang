@@ -71,8 +71,8 @@ export default {
     visibility: hidden;
 }
 #FFooter {
-    position: fixed;
-    bottom: 1.3rem;
+    position: absolute;
+    /* bottom: 1.3rem; */
     left: 0;
     right: 0;
     padding: 0.1rem 0.3rem;

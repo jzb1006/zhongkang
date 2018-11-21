@@ -1,11 +1,13 @@
 <template>
     <div id="commentInput">
+
         <p class="input_show" @click="show_textarea">
             {{tip}}</p>
         <div class="shade" v-show="show_input" @click="hidden_input">
 
         </div>
         <div class="input_box" v-show="show_input">
+                   
             <textarea id="content" ref="content" placeholder="写点感想" v-model="comment_content" v-focus></textarea>
             <p class="clearfix">
                 <span class="submit" @click="submit_comment">发表评论</span>
