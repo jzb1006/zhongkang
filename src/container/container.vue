@@ -1,7 +1,6 @@
 <template>
     <div>
-        <carousel></carousel>
-        <div v-if="params.child" v-for="(param,index) in params.child" :key="index" :class="{container:is_need()}">
+        <div v-if="params.child" v-for="(param,index) in params.child" :key="index" class="container">
             <my-tree :model="param"></my-tree>
         </div>
     </div>
@@ -37,13 +36,6 @@ export default {
         }
     },
     methods: {
-        is_need() {
-            if (this.params.length > 1) {
-                return true;
-            } else {
-                return false;
-            }
-        },
         //----排序：start----
         sort_asc() {
             let data = this.params.child;

@@ -2,7 +2,7 @@
     <div id="materialList">
         <div class="list">
             <!-- 文章 -->
-            <div v-for="(material,index) in materiallist" :key="index" v-if="has_limit(index)">
+            <div v-for="(material,index) in materiallist" :key="index">
                 <div class="material" v-if="material.material_type == '1'" v-show="article_show">
                     <router-link :to="{name:'container',query:{id:params.article_id,healthy_talk_id:material.hid}}">
                         <div class="article clearfix">

@@ -1,6 +1,5 @@
 <template>
     <div id="articleDetail" v-if="Object.keys(material).length">
-        <top title=""></top>
         <div class="authorInfo">
             <authorInfo :user=user></authorInfo>
         </div>

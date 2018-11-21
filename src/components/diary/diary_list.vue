@@ -1,9 +1,10 @@
 <template>
     <div>
+        <!-- <commentList></commentList> -->
         <diaryListC v-show="isShow" @changeLoadmore=changeLoadmore :diaryListInfo=diaryListInfo :params=params></diaryListC>
         <!-- <diaryListC @changeLoadmore=changeLoadmore :params=params :memuList=memuList :diaryList=diaryList :backdropList=backdropList :handbookList=handbookList :mediaList=mediaList></diaryListC> -->
         <Loading v-show="loadinging"></Loading>
-        <LoadMore v-show="loadmore" :state='hasMore' :isLoading='isBusy' @loadmore="$_get_diary"></LoadMore>
+        <LoadMore v-if="parseInt(is_more)" :state='hasMore' :isLoading='isBusy' @loadmore="$_get_diary"></LoadMore>
     </div>
 </template>
 
@@ -33,15 +34,17 @@ export default {
 
             diaryListInfo: {},
 
-            doctor_id:this.docId,
+            doctor_id: this.docId,
 
             pd: "",
             page: 0,
+            is_more:this.params['is_more']||1,
+            pageList:this.params.number,
             isBusy: false,
             hasMore: 0,
             loadinging: true,
             loadmore: true,
-            isShow:false
+            isShow: false
         };
     },
     methods: {
@@ -51,7 +54,7 @@ export default {
             self.page = self.page + 1;
             let arr = {
                 page: self.page,
-                pageList: 3,
+                pageList: this.pageList,
                 pd: this.pd,
                 doctor_id: self.docId,
                 institution_id: self.insId,
@@ -88,8 +91,8 @@ export default {
                         memuList: self.memuList,
                         backdropList: self.backdropList
                     };
-                    
-                    if(self.backdropList.length > 0){
+
+                    if (self.backdropList.length > 0) {
                         self.isShow = true;
                     }
 

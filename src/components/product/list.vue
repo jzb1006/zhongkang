@@ -1,7 +1,7 @@
 <template>
     <div id="product_list">
         <product :list="result" :con_id="params['product_con_id']"></product>
-         <Loading v-show="loadinging"></Loading>
+        <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_index"></LoadMore>
     </div>
 </template>
@@ -19,7 +19,7 @@
             return {
                 result: [],
                 page: 1,
-                num_list: 10,
+                num_list: this.params.number,
                 hasMore: 0,
                 isBusy: false,
                 loadinging:true

@@ -1,6 +1,5 @@
 <template>
     <div id="videoDetail">
-        <top title=""></top>
         <div v-for="(m,index) in material">
             <div class="reha_wrapper" id="media_wrapper" v-bind:class="{reha_wrapper_fixed1:reha_wrapper_fixed}">
                 <div class="video" v-for="(msg,index) in JSON.parse(m.material_content)" v-if="index == play_index">

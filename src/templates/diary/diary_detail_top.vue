@@ -1,8 +1,5 @@
 <template>
     <div id="detail_top">
-        <p class="top">
-            <top title="美丽内容"></top>
-        </p>
         <div v-for="backdrop in backdropList">
             <div class="head">
                 <div class="headImg">
@@ -13,13 +10,13 @@
             </div>
             <div class="other">
                 <div class="info">
-                    <router-link :to="{name:'hospitalDetail',params:{ins_id:backdrop.institution_id}}" tag="a">
+                    <router-link :to="{name:'container',query:{id:params.ins_detail,ins_id:backdrop.institution_id}}" tag="a">
                         <span class="icon_institution zk-icon-yiyuan"></span>
                         <span class="name" :title="backdrop.institution_name">{{backdrop.institution_name}}</span>
                     </router-link>
                 </div>
                 <div class="info">
-                    <router-link :to="{name:'doctorDetail',params:{doc_id:backdrop.doctor_id,ins_id:backdrop.institution_id}}" tag="a">
+                    <router-link :to="{name:'container',query:{id:params.doc_detail,doc_id:backdrop.doctor_id,ins_id:backdrop.institution_id}}" tag="a">
                         <span class="icon_doctor zk-icon-ys"></span>
                         <span class="name" :title="backdrop.doctor_name">{{backdrop.doctor_name}}</span>
                     </router-link>
@@ -48,32 +45,7 @@ export default {
             default:function(){
                 return {}
             }
-        },
-
-        // bid:{
-        //     default:""
-        // },
-        // sUid:{
-        //     default:0
-        // },
-        // pUid:{
-        //     default:0
-        // },
-        // backdropList:{
-        //     default:function(){
-        //         return []
-        //     }
-        // },
-        // memuList:{
-        //     default:function(){
-        //         return []
-        //     }
-        // },
-        // user:{
-        //     default:function(){
-        //         return []
-        //     }
-        // }
+        }
     },
     data() {
         return {
@@ -94,7 +66,6 @@ export default {
             this.p_uid = val.p_uid;
         }
     },
-    // props: ["bid"],
     components: {
         top
     },
@@ -102,31 +73,12 @@ export default {
         getImgUrl() {
             return api.imgUrl();
         },
-        // $_ajax_getBackdrop: function() {
-        //     var self = this;
-        //     let bid = this.$route.query.bid;
-
-        //     if (!bid) {
-        //         bid = this.bid;
-        //     }
-        //     api.ajaxSearch("diary_detail_basic", { bid: bid }).then(res => {
-        //         self.backdropList = res.data.backdrop;
-        //         self.memuList = res.data.item_name;
-        //         self.user = res.data.user;
-        //         self.diaryNum = res.data.tt;
-        //         self.s_uid = res.data.s_uid;
-        //         self.p_uid = res.data.b_uid;
-        //     });
-        // },
         back() {
             this.$router.push({
                 name: "diaryBackdrop",
                 query: { bid: this.bid }
             });
         }
-    },
-    mounted() {
-        // this.$_ajax_getBackdrop();
     }
 };
 </script>
@@ -137,24 +89,8 @@ export default {
 .ios-contact {
     fill: #ddddff;
 }
-
-#detail_top > p.top {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    color: #fff;
-    font-size: 0.35rem;
-    text-align: center;
-    padding: 0;
-    margin: 0;
-    border-bottom: 1px solid #ccc;
-    background-color: rgb(255, 83, 112);
-    z-index: 999;
-}
 #detail_top .head {
     position: relative;
-    margin-top: 1rem;
     height: 1.2rem;
 }
 #detail_top .head span.time {

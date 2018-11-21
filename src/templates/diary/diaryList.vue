@@ -1,6 +1,6 @@
 <template>
     <div id="diaryList">
-        <div class="diary" v-for="(backdrop,index) in backdropList" v-if="checknumber(index)">
+        <div class="diary" v-for="(backdrop,index) in backdropList">
             <div class="top">
                 <router-link :to="{name:'container',query:{id:params.user_page,bid:backdrop.id}}">
                     <div class="headImg">

@@ -37,8 +37,8 @@ export default {
 
 <style scoped>
 #FBtn {
-    position: fixed;
-    bottom: 0.5rem;
+    position: absolute;
+    bottom: .8rem;
     right: 0.2rem;
     z-index: 503;
 }

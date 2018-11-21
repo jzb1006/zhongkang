@@ -42,88 +42,88 @@ export default {
         menuList: {
             default: function() {
                 return [
-                    {
-                        icon_url: "zk-icon-tukuxiangce",
-                        show_name: "轮播",
-                        container_id: "carousel",
-                        color: "#FF4040"
-                    },
-                    {
-                        icon_url: "zk-icon-ys",
-                        show_name: "医生",
-                        container_id: "doctorList",
-                        color: "#218868"
-                    },
-                    {
-                        icon_url: "zk-icon-project-o",
-                        show_name: "项目",
-                        container_id: "HProductList",
-                        color: "#4682B4"
-                    },
-                    {
-                        icon_url: "zk-icon-yiyuan",
-                        show_name: "机构",
-                        container_id: "hospitalList",
-                        color: "#EE7600"
-                    },
-                    {
-                        icon_url: "zk-icon-material",
-                        show_name: "素材",
-                        container_id: "materialList",
-                        color: "#4F94CD"
-                    },
-                    {
-                        icon_url: "zk-icon-nanxingmale100",
-                        show_name: "评论列表",
-                        container_id: "commentList",
-                        color: "#CD8500"
-                    },
-                    {
-                        icon_url: "zk-icon-nanxingmale100",
-                        show_name: "打赏",
-                        container_id: "reward",
-                        color: "#6B8E23"
-                    },
-                    {
-                        icon_url: "zk-icon-qianbao",
-                        show_name: "康复日志",
-                        container_id: "diaryList",
-                        color: "#CD8500"
-                    },
-                    {
-                        icon_url: "zk-icon-jia",
-                        show_name: "容器",
-                        container_id: "container",
-                        color: "#4F94CD"
-                    },
-                    {
-                        icon_url: "zk-icon-nanxingmale100",
-                        show_name: "写日记",
-                        container_id: "diaryBackdropList",
-                        color: "#6B8E23"
-                    },
-                    {
-                        icon_url: "zk-icon-nanxingmale100",
-                        show_name: "素材数字数据",
-                        container_id: "meta",
-                        color: "#6B8E23"
-                    },
-                    {
-                        icon_url: "zk-icon-nanxingmale100",
-                        show_name: "作者信息",
-                        container_id: "authorInfo",
-                        color: "#6B8E23"
-                    },
-                    {
-                        icon_url: 'zk-icon-nanxingmale100',
-                        show_name:'评论列表',
-                        container_id:'commentList',
-                    },
-                    {
-                        icon_url: 'zk-icon-nanxingmale100',
-                        show_name:'医导',
-                        container_id:'hospitalGuide',
-                    }
+                    // {
+                    //     icon_url: "zk-icon-tukuxiangce",
+                    //     show_name: "轮播",
+                    //     container_id: "carousel",
+                    //     color: "#FF4040"
+                    // },
+                    // {
+                    //     icon_url: "zk-icon-ys",
+                    //     show_name: "医生",
+                    //     container_id: "doctorList",
+                    //     color: "#218868"
+                    // },
+                    // {
+                    //     icon_url: "zk-icon-project-o",
+                    //     show_name: "项目",
+                    //     container_id: "HProductList",
+                    //     color: "#4682B4"
+                    // },
+                    // {
+                    //     icon_url: "zk-icon-yiyuan",
+                    //     show_name: "机构",
+                    //     container_id: "hospitalList",
+                    //     color: "#EE7600"
+                    // },
+                    // {
+                    //     icon_url: "zk-icon-material",
+                    //     show_name: "素材",
+                    //     container_id: "materialList",
+                    //     color: "#4F94CD"
+                    // },
+                    // {
+                    //     icon_url: "zk-icon-nanxingmale100",
+                    //     show_name: "评论列表",
+                    //     container_id: "commentList",
+                    //     color: "#CD8500"
+                    // },
+                    // {
+                    //     icon_url: "zk-icon-nanxingmale100",
+                    //     show_name: "打赏",
+                    //     container_id: "reward",
+                    //     color: "#6B8E23"
+                    // },
+                    // {
+                    //     icon_url: "zk-icon-qianbao",
+                    //     show_name: "康复日志",
+                    //     container_id: "diaryList",
+                    //     color: "#CD8500"
+                    // },
+                    // {
+                    //     icon_url: "zk-icon-jia",
+                    //     show_name: "容器",
+                    //     container_id: "container",
+                    //     color: "#4F94CD"
+                    // },
+                    // {
+                    //     icon_url: "zk-icon-nanxingmale100",
+                    //     show_name: "写日记",
+                    //     container_id: "diaryBackdropList",
+                    //     color: "#6B8E23"
+                    // },
+                    // {
+                    //     icon_url: "zk-icon-nanxingmale100",
+                    //     show_name: "素材数字数据",
+                    //     container_id: "meta",
+                    //     color: "#6B8E23"
+                    // },
+                    // {
+                    //     icon_url: "zk-icon-nanxingmale100",
+                    //     show_name: "作者信息",
+                    //     container_id: "authorInfo",
+                    //     color: "#6B8E23"
+                    // },
+                    // {
+                    //     icon_url: 'zk-icon-nanxingmale100',
+                    //     show_name:'评论列表',
+                    //     container_id:'commentList',
+                    // },
+                    // {
+                    //     icon_url: 'zk-icon-nanxingmale100',
+                    //     show_name:'医导',
+                    //     container_id:'hospitalGuide',
+                    // }
                 ];
             }
         }
