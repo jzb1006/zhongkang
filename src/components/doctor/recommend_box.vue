@@ -1,7 +1,14 @@
 <!--  -->
 <template>
     <div>
-        <recommend :goods_list="goods" :routeLink="'container'" :router_params="{id:params['product_con_id'],ins_id:ins_id,type:2,name:ins_info['name']}" :goods_total="parseInt(goods_total)"></recommend>
+        <recommend 
+        :goods_list="goods" 
+        :routeLink="'container'" 
+        :router_params="{id:params['product_con_id'],ins_id:doc_id,type:2,name:ins_info['name']}" 
+        :goods_total="parseInt(goods_total)"
+        :product_con_id="params['product_detail_con_id']"
+        :product_link="'container'"
+        ></recommend>
         <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
 </template>

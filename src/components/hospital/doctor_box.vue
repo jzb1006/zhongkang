@@ -5,6 +5,7 @@
                 :doc_count="parseInt(doc_count)"
                 :doc_team_list="doc_team"
                 :ins_id="parseInt(ins_id)"
+                :con_id="params['doc_detail_con_id']"
                 :docListRouter="{'name':'container',params:{'id':params['doc_list_con_id'],'ins_id':ins_id}}"
                 ></TDocBox>
      <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>

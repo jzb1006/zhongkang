@@ -11,7 +11,7 @@
             <ul class="box-ls teacher ">
                 <!-- 美容师不进入医师主页 -->
                 <li class="part" :key="index" v-for="(item,index) in doc_team_list">
-                    <router-link :to="{name:'doctorDetail',query:{doc_id:item['id'],ins_id:ins_id}}" class="img-box">
+                    <router-link :to="{name:docListRouter['name'],query:{id:con_id,doc_id:item['id'],ins_id:ins_id}}" class="img-box">
                         <defaultImg :imgPath="item['avatar']"></defaultImg>
                         <div class="right">
                             <span class="tit">
@@ -49,6 +49,10 @@
             },
             docListRouter:{
                 type:Object,
+                default:{}
+            },
+            con_id:{
+                type:String,
                 default:{}
             }
         },

@@ -1,7 +1,11 @@
 <!--  -->
 <template>
     <div>
-        <doctor :list="doctorList" :route_link="'container'" :con_id="params['doc_detail_con_id']"></doctor>
+        <doctor 
+        :list="doctorList" 
+        :route_link="'container'" 
+        :con_id="params['doc_detail_con_id']"
+        ></doctor>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_docList"></LoadMore>
     </div>
 </template>
