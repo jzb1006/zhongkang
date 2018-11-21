@@ -49,13 +49,13 @@
             </div>
             
         </div> -->
-        <detail-item-tem :result="result"></detail-item-tem>
+        <detailItemTem :result="result"></detailItemTem>
   </div>
 </template>
 <script>
   import api from '@/api/customized'
   import { mapGetters } from "vuex";
-  import detailItemTem from '@/components/commonTemplete/detailItemTem.vue';
+//   import detailItemTem from '@/components/commonTemplete/detail_item_tem.vue';
   export default {
     name: 'order_detail_item',
     data(){
@@ -75,15 +75,15 @@
     //         this.get_order_detail();
     //     }
     // },
-    // computed: {
-    //     ...mapGetters(['getOrderSn']),
-    // },
+    computed: {
+        ...mapGetters(['getOrderSn']),
+    },
     methods:{
         url(i){
             return api.imgUrl()+i;
         },
         get_order_detail(){
-            api.customizedOrderDetail({'order_sn':this.order_sn}).then(res=>{
+            api.customizedOrderDetail({'order_sn':this.getOrderSn}).then(res=>{
                 console.log(res);
                 this.result=res.data;
                 sessionStorage.setItem('user_id',res.data.user_id);
@@ -101,7 +101,7 @@
   }
 </script>
 <style scoped>
-    #detailItem{
+    #order_detail_item{
         font-size:.35rem;
         /* margin-bottom:.8rem; */
     }

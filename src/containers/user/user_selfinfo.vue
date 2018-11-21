@@ -17,11 +17,8 @@ export default {
     }
 }
 </script>
-<style>
-
-</style>
 <style scoped>
-    #user_selfinfo{
+    /* #user_selfinfo{
         background:#f0f0f0;
-    }
+    } */
 </style>

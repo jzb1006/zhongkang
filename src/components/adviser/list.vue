@@ -4,7 +4,7 @@
         <div class="title vux-1px-b">
             <span class="text">请选择顾问:</span>
         </div>
-        <adviser-list></adviser-list>
+        <adviserList></adviserList>
         <div id="fill"></div>
     </div>
 </template>

@@ -20,7 +20,7 @@
     <!-- </div> -->
     
     
-    <userHead></userHead>
+    <!-- <userHead></userHead>
     <userOrder></userOrder>
     <userMoney></userMoney>
     <userCustomized></userCustomized>
@@ -30,7 +30,7 @@
     
     <userReceipt></userReceipt>
     <userViewOrder></userViewOrder>
-    <userAdviserInfo></userAdviserInfo>
+    <userAdviserInfo></userAdviserInfo> -->
     
 
     <!-- <user-content></user-content> -->

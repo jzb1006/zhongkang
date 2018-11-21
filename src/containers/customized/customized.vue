@@ -1,73 +1,5 @@
 |<template>
-    <div>
-        <!-- <top :params=params></top> -->
-        
-        <div>
-            <div id="title_back">
-                <div class="navbar">
-                    <span class="title">定制</span>
-                    <span class="zk-icon-fanhui fanhui" @click="back()"></span>
-                    <span class="next" @click="next" v-if="hasNext">下一步</span>
-                </div>
-            </div>
-            <div id="iso"></div>
-        </div>
-        
-        <div v-show="0==index">
-            <diaryInfo @getFileList=getFileList @detail=getCustomizedDetail></diaryInfo>
-            <!-- <requirement></requirement>
-            <chooseAdviser></chooseAdviser> -->
-            <div class="content vux-1px">
-                <div class="item vux-1px-b" @click="show_items">
-                    <div class="span">请选择项目:</div>
-                    <span class="select">
-                        <i v-for="item in chooseItem" :key="item.id" class="category vux-1px-l">{{item.name}}</i>
-                    </span>
-                    <span class="badge_r"><i class="zk-icon-fanhui1"></i></span>
-                </div>
-                <div class="item vux-1px-b">
-                    <div class="span">姓氏:</div>
-                    <div class="include vux-1px"><input type="text" class="input" v-model="lastname"></div>
-                </div>
-                <div class="item vux-1px-b">
-                    <div class="span">年龄:</div>
-                    <div class="include vux-1px"><input type="text" class="input" v-model="age"></div>
-                </div>
-                <div class="item vux-1px-b">
-                    <div class="span">顾问级别:</div>
-                    <!-- <select class="select vux-1px" v-model="level" @change="getLevel(level)">
-                        <option value="41">初级顾问</option>
-                        <option value="42">中级顾问</option>
-                        <option value="43">高级顾问</option>
-                    </select> -->
-                    <select-adviser-level class="select_adviser" @getLevel="getLevel"></select-adviser-level>
-                </div>
-                <div class="item">
-                    <div class="span">预算区间:</div>
-                    <price-range class="price" @getMin="getMin" @getMax="getMax"></price-range>
-                </div>
-            </div>
-            <popup v-model="show_item" position="bottom" max-height="50%">
-                <diarySelItem ref="items" :itemList1=chooseItem></diarySelItem>
-            </popup>
-
-        </div>
-
-        <div v-show="1==index">
-            <!-- <top :params="params1"></top> -->
-            <div class="title vux-1px-b">
-                <span class="text">请选择顾问:</span>
-            </div>
-            <adviser-list :params="params2" @selectAdviser=selectAdviser></adviser-list>
-            
-        </div>
-
-        <div v-show="2==index">
-            <detail-item-tem :result="params"></detail-item-tem>
-            <submit-order :params="params"></submit-order>
-
-        </div>
-    </div>
+    <customized></customized>
 </template>
 <script>
 import api from '@/api/customized'
@@ -82,8 +14,8 @@ import diarySelItem from "@/components/common/diary_sel_item";
 import priceRange from '@/components/common/price_range.vue'
 import selectAdviserLevel from '@/components/customized/select_adviser_level'
 import adviserList from '@/components/adviser/adviser_list.vue'
-import detailItem from '@/components/customized/detail_Item.vue'
-import detailItemTem from '@/components/commonTemplete/detailItemTem.vue';
+import detailItem from '@/components/customized/detail_item.vue'
+import detailItemTem from '@/components/commonTemplete/detail_item_tem.vue';
 // import Bus from '@/assets/bus.js'
 import submitOrder from '@/components/customized/submit_order.vue'
 export default {

@@ -1,5 +1,5 @@
 <template>
-	<div id="billItem">
+	<div id="bill_item">
 		<!-- <router-link :to="{name:'billDetail',params:{order_sn:item.order_sn}}"> -->
 		<div @click="toDetail(item.order_sn)">
 			<div class="box">
@@ -16,7 +16,7 @@
 
 <script>
 	export default{
-		name:'billItem',
+		name:'bill_item',
 		props:{
 			item:{
 				type:[Object,Array],
@@ -26,7 +26,7 @@
 		methods:{
 			toDetail(sn){
 				this.$store.dispatch('changeOrderSn',sn);
-				this.$router.push('/billDetail');
+				this.$router.push({name:'container',query:{id:'52'}});
 			}
 		}
 	}

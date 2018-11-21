@@ -13,7 +13,7 @@
                     <!-- <router-link v-if="items['route'] == 'applyRefund' " :to="{name:'customized_applyRefund',params:{tt:'tuikuan',oid:order_btn['order_sn'],status:order_btn['status']}}">
                         <div class="reply vux-1px">{{items['text']}}</div>
                     </router-link> -->
-                    <router-link v-if="items['route'] == 'appeal' " :to="{name:'appeal_confirm_consumption',params:{tt:'shensu',oid:order_btn['order_sn'],status:order_btn['status']}}">
+                    <router-link v-if="items['route'] == 'appeal' " :to="{name:'container',query:{id:'63',tt:'shensu',oid:order_btn['order_sn'],status:order_btn['status']}}">
                         <div class="reply vux-1px">{{items['text']}}</div>
                     </router-link>
                     <span class="reply vux-1px" v-if="items['route']=='receipt'" @click="receipt(result.order_sn)">{{items['text']}}</span>
@@ -72,12 +72,14 @@
         reply(order_sn,bool=0){
             sessionStorage.setItem('isHasEdit',bool);
             // sessionStorage.setItem('order_status',order_status);
-            this.$router.push({path:'/adviserViewReply',query:{'order_sn':order_sn}})
+            // this.$router.push({path:'/adviserViewReply',query:{'order_sn':order_sn}})
+            this.$router.push({name:'container',query:{id:'57','order_sn':order_sn}})
         },
         answer(order_sn,user_id,adviser_id){
             // this.$store.dispatch('changeOtherId',user_id);
             sessionStorage.setItem('direction',1);
-            this.$router.push({name:'answer',params:{'order_sn':order_sn,'user_id':user_id,'adviser_id':adviser_id,'direction':1}})
+            // this.$router.push({name:'answer',params:{'order_sn':order_sn,'user_id':user_id,'adviser_id':adviser_id,'direction':1}})
+            this.$router.push({name:'container',query:{id:'60'}})
         },
         change_action(action_name,order_sn, status, order_avtion) {
             var self = this;
@@ -115,7 +117,7 @@
   }
 </script>
 <style scoped>
-    #replyOrderDetail{
+    #adviser_order_operation{
         font-size:.35rem;
     }
     .content{

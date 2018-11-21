@@ -15,7 +15,7 @@ export default {
     },
     methods:{
         add_programme(){
-            this.$router.push({path:'/customizedReply',query:{'order_sn':this.getOrderSn}});
+            this.$router.push({name:'container',query:{id:'58','order_sn':this.getOrderSn}});
         },
     },
     computed:{
@@ -36,6 +36,7 @@ export default {
         width: 100%;
         padding: 0.2rem 0px;
         background: #fff;
+        z-index:502;
     }
     .reply{
         height: 0.6rem;

@@ -1,7 +1,7 @@
 <template>
     <div id="order_detail">
         <!-- 头部 -->
-        <top title="订单详情"></top>
+        <!-- <top title="订单详情"></top> -->
         <!-- 商品的详情 -->
         <panelOrder :path="goods_info['goods_thumb']" :title="goods_info['goods_name']" :price="goods_info['pifa_price']" :totalPricePanelShow="datePanel" :datePanelShow="datePanel" :borderShow="borderShow">
         </panelOrder>
@@ -74,7 +74,7 @@
     </div>
 </template>
 <script>
-    import top from "@/components/decorate/top_back_title.vue";
+    // import top from "@/components/decorate/top_back_title.vue";
     import orderAction from "@/components/order/order_action.vue";
     import panelOrder from "@/components/order/panel_order.vue";
     import Alert from "@/components/decorate/alert.vue";
@@ -125,7 +125,7 @@
           
         },
         components: {
-            top,
+            // top,
             panelOrder,
             Group,
             Cell,

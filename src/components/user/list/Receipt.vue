@@ -1,10 +1,13 @@
 <template>
 <div id="receipt">
-    <user-row :params="params"></user-row>
+    <router-link :to="{name:'container',query:{id:'53'}}" tag="div">
+        <userRowTem :params="params"></userRowTem>
+    </router-link>
 </div>
 </template>
 <script>
 export default {
+    name:'receipt',
     data(){
         return {
              params:{

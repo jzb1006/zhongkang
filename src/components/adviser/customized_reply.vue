@@ -1,12 +1,12 @@
 <template>
-    <div id="customizedReply">
+    <div id="customized_reply">
         <top :params="params"></top>
         <!-- <div class="add_programme">
             <span class="btn" @click="add_programme">添加方案</span>
         </div> -->
         <!-- <div class="container"> -->
-        <new-programme></new-programme>
-        <reply-item></reply-item>
+        <newProgramme></newProgramme>
+        <replyItem></replyItem>
             <!-- <div class="item" v-for="(item,index) in programme" :key="index">
                 <div class="item vux-1px-b" @click="showList(index)">
                     方案{{index+1}}
@@ -47,7 +47,7 @@
   import replyItem from '@/components/customized/reply_item.vue'
   import newProgramme from '@/components/adviser/new_programme.vue'
   export default {
-    name: 'customizedReply',
+    name: 'customized_reply',
     data(){
         return{
             text:'',
@@ -72,7 +72,7 @@
             console.log(postdata);
             api.saveCustomizedReply(postdata).then(res=>{
                 console.log(res);
-                this.$router.push('/replyOrder');
+                this.$router.push({name:'container',query:{id:'55'}});
             }).catch(err=>{
                 console.log(err);
             })

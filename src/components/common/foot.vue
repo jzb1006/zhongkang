@@ -1,7 +1,7 @@
 <template>
     <div id="foot">
         <tabbar>
-            <tabbar-item v-for="(menu,index) in menu_footer" :key="index" selected @on-item-click="open($event)" :link="{name:'container',query:{'name':menu.url}}">
+            <tabbar-item v-for="(menu,index) in menu_footer" :key="index" selected @on-item-click="open($event,menu)" :link="{name:'container',query:{'name':menu.url}}">
                 <span slot="icon" class="icon" :class="menu.icon"></span>
                 <span slot="label">{{menu.name}}</span>
             </tabbar-item>
@@ -63,7 +63,8 @@ export default {
         close() {
             this.menu_show = false;
         },
-        open(index) {
+        open(index,menu) {
+            console.log(menu);
             if (index == 1) {
                 this.menu_show = true;
             }

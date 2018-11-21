@@ -1,7 +1,7 @@
 <template>
     <div id="adviser_order_item">
         <!-- <router-link :to="{name:'customizedOrderDetail',params:{order_sn:item.order_sn}}"> -->
-        <tab>
+        <!-- <tab>
             <tab-item :selected="selected === 0" @on-item-click="onItemClick(0)">
                 <p class="route">全部订单</p>
             </tab-item>
@@ -16,7 +16,7 @@
             <nosearch text="您的定制订单为空"></nosearch>
         </div>
         <div class="item" v-else v-for="(item,index) in result" :key="index" @click="detail(item.order_sn)">
-            <order-item-tem :item="item"></order-item-tem>
+            <orderItemTem :item="item"></orderItemTem> -->
             <!-- <div class="time">
                 <span class="l">{{item.update_time}}</span>
                 <span class="status">{{item.status}}</span>
@@ -34,7 +34,8 @@
             </div>
             <order-item v-for="(value,index) in result" :key="index" :item=value class="item" @click.native="detail(value.order_sn)"></order-item> -->
         <!-- </router-link> -->
-        </div>
+        <!-- </div> -->
+        <adviserOrderTem :result=result @update="updateOrder"></adviserOrderTem>
     </div>
 </template>
 
@@ -79,6 +80,10 @@
                 this.result=[];
                 this.queryReceiptOrder(index);
             },
+            updateOrder(data){
+                this.result=[];
+                this.queryReceiptOrder(data);
+            }
         },
         mounted(){
             // api.queryCustomizedOrder()
@@ -101,7 +106,7 @@
 </script>
 
 <style scoped>
-    #orderItem{
+    #adviser_order_item{
         background:#f0f0f0; 
         min-height:100%;
         height:auto;

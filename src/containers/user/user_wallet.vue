@@ -2,7 +2,7 @@
     <div id="wallet">
         <top :params=params></top>
          
-        <wallet-tab></wallet-tab>
+        <walletTab></walletTab>
         <!-- <tab class="nav">
             <tab-item selected @on-item-click="toBalance">
                 <p class="route">余额</p>
@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import top from '@/components/decorate/top.vue'
-import walletTab from '@/components/wallet/walletTab.vue'
+// import top from '@/components/decorate/top.vue'
+// import walletTab from '@/components/wallet/wallet_tab.vue'
 // import {Tab,TabItem} from 'vux'
 export default {
     name: 'wallet',
@@ -44,8 +44,8 @@ export default {
     //     }
     // },
     components:{
-        top,
-        walletTab,
+        // top,
+        // walletTab,
     }
 }
 </script>

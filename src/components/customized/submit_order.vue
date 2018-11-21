@@ -4,7 +4,7 @@
             <div class="fbottom">
                 <div class="order-info">
                     <p class="pay-money">
-                        金额：<span>￥</span><span id="tmp_pay2">{{price}}</span></p>
+                        金额：<span>￥</span><span id="tmp_pay2">{{this.params.order_amount}}</span></p>
                 </div>
                 <span @click="add_order" class="order-submit-btn">提交订单</span>
             </div>
@@ -16,7 +16,7 @@
 <script>
     import api from "../../api/customized"
     import pay from "@/components/common/pay.vue"
-    import detailItem from '@/components/customized/detail_Item.vue'
+    import detailItem from '@/components/customized/detail_item.vue'
     import { mapGetters } from "vuex";
     import Bus from '@/assets/bus.js'
     export default {
@@ -36,7 +36,7 @@
                     show_pay_page:this.show_pay_page,
                     order_sn:this.sn,
                     order_amount:this.price,
-                    jump_url:"http://192.168.0.110:8080/#/customizedOrder",
+                    jump_url:"http://192.168.0.110:8080/#/container?id=44",
                     subject:"4",
                 }
             }

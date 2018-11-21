@@ -1,5 +1,5 @@
 <template>
-  <div id="customizedOrderOperation">
+  <div id="customized_order_operation">
         <div class="juli"></div>
         <div class="footer vux-1px-t">
             <!-- <span class="reply vux-1px" v-if="result['order_status']>=5" @click="ask(result.order_sn,result.adviser_id,result.user_id)">追问</span>
@@ -9,10 +9,10 @@
                   <div class="reply vux-1px"  @click="change_action(items['name'],order_btn['order_sn'],order_btn['status'],items['text'])">{{items['text']}}</div>
                 </div>
                 <div v-else-if="items['type']==1">
-                    <router-link v-if="items['route'] == 'applyRefund'" :to="{name:'customized_applyRefund',params:{tt:'tuikuan',oid:order_btn['order_sn'],status:order_btn['status']}}">
+                    <router-link v-if="items['route'] == 'applyRefund'" :to="{name:'container',query:{id:'61',tt:'tuikuan',oid:order_btn['order_sn'],status:order_btn['status']}}">
                         <div class="reply vux-1px">{{items['text']}}</div>
                     </router-link>
-                    <router-link v-if="items['route'] == 'appeal' " :to="{name:'customized_appeal',params:{tt:'shensu',oid:order_btn['order_sn'],status:order_btn['status']}}">
+                    <router-link v-if="items['route'] == 'appeal' " :to="{name:'container',query:{id:'62',tt:'shensu',oid:order_btn['order_sn'],status:order_btn['status']}}">
                         <div class="reply vux-1px">{{items['text']}}</div>
                     </router-link>
                     <!-- <div class="reply vux-1px" v-if="items['route'] == 'pay' " @click="fastpay(order_btn['order_sn'])">{{items['text']}}</div> -->
@@ -31,7 +31,7 @@
   import Bus from '@/assets/bus.js'
   import pay from "@/components/common/pay.vue"
   export default {
-    name: 'customizedOrderOperation',
+    name: 'customized_order_operation',
     data(){
         return{
             order_sn:'',
@@ -64,13 +64,15 @@
             })
         },
         reply(order_sn){
-            this.$router.push({name:'viewReply',params:{'order_sn':order_sn}})
+            // this.$router.push({name:'viewReply',params:{'order_sn':order_sn}})
+            this.$router.push({name:'container',query:{id:'46'}})
         },
         ask(order_sn,adviser_id,user_id){
             // console.log(adviser_id);
             // this.$store.dispatch('changeOtherId',adviser_id);
             sessionStorage.setItem('direction',0);
-            this.$router.push({name:'ask',params:{'order_sn':order_sn,'adviser_id':adviser_id,'user_id':user_id,'direction':0}})
+            // this.$router.push({name:'ask',params:{'order_sn':order_sn,'adviser_id':adviser_id,'user_id':user_id,'direction':0}})
+            this.$router.push({name:'container',query:{id:'47'}})
         },
         fastpay(order_sn) {
             api.cuspay({'order_sn':order_sn}).then(res=>{
@@ -131,7 +133,7 @@
   }
 </script>
 <style scoped>
-    #customizedOrderDetail{
+    #customized_order_operation{
         font-size:.35rem;
     }
     .content{
@@ -149,6 +151,7 @@
         height:.8rem;
         padding: 0.2rem 0px;
         background: #fff;
+        z-index:504;
     }
     .reply{
         height: 0.6rem;

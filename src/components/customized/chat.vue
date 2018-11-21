@@ -1,6 +1,6 @@
 <template>
     <div id="chat">
-        <chatContent :params=params></chatContent>
+        <chatContent :params="params"></chatContent>
         <chatFoot :params="params"></chatFoot>
     </div>
 </template>
@@ -15,13 +15,13 @@ export default {
             }
         }
     },
-    data(){
-        return {
-            // params:{
-            //     direction:0
-            // },
-        }
-    }
+    // data(){
+    //     return {
+    //         params:{
+    //             direction:0
+    //         },
+    //     }
+    // }
 }
 </script>
 <style scoped>

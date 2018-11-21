@@ -1,5 +1,5 @@
 <template>
-    <div id="adviserList">
+    <div id="adviser_list">
         <div v-for="(item,index) in list" :key="index" class="item vux-1px-b" @click="selectAdviser(item.level_name,item.realname,item.user_id,item.consultation_price,index)">
             <p class="first">
                 <span>{{item.realname}}</span>
@@ -19,7 +19,7 @@
   import api from './../../api/customized'
   import Bus from '@/assets/bus.js'
   export default {
-    name: 'adviserList',
+    name: 'adviser_list',
     data(){
         return{
             list:[],

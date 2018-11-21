@@ -1,5 +1,5 @@
 <template>
-    <div id="diarySelItem" v-show="status">
+    <div id="diary_sel_item" v-show="status">
         <p class="sel_ok clearfix">
             <span class="submit" @click="sel_Ok()">OK</span>
         </p>
@@ -33,6 +33,7 @@
 import Bus from "@/assets/bus.js";
 import api from "@/api/diary";
 export default {
+    name:'diary_sel_item',
     props: {
         itemList1: {
             default: function() {
@@ -188,7 +189,7 @@ export default {
     color: #17a2b8;
 }
 
-#diarySelItem {
+#diary_sel_item {
     position: fixed;
     right: 0;
     left: 0;
@@ -198,33 +199,33 @@ export default {
     overflow: hidden;
     background-color: #fff;
 }
-#diarySelItem > div {
+#diary_sel_item > div {
     height: 100%;
 }
-#diarySelItem .sel_ok {
+#diary_sel_item .sel_ok {
     color: #000;
     font-size: 0.35rem;
     text-align: center;
     padding: 0.3rem;
 }
-#diarySelItem .sel_ok .badge_l {
+#diary_sel_item .sel_ok .badge_l {
     float: left;
 }
-#diarySelItem .sel_ok .submit {
+#diary_sel_item .sel_ok .submit {
     float: right;
 }
 
 .active {
     background-color: #17a2b8 !important;
 }
-#diarySelItem p.title {
+#diary_sel_item p.title {
     padding: 0.2rem 0;
     font-size: 0.4rem;
 }
-#diarySelItem span.tip {
+#diary_sel_item span.tip {
     color: #fff;
 }
-#diarySelItem .items {
+#diary_sel_item .items {
     padding: 0 0.2rem;
     font-size: 0.3rem;
     height: 0.4rem;
@@ -232,24 +233,24 @@ export default {
     overflow-y: hidden;
     white-space: nowrap;
 }
-#diarySelItem .items span {
+#diary_sel_item .items span {
     display: inline-block;
     margin-right: 0.3rem;
     padding: 0.1rem 0;
     color: #17a2b8;
 }
-#diarySelItem .show_sel {
+#diary_sel_item .show_sel {
     margin-top: 0.3rem;
 }
-#diarySelItem .show_items {
+#diary_sel_item .show_items {
     float: left;
     height: 8rem;
 }
-#diarySelItem .show_items2 {
+#diary_sel_item .show_items2 {
     float: right;
     height: 8rem;
 }
-#diarySelItem ul.sel_item {
+#diary_sel_item ul.sel_item {
     text-align: center;
     list-style: none;
     font-size: 0.3rem;
@@ -258,15 +259,15 @@ export default {
     height: 80%;
     overflow-y: scroll;
 }
-#diarySelItem ul.sel_item > li {
+#diary_sel_item ul.sel_item > li {
     overflow: hidden;
     padding: 0.3rem 0;
     background-color: #f0f0f0;
 }
-#diarySelItem ul.sel_item > li.item1_selected {
+#diary_sel_item ul.sel_item > li.item1_selected {
     background-color: #fff;
 }
-#diarySelItem ul.sel {
+#diary_sel_item ul.sel {
     list-style: none;
     font-size: 0.3rem;
     padding: 0 0 8rem 0;

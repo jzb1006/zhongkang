@@ -2,10 +2,10 @@
     <div id="setup">
         <top :params=params></top>
         <!-- <setup-con></setup-con> -->
-        <setup-selfinfo></setup-selfinfo>
-        <setup-phone></setup-phone>
-        <setup-password></setup-password>
-        <setup-email></setup-email>
+        <setupSelfinfo></setupSelfinfo>
+        <setupPhone></setupPhone>
+        <setupPassword></setupPassword>
+        <setupEmail></setupEmail>
         <!-- <user-setup-row :params="params1"></user-setup-row>
 
         <user-phone-row></user-phone-row>
@@ -21,9 +21,9 @@
 // import top from "@/components/decorate/top.vue";
 // import setupCon from "@/components/user/setupCon.vue"
 // import logout from "@/components/user/logout.vue"
-// import userSetupRow from "@/components/user/row/userSetupRow.vue"
-// import userPhoneRow from "@/components/user/row/userPhoneRow.vue"
-// import userEmailRow from "@/components/user/row/userEmailRow.vue"
+// import userSetupRow from "@/components/user/row/user_setup_row.vue"
+// import userPhoneRow from "@/components/user/row/user_phone_row.vue"
+// import userEmailRow from "@/components/user/row/user_email_row.vue"
 // import {mapState,mapGetters} from 'vuex'
 export default {
     name: 'setup',

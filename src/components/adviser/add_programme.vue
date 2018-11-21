@@ -1,5 +1,5 @@
 <template>
-    <div id="programme">
+    <div id="add_programme">
         <top :params="{title:'添加方案',hasBtn:true,btnText:'确定',next:this.add}">
             <!-- <span slot="next" class="next" @click="add">确定</span> -->
         </top>
@@ -10,7 +10,7 @@
                 <span v-else class="submit" @click="submit(1)">发表</span>
             </p> -->
             <div class="textarea">
-                <x-textarea v-model.trim="text" :max="1000" :rows=4 placeholder="请输入手术方案" :show-counter=false></x-textarea>
+                <x-textarea v-model.trim="text" :max="200" :rows=4 placeholder="请输入手术方案" :show-counter=false></x-textarea>
             </div>
             <div class="upFile">
                 <mediaDisplay @getFileList=getFileList></mediaDisplay>
@@ -58,7 +58,7 @@
     </div>
 </template>
 <script>
-  import top from '@/components/decorate/top.vue'
+  import top from '@/components/decorate/top_hide.vue'
   import api from './../../api/customized'
   import Upload from "@/components/public/upload"
   import Bus from '@/assets/bus.js'
@@ -66,7 +66,7 @@
 import { XTextarea, Popup, PopupRadio } from "vux";
 import mediaDisplay from "@/components/upload/media_display";
   export default {
-    name: 'programme',
+    name: 'add_programme',
     data(){
         return{
             text:'',
@@ -78,17 +78,33 @@ import mediaDisplay from "@/components/upload/media_display";
         }
     },
     methods:{
-        add(){            
+        add(){
+            // console.log('a:::'+this.price);
             this.programme.push(this.text);
             this.programme=this.programme.concat(this.programmePhoto);
-            console.log(this.programme);
+            // console.log(this.programme);
+            if(this.programme==''){
+                alert('请输入手术方案');
+                return false;
+            }else if(this.programmePhoto==''){
+                alert('请添加手术方案图');
+                return false;
+            }
+            if(this.price==''){
+                alert('请输入手术价格');
+                return false;
+            }
+            if(this.photo==''){
+                alert('请添加手术案例图');
+                return false;
+            }
             let postdata={
                 'order_sn':this.order_sn,
                 'programme':this.programme,
                 'operation_price':this.price,
                 'photo':this.photo
             }
-            console.log(postdata);
+            // console.log(postdata);
             this.$emit('passProgramme',postdata);
             Bus.$emit('passProgramme',postdata);
             this.text='';
@@ -123,7 +139,7 @@ import mediaDisplay from "@/components/upload/media_display";
     },
     mounted(){
         this.order_sn=this.$route.query.order_sn;
-        console.log(this.order_sn);
+        // console.log(this.order_sn);
         // api.viewReply({'order_sn':this.order_sn}).then(res=>{
         //     console.log(res);
         //     this.result=res.data;
@@ -159,7 +175,7 @@ import mediaDisplay from "@/components/upload/media_display";
     line-height: 0.4rem;
     /* font-weight: 550; */
 }
-    #programme{
+    #add_programme{
         position: absolute;
         top:0;
         left:0;

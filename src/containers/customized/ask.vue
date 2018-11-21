@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import top from '@/components/decorate/top.vue'
+//   import top from '@/components/decorate/top.vue'
 //   import api from '@/api/customized'
 //   import {mapGetters} from 'vuex'
 //   import chatContent from  '@/components/customized/chat_content.vue'
@@ -105,11 +105,11 @@
     },
     mounted(){
         // this.init();
-        this.direction=sessionStorage.getItem('direction');
-        console.log(this.direction);
+        // this.direction=sessionStorage.getItem('direction');
+        // console.log(this.direction);
     },
     components:{
-        top,
+        // top,
         // chatContent,
         // chatFoot,
     }

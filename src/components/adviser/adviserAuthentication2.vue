@@ -1,5 +1,5 @@
 <template>
-    <div id="adviserAuthentication">
+    <div id="adviser_authentication">
         <top :params=params></top>
         <!-- <edit-info></edit-info>
         <certificate></certificate> -->
@@ -64,7 +64,7 @@
     import selectAdviserLevel from '@/components/customized/select_adviser_level'
     import {mapGetters} from 'vuex'
     export default{
-        name:'adviserAuthentication',
+        name:'adviser_authentication',
         data(){
             return{
                 level:'41',

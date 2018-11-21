@@ -1,6 +1,6 @@
 <template>
     <div id="order_list">
-        <top title="订单列表"></top>
+        <!-- <top title="订单列表"></top> -->
         <tab>
             <tab-item :selected="selected === 0" @on-item-click="onItemClick(0)">
                 <p class="route">全部订单</p>
@@ -27,7 +27,7 @@
     import loginApi from "../../api/user/login.js";
     import api from "../../api/order";
     import orderItem from "@/components/order/order_item.vue";
-    import top from "@/components/decorate/top_back_title.vue";
+    // import top from "@/components/decorate/top_back_title.vue";
     import Loading from "@/components/decorate/loading.vue";
     import Alert from "@/components/decorate/alert.vue";
     import LoadMore from '@/components/loadMore/index.vue';
@@ -127,7 +127,7 @@
         components: {
             Tab,
             TabItem,
-            top,
+            // top,
             orderItem,
             Loading,
             Alert,

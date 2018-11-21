@@ -5,7 +5,7 @@
         </div>
 
         <div v-if="hasChild">
-            <tree v-for="(item,index) in model.child_component" :key="index" v-bind:model="item" v-bind:key="index"></tree>
+            <tree v-for="(item,index) in model.child_component" :key="index" v-bind:model="item"></tree>
         </div>
     </div>
 </template>

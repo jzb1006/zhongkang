@@ -25,11 +25,11 @@
                     <option value="42">中级顾问</option>
                     <option value="43">高级顾问</option>
                 </select> -->
-                <select-adviser-level :params="params" class="select_adviser"></select-adviser-level>
+                <selectAdviserLevel :params="params" class="select_adviser"></selectAdviserLevel>
             </div>
             <div class="item">
                 <div class="span">预算区间:</div>
-                <price-range class="price" @getMin="getMin" @getMax="getMax"></price-range>
+                <priceRange class="price" @getMin="getMin" @getMax="getMax"></priceRange>
             </div>
         </div>
         <popup v-model="show_item" position="bottom" max-height="50%">
@@ -49,6 +49,7 @@ import priceRange from '@/components/common/price_range.vue'
 import selectAdviserLevel from '@/components/customized/select_adviser_level'
 
 export default {
+    name:'requirement_content',
     data() {
         return {
             lastname:'',

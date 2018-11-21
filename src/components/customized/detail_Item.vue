@@ -1,5 +1,5 @@
 <template>
-  <div id="detail_Item">
+  <div id="detail_item">
         <!-- <div>
             <div class="item vux-1px-b">
                 <span class="left">订单金额</span>
@@ -49,15 +49,15 @@
             </div>
             
         </div> -->
-        <detail-item-tem :result="result"></detail-item-tem>
+        <detailItemTem :result="result"></detailItemTem>
   </div>
 </template>
 <script>
   import api from '@/api/customized'
   import { mapGetters } from "vuex";
-  import detailItemTem from '@/components/commonTemplete/detailItemTem.vue';
+//   import detailItemTem from '@/components/commonTemplete/detail_item_tem.vue';
   export default {
-    name: 'detail_Item',
+    name: 'detail_item',
     data(){
         return{
             result:[],

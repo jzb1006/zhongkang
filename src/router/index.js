@@ -8,8 +8,10 @@ import productDetail from '@/components/product/detail.vue'
 import proDiary from '@/components/product/pro_diary.vue'
 import mycart from '@/components/shopping/mycart_checkout.vue'
 import pay from '@/components/shopping/pay.vue'
-import orderList from '@/components/order/order_list.vue'
-import orderDetail from '@/components/order/order_detail.vue'
+// import orderList from '@/components/order/order_list.vue'
+import orderList from '@/containers/order/order_list_box.vue'
+// import orderDetail from '@/components/order/order_detail.vue'
+import orderDetail from '@/containers/order/order_detail_box.vue'
 import applyRefund from '@/components/order/apply_refund.vue'
 import appeal from '@/components/order/appeal.vue'
 import scanQR from '@/components/order/scanQR.vue'
@@ -46,40 +48,41 @@ import HUserEditPassword from '@/containers/user/user_editpassword.vue'
 import HUserEditEmail from '@/containers/user/user_editemail.vue'
 import HUserWallet from '@/containers/user/user_wallet.vue'
 
-import bill from '@/components/user_wallet/user_bill'
+import bill from '@/components/wallet/user_bill'
+import balance from '@/components/wallet/user_balance'
+import bank from '@/components/wallet/user_bank'
 import billDetail from '@/containers/wallet/bill_detail'
 import cash from '@/containers/wallet/user_cash'
-import bank from '@/components/user_wallet/user_bank'
+
 import addbank from '@/containers/wallet/user_addbank'
-import chooseBank from '@/components/user_wallet/user_chooseBank'
-import balance from '@/components/user_wallet/user_balance'
+import chooseBank from '@/components/wallet/user_choose_bank'
 import recharge from '@/containers/wallet/user_recharge'
 
 
 // import customized from '@/components/customized/customized'
 import customized from '@/containers/customized/customized'
 import requirement from '@/components/customized/requirement'
-import confirmOrder from '@/containers/customized/confirmOrder'
+import confirmOrder from '@/containers/customized/confirm_order'
 import cuspay from '@/components/customized/cuspay'
 import adviser from '@/components/adviser/list'
-import customizedOrder from '@/containers/customized/customizedOrder'
+import customizedOrder from '@/containers/customized/customized_order'
 import adviserAuthentication from '@/components/adviser/adviser_authentication'
 import adviserAuthenticationState from '@/components/adviser/adviser_authentication_state'
-import adviserReceipt from '@/containers/adviser/adviserReceipt'
+import adviserReceipt from '@/containers/adviser/adviser_receipt'
 import receiptDetail from '@/components/adviser/receipt_detail'
 import customizedReply from '@/containers/adviser/reply'
 import programme from '@/components/adviser/add_programme'
-import customizedOrderDetail from '@/containers/customized/customizedOrderDetail'
-import viewReply from '@/containers/customized/viewReply'
-import replyOrder from '@/containers/adviser/replyOrder'
-import replyOrderDetail from '@/containers/adviser/replyOrderDetail'
+import customizedOrderDetail from '@/containers/customized/customized_order_detail'
+import viewReply from '@/containers/customized/view_reply'
+import replyOrder from '@/containers/adviser/reply_order'
+import replyOrderDetail from '@/containers/adviser/reply_order_detail'
 import inquiries from '@/components/customized/inquiries'
 import ask from '@/containers/customized/ask'
-import customized_applyRefund from '@/components/customized/customized_applyRefund'
+import customized_applyRefund from '@/components/customized/customized_apply_refund'
 import customized_appeal from '@/components/customized/customized_appeal'
 import appeal_confirm_consumption from '@/components/adviser/appeal_confirm_consumption'
 import editProgramme from '@/components/adviser/edit_programme'
-import adviserViewReply from '@/containers/adviser/viewReply'
+import adviserViewReply from '@/containers/adviser/adviser_view_reply'
 import answer from '@/containers/adviser/answer'
 
 
@@ -408,24 +411,24 @@ const router = new Router({
       path: '/home/userWallet',
       name:'userWallet',
       component: HUserWallet,
-      redirect:'/home/balance',
-      children:[
-        {
-          path:'/home/balance',
-          name:'balance',
-          component:balance
-        },
-        {
-          path:'/home/bank',
-          name:'bank',
-          component:bank
-        },
-        {
-          path: '/bill',
-          name:'bill',
-          component: bill
-      },
-      ]
+      // redirect:'/home/balance',
+      // children:[
+      //   {
+      //     path:'/home/balance',
+      //     name:'balance',
+      //     component:balance
+      //   },
+      //   {
+      //     path:'/home/bank',
+      //     name:'bank',
+      //     component:bank
+      //   },
+      //   {
+      //     path: '/bill',
+      //     name:'bill',
+      //     component: bill
+      // },
+      // ]
     },
     // {
     //   path:'/home/customized',
@@ -618,26 +621,26 @@ const router = new Router({
   // }
 })
 
-router.beforeEach((to, from, next) => {
-  if(to.name=='user'||to.name=='orderList'||to.name=='recharge'||to.name=='cash'||to.name=='addBank'||
-    to.name=='userSelfinfo'||to.name=='userEditphone'||to.name=='userEditpassword'||to.name=='userEditemail'||
-    to.name=='balance'||to.name=='bank'||to.name=='bill'||to.name=='userSetup'||to.name=='userWallet'||to.name=='orderList'||
-    to.name=='chooseBank' || to.name=='diaryBackdropList'||to.name=='customized'){
-      api.checkLogin('checkLogin').then(res=>{
-          console.log(res.data);
-          if(res.data.error==0){
-            // router.push({name:'login'});
-            next('/login');
-          }else{
-            next();
-          }
-      }).catch(error=>{
-          console.log(error);
-      })
-  }else{
-    next();
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if(to.name=='user'||to.name=='orderList'||to.name=='recharge'||to.name=='cash'||to.name=='addBank'||
+//     to.name=='userSelfinfo'||to.name=='userEditphone'||to.name=='userEditpassword'||to.name=='userEditemail'||
+//     to.name=='balance'||to.name=='bank'||to.name=='bill'||to.name=='userSetup'||to.name=='userWallet'||to.name=='orderList'||
+//     to.name=='chooseBank' || to.name=='diaryBackdropList'||to.name=='customized'){
+//       api.checkLogin('checkLogin').then(res=>{
+//           console.log(res.data);
+//           if(res.data.error==0){
+//             // router.push({name:'login'});
+//             next('/login');
+//           }else{
+//             next();
+//           }
+//       }).catch(error=>{
+//           console.log(error);
+//       })
+//   }else{
+//     next();
+//   }
+// })
 router.beforeEach((to, from, next) => {
   if(to.name=='productDetail' || to.name=='mycart' || to.name=='orderDetail' ||to.name=='confirmOrder'||
   to.name=='bill' || to.name=="customizedOrderDetail" || to.name=='receiptDetail' || to.name=='ask' ||

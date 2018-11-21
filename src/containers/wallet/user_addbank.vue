@@ -1,7 +1,7 @@
 <template>
 	<div class="addbank">
 		<top :params="{title:'添加银行卡'}"></top>
-        <add-bank></add-bank>
+        <addBank></addBank>
 		<!-- <div class="content">
                 <div class="box">
                       <span class="title">类型:</span>
@@ -34,8 +34,8 @@
 // import api from "../../api/wallet"
 // import user from "../../api/user"
 import top from "@/components/decorate/top.vue";
-// import verificationCode from '@/components/common/verificationCode.vue'
-import addBank from '@/components/wallet/addBank.vue'
+// import verificationCode from '@/components/common/verification_code.vue'
+import addBank from '@/components/wallet/add_bank.vue'
 export default {
     name: 'addbank',
     // data(){

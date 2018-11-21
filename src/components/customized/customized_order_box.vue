@@ -1,6 +1,6 @@
 <template>
-    <!-- <div id="customizedOrderBox">
-        <tab>
+     <div id="customized_order_box">
+    <!--    <tab>
             <tab-item :selected="selected === 0" @on-item-click="onItemClick(0)">
                 <p class="route">全部订单</p>
             </tab-item>
@@ -21,18 +21,22 @@
             </div>
             <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="query" class="bg"></LoadMore>
         </div>
-        <div id="fill"></div>
-    </div> -->
-    <customized-order-box-tem :params="params1"></customized-order-box-tem>
+        <div id="fill"></div> -->
+        <Loading v-show="Loading"></Loading>
+        <customizedOrderBoxTem :result="result" @update="updateOrder"></customizedOrderBoxTem>
+        <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="query"></LoadMore>
+    </div>
+    
 </template>
 <script>
     import api from "../../api/customized"
+    import Loading from "@/components/decorate/loading.vue";
     import orderItem from '@/components/customized/order_item'
     import nosearch from "@/components/nosearch/index.vue"
     import {Tab,TabItem} from 'vux'
     import LoadMore from '@/components/loadMore/index.vue'
-    import orderItemTem from "@/components/commonTemplete/orderItemTem.vue"
-    import customizedOrderBoxTem from "@/templete/customized/customizedOrderBoxTem.vue"
+    import orderItemTem from "@/components/commonTemplete/order_item_tem.vue"
+    import customizedOrderBoxTem from "@/templete/customized/customized_orderbox_tem.vue"
     export default {
         name:'customized_order_box',
         data(){
@@ -44,22 +48,24 @@
                 isBusy: false,
                 page:1,
                 type:0,
+                Loading:true
             }
         },
         computed:{
-            params1(){
-                return{
-                    result:this.result,
-                    selected:this.selected,
-                    hasMore: this.hasMore,
-                    isBusy: this.isBusy,
-                    page:this.page,
-                    type:this.type,
-                    onItemClick:this.onItemClick,
-                    query:this.query,
-                    detail:this.detail,
-                }
-            }
+            // params1(){
+            //     return{
+            //         result:this.result,
+            //         selected:this.selected,
+            //         hasMore: this.hasMore,
+            //         isBusy: this.isBusy,
+            //         page:this.page,
+            //         type:this.type,
+            //         onItemClick:this.onItemClick,
+            //         query:this.query,
+            //         detail:this.detail,
+            //     }
+            // }
+            
         },
         props:{
             params:{
@@ -72,7 +78,7 @@
             },
             detail(order_sn){
                 console.log(order_sn);
-                // this.$store.dispatch('changeOrderSn',order_sn);
+                this.$store.dispatch('changeOrderSn',order_sn);
                 this.$router.push({name:'customizedOrderDetail',params:{sn:order_sn}});
                 // this.$router.push('/customizedOrderDetail');
             },
@@ -96,22 +102,29 @@
                         this.isBusy=true;
                         this.hasMore=0;
                     }
+                    this.Loading=false;
                 })
                 .catch(err=>{
                     console.log(err);
                 })
                 
             },
-            onItemClick(index){
-                this.result=[];
-                this.type=index;
-                this.page=1;
-                this.queryCustomizedOrder(index);
-            },
+            // onItemClick(index){
+            //     this.result=[];
+            //     this.type=index;
+            //     this.page=1;
+            //     this.queryCustomizedOrder(index);
+            // },
             query(){
                 this.page=this.page+1;
                 this.queryCustomizedOrder(this.type);
             },
+            updateOrder(data){
+                this.result=[];
+                this.type=data;
+                this.page=1;
+                this.queryCustomizedOrder(data);
+            }
         },
         mounted(){
             this.queryCustomizedOrder(0);
@@ -123,47 +136,9 @@
             TabItem,
             LoadMore,
             orderItemTem,
-            customizedOrderBoxTem
+            customizedOrderBoxTem,
+            Loading
         }
     }
 </script>
-<style scoped>
-    /* #customizedOrder{
-        background:#f0f0f0; 
-        min-height:100%;
-        height:auto;
-    }
-    .item{
-        margin-bottom:.15rem;
-        background:#fff;
-        font-size:.35rem;
-    } 
-    .img{
-        width:1rem;
-        height:1rem;
-    } */
-</style>
-<style>
-   
-    /* .vux-tab .vux-tab-item {
-        font-size: 0.3rem!important;
-    }
-    .vux-tab-container,
-    .vux-tab,
-    .vux-tab-wrap {
-        height: 1rem!important;
-    }
-    .vux-tab-wrap {
-        padding-top: 0.2rem!important;
-    }
-    .vux-tab .vux-tab-item.vux-tab-selected {
-        color: #ff5370!important;
-    }
-    .vux-tab-ink-bar {
-        background-color: #ff5370!important;
-    }
-    .route {
-        height: 1rem;
-        line-height: 1rem;
-    } */
-</style>
+

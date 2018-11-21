@@ -1,14 +1,14 @@
 <template>
     <div id="adviser_authentication_state">
-        <authentication-state v-if="is_authentication"></authentication-state>
-        <adviser-authentication v-else></adviser-authentication>
+        <authenticationState v-if="is_authentication"></authenticationState>
+        <adviserAuthentication v-else></adviserAuthentication>
     </div>    
 </template>
 
 <script>
     import api from "../../api/customized"
-    import adviserAuthentication from '@/components/adviser/adviser_authentication'
-    import authenticationState from '@/components/adviser/authentication_state'
+    // import adviserAuthentication from '@/components/adviser/adviser_authentication'
+    // import authenticationState from '@/components/adviser/authentication_state'
     export default{
         name:'adviser_authentication_state',
         data(){
@@ -38,8 +38,8 @@
             this.query_authentication_state();
         },
         components:{
-            adviserAuthentication,
-            authenticationState,
+            // adviserAuthentication,
+            // authenticationState,
         }
     }
 </script>

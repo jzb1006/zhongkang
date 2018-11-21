@@ -34,6 +34,7 @@ import top from "@/components/decorate/top_back_title.vue";
 import { XTextarea, Popup, PopupRadio } from "vux";
 import mediaDisplay from "@/components/upload/media_display";
 export default {
+    name:'diary_info',
     props: {
         info: {
             default: function() {

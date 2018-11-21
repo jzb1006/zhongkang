@@ -1,52 +1,6 @@
 <template>
     <div id="reply_box">
-        <div v-if="result==''">
-            <nosearch text="暂无回复"></nosearch>
-        </div>
-        <div v-else v-for="(item,index) in result" :key="index" class="vux-1px-b">
-            <div class="item vux-1px-b"  @click="showList(index)">
-                <span class="pro">方案{{index+1}}</span>
-                <i :class="objclass(index)"></i>
-            </div>
-            <div v-show="WisShow(index)">
-                <p class="row" v-if="params.hasAdviser">
-                    <span class="left">顾问:</span>
-                    <span class="right">{{item.realname}}</span>
-                    <!-- <slot name="adviser" :myname="item.realname"></slot> -->
-                </p>
-                <div class="row">
-                    <div class="left">方案:</div>
-                    <div class="right">
-                        <p class="wenben">{{item.programme[0]}}</p>
-                        <div class="imgbox" v-for="(i,index) in item.programme.slice(1,item.programme.height)" :key="index">
-                            <img :src="url(i)" class="img2">
-                        </div>
-                        <!-- <div class="box">
-                            <mediaDisplay :filelists="backList(item.programme.slice(1,item.programme.height))" :upshow1=false></mediaDisplay>
-                        </div> -->
-                    </div>
-                </div>
-                <p class="row">
-                    <span class="left">价格:</span>
-                    <span class="right">{{item.operation_price}}</span>
-                </p>
-                <div class="item">
-                    <p>案例图:</p> 
-                    <div class="box">
-                        <p class="imgbox" v-for="(i,index) in item.photo" :key="index">
-                            <img :src="url(i)" class="img2">
-                        </p>
-                    </div>
-                    <!-- <div class="box"> -->
-                        <!-- <mediaDisplay :filelists="backList(item.photo)" :upshow1=false></mediaDisplay> -->
-                    <!-- </div> -->
-                </div>
-                <div class="row" v-if="params.hasEdit">
-                    <!-- <slot name="edit" :myname="item.programme"></slot> -->
-                    <span @click="edit(item.programme)" class="edit">修改</span>
-                </div>
-            </div>
-        </div>
+        <replyBoxTem :result="result" :params="params"></replyBoxTem>
     </div>
 </template>
 <script>

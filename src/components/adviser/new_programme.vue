@@ -3,11 +3,12 @@
         <div class="add_programme">
             <span class="btn" @click="add_programme">添加方案</span>
         </div>    
-        <add-programme v-show="addNewProgramme" @passProgramme="getProgramme"></add-programme>
+        <addProgramme v-show="addNewProgramme" @passProgramme="getProgramme"></addProgramme>
     </div>
 </template>
 <script>
 import addProgramme from '@/components/adviser/add_programme.vue'
+import Bus from '@/assets/bus.js'
 export default {
     name:'new_programme',
     data(){
@@ -25,13 +26,18 @@ export default {
             this.addNewProgramme=false;
         }
     },
+    mounted(){
+        Bus.$on('hide',res=>{
+            this.addNewProgramme=false;
+        })
+    },
     components:{
         addProgramme,
     }
 }
 </script>
 <style scoped>
-    .add_programme{
+    .new_programme{
         margin:.2rem;
     }
     .btn{

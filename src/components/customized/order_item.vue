@@ -5,7 +5,7 @@
         </div>
         <div v-else>
             <div class="item" v-for="(item,index) in result" :key="index" @click="detail(item.order_sn)">
-            <order-item-tem :item="item"></order-item-tem>
+            <orderItemTem :item="item"></orderItemTem>
             <!-- <div class="time">
                 <span class="l">{{item.update_time}}</span>
                 <span class="status">{{item.status}}</span>
@@ -35,7 +35,7 @@
 
     import api from "../../api/customized"
     import nosearch from "@/components/nosearch/index.vue"
-    import orderItemTem from "@/components/commonTemplete/orderItemTem.vue"
+    import orderItemTem from "@/components/commonTemplete/order_item_tem.vue"
     import {Tab,TabItem} from 'vux'
     import LoadMore from '@/components/loadMore/index.vue'
     import Bus from "@/assets/bus.js";

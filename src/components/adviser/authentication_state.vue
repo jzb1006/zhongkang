@@ -34,7 +34,7 @@
                 })
             },
             adviser_info(){
-                this.$router.push('/adviserAuthentication');
+                this.$router.push({name:'container',query:{id:'41'}});
             }
         },
         mounted(){

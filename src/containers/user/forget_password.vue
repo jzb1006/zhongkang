@@ -1,7 +1,7 @@
 <template>
   <div class="password">
     <top :params="{title:'忘记密码'}"></top>
-    <forget-password></forget-password>
+    <forgetPassword></forgetPassword>
     <!-- <div class="content">
         <div class="div1">
             <div class="vux-1px include"><input type="text" v-model="phonenum" class="phone" placeholder="手机号码"></div>
@@ -27,8 +27,8 @@
 // import api from '../../api/user'
 // import common from '../../widget/lib/user'
 import top from '@/components/decorate/top.vue'
-// import verificationCode from '@/components/common/verificationCode.vue'
-import forgetPassword from '@/components/user/forgetPassword.vue'
+// import verificationCode from '@/components/common/verification_code.vue'
+import forgetPassword from '@/components/user/forget_password.vue'
 export default {
     name: 'password',
     // data(){

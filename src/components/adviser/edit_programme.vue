@@ -1,61 +1,7 @@
 <template>
     <div id="edit_programme">
-        <top title="修改方案" :params="{title:'修改方案',hasBtn:true,btnText:'确定',next:this.add,}">
-            <!-- <span slot="next" class="next" @click="add">确定</span> -->
-        </top>
-        <div>
-            <!-- <p class="top">
-                <top title=""></top>
-                <span v-if="is_aesthetic_custom" class="submit" @click="submit(2)">下一步</span>
-                <span v-else class="submit" @click="submit(1)">发表</span>
-            </p> -->
-            <div class="textarea">
-                <x-textarea v-model.trim="text" :max="1000" :rows=4 placeholder="请输入手术方案" :show-counter=false></x-textarea>
-            </div>
-            <div class="upFile">
-                <mediaDisplay @getFileList=getFileList :filelists="oldProgrammePhoto"></mediaDisplay>
-                <span>添加图片</span>
-            </div>
-            <!-- <ul class="info clearfix">
-                <li class="sel_item zk-icon-iconfonticon5" ref="see">
-                    <div @click="click_status($event)">
-                        <popup-radio title="谁可以看" :options="is_show_diary" v-model="diary_show_status">
-                            <p slot="popup-header" class="vux-1px-b demo3-slot" ref="sss"></p>
-                        </popup-radio>
-                    </div>
-                </li>
-            </ul> -->
-            
-            
-        </div>
-        <div>
-            <!-- <div class="container vux-1px">
-                <div class="item">
-                    <span class="span">手术方案：</span>
-                    <div class="programme">
-                        <textarea class="text" v-model="text"></textarea>
-                        <div class="addPic vux-1px">
-                            <Upload @changeUrls="getProgrammePhoto" :file-type=1 title="添加图片" :oldPhoto="this.programmePhoto"></Upload>
-                        </div>
-                    </div>
-                </div>-->
-                <div class="item vux-1px-t">
-                    <span class="span">手术价格：</span>
-                    <div class="include vux-1px"><input type="text" class="price" v-model="price"></div>
-                </div>
-                <div class="upFile">
-                    <mediaDisplay @getFileList=getFileList1 :filelists="oldPhoto"></mediaDisplay>
-                    <span>添加n张手术案例图</span>
-                </div>
-            <!-- </div>
-            <div class="content vux-1px">
-                <div class="addPic">
-                    <Upload @changeUrls="getPhotoUrl" :file-type=1 title="添加n张手术案例图" :oldPhoto="this.photo"></Upload>
-                </div>
-            </div> -->
-        </div>
-        <!-- </div> -->
-        <div id="fill"></div>
+        <editProgrammeTem :result="result"></editProgrammeTem>
+        
     </div>
 </template>
 <script>
@@ -82,58 +28,69 @@
         }
     },
     computed:{
-        ...mapGetters(['getOrderSn'])
+        ...mapGetters(['getOrderSn']),
+        result(){
+            return{
+                price:this.price,
+                photo:this.photo,
+                programmePhoto:this.programmePhoto,
+                programme:this.programme,
+                oldProgrammePhoto:this.oldProgrammePhoto,
+                oldPhoto:this.oldPhoto,
+                text:this.text,
+            }
+        }
     },
     methods:{
-        add(){
-            console.log(this.programmePhoto);
-            console.log(this.photo);
-            // console.log(this.order_sn);
-            this.programme.push(this.text);
-            this.programme=this.programme.concat(this.programmePhoto);
-            // console.log(this.programme);
-            // console.log(this.text);
-            let postdata={
-                'order_sn':this.getOrderSn,
-                'oldProgramme':this.oldProgramme,
-                'programme':this.programme,
-                'operation_price':this.price,
-                'photo':this.photo,
-            }
-            // console.log(postdata);
-            api.updateSingleReply(postdata).then(res=>{
-                // console.log(res);
-                this.$router.push({path:'/adviserViewReply',query:{order_sn:this.getOrderSn}});
-            }).catch(err=>{
-                console.log(err);
-            })
-            // this.$router.push({name:'customizedReply',params:{data:postdata}})
-            // this.$emit('passProgramme',postdata);
-            // this.text='';
-            // this.price='';
-        },
-        getPhotoUrl(data){
-            this.photo=data;
-        },
-        getProgrammePhoto(data){
-            this.programmePhoto=data;
-        },
-        getFileList(data) {
-            console.log(data);
-            this.programmePhoto=[];
-            data.forEach(ele=>{
-                this.programmePhoto.push(ele.url);
-            })
-            console.log(this.programmePhoto);
-        },
-        getFileList1(data){
-            console.log(data);
-            this.photo=[];
-            data.forEach(ele=>{
-                this.photo.push(ele.url);
-            })
-            console.log(this.photo);
-        }
+        // add(){
+        //     console.log(this.programmePhoto);
+        //     console.log(this.photo);
+        //     // console.log(this.order_sn);
+        //     this.programme.push(this.text);
+        //     this.programme=this.programme.concat(this.programmePhoto);
+        //     // console.log(this.programme);
+        //     // console.log(this.text);
+        //     let postdata={
+        //         'order_sn':this.getOrderSn,
+        //         'oldProgramme':this.oldProgramme,
+        //         'programme':this.programme,
+        //         'operation_price':this.price,
+        //         'photo':this.photo,
+        //     }
+        //     // console.log(postdata);
+        //     api.updateSingleReply(postdata).then(res=>{
+        //         // console.log(res);
+        //         this.$router.push({path:'/adviserViewReply',query:{order_sn:this.getOrderSn}});
+        //     }).catch(err=>{
+        //         console.log(err);
+        //     })
+        //     // this.$router.push({name:'customizedReply',params:{data:postdata}})
+        //     // this.$emit('passProgramme',postdata);
+        //     // this.text='';
+        //     // this.price='';
+        // },
+        // getPhotoUrl(data){
+        //     this.photo=data;
+        // },
+        // getProgrammePhoto(data){
+        //     this.programmePhoto=data;
+        // },
+        // getFileList(data) {
+        //     console.log(data);
+        //     this.programmePhoto=[];
+        //     data.forEach(ele=>{
+        //         this.programmePhoto.push(ele.url);
+        //     })
+        //     console.log(this.programmePhoto);
+        // },
+        // getFileList1(data){
+        //     console.log(data);
+        //     this.photo=[];
+        //     data.forEach(ele=>{
+        //         this.photo.push(ele.url);
+        //     })
+        //     console.log(this.photo);
+        // }
     },
     mounted(){
         // this.order_sn=this.$route.query.order_sn;

@@ -1,10 +1,11 @@
 <template>
   <div id="receipt_detail">
         <top title="接单详情"></top>
-        <detail-item :result="result"></detail-item>
+        <detailItem :result="result"></detailItem>
         <!-- <div class="jiedan" @click="reply(result.order_sn)">接单</div> -->
         <div class="footer vux-1px-t">
-            <span class="reply vux-1px" v-if="result.order_status=='2'" @click="receipt(result.order_sn)">接单</span>
+            <!-- v-if="result.order_status=='2'" -->
+            <span class="reply vux-1px" @click="receipt(result.order_sn)">接单</span>
             <div :key="indexs" v-for="(items,indexs) in order_btn['button_text']">
                 <div v-if="items['type']==0">
                   <div class="reply vux-1px"  @click="change_action(items['name'],order_btn['order_sn'],order_btn['status'],items['text'])">{{items['text']}}</div>
@@ -27,7 +28,7 @@
 <script>
   import top from '@/components/decorate/top_back_title.vue'
   import api from './../../api/customized'
-  import detailItem from '@/components/customized/detail_Item.vue'
+  import detailItem from '@/components/customized/receipt_detail_item.vue'
   export default {
     name: 'receipt_detail',
     data(){
@@ -39,6 +40,7 @@
     },
     methods:{
         $_ajax_order_detail(){
+            console.log(this.order_sn);
             api.receiptDetail({'order_sn':this.order_sn}).then(res=>{
                 console.log(res);
                 this.result=res.data;
@@ -50,7 +52,7 @@
         receipt(order_sn){
             api.receipt({'order_sn':order_sn}).then(res=>{
                 if(res.data.error==1){
-                    this.$router.push({path:'/customizedReply',query:{'order_sn':this.order_sn}})
+                    this.$router.push({name:'container',query:{id:'58','order_sn':this.order_sn}})
                 }
             }).catch(err=>{
                 console.log(err);
@@ -95,7 +97,7 @@
   }
 </script>
 <style scoped>
-    #receiptDetail{
+    #receipt_detail{
         font-size:.35rem;
     }
     .content{
@@ -118,8 +120,9 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        padding: 0.2rem 0px;
+        padding: 0.2rem 0;
         background: #fff;
+        z-indeX:502;
     }
     .reply{
         width:18%;

@@ -20,7 +20,7 @@
                     <option value="42">中级顾问</option>
                     <option value="43">高级顾问</option>
                 </select> -->
-                <select-adviser-level :params="{'level':this.level}"></select-adviser-level>
+                <selectAdviserLevel :params="{'level':this.level}"></selectAdviserLevel>
             </div>
             <div class="item1">
                 <div class="span">简介:</div>

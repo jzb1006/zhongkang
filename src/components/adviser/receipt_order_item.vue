@@ -1,12 +1,13 @@
 <template>
     <div id="receipt_order_item">
-        <div v-if="result==''">
+        <!-- <div v-if="result==''">
             <nosearch text="您的定制订单为空"></nosearch>
-        </div>
-        <div class="item" v-else v-for="(item,index) in result" :key="index" @click="detail(item.order_sn)">
-            <order-item-tem :item="item"></order-item-tem>
-        </div>
-        <Loading v-show="loadinging"></Loading>
+        </div> -->
+        <!-- <div class="item" v-else v-for="(item,index) in result" :key="index" @click="detail(item.order_sn)"> -->
+            <Loading v-show="loadinging"></Loading>
+            <receiptOrderTem :result="result"></receiptOrderTem>
+        <!-- </div> -->
+        
     </div>
 </template>
 
@@ -15,7 +16,7 @@
     import api from "../../api/customized"
     import nosearch from "@/components/nosearch/index.vue"
     import Loading from "@/components/decorate/loading.vue"
-    import orderItemTem from "@/components/commonTemplete/orderItemTem.vue"
+    import orderItemTem from "@/components/commonTemplete/order_item_tem.vue"
     export default {
         name:'receipt_order_item',
         data(){
@@ -30,13 +31,13 @@
         //     }
         // },
         methods:{
-            url(i){
-                return api.imgUrl()+i;
-            },
-            detail(order_sn){
-                this.$store.dispatch('changeOrderSn',order_sn);
-                this.$router.push({'path':'/replyOrderDetail',query:{'order_sn':order_sn}});
-            },
+            // url(i){
+            //     return api.imgUrl()+i;
+            // },
+            // detail(order_sn){
+            //     this.$store.dispatch('changeOrderSn',order_sn);
+            //     this.$router.push({'path':'/replyOrderDetail',query:{'order_sn':order_sn}});
+            // },
             queryAdviserOrder(){
                 api.queryAdviserOrder().then(res=>{
                     console.log(res);
@@ -59,11 +60,11 @@
 </script>
 
 <style scoped>
-    #orderItem{
-        background:#f0f0f0; 
+    #receipt_order_item{
+        background:#f0f0f0;
         min-height:100%;
         height:auto;
-        /* padding:.2rem .3rem; */
+        font-size:.35rem;
     }
     .item{
         margin-bottom:.15rem;

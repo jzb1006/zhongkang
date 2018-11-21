@@ -2,7 +2,7 @@
     <div id="requirement">
         <top :params=params></top>
         <diaryInfo @getFileList=getFileList></diaryInfo>
-        <requirement-content></requirement-content>
+        <requirementcontent></requirementContent>
         
     </div>
 </template>
