@@ -12,7 +12,7 @@
     import product from '@/components/product/list.vue'
     import Loading from "@/components/decorate/loading.vue";
     import LoadMore from '@/components/loadMore/index.vue'
-    import searchBar from '@/components/home/search_bar.vue'
+    import searchBar from '@/components/common/search_bar.vue'
     import api from "../../api/home";
     import {
         Tabbar,

@@ -1,7 +1,7 @@
 <template>
     <div id="search">
         <div class="-widget-top-bar" id="searchbar-head">
-            <router-link :to="{name:'Search'}" v-show="iconShow">
+            <router-link :to="{name:'Search'}">
                 <div class="searchbar-input">
                     <span class="zk-icon-sousuo"></span>
                     <form action="#" onsubmit="return false" class="search-wrapper">
@@ -10,12 +10,6 @@
                 </div>
             </router-link>
             <div class="curr-location">{{address}}</div>
-            <!-- <router-link :to="{name:'Search'}" class="show-search" v-show="iconShow">
-                       <i class="icon iconfont zk-icon-sousuo"></i>
-                    </router-link> -->
-            <!-- <a href="" class="show-user">
-                        <i class="icon iconfont zk-icon-iconfonticon5"></i>
-                    </a> -->
         </div>
     </div>
 </template>
@@ -35,14 +29,7 @@
                 address: state => state.BMap.city
             })
         },
-        props: {
-            title: {
-                default: ''
-            },
-            iconShow: {
-                default: false
-            }
-        },
+       
         methods: {
             $_ajax_location() {
                 BMap.addressDetail(this)

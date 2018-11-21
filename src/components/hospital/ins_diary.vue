@@ -1,13 +1,6 @@
 <template>
     <div id="insDiary">
-        <div class="head">
-            <p class="top">
-                <top title="医院日记"></top>
-            </p>
-        </div>
-        
-        
-        <diary :insId=ins_id :query=true></diary>
+        <diary :insId=ins_id :docId=doc_id :query=true></diary>
     </div>
 </template>
 <script>
@@ -17,6 +10,7 @@ export default {
     data(){
         return {
             ins_id:"",
+            doc_id:"",
         }
     },
     components:{
@@ -25,6 +19,7 @@ export default {
     },
     created(){
         this.ins_id = this.$route.query.ins_id;
+        this.doc_id = this.$route.query.doc_id;
     }
 }
 </script>

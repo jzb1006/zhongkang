@@ -4,7 +4,6 @@
             <tab-item :key="index" v-for="(item,index) in tabItems" :selected="index===0" @on-item-click="onItemClick">
                <p ref="item">{{item}}</p>
             </tab-item>
-            
         </tab>
        <preciew :list="album" :isRequesting="isRequesting" :hasMore="hasMore" :isBusy="isBus"></preciew>
        <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
@@ -33,7 +32,7 @@ import api from "../../api/hospital";
        },
        data(){
            return{
-               ins_id:this.$route.params.ins_id,
+               ins_id:this.$route.query.ins_id,
                result:[],
                alertShow:false,
                alerttType:'warn',

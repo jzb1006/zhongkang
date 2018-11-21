@@ -1,16 +1,10 @@
 <template>
         <div id="proDiary">
-            <div class="head">
-                <p class="top">
-                    <top title="项目日记"></top>
-                </p>
-            </div>
             <diary :cid=cid :query=true></diary>
         </div>
 </template>
 <script>
-import diary from './../diary/diary_list'
-import top from "@/components/decorate/top_back_title.vue";
+import diary from '@/components/diary/diary_list'
 
 export default {
     data(){
@@ -19,7 +13,6 @@ export default {
         }
     },
     components:{
-        top,
         diary,
     },
     created(){

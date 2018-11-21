@@ -23,6 +23,7 @@ export default {
         diary,
     },
     created(){
+        console.log(this.$route.query.doc_id);
         this.doc_id = this.$route.query.doc_id;
     }
 }

@@ -31,7 +31,9 @@ export default {
             diaryList: [],
             memuList: [],
 
-            diaryListInfo:{},
+            diaryListInfo: {},
+
+            doctor_id:this.docId,
 
             pd: "",
             page: 0,
@@ -61,7 +63,6 @@ export default {
                 .then(res => {
                     this.hasMore = res.data.hasMore;
 
-
                     self.handbookList = Object.assign(
                         self.handbookList,
                         res.data.handbook
@@ -80,12 +81,12 @@ export default {
                     );
 
                     self.diaryListInfo = {
-                        handbookList:self.handbookList,
-                        mediaList:self.mediaList,
-                        diaryList:self.diaryList,
-                        memuList:self.memuList,
-                        backdropList:self.backdropList
-                    }
+                        handbookList: self.handbookList,
+                        mediaList: self.mediaList,
+                        diaryList: self.diaryList,
+                        memuList: self.memuList,
+                        backdropList: self.backdropList
+                    };
 
                     this.isBusy = false;
                     self.loadinging = false;
@@ -94,7 +95,7 @@ export default {
                     self.loadinging = false;
                 });
         },
-        changeLoadmore(){
+        changeLoadmore() {
             this.loadmore = false;
         }
     },

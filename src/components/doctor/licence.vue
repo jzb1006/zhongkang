@@ -15,7 +15,7 @@ import api from "../../api/doctor";
        },
        data(){
            return{
-               doc_id:this.$route.params.doc_id,
+               doc_id:this.$route.query.doc_id,
                doc_info:[],
                alertShow:false,
                alerttType:'wran',

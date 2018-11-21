@@ -21,7 +21,7 @@ import { Tabbar, TabbarItem } from "vux";
 import menuList from "@/components/decorate/menu_list";
 import common from "../../widget/lib/user";
 export default {
-    name:"foot",
+    name: "foot",
     data() {
         return {
             menu_show: false,
@@ -36,7 +36,7 @@ export default {
                     id: "2",
                     name: "more",
                     icon: "zk-icon-gengduo",
-                    url:"",
+                    url: ""
                 },
                 {
                     id: "3",
