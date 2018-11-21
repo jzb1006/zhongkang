@@ -1,6 +1,6 @@
 <template>
   <div id="receipt_detail">
-        <top title="接单详情"></top>
+        <!-- <top :params="{title:'接单详情'}"></top> -->
         <detailItem :result="result"></detailItem>
         <!-- <div class="jiedan" @click="reply(result.order_sn)">接单</div> -->
         <div class="footer vux-1px-t">
@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-  import top from '@/components/decorate/top_back_title.vue'
+//   import top from '@/components/decorate/top_back_title.vue'
   import api from './../../api/customized'
   import detailItem from '@/components/customized/receipt_detail_item.vue'
   export default {
@@ -91,7 +91,7 @@
         this.$_ajax_order_detail();
     },
     components:{
-        top,
+        // top,
         detailItem
     }
   }
