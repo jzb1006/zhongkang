@@ -1,6 +1,10 @@
 <template>
     <div id="doc_list">
-        <product :list="doctorList" :con_id="params['product_con_id']" ></product>
+        <product 
+        :list="doctorList" 
+        :con_id="params['product_detail_con_id']" 
+        :route_link="'container'"
+        ></product>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_productList"></LoadMore>
     </div>
 </template>
