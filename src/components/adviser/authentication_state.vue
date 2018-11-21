@@ -1,7 +1,7 @@
 <template>
     <div id="authentication_state">
-        <top title="顾问认证">
-        </top>
+        <!-- <top :params="{title:'顾问认证'}">
+        </top> -->
         <div class="content">
             <div class="font">审核状态:{{is_check}}</div>
             <div class="font"><span class="btn" @click="adviser_info">我的顾问资料</span></div>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import top from '@/components/decorate/top_back_title.vue'
+    // import top from '@/components/decorate/top_back_title.vue'
     import api from "../../api/customized"
     export default{
         name:'authentication_state',
@@ -41,7 +41,7 @@
             this.query_authentication_state();
         },
         components:{
-            top,
+            // top,
         }
     }
 </script>

@@ -29,7 +29,7 @@ export const ajax3 = Axios.create({
 })
 
 export const ajax4 = Axios.create({
-  baseURL: 'http://192.168.0.110/',
+  baseURL: 'http://192.168.0.110/m',
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },

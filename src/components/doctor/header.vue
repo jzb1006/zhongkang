@@ -67,9 +67,11 @@
                     } else {
                         self.alertText = msg;
                         self.alertShow = true;
+                         self.$router.go(-1)
                     }
                 }).catch(error => {
                     console.log(error)
+                     self.$router.go(-1)
                 })
             },
         },

@@ -7,8 +7,8 @@
         </panelOrder>
         <!-- 医院和医生 -->
         <group>
-            <cell :title="ins_info['name']" value="详情" is-link :link="{name:'hospitalDetail',params:{ins_id:ins_info['id']}}"></cell>
-            <cell :title="doc_info['name']" value="详情" is-link :link="{name:'doctorDetail',params:{doc_id:doc_info['id'],ins_id:ins_info['id']}}"></cell>
+            <cell :title="ins_info['name']" value="详情" is-link :link="{name:ins_link.name,query:{id:ins_link.id,ins_id:ins_info['id']}}"></cell>
+            <cell :title="doc_info['name']" value="详情" is-link :link="{name:doc_link.name,query:{id:doc_link.id,doc_id:doc_info['id'],ins_id:ins_info['id']}}"></cell>
             <x-switch v-model="QRshow" :title="'二维码'"></x-switch>
             <x-switch v-model="actionShow" :title="'订单操作记录'"></x-switch>
         </group>
@@ -76,7 +76,6 @@
     </div>
 </template>
 <script>
-import top from "@/components/decorate/top_back_title.vue";
 import orderAction from "@/components/order/order_action.vue";
 import panelOrder from "@/components/order/panel_order.vue";
 import Alert from "@/components/decorate/alert.vue";
@@ -102,6 +101,24 @@ export default {
         params: {
             default: function() {
                 return {};
+            }
+        },
+        ins_link:{
+            type:Object,
+            default(){
+                return {
+                    name:'',
+                    id:-0
+                }
+            }
+        },
+        doc_link:{
+            type:Object,
+            default(){
+                return {
+                    name:'',
+                    id:-0
+                }
             }
         }
     },
@@ -153,7 +170,6 @@ export default {
         }
     },
     components: {
-        top,
         panelOrder,
         Group,
         Cell,
@@ -306,6 +322,7 @@ export default {
     padding: 0.2rem 0px;
     left: 0;
     background: #fff;
+    z-index: 9999;
     .btn {
         height: 0.6rem;
         font-size: 0.22rem;

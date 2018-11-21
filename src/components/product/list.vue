@@ -2,7 +2,7 @@
     <div id="product_list">
         <product :list="result" :con_id="params['product_con_id']"></product>
          <Loading v-show="loadinging"></Loading>
-        <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_index"></LoadMore>
+        <LoadMore v-if="parseInt(is_more)" :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_index"></LoadMore>
     </div>
 </template>
 <script>
@@ -19,7 +19,9 @@
             return {
                 result: [],
                 page: 1,
-                num_list: 10,
+                num_list: this.params['number'],
+                // num_list: 1,
+                is_more:this.params['is_more']||1,
                 hasMore: 0,
                 isBusy: false,
                 loadinging:true
@@ -36,7 +38,7 @@
                 var self = this;
                 api.index({
                     page: this.page++,
-                    num_list: this.num_list
+                    num_list: parseInt(this.num_list)
                 }).then(res => {
                     console.log(res)
                     var result = res.data.data;

@@ -621,26 +621,27 @@ const router = new Router({
   // }
 })
 
-// router.beforeEach((to, from, next) => {
-//   if(to.name=='user'||to.name=='orderList'||to.name=='recharge'||to.name=='cash'||to.name=='addBank'||
-//     to.name=='userSelfinfo'||to.name=='userEditphone'||to.name=='userEditpassword'||to.name=='userEditemail'||
-//     to.name=='balance'||to.name=='bank'||to.name=='bill'||to.name=='userSetup'||to.name=='userWallet'||to.name=='orderList'||
-//     to.name=='chooseBank' || to.name=='diaryBackdropList'||to.name=='customized'){
-//       api.checkLogin('checkLogin').then(res=>{
-//           console.log(res.data);
-//           if(res.data.error==0){
-//             // router.push({name:'login'});
-//             next('/login');
-//           }else{
-//             next();
-//           }
-//       }).catch(error=>{
-//           console.log(error);
-//       })
-//   }else{
-//     next();
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  if(to.name=='user'||to.name=='orderList'||to.name=='recharge'||to.name=='cash'||to.name=='addBank'||
+    to.name=='userSelfinfo'||to.name=='userEditphone'||to.name=='userEditpassword'||to.name=='userEditemail'||
+    to.name=='balance'||to.name=='bank'||to.name=='bill'||to.name=='userSetup'||to.name=='userWallet'||to.name=='orderList'||
+    to.name=='chooseBank' || to.name=='diaryBackdropList'||to.name=='customized'||(to.name=='container'&&to.query.name=='person_container')){
+      console.log(to.query.name=='person_container');
+      api.checkLogin('checkLogin').then(res=>{
+          console.log(res.data);
+          if(res.data.error==0){
+            // router.push({name:'container',query:{id:'28'}});
+            next({name:'container',query:{id:'28'}});
+          }else{
+            next();
+          }
+      }).catch(error=>{
+          console.log(error);
+      })
+  }else{
+    next();
+  }
+})
 router.beforeEach((to, from, next) => {
   if(to.name=='productDetail' || to.name=='mycart' || to.name=='orderDetail' ||to.name=='confirmOrder'||
   to.name=='bill' || to.name=="customizedOrderDetail" || to.name=='receiptDetail' || to.name=='ask' ||

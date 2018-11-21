@@ -6,7 +6,6 @@
           <div class="hot_text">
             <h3>{{item.goods_name}}</h3>
             <h4>{{item.doctor_name}} {{item.ins_name}}</h4>
-            <!-- <h4 >预约数: 745</h4> -->
             <div class="price">
               <div>
                 <span>¥

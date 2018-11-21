@@ -3,7 +3,12 @@
         <!-- <top title="订单列表"></top> -->
         <orderTab @changeItem=changeItem></orderTab>
         <div id="container">
-            <orderItem v-if="list.length != 0" :list="list"></orderItem>
+            <orderItem 
+            v-if="list.length != 0" 
+            :list="list"
+            :route_link="'container'"
+            :container_id="params['order_detail_con_id']"
+            ></orderItem>
             <emptyOrder v-else v-show="isRequesting" :orderType="orderName"></emptyOrder>
             <LoadMore :state='hasMore' :isLoading='isBusy' v-if="list.length > 0" @loadmore="$_ajax_order(currentItem)"></LoadMore>
             <Loading v-show="loadinging"></Loading>
@@ -17,13 +22,17 @@ import orderTab from "./order_tab.vue";
 import loginApi from "../../api/user/login.js";
 import api from "../../api/order";
 import orderItem from "@/templates/order/order_item.vue";
-import top from "@/components/decorate/top_back_title.vue";
+// import top from "@/components/decorate/top_back_title.vue";
 import Loading from "@/components/decorate/loading.vue";
 import Alert from "@/components/decorate/alert.vue";
 import LoadMore from "@/components/loadMore/index.vue";
 import emptyOrder from "@/components/order/empty_order_list.vue";
 import { Tab, TabItem } from "vux";
+   import { mixin } from "@/assets/js/mixins";
+
 export default {
+    mixins: [mixin],
+
     data() {
         return {
             list: [],
@@ -108,7 +117,6 @@ export default {
     components: {
         Tab,
         TabItem,
-        top,
         orderItem,
         Loading,
         Alert,
