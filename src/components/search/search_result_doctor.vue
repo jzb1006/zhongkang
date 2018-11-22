@@ -10,7 +10,7 @@ import { mapState } from "vuex";
 import Loading from "@/widget/loading";
 // import api from "../../api/search";
 import api from "@/api/search";
-import doctor from "@/components/doctor/list.vue";
+import doctor from "@/templates/doctor/list.vue";
 import LoadMore from "@/components/loadMore/index.vue";
 import nosearch from "@/components/nosearch/index.vue";
 export default {

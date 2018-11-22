@@ -27,6 +27,7 @@
                 ins_id: this.$route.query.ins_id,
                 loadinging: true,
                 result: [],
+                keyword:''
             }
         },
         components: {
@@ -44,12 +45,16 @@
                         this.$router.back(-1)
                     }
                     self.result = res.data.goodsinfo;
+                    self.keyword =  self.result['goods_name']+ self.result['cat_name']+self.result['cat_desc']+self.result['sort_desc'];
                     self.loadinging = false
                 }).catch(error => {
                     self.loadinging = false
                     console.log(error);
                 })
             },
+        },
+        destroyed(){
+            this.behavior.behavior_data(this.keyword,3);
         },
         mounted() {
             this.$_ajax_product_detail();
