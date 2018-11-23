@@ -18,7 +18,7 @@ export default {
             this.$router.back(-1);
         },
         home(){
-            this.$router.push({name:'diaryList'});
+            this.$router.push({name:'container',query:{name:"home_page"}});
         }
     }
 }

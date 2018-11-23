@@ -2,12 +2,11 @@
     <div id="commentInput">
 
         <p class="input_show" @click="show_textarea">
-            {{tip}}</p>
+            {{tip}}{{comment_content}}</p>
         <div class="shade" v-show="show_input" @click="hidden_input">
 
         </div>
         <div class="input_box" v-show="show_input">
-                   
             <textarea id="content" ref="content" placeholder="写点感想" v-model="comment_content" v-focus></textarea>
             <p class="clearfix">
                 <span class="submit" @click="submit_comment">发表评论</span>
@@ -20,7 +19,7 @@ import apiCom from "@/api/comment";
 import { mapGetters } from "vuex";
 import bus from "@/assets/bus.js";
 export default {
-    name:"comment_input",
+    name: "comment_input",
     props: {
         tip: {
             default: "写评论..."
@@ -52,8 +51,8 @@ export default {
     },
     methods: {
         comment_tip() {
-            if (this.getUserinfo.nickname) {
-                this.comment_content = "@" + this.getUserinfo.nickname;
+            if (this.getUserinfo) {
+                this.comment_content = "@" + (this.getUserinfo.nickname ? this.getUserinfo.nickname : "");
             } else {
                 this.comment_content = "";
             }
@@ -67,7 +66,7 @@ export default {
             var self = this;
             let formData = {
                 comment_post_ID: self.info.comment_post_ID, //数据库文章id
-                author: self.getUserinfo.nickname, //评论者名字
+                author: self.getUserinfo.nickname ? self.getUserinfo.nickname : "", //评论者名字
                 comment_parent: self.info.comment_parent, //父级id
                 comment_form: self.info.comment_form, //类型
                 comment_form_id: self.info.comment_form_id, //评论素材id
@@ -76,16 +75,12 @@ export default {
                 parent_id: self.info.parent_id //被评论者id
             };
 
-            this.send(formData);
-        },
-        send(formData) {
-            apiCom.addComment(formData)
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            apiCom.addComment(formData).then(res=>{
+                if(res.data.err == 0){
+                    this.$emit("comment_success");
+                }
+                
+            })
         },
         hidden_input() {
             this.show_input = false;

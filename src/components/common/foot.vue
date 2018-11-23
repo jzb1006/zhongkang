@@ -57,7 +57,6 @@ export default {
             this.menu_show = false;
         },
         open(index,menu) {
-            console.log(menu);
             if (index == 1) {
                 this.menu_show = true;
             }

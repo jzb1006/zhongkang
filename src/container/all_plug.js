@@ -27,6 +27,7 @@ import docDetaileHead from "@/components/doctor/header.vue";
 import docMapBox from '@/components/doctor/map_box.vue'
 import docRecommend from '@/components/doctor/recommend_box.vue';
 import docDiary from '@/components/doctor/diary_box.vue'
+import docMaterial from '@/components/doctor/material_box.vue'
 import docAlbum from '@/components/doctor/doc_album.vue'
 
 
@@ -52,11 +53,13 @@ import mapBox from "@/components/hospital/map_box.vue";
 import docBox from '@/components/hospital/doctor_box.vue'
 import businessBox from '@/components/hospital/business_box.vue'
 import diaryBox from '@/components/hospital/diary_box.vue'
+import insMaterial from '@/components/hospital/material_box.vue'
 import insDoctors from '@/components/hospital/doctor_list.vue'
 import insAlbum from '@/components/hospital/ins_album.vue'
 import insToMap from '@/components/hospital/to_map.vue'
 import insProductList from "@/components/hospital/ins_product_list.vue";
 import insDiaryList from "@/components/hospital/ins_diary.vue";
+import insMaterialList from "@/components/hospital/ins_material.vue";
 
 
 
@@ -176,6 +179,7 @@ import bank from '@/components/wallet/user_bank'
 import userChooseBank from '@/components/wallet/user_choose_bank'
 
 
+import userDiary from "@/components/user/list/my_diary.vue"
 import userAdviserInfo from "@/components/user/list/adviser_info.vue"
 import userAuthentication from "@/components/user/list/authentication.vue"
 import userCustomized from "@/components/user/list/customized.vue"
@@ -345,6 +349,7 @@ export default {
     Vue.component('docMapBox', docMapBox)
     Vue.component('docRecommend', docRecommend)
     Vue.component('docDiary', docDiary)
+    Vue.component('docMaterial', docMaterial)
     Vue.component('docAlbum', docAlbum)
     //产品
     // Vue.component('productList',productList)
@@ -367,11 +372,13 @@ export default {
     Vue.component('docBox', docBox)
     Vue.component('businessBox', businessBox)
     Vue.component('diaryBox', diaryBox)
+    Vue.component('insMaterial',insMaterial)  
     Vue.component('insDoctors', insDoctors)
     Vue.component('insAlbum', insAlbum)
     Vue.component('insToMap', insToMap)
     Vue.component('insProductList', insProductList)
     Vue.component('insDiaryList', insDiaryList)
+    Vue.component('insMaterialList',insMaterialList)
     
 
     //订单
@@ -394,6 +401,7 @@ export default {
     Vue.component('userMoney',userMoney)
     Vue.component('userReceipt',userReceipt)
     Vue.component('userViewOrder',userViewOrder)
+    Vue.component('userDiary',userDiary)
 
     //医导
     Vue.component("hospitalGuide",hospitalGuide)

@@ -1,7 +1,9 @@
 <template>
     <div id="material">
-        <materialTab v-show="loadmore" @materialType=material_type></materialTab>
+        <!-- <commentList></commentList> -->
+        <materialTab v-if="parseInt(is_more)" @materialType=material_type></materialTab>
         <materialList1 :materiallist=materiallist :params=params></materialList1>
+        <!-- <noSearch v-if="materiallist.length == 0" text="素材为空"></noSearch> -->
         <Loading v-if="loadinging"></Loading>
         <LoadMore v-if="parseInt(is_more)" :state='hasMore' :isLoading='isBusy' @loadmore="getData"></LoadMore>
     </div>
@@ -13,15 +15,28 @@ import materialTab from "./material_tab";
 import materialList1 from "@/templates/material/material_list";
 import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
+import noSearch from "@/components/nosearch/index.vue";
 import { mixin } from "@/assets/js/mixins.js";
 export default {
     name: "material1",
     mixins: [mixin],
+    props:{
+        insId:{
+            default:""
+        },
+        docId:{
+            default:""
+        },
+        type:{
+            default:"public"
+        }
+    },
     components: {
         materialList1,
         Loading,
         LoadMore,
-        materialTab
+        materialTab,
+        noSearch
     },
     data() {
         return {
@@ -56,9 +71,11 @@ export default {
             apiM
                 .act_material("material_list", {
                     condition: this.condition,
-                    type: "public",
+                    type: this.type,
                     page: self.page,
                     pageList:self.pageList,
+                    ins_id:this.insId,
+                    doc_id:this.docId,
                     healthy_talk_id: self.healthy_talk_id
                 })
                 .then(res => {
@@ -76,12 +93,6 @@ export default {
     },
     mounted() {
         this.getData();
-        if (
-            this.params.hasOwnProperty("number") &&
-            this.params.number.length > 0
-        ) {
-            this.loadmore = false;
-        }
     }
 };
 </script>

@@ -10,7 +10,7 @@
                     <img src="https://tse1-mm.cn.bing.net/th?id=OET.2c876ba3093543feba76d5d2216d86ea&w=135&h=135&c=7&rs=1&o=5&pid=1.9" alt="">
                 </div>
                 <div class="other">
-                    <p class="name">{{comment.username}}</p>
+                    <p class="name">{{comment.username ? comment.username : ""}}</p>
                     <p class="time clearfix">
                         <span class="zk-icon-edit" @click="edit(comment)"> 回复</span>
                         <span class="zk-icon-xinaixin"> 赞</span>
@@ -19,7 +19,7 @@
                     <p class="date">{{comment.comment_date}}</p>
                     <div v-if="comment.reply.length" class="replys">
                         <div class="reply" v-for="(reply,index) in comment.reply" v-if='limitNum(index)'>
-                            <span class="name">{{reply.username}}</span>:
+                            <span class="name">{{reply.username ? reply.username : ""}}</span>:
                             <span> @{{reply.parent_name}} </span> {{reply.comment_content}}<br/>
                             <p class="date">{{comment.comment_date}}
                                 <span @click="edit(reply)">回复</span>
@@ -32,14 +32,9 @@
                 </div>
             </div>
         </div>
-        <div class="comment_input">
-            <commentInput @toshowinput='getshowinput' :textareaStatus=textareaStatus></commentInput>
-        </div>
-        
     </div>
 </template>
 <script>
-import commentInput from "@/components/comment/comment_input";
 import bus from "@/assets/bus.js"
 export default {
     name:"comment",
@@ -63,9 +58,6 @@ export default {
             tip_show: false,
             textareaStatus: false
         };
-    },
-    components: {
-        commentInput
     },
     watch: {
         commentlist(val, oldVal) {
@@ -103,7 +95,7 @@ export default {
                 comment_form_id: data.comment_form_id,//评论素材id
                 parent_id: data.uid//被评论者id
             }
-            bus.$emit('comment_info',arr);
+            this.$emit('getInfo',arr);
             this.textareaStatus = true;
 
         },

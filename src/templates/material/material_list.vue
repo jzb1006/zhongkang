@@ -3,28 +3,28 @@
         <div class="list">
             <!-- 文章 -->
             <div v-for="(material,index) in materiallist" :key="index">
-                <div class="material" v-if="material.material_type == '1'" v-show="article_show">
-                    <router-link :to="{name:'container',query:{id:params.article_id,healthy_talk_id:material.hid}}">
-                        <div class="article clearfix">
+                <div class="material vux-1px-b" v-if="material.material_type == '1'" v-show="article_show">
+                    <div class="article clearfix">
+                        <router-link :to="{name:'container',query:{id:params.article_id,healthy_talk_id:material.hid}}">
                             <div class="img_wrapper">
                                 <img :src="material.material_cover" alt="">
                             </div>
-                            <p class="content">
-                                {{material.title}}
-                            </p>
-                            <div class="other">
-                                <span class="author">{{material.author}}</span>
-                                <span class="comment">{{material.comments_count}}评论</span>
-                            </div>
+                        </router-link>
+                        <p class="content">
+                            {{material.title}}
+                        </p>
+                        <div class="other">
+                            <span class="author">{{material.author}}</span>
+                            <span class="comment">{{material.comments_count}}评论</span>
                         </div>
-                    </router-link>
+                    </div>
                 </div>
                 <!-- 图集 -->
-                <div class="material" v-else-if="material.material_type == '3'" v-show="atlases_show">
+                <div class="material vux-1px-b" v-else-if="material.material_type == '3'" v-show="atlases_show">
                     <atlasesdetail :info=material :healthyTalkId=material.hid></atlasesdetail>
                 </div>
                 <!-- 视频 -->
-                <div class="material" v-else-if="material.material_type == '2'" v-show="video_show">
+                <div class="material vux-1px-b" v-else-if="material.material_type == '2'" v-show="video_show">
                     <div class="RehaList_wrapper">
                         <router-link :to="{name:'container',query:{id:params.video_id,healthy_talk_id:material.hid}}">
                             <p class="title">
@@ -55,17 +55,17 @@
 import top from "@/components/decorate/top_back_title.vue";
 import atlasesdetail from "@/components/material/atlases_detail";
 import preciew from "@/components/decorate/preciew.vue";
-import {mixin} from '@/assets/js/mixins';
+import { mixin } from "@/assets/js/mixins";
 export default {
-    props:{
-        materiallist:{
-            default:function(){
-                return []
+    props: {
+        materiallist: {
+            default: function() {
+                return [];
             }
         }
     },
-    name:"material_list",
-    mixins:[mixin],
+    name: "material_list",
+    mixins: [mixin],
     data() {
         return {
             video_show: true,
@@ -75,14 +75,14 @@ export default {
             content_show: 1,
             imgs: [],
             page: 0,
-            loadmore:true,
+            loadmore: true,
             healthy_talk_id: ""
         };
     },
     components: {
         preciew,
         top,
-        atlasesdetail,
+        atlasesdetail
     },
     methods: {
         has_limit(index) {
@@ -122,11 +122,9 @@ export default {
         },
         reha_comment(url) {
             this.$router.push({ name: "RehaDetail", params: { urls: url } });
-        },
+        }
     },
-    mounted() {
-
-    }
+    mounted() {}
 };
 </script>
 <style>
@@ -153,7 +151,8 @@ export default {
     float: right;
 }
 #materialList .list .material {
-    padding: 0.1rem;
+    margin: 0 0.2rem;
+    padding: 0.1rem 0 0.4rem 0;
 }
 #materialList .list .article .img_wrapper {
     float: left;

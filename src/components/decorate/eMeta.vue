@@ -62,7 +62,6 @@ export default {
                     if (res.data.error == "0") {
                         this.parameter.likes = parseInt(this.info.likes) + 1 +'';
                     }
-                    alert(res.data.message);
                 });
         },
         click_comment() {

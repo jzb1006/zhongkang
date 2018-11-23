@@ -66,7 +66,7 @@ export default {
 }
 
 body {
-    padding-bottom: 1rem;
+    /* padding-bottom: 1rem; */
 }
 </style>
 <style lang="less">

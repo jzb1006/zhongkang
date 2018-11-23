@@ -623,10 +623,10 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if(to.name=='container'){
-      console.log(to.query.name);
+      // console.log(to.query.name);
       if(to.query.name==='person_container'){
         api.checkLogin('checkLogin').then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             if(res.data.error==0){
               // router.push({name:'container',query:{id:'28'}});
               next({name:'container',query:{id:'28'}});

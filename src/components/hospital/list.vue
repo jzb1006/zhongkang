@@ -71,7 +71,7 @@ export default {
        }
     },
     mounted() {
-      console.log(this.params)
+    //   console.log(this.params)
         this.$_ajax_docList();
     }
 };

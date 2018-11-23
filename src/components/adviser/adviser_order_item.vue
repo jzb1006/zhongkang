@@ -35,7 +35,7 @@
             <order-item v-for="(value,index) in result" :key="index" :item=value class="item" @click.native="detail(value.order_sn)"></order-item> -->
         <!-- </router-link> -->
         <!-- </div> -->
-        <adviserOrderTem :result=result @update="updateOrder"></adviserOrderTem>
+        <adviserOrderTem :result1=result @update="updateOrder"></adviserOrderTem>
     </div>
 </template>
 

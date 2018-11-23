@@ -1,8 +1,8 @@
 <template>
     <div id="diaryList">
-        <div class="diary" v-for="(backdrop,index) in backdropList">
+        <div class="diary vux-1px-b" v-for="(backdrop,index) in backdropList">
             <div class="top">
-                <router-link :to="{name:'container',query:{id:params.user_page,bid:backdrop.id}}">
+                <router-link :to="{name:'container',query:{id:params.diary_page,bid:backdrop.id}}">
                     <div class="headImg">
                         <img v-if="handbookList[backdrop.id].headimgurl" :src="getImgUrl()+handbookList[backdrop.id].headimgurl" alt="" />
                     </div>
@@ -42,7 +42,7 @@
                 <e-meta :info="format_info(diaryList[backdrop.id],diaryList[backdrop.id].course_time,diaryList[backdrop.id].view_count,diaryList[backdrop.id].favor,handbookList[backdrop.id].total_comment)"></e-meta>
             </div>
         </div>
-        <div class="write_diary" v-show="has_limit()">
+        <div class="write_diary" v-if="parseInt(is_more)">
             <router-link :to="{name:'container',query:{id:16}}">
                 <span class="zk-icon-edit" @click="to_diaryBackdropList"></span>
             </router-link>
@@ -64,56 +64,27 @@ export default {
                 return {};
             }
         },
-        diaryListInfo:{
-            default:function(){
-                return {}
+        diaryListInfo: {
+            default: function() {
+                return {};
             }
-        },
-        // backdropList: {
-        //     default: function() {
-        //         return [];
-        //     }
-        // },
-        // handbookList: {
-        //     default: function() {
-        //         return [];
-        //     }
-        // },
-        // mediaList: {
-        //     default: function() {
-        //         return [];
-        //     }
-        // },
-        // diaryList: {
-        //     default: function() {
-        //         return [];
-        //     }
-        // },
-        // memuList: {
-        //     default: function() {
-        //         return [];
-        //     }
-        // }
+        }
     },
     name: "diaryList",
     data() {
         return {
+            is_more: this.params["is_more"] || 1,
+
             show_backdrop_list: false,
             backdropList: [],
             handbookList: [],
             mediaList: [],
             diaryList: [],
-            memuList: [],
-            // pd: "",
-            // page: 0,
-            // isBusy: false,
-            // hasMore: 0,
-            // loadinging: true,
-            // loadmore: true
+            memuList: []
         };
     },
-    watch:{
-        diaryListInfo(val,oldVal){
+    watch: {
+        diaryListInfo(val, oldVal) {
             this.backdropList = val.backdropList;
             this.handbookList = val.handbookList;
             this.mediaList = val.mediaList;
@@ -254,8 +225,8 @@ export default {
     color: #fff;
 }
 #diaryList .diary {
-    padding: 0.2rem;
-    border-bottom: 1px solid #7d7d7d;
+    padding: 0.2rem 0;
+    margin: 0 .2rem;
 }
 #diaryList .diary .top {
     position: relative;
