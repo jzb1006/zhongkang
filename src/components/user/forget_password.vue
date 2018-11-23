@@ -18,6 +18,7 @@
             </p>
         </div>
     </div>
+    <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
   </div>
 </template>
 
@@ -32,6 +33,9 @@ export default {
     		phonenum: '',
             verificationCode:'',
             title:'找回密码',
+            alertShow:false,
+			alertType:'warn',
+			alertText:'',
     	} 
 	},
 	methods: {
@@ -39,17 +43,19 @@ export default {
             let Mobile=this.phonenum;
             let yanzhengma=this.verificationCode;
             console.log(yanzhengma);
-            if(!common.checkPhoneNum(Mobile)){
+            var self=this;
+            if(!common.checkPhoneNum(self,Mobile)){
                 return false;
             }
-            if(!common.checkVerificationCode(yanzhengma)){
+            if(!common.checkVerificationCode(self,yanzhengma)){
                 return false;
             }
             api.ajaxuserPost('message_verification',{mobile_phone:Mobile,yanzheng:yanzhengma}).then(res=>{
                 if(res.data.error==0){
                     this.$router.push({name:'container',query:{id:'32'}});
                 }else if(res.data.error==2){
-                    alert(res.data.message);
+                    this.alertShow=true;
+                    this.alertText=res.data.message;
                 }
             }).catch(error=>{
                 console.log(error);
@@ -68,7 +74,7 @@ export default {
 
 <style scoped>
     .content{
-        margin-top:2.5rem;
+        margin-top:2rem;
         font-size: 0.3rem;
         text-align: center;
     }

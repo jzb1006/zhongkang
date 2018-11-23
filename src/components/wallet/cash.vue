@@ -22,6 +22,7 @@
         <div>
             <input type="button" :class="{confirm:true,toggleColor:isToggle}" value="确认提现" @click="confirm">
         </div>
+        <Alert v-bind:Show.sync="alertShow" :alerttType="alerttType" :alertText="alertText"></Alert>
   	</div>
 </template> 
 
@@ -40,6 +41,9 @@ export default {
             verificationCode:'',
             cashway:'支付宝',
             chooseBank:false,
+            alertShow:false,
+			alerttType:'warn',
+			alertText:'',
         }
     },
     computed:{
@@ -79,24 +83,33 @@ export default {
                 }
                 var yanzhengma=this.verificationCode;
                 if(yanzhengma==""){
-                    alert('验证码不能为空');
+                    // alert('验证码不能为空');
+                    this.alertShow=true;
+                    this.alertText='验证码不能为空';
                     return false;
                 }
                 var amount=parseFloat(value);
 
                 //判断是否已绑定该类型银行账号
                 api.checkBank({'type':this.cashway}).then(res=>{
-                    if(res.data.error==3){
-                        alert(res.data.message);
-                        this.$router.push('/login');
-                    }else if(res.data.error==1){
+                    // if(res.data.error==3){
+                    //     this.alertShow=true;
+                    //     this.alertText=res.data.message;
+                    //     this.$router.push('/login');
+                    // }else 
+                    if(res.data.error==1){
                         //去绑定银行账号
-                        alert('您未绑定该类型的账号,请前往绑定');
-                        this.$router.push('/home/addBank');
+                        // alert('您未绑定该类型的账号,请前往绑定');
+                        this.alertShow=true;
+                        this.alertText='您未绑定该类型的账号,请前往绑定';
+                        setTimeout(()=>{
+                            this.$router.push('/home/addBank');
+                        },2000)
                     }else if(res.data.error==0){
                         api.cash({'amount':amount,'yanzhengma':yanzhengma}).then(res=>{
                             if(res.data.error==0||res.data.error==2){
-                                alert(res.data.message);
+                                this.alertShow=true;
+                                this.alertText=res.data.message;
                             }else if(res.data.error==1){
                                 this.$router.go(-1);
                             }
@@ -104,20 +117,24 @@ export default {
                     }
                 })
             }else{
-                alert('暂不支持此种方式');
+                this.alertShow=true;
+                this.alertText='暂不支持此种方式';
             }
         },
         check_acount(value){
             if(value==""){
-                alert("请输入提现金额");
+                this.alertShow=true;
+                this.alertText='请输入提现金额';
                 return false;
             }else if(value==0){
-                alert("提现金额不能为零");
+                this.alertShow=true;
+                this.alertText='提现金额不能为零';
                 return false;
             }
             if(value.indexOf('.')>0){
                 if(value.split('.')[1].length>2){
-                    alert('提现金额精确到分');
+                    this.alertShow=true;
+                    this.alertText='提现金额精确到分';
                     return false;
                 }
             }

@@ -24,7 +24,7 @@
             <!-- <div class="save">
                 <input type="button" class="saveBtn" value="保存" @click="saveUserinfo">
             </div> -->
-        </div>
+    </div>
 </template>
 <script>
 import { Calendar,Group } from 'vux'

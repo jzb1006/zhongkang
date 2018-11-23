@@ -55,6 +55,7 @@
             </div> -->
         </div>
         <div id="fill"></div>
+        <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
     </div>
 </template>
 <script>
@@ -75,6 +76,9 @@ import mediaDisplay from "@/components/upload/media_display";
             photo:[],
             programmePhoto:[],
             programme:[],
+            alertShow:false,
+			alertType:'warn',
+			alertText:'',
         }
     },
     methods:{
@@ -87,18 +91,22 @@ import mediaDisplay from "@/components/upload/media_display";
             this.programme=this.programme.concat(this.programmePhoto);
             // console.log(this.programme);
             if(this.programme==''){
-                alert('请输入手术方案');
+                this.alertShow=true;
+                this.alertText='请输入手术方案';
                 return false;
             }else if(this.programmePhoto==''){
-                alert('请添加手术方案图');
+                this.alertShow=true;
+                this.alertText='请添加手术方案图';
                 return false;
             }
             if(this.price==''){
-                alert('请输入手术价格');
+                this.alertShow=true;
+                this.alertText='请输入手术价格';
                 return false;
             }
             if(this.photo==''){
-                alert('请添加手术案例图');
+                this.alertShow=true;
+                this.alertText='请添加手术案例图';
                 return false;
             }
             let postdata={

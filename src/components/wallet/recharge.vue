@@ -16,7 +16,7 @@
 		<div>
 			<confirm v-model="show" :title="confirmTitle" @on-confirm="onConfirm"></confirm>
 		</div>
-		<Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
+		<Alert v-bind:Show.sync="alertShow" :alerttType="alerttType" :alertText="alertText"></Alert>
   	</div>
 </template> 
 
@@ -38,9 +38,9 @@ export default {
     	}
     },
     computed:{
-		isShow(){
-               return this.alertShow;
-        },
+		// isShow(){
+        //        return this.alertShow;
+        // },
     	classObject(){
     		return{
     			next:true,
@@ -54,14 +54,28 @@ export default {
 			var amount=parseFloat(value);	
 			var order_sn=new Date().getTime();
 			var subject="充值";
-			api.ajaxWalletPost('chongzhi',{'WIDout_trade_no':order_sn,'WIDsubject':subject,'WIDtotal_amount':amount})
+			// api.ajaxWalletPost('chongzhi',{'WIDout_trade_no':order_sn,'WIDsubject':subject,'WIDtotal_amount':amount})
+			// .then(res=>{
+			// 	if(res.data.error==3){
+			// 		alert(res.data.message);
+			// 		this.$router.push('/login');
+			// 	}else{
+			// 		this.$router.go(-1);
+			// 	}
+			// }).catch(error=>{
+			// 	console.log(error);
+			// })
+			api.recharge({'WIDout_trade_no':order_sn,'WIDsubject':subject,'WIDtotal_amount':amount})
 			.then(res=>{
-				if(res.data.error==3){
-					alert(res.data.message);
-					this.$router.push('/login');
-				}else{
-					this.$router.go(-1);
-				}
+				// if(res.data.error==3){
+				// 	alert(res.data.message);
+				// 	this.$router.push('/login');
+				// }else{
+					if(res.data.error==1){
+						this.$router.go(-1);
+					}
+					
+				// }
 			}).catch(error=>{
 				console.log(error);
 			})
@@ -69,20 +83,28 @@ export default {
     	recharge(){
     		var value=this.amount;
 	    	if(value==""||value==0){
-				alert("充值金额不能为空且不能为零");
+				// alert("充值金额不能为空且不能为零");
+				this.alertShow = true;
+				this.alertText = "充值金额不能为空且不能为零";
 	        	return false;
 	    	}
 	    	if(value.indexOf('.')==-1){
 	    		if(parseInt(value)>100000){
-	    			alert('您输入的金额超过最高额度100000元');
+					// alert('您输入的金额超过最高额度100000元');
+					this.alertShow = true;
+					this.alertText = "您输入的金额超过最高额度100000元";
 	    			return false;
 	        	}
 	    	}else{
 	        	if(parseInt(value.split('.')[0])>100000){
-	        		alert('您输入的金额超过最高额度100000元');
+					// alert('您输入的金额超过最高额度100000元');
+					this.alertShow = true;
+					this.alertText = "您输入的金额超过最高额度100000元";
 	    			return false;
 	        	}else if(value.split('.')[1].length>2){
-	        		alert('充值金额精确到分');
+					// alert('充值金额精确到分');
+					this.alertShow = true;
+					this.alertText = "充值金额精确到分";
 	    			return false;
 	        	}
 			}

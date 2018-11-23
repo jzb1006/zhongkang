@@ -11,6 +11,7 @@
                 </group>
             </div>
         </div>
+        <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
     </div>    
 </template>
 
@@ -39,6 +40,9 @@
                 result:[],
                 selectedname:[],
                 show_item:false,
+                alertShow:false,
+                alertType:'warn',
+                alertText:'',
                 // params:{
                 //     title:'顾问认证',
                 //     hasBtn:true,
@@ -91,7 +95,9 @@
                     this.selected.push(element.id);
                 });
                 if(this.selected==""){
-                    alert('请至少选择一个项目');
+                    this.alertShow=true;
+                    this.alertType='warn';
+                    this.alertText='请至少选择一个项目';
                     return false;
                 }
                 console.log('555:'+this.level);
@@ -105,7 +111,9 @@
                 }
                 
                 api.adviserAuthentication(postdata).then(res=>{
-                    alert(res.data.msg);
+                    this.alertShow=true;
+                    this.alertType='success';
+                    this.alertText=res.data.msg;
                     this.$router.push('/home/user');
                 }).catch(err=>{
                     console.log(err);

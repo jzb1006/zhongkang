@@ -3,6 +3,7 @@
         <top :params=params></top>
         <editInfo :params=params1></editInfo>
         <certificate :params=params2></certificate>
+        <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
         <!-- <div class="content vux-1px">
             <div class="item vux-1px-b" @click="show_items">
                 <div class="span">请选择项目:</div>
@@ -64,7 +65,7 @@
         name:'adviser_authentication',
         data(){
             return{
-                level:'',
+                level:'41',
                 chooseItem:[],
                 selected:[],
                 jianjie:'',
@@ -81,6 +82,9 @@
                     btnText:'认证',
                     next:this.next,
                 },
+                alertShow:false,
+                alertType:'warn',
+                alertText:'',
             }
         },
         computed:{
@@ -119,7 +123,33 @@
                     this.selected.push(element.id);
                 });
                 if(this.selected==""){
-                    alert('请至少选择一个项目');
+                    this.alertShow=true;
+                    this.alertType='warn';
+                    this.alertText='请至少选择一个项目';
+                    return false;
+                }
+                if(this.price==''){
+                    this.alertShow=true;
+                    this.alertType='warn';
+                    this.alertText='请输入咨询价格';
+                    return false;
+                }
+                if(this.jianjie==''){
+                    this.alertShow=true;
+                    this.alertType='warn';
+                    this.alertText='请填写个人简介';
+                    return false;
+                }
+                if(this.photo[0]==''){
+                    this.alertShow=true;
+                    this.alertType='warn';
+                    this.alertText='请上传顾问资格证书';
+                    return false;
+                }
+                if(this.time1==''){
+                    this.alertShow=true;
+                    this.alertType='warn';
+                    this.alertText='请填写证书有效期';
                     return false;
                 }
                 console.log('555:'+this.level);
@@ -135,10 +165,16 @@
                 
                 api.adviserAuthentication(postdata).then(res=>{
                     if(res.data.error_code==1){
-                        alert(res.data.msg);
-                        this.$router.push({name:'container',query:{id:'9'}});
+                        this.alertShow=true;
+                        this.alertType='success';
+                        this.alertText=res.data.msg;
+                        setTimeout(()=>{
+                            this.$router.push({name:'container',query:{id:'9'}});
+                        },2000)
                     }else{
-                        alert(res.data.msg);
+                        this.alertShow=true;
+                        this.alertType='warn';
+                        this.alertText=res.data.msg;
                     }
                 }).catch(err=>{
                     console.log(err);
@@ -181,9 +217,10 @@
             // })
             this.queryAdviserInfo();
             Bus.$on("toItem", res => {
+                console.log('aaaaaa');
                 this.selectedname=[];
                 this.chooseItem=res;
-                this.hide_items();
+                // this.hide_items();
                 // this.chooseItem.forEach(element => {
                 //     this.selectedname.push(element.name);
                 // });
@@ -217,6 +254,7 @@
             Bus.$off("getLevel");
             Bus.$off("getTime");
             Bus.$off("getPhoto");
+            Bus.$off("toItem");
         },
         components:{
             top,

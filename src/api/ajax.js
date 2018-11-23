@@ -57,6 +57,8 @@ export const qs = Qs;
 //相片网址前缀
 
 export const img_prifix = "http://192.168.0.110/"
+
+//拦截器
 ajax.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   return response;
@@ -67,6 +69,7 @@ ajax.interceptors.response.use(function (response) {
     alert('请先登录');
     router.push({name: "container",query:{id:'28'}})
   }
+  // return false;
   return Promise.reject(error);
 });
 

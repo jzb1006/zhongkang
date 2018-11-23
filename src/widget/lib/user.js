@@ -1,37 +1,55 @@
 import api from '../../api/user'
 export default{
 	//检验手机号
-	checkPhoneNum(phonenum){
+	checkPhoneNum(self,phonenum){
         let reg_mobile=/^1[3458]\d{9}$/g;
 		if(phonenum==""){
-			alert('手机号码不能为空');
+            // alert('手机号码不能为空');
+            self.alertShow=true;
+            self.alertType='warn';
+            self.alertText='手机号码不能为空';
 			return false;
 		}else if(!reg_mobile.test(phonenum)){
-			alert('手机号码格式不正确');
+            // alert('手机号码格式不正确');
+            self.alertShow=true;
+            self.alertType='warn';
+            self.alertText='手机号码格式不正确';
 			return false;
 		}
 		return true;
 	},
 	//检验密码
-	checkPassword(password){
+	checkPassword(self,password){
         let reg=/^[0-9a-zA-Z]{6,12}$/g;
 		if(password==""){
-			alert('密码不能为空');
+            // alert('密码不能为空');
+            self.alertShow=true;
+            self.alertType='warn';
+            self.alertText='密码不能为空';
 			return false;
 		}else if(!reg.test(password)){
-			alert('密码应该设置为6-12位的数字或字母');
+            self.alertShow=true;
+            self.alertType='warn';
+            self.alertText='密码应该设置为6-12位的数字或字母';
+			// alert('密码应该设置为6-12位的数字或字母');
 			return false;
 		}
 		return true;
 	},
 	//检验验证码
-	checkVerificationCode(verificationCode){
+	checkVerificationCode(self,verificationCode){
         let reg=/^[0-9]{6}$/g;
 		if(verificationCode==""){
-			alert('验证码不能为空');
+            // alert('验证码不能为空');
+            self.alertShow=true;
+            self.alertType='warn';
+            self.alertText='验证码不能为空';
 			return false;
 		}else if(!reg.test(verificationCode)){
-			alert('验证码应为系统发送给您手机的六位数字');
+            // alert('验证码应为系统发送给您手机的六位数字');
+            self.alertShow=true;
+            self.alertType='warn';
+            self.alertText='验证码应为系统发送给您手机的六位数字';
 			return false;
 		}
 		return true;
@@ -65,58 +83,58 @@ export default{
         return Y+M+D+space+h+seperator+m+seperator+s;
     },
     //获取验证码,在手机号未存在时才能获取,参数为手机号
-    getVerificationCode(phoneNum,self){
-        api.ajaxuserPost('check_mobilephone',{'mobile':phoneNum}).then(res=>{
-            if(res.data.error=='1'){
-               alert(res.data.message);
-            }else{
-               api.ajaxuserPost('yanzhengma',{'mobile':phoneNum}).then(res=>{
-                    alert('验证码为'+res.data+' 仅作测试用');
-                    var i=60;
-                    var timeId=setInterval(()=>{
-                        self.flag=false;
-                        i=i-1;
-                        self.codeText=i.toString()+' 秒';
-                        if(i==0){
-                            clearInterval(timeId);
-                            self.flag=true;
-                            self.codeText="重新获取";
-                        }
-                    },1000);
-               }).catch(err=>{
-                    console.log(err);
-               })
-            }
-        }).catch(err=>{
-            console.log(err);
-        })
-    },
+    // getVerificationCode(phoneNum,self){
+    //     api.ajaxuserPost('check_mobilephone',{'mobile':phoneNum}).then(res=>{
+    //         if(res.data.error=='1'){
+    //            alert(res.data.message);
+    //         }else{
+    //            api.ajaxuserPost('yanzhengma',{'mobile':phoneNum}).then(res=>{
+    //                 alert('验证码为'+res.data+' 仅作测试用');
+    //                 var i=60;
+    //                 var timeId=setInterval(()=>{
+    //                     self.flag=false;
+    //                     i=i-1;
+    //                     self.codeText=i.toString()+' 秒';
+    //                     if(i==0){
+    //                         clearInterval(timeId);
+    //                         self.flag=true;
+    //                         self.codeText="重新获取";
+    //                     }
+    //                 },1000);
+    //            }).catch(err=>{
+    //                 console.log(err);
+    //            })
+    //         }
+    //     }).catch(err=>{
+    //         console.log(err);
+    //     })
+    // },
     //获取验证码,在手机号已存在时才能获取,参数为手机号
-    getVerificationCode_exit(phoneNum,self){
-        api.ajaxuserPost('check_mobilephone',{'mobile':phoneNum}).then(res=>{
-            if(res.data.error=='1'){
-                api.ajaxuserPost('yanzhengma',{'mobile':phoneNum}).then(res=>{
-                    alert('验证码为'+res.data+' 仅作测试用');
-                    var i=60;
-                    var timeId=setInterval(()=>{
-                        self.flag=false;
-                        i=i-1;
-                        self.codeText=i.toString()+' 秒';
-                        if(i==0){
-                            clearInterval(timeId);
-                            self.flag=true;
-                            self.codeText="重新获取";
-                        }
-                    },1000);
-                }).catch(err=>{
-                    console.log(err);
-                })
-            }else{
-                alert(res.data.message);
-            }
-        }).catch(err=>{
-            console.log(err);
-        })
-    }
+    // getVerificationCode_exit(phoneNum,self){
+    //     api.ajaxuserPost('check_mobilephone',{'mobile':phoneNum}).then(res=>{
+    //         if(res.data.error=='1'){
+    //             api.ajaxuserPost('yanzhengma',{'mobile':phoneNum}).then(res=>{
+    //                 alert('验证码为'+res.data+' 仅作测试用');
+    //                 var i=60;
+    //                 var timeId=setInterval(()=>{
+    //                     self.flag=false;
+    //                     i=i-1;
+    //                     self.codeText=i.toString()+' 秒';
+    //                     if(i==0){
+    //                         clearInterval(timeId);
+    //                         self.flag=true;
+    //                         self.codeText="重新获取";
+    //                     }
+    //                 },1000);
+    //             }).catch(err=>{
+    //                 console.log(err);
+    //             })
+    //         }else{
+    //             alert(res.data.message);
+    //         }
+    //     }).catch(err=>{
+    //         console.log(err);
+    //     })
+    // }
     
 }

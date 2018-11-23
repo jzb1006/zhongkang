@@ -1,6 +1,6 @@
 <template>
   <div id="user_login">
-    <div v-bind:class="{'content_login':!hideClass,  'nav-hide': hideClass }">
+    <div class="content_login">
          <div class="text">
                 <div class="vux-1px include"><input  placeholder="手机/邮箱" type="text" v-model="username" class="input"></div>
          </div>
@@ -19,16 +19,9 @@
                 <router-link :to="{name:'container',query:{id:'29'}}" class="reg">新用户注册?</router-link>
                 <router-link :to="{name:'container',query:{id:'30'}}" class="reg">忘记密码?</router-link>
          </div>
-         <!-- <div v-show="testShow">
-             <br><br><br><br><br><br><br><br><br><br><br><br>
-            <div>
-                testsssssssssffffffeeeeeee
-                
-            </div>
-            
-        </div> -->
     </div>
-    <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
+
+
   </div>
 </template>
 
@@ -47,15 +40,6 @@ export default {
             backToPrevious:true,
             input_code:false,
             code:'',
-            alertShow:false,
-			alertType:'warn',
-            alertText:'',
-            
-            docmHeight: document.documentElement.clientHeight,  //一开始的屏幕高度
-            showHeight: document.documentElement.clientHeight,   //一开始的屏幕高度
-            hideClass: false,
-            timer: false,
-            testShow:false,
         } 
     },
     computed:{
@@ -63,22 +47,15 @@ export default {
             'getIsBackToPrevious'
         ])
     },
-    // watch:{
-    //     showHeight: 'inputType'  
-    // },
     methods: {
-        // test(){
-        //     this.testShow=true;
-        // },
         submit_login(){
             let username=this.username;
             let password=this.password;
             let code=this.code;
-            var self=this;
-            if(!common.checkPhoneNum(self,username)){
+            if(!common.checkPhoneNum(username)){
                 return false;
             }
-            if(!common.checkPassword(self,password)){
+            if(!common.checkPassword(password)){
                 return false;
             }
             let postData = {
@@ -105,18 +82,12 @@ export default {
                     })
                     this.loginSuccessToApp(username,md5(password));
                 }else if(res.data.error_code==2){
-                    // alert(res.data.msg);
-                    this.alertShow=true;
-                    this.alertType='warn';
-                    this.alertText=res.data.msg;
+                    alert(res.data.msg);
                     // this.$router.push('/frequentLogin');
                     this.input_code=true;
                     
                 }else{
-                    this.alertShow=true;
-                    this.alertType='warn';
-                    this.alertText=res.data.msg;
-                    // alert(res.data.msg);
+                    alert(res.data.msg);
                 }
             }).catch(error=>{
                 console.log(error);
@@ -124,7 +95,7 @@ export default {
         },
         loginSuccessToApp(username,password){
             //调用Android的方法启动相册
-            // alert('hello');
+            alert('hello');
             window.network.loginSuccessToApp(username,password);
         },
         register(){
@@ -140,47 +111,13 @@ export default {
         },
         inputCode(data){
             this.code=data;
-        },
-        inputType() {
-            if (!this.timer) {
-            this.timer = true
-            let that = this
-            setTimeout(() => {
-                if (that.docmHeight > that.showHeight) {
-                //显示class
-                    console.log(that.docmHeight,that.showHeight);
-                    this.hideClass = true;
-                } else {
-                //显示隐藏
-                    console.log(that.docmHeight,that.showHeight);
-                    this.hideClass = false;
-                }
-                that.timer = false;
-            }, 20)
-            }
-        },
+        }
     },
     mounted(){
         // if(this.$route.query.BackToPrevious==false){
 
         //     this.backToPrevious=this.$route.query.BackToPrevious;
         // }
-        window.onresize = () => {
-            // return (() => {
-               window.screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
-               this.showHeight = window.screenHeight;
-               if(this.docmHeight>this.showHeight){
-                     //alert('a');
-                    window.scrollTo(0,100);
-
-                    // window.scrollTo(0,window.screenHeight);
-                    // this.hideClass = true;
-               }else{
-                   this.hideClass = false;
-                //    alert('b');
-               }
-            // })()
-        }
     },
     components:{
         // top,
@@ -191,20 +128,9 @@ export default {
 </script>
 
 <style scoped>
-    #user_login{
-        /* bottom:.1rem; */
-        /* position:relative; */
-        /* height:100%; */
-    }
     .content_login{
         width:90%;
-        margin:2rem auto;
-        font-size: 0.35rem;
-        text-align: center;
-    }
-    .nav-hide {
-        width:90%;
-        margin:1.5rem auto;
+        margin:2.5rem auto;
         font-size: 0.35rem;
         text-align: center;
     }

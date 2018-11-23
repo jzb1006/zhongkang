@@ -13,6 +13,7 @@
             <p>咨询价格:{{item.consultation_price}}</p>
             <p>被咨询次数:{{item.counseling_count}}</p>
         </div>
+        <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
     </div>
 </template>
 <script>
@@ -29,6 +30,9 @@
             price:'',
             level:'',
             level_name:'',
+            alertShow:false,
+			alertType:'warn',
+			alertText:'',
         }
     },
     watch:{
@@ -78,7 +82,8 @@
         },
         next(){
             if(this.adviser_id==''){
-                alert('请选择顾问');
+                this.alertShow=true;
+                this.alertText='请选择顾问';
                 return false;
             }
             sessionStorage.setItem('adviser_id',this.adviser_id);

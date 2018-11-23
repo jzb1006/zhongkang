@@ -11,7 +11,7 @@
     </transition> -->
     <!-- <commentList></commentList> -->
         <div class="fill" style="heght:1rem"></div>
-        <foot v-show="navbarShow"></foot>
+        <!-- <foot v-show="navbarShow"></foot> -->
     </div>
 </template>
 

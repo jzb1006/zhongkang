@@ -1,12 +1,13 @@
 <template>
     <div id="verification_code">
-        <!-- <div class="div1">
-            <div class="code"> -->
+        <div class="div1">
+            <!--<div class="code"> -->
                 <div class="vux-1px include left"><input type="text" class="input yan" placeholder="手机验证码" v-model="verificationCode" @blur="inputCode"></div>
                 <span :class="{input:true, get:true, right:true,dis:disable}" @click="flag && get_yanzhengma()">{{codeText}}</span>
                 <div class="clear"></div>
-            <!-- </div>
-        </div> -->
+            <!-- </div>-->
+        </div> 
+        <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
     </div>
 </template>
 <script>
@@ -20,6 +21,9 @@ export default {
             codeText:'获取验证码',
             flag:true,
             disable:false,
+            alertShow:false,
+			alertType:'warn',
+			alertText:'',
             // phone_num:'',
         }
     },
@@ -59,7 +63,7 @@ export default {
                 // }) 
                 this.getCode('');
             }else{
-                if(!common.checkPhoneNum(this.phoneNum)){
+                if(!common.checkPhoneNum(self,this.phoneNum)){
                     return false;
                 }
                 // common.getVerificationCode(mobileNum,self);
@@ -69,11 +73,17 @@ export default {
                         if(res.data.error=='1'){
                             this.getCode(this.phoneNum);
                         }else{
-                            alert(res.data.message);
+                            this.alertShow=true;
+                            this.alertType='warn'
+                            this.alertText=res.data.message;
+                            // alert(res.data.message);
                         }
                     }else{
                         if(res.data.error=='1'){
-                            alert(res.data.message);
+                            this.alertShow=true;
+                            this.alertType='warn'
+                            this.alertText=res.data.message;
+                            // alert(res.data.message);
                         }else{
                             this.getCode(this.phoneNum);
                         }
@@ -88,7 +98,10 @@ export default {
         },
         getCode(phone){
             api.ajaxuserPost('yanzhengma',{'mobile':phone}).then(res=>{
-                alert('验证码为'+res.data+' 仅作测试用');
+                // alert('验证码为'+res.data+' 仅作测试用');
+                this.alertShow=true;
+                this.alertType='success'
+                this.alertText=`验证码为${res.data}仅作测试用`;
                 var i=60;
                 var timeId=setInterval(()=>{
                     this.disable=true;
@@ -106,7 +119,7 @@ export default {
             }).catch(err=>{
                 console.log(err);
             })
-        }
+        },
     },
     mounted(){
         // this.phone_num=this.phoneNum;
@@ -115,8 +128,8 @@ export default {
 </script>
 <style scoped>
     .div1{
-        margin:0 .5rem .3rem;
-        height:1rem;
+        /* margin:0 .5rem .3rem;
+        height:1rem; */
     }
     .include{
 		width:70%;

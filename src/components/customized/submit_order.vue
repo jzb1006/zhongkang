@@ -11,6 +11,7 @@
         </footer>
         <!-- <pay :show_pay_page="this.show_pay_page" @cancel="cancel" :order_sn="sn" :order_amount="this.price" jump_url="http://192.168.0.110:8080/#/customizedOrder" subject="4" v-if="this.price!=''"></pay> -->
         <pay :params=params1></pay>
+        <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
     </div>
 </template>
 <script>
@@ -27,6 +28,9 @@
                 price:'',
                 show_pay_page:false,
                 sn:'',
+                alertShow:false,
+                alertType:'warn',
+                alertText:'',
             }
         },
         computed: {
@@ -118,7 +122,8 @@
                         Bus.$emit('showPay',true);
                         this.getPrice();
                     }else{
-                        alert(res.data.msg);
+                        this.alertShow=true;
+                        this.alertText=res.data.msg;
                     }
                 }).catch(err=>{
                     console.log(err);

@@ -140,7 +140,13 @@ export default {
         	this.count=this.count+1;
         	let count=this.count;
         	let listnum=this.listnum;
-			let postData={'typeValue':this.typeValue,'timeStart':this.timeStart,'timeStop':this.timeStop,'num':listnum,'page':count};
+			let postData={
+				'typeValue':this.typeValue,
+				'timeStart':this.timeStart,
+				'timeStop':this.timeStop,
+				'num':listnum,
+				'page':count
+			};
 			// let postData=data;
         	this.isBusy = true;
 	        api.select_bill(postData).then(res=>{

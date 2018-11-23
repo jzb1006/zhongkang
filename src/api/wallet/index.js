@@ -36,5 +36,9 @@ export default {
     },
     cash(params={}){
         return ajax.get('wallet.php?act=yuetixian',{params});
-    }
+    },
+    recharge(params={}){
+        params=qs.stringify(params);
+        return ajax.post(`wallet.php?action=chongzhi`,params);
+    },
 }
