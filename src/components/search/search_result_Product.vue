@@ -11,7 +11,7 @@
     } from 'vuex'
     import Loading from '@/widget/loading'
     import api from "../../api/search";
-    import product from '@/components/product/list.vue'
+    import product from '@/templates/product/list.vue'
     import LoadMore from '@/components/loadMore/index.vue'
     import nosearch from "@/components/nosearch/index.vue";
     export default {
