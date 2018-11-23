@@ -1,6 +1,5 @@
 <template>
     <div id="material">
-        <!-- <commentList></commentList> -->
         <materialTab v-if="parseInt(is_more)" @materialType=material_type></materialTab>
         <materialList1 :materiallist=materiallist :params=params></materialList1>
         <!-- <noSearch v-if="materiallist.length == 0" text="素材为空"></noSearch> -->

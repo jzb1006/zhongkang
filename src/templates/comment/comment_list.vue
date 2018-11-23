@@ -1,9 +1,5 @@
 <template>
     <div id="comment">
-        <div v-if='limitNum()' class="head">
-            <p>
-                <span class="zk-icon-fanhui fanhui" @click="back()"></span>{{title}}</p>
-        </div>
         <div class="list">
             <div class="comment clearfix" v-for="comment in commentlist" v-if="comment">
                 <div class="headimg">
@@ -25,7 +21,7 @@
                                 <span @click="edit(reply)">回复</span>
                             </p>
                         </div>
-                        <router-link :to="{name:'commentDetail',query:{comment_form:comment.comment_form,id:comment.id,mid:mid}}">
+                        <router-link :to="{name:'commentDetail',query:{comment_form:comment.comment_form,id:comment.id,uid:comment.uid,mid:comment.comment_form_id,comment_post_id:comment_post_id}}">
                             <span v-show="replyLength(comment.reply)" class="more">共{{comment.reply.length}}条回复！>></span>
                         </router-link>
                     </div>
@@ -50,14 +46,8 @@ export default {
             default: ""
         },
         comment_post_id:{
-            default: '19'
+            default: ''
         }
-    },
-    data() {
-        return {
-            tip_show: false,
-            textareaStatus: false
-        };
     },
     watch: {
         commentlist(val, oldVal) {
@@ -78,7 +68,6 @@ export default {
                 if (this.limitnum > index) {
                     return true;
                 }
-                this.tip_show = true;
                 return false;
             } else {
                 return true;
@@ -96,11 +85,8 @@ export default {
                 parent_id: data.uid//被评论者id
             }
             this.$emit('getInfo',arr);
-            this.textareaStatus = true;
-
-        },
-        getshowinput(data) {
-            this.textareaStatus = data;
+            this.$emit('changeTextareaStatus',true);
+            // this.textareaStatus = true;
         },
         replyLength(data) {
             if (this.limitnum) {
@@ -115,15 +101,7 @@ export default {
 </script>
 <style scoped>
 #comment{
-    z-index: 1000;
-}
-#comment .comment_input{
-    position: fixed;
-    bottom: 0rem;
-    height: 1.2rem;
-    width: 100%;
-    background-color: #fff;
-    z-index: 666;
+
 }
 #comment .head {
     height: 0.9rem;

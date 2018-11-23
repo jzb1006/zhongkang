@@ -1,9 +1,10 @@
 <template>
     <div id="commentList">
-        <comment :limitnum='1' @getInfo=getInfo :commentlist=total :mid=m_id></comment>
+        <comment :limitnum='1' @getInfo=getInfo :commentlist=total :mid=m_id :comment_post_id=this.cInfo.comment_post_ID @changeTextareaStatus=changeTextareaStatus></comment>
         <div v-if="total.length == 0">
             没有评论
         </div>
+        <commentInput :textareaStatus=textareaStatus :info=info @commentSuccess=comment_success @changeTextareaStatus=changeTextareaStatus></commentInput>
     </div>
 </template>
 <script>
@@ -11,58 +12,74 @@ import apiCom from "@/api/comment";
 import commentInput from "@/components/comment/comment_input";
 import comment from "@/templates/comment/comment_list";
 import bus from "@/assets/bus.js";
+import { mixin } from "@/assets/js/mixins.js";
+
 export default {
     name: "comment_list",
     components: {
         commentInput
     },
+    mixins: [mixin],
     props: {
         m_id: {
             default: "12"
         },
-        cInfo:{
-            default:function(){
+        cInfo: {
+            default: function() {
                 return {
-                    comment_post_ID:19,
-                    comment_form:'diary',
-                    comment_form_id:'12',
-                    user_id:'3030'
-                }
+                    comment_post_ID: 19,
+                    comment_form: "diary",
+                    comment_form_id: "12",
+                    parent_id: "3030",
+                    comment_parent: "0"
+                };
             }
         }
     },
     data() {
         return {
             info: {
-                comment_post_ID: 19, //数据库文章id
-                comment_parent: "0", //父级id
-                comment_form: "", //类型
-                comment_form_id: "", //评论素材id
-                parent_id: "" //被评论者id
+                comment_post_ID: this.cInfo.comment_post_ID, //数据库文章id
+                comment_parent: this.cInfo.comment_parent, //父级id
+                comment_form: this.cInfo.comment_form, //类型
+                comment_form_id: this.cInfo.comment_form_id, //评论素材id
+                parent_id: this.cInfo.parent_id //被评论者id
             },
             total: [],
             parent: [],
-            children: []
+            children: [],
+            textareaStatus: false
         };
     },
-    watch:{
-        cInfo(val,oldVal){
+    watch: {
+        cInfo(val, oldVal) {
             this.info.comment_post_ID = val.comment_post_ID;
             this.info.comment_form = val.comment_form;
             this.info.comment_form_id = val.comment_form_id;
-            this.info.parent_id = val.user_id;
+            this.info.parent_id = val.parent_id;
+            this.info.comment_parent = val.comment_parent;
         }
     },
     methods: {
+        changeTextareaStatus(data) {
+            this.textareaStatus = data;
+        },
+        comment_success() {
+            this.getcomment();
+        },
         //获取评论
-        getInfo(data){
-            console.log(data);
+        getInfo(data) {
+            this.info = data;
         },
         getcomment() {
             let self = this;
             apiCom
-                .ajaxSearch("index", { comment_form: this.cInfo.comment_form, id: this.cInfo.comment_form_id })
+                .ajaxSearch("index", {
+                    comment_form: this.cInfo.comment_form,
+                    id: this.cInfo.comment_form_id
+                })
                 .then(res => {
+                    this.total = [];
                     this.parseData(res.data.comments);
                 });
 

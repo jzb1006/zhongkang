@@ -1,6 +1,6 @@
 <template>
     <div id="list_footer">
-        <div class="foot" v-if="params.title">
+        <div class="foots" v-if="params.title">
             <router-link :to="{name:'container',query:{id:params.to_cid}}">
                 <span class="title">{{params.title}}</span>
                 <span class="icon">></span>
@@ -26,17 +26,17 @@ export default {
 </script>
 
 <style scoped>
-#list_footer .foot {
+#list_footer .foots {
     padding: 0.3rem 0;
     font-size: 0.3rem;
     /* font-weight: 550; */
     text-align: center;
 }
-#list_footer .foot span.icon {
+#list_footer .foots span.icon {
     display: inline-block;
     vertical-align: bottom;
 }
-#list_footer .foot span.title {
+#list_footer .foots span.title {
     /* line-height: .4rem; */
 }
 </style>

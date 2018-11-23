@@ -96,7 +96,7 @@ export default {
 </script>
 <style scoped>
 .container {
-    padding-bottom: 0.2rem;
+    /* padding-bottom: 0.2rem; */
     border-bottom: 0.05rem solid #d1d1d1;
 }
 </style>

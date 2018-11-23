@@ -1,8 +1,7 @@
 <template>
     <div id="commentInput">
-
         <p class="input_show" @click="show_textarea">
-            {{tip}}{{comment_content}}</p>
+            {{tip}}</p>
         <div class="shade" v-show="show_input" @click="hidden_input">
 
         </div>
@@ -26,13 +25,17 @@ export default {
         },
         textareaStatus: {
             default: false
+        },
+        info:{
+            default:function(){
+                return {}
+            }
         }
     },
     data() {
         return {
             show_input: false,
             comment_content: "",
-            info: {}
         };
     },
     watch: {
@@ -66,18 +69,18 @@ export default {
             var self = this;
             let formData = {
                 comment_post_ID: self.info.comment_post_ID, //数据库文章id
-                author: self.getUserinfo.nickname ? self.getUserinfo.nickname : "", //评论者名字
-                comment_parent: self.info.comment_parent, //父级id
+                author: self.getUserinfo ? self.getUserinfo.nickname : "", //评论者名字
+                comment_parent: self.info.comment_parent ? self.info.comment_parent : 0, //父级id
                 comment_form: self.info.comment_form, //类型
                 comment_form_id: self.info.comment_form_id, //评论素材id
                 comment: self.comment_content, //评论内容
-                uid: self.getUserinfo.user_id, //评论者id
+                uid: self.getUserinfo ? self.getUserinfo.user_id : "", //评论者id
                 parent_id: self.info.parent_id //被评论者id
             };
 
             apiCom.addComment(formData).then(res=>{
-                if(res.data.err == 0){
-                    this.$emit("comment_success");
+                if(res.data.err == '0'){
+                    this.$emit("commentSuccess");
                 }
                 
             })
@@ -87,27 +90,23 @@ export default {
             this.toParent();
         },
         toParent() {
-            this.$emit("toshowinput", this.show_input);
+            this.$emit("changeTextareaStatus", this.show_input);
         }
     },
     mounted() {
-        bus.$on("comment_info", res => {
-            this.info = res;
-        });
         this.show_input = this.textareaStatus;
-        this.comment_tip();
+        // this.comment_tip();
     }
 };
 </script>
 <style scoped>
 #commentInput {
-    /* position: fixed;
+    position: fixed;
     left: 0;
     right: 0;
-    bottom: 1.5rem;
-    display: inline; */
-    width: 100%;
-    z-index: 1000;
+    bottom: 0;
+    z-index: 550;
+    background-color: #fff;
 }
 #commentInput .input_show {
     font-size: 0.3rem;
