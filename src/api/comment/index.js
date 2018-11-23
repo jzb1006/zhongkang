@@ -1,4 +1,4 @@
-import {ajax,ajax2,ajax4,qs,img_prifix} from './../ajax';
+import {ajax,ajax2,ajax4,ajax5,qs,img_prifix} from './../ajax';
 import Axios from 'axios';
 export default {
 
@@ -10,7 +10,7 @@ export default {
     addComment(params={}){
         console.log(params);
         params = qs.stringify(params);
-    	ajax4.post('wordpress/wordpress/wp-comments-post.php', params);
+        return ajax5.post('wordpress/wordpress/wp-comments-post.php', params);
     },
 
     //相片网址前缀

@@ -37,7 +37,7 @@ export const ajax4 = Axios.create({
 })
 
 export const ajax5 = Axios.create({
-  baseURL: 'https://www.jzb1006.com/wx_jssdk/',
+  baseURL: 'http://192.168.0.110/',
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },
@@ -47,7 +47,7 @@ export const ajax5 = Axios.create({
 export const ajax6 = Axios.create({
   baseURL: 'http://192.168.0.110/m',
   headers: {
-    'content-type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'multipart/form-data'
   },
   timeout: 3000,
 })
@@ -66,7 +66,7 @@ ajax.interceptors.response.use(function (response) {
   // 对响应错误做点什么
   console.log(error.response.status);
   if(error.response.status==402){
-    alert('请先登录');
+    // alert('请先登录');
     router.push({name: "container",query:{id:'28'}})
   }
   // return false;

@@ -113,7 +113,7 @@ export default {
 
 <style scoped>
 #atlases_detail .material .author_info {
-    position: absolute;
+    position: fixed;
     top: 1rem;
     left: 0;
     right: 0;

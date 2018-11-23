@@ -3,7 +3,7 @@
 </template>
 <script>
 import apiCom from '@/api/comment'
-import comment from '@/templates/comment/comment'; 
+import comment from '@/templates/comment/comment_list'; 
 export default {
     name:"comment_detail",
     data(){

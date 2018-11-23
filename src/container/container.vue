@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="params.child" v-for="(param,index) in params.child" :key="index" class="container">
+        <div v-if="params.child" v-for="(param,index) in params.child" :key="index" :class="{container:is_finish(index)}">
             <my-tree :model="param"></my-tree>
         </div>
     </div>
@@ -36,6 +36,13 @@ export default {
         }
     },
     methods: {
+        is_finish(index) {
+            if (this.params.child.length - 1 > index) {
+                return true;
+            } else {
+                return false;
+            }
+        },
         //----排序：start----
         sort_asc() {
             let data = this.params.child;
@@ -48,7 +55,6 @@ export default {
         get_homepage() {
             var self = this;
             apiCommon.ajaxSearch("container", "home_container").then(res => {
-                console.log(res);
                 self.params = res.data.data;
                 self.sort_asc();
             });
@@ -81,7 +87,7 @@ export default {
             this.getMyInfo();
         } else if (this.$route.query.id) {
             this.getData(this.$route.query.id);
-        } else if(this.$route.query.name == 'home_page'){
+        } else {
             this.get_homepage();
             // this.$router.back(-1);
         }
@@ -90,6 +96,7 @@ export default {
 </script>
 <style scoped>
 .container {
-    /* border-bottom: 0.15rem solid #f3f3f3; */
+    padding-bottom: 0.2rem;
+    border-bottom: 0.05rem solid #d1d1d1;
 }
 </style>

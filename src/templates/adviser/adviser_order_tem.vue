@@ -48,16 +48,21 @@
         name:'adviser_order_tem',
         data(){
             return{
-                // result:[],
+                result:[],
                 selected:0,
             }
         },
         props:{
-            result:{
+            result1:{
                 type:[Object,Array],
                 default(){
                     return []
                 }
+            }
+        },
+        watch:{
+            result1(val,oldVal){
+                this.result = val;
             }
         },
         methods:{

@@ -40,7 +40,7 @@
                     page: this.page++,
                     num_list: parseInt(this.num_list)
                 }).then(res => {
-                    console.log(res)
+                    // console.log(res)
                     var result = res.data.data;
                     var error_code = res.data.error_code;
                     if (error_code == 0) {

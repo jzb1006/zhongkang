@@ -57,9 +57,7 @@
            
            
         },
-        destroyed(){
-            this.behavior.behavior_data(this.keyword,3);
-        },
+        
        
         components: {
             slide,

@@ -17,7 +17,6 @@
              <productItem :items="item.expert_project_classify3_id"></productItem>
           </div>
         </div>
-       
       </div>
       </router-link>
       <productList :lists="item.product"></productList>

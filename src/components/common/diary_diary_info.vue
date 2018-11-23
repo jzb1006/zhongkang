@@ -114,6 +114,7 @@ export default {
                 });
         },
         is_aesthetic_custom() {
+            
             return true;
         },
         getFileList(data) {
