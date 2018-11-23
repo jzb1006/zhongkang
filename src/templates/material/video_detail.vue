@@ -1,8 +1,8 @@
 <template>
     <div id="videoDetail">
-        <div v-for="(m,index) in material">
+        <div v-for="(m,index) in material" :key=index>
             <div class="reha_wrapper" id="media_wrapper" v-bind:class="{reha_wrapper_fixed1:reha_wrapper_fixed}">
-                <div class="video" v-for="(msg,index) in JSON.parse(m.material_content)" v-if="index == play_index">
+                <div class="video" v-for="(msg,index) in JSON.parse(m.material_content)" :key=index v-if="index == play_index">
                     <video controls controlsList="nodownload" @ended="videoFinish(JSON.parse(m.material_content).length)" :src="fileUrl()+msg.url"></video>
                 </div>
                 <div class="authorInfo">
@@ -21,7 +21,7 @@
                         </span>
                     </p>
                     <p class="sel_num">
-                        <span v-for="(msg,index) in JSON.parse(m.material_content)" :class="{active:play_index == index}" @click="changeIndex(index)">{{index+1}}</span>
+                        <span v-for="(msg,index) in JSON.parse(m.material_content)" :key=index :class="{active:play_index == index}" @click="changeIndex(index)">{{index+1}}</span>
                     </p>
                     <div v-transfer-dom>
                         <popup v-model="show" position="bottom" height="50%">
@@ -29,7 +29,7 @@
                                 <x-button @click.native="show = false"> Close Me </x-button>
                             </div>
                             <div class="fenji">
-                                <span v-for="(msg,index) in JSON.parse(m.material_content)" :class="{active:play_index == index}" @click="on_hide(index)">{{index+1}}</span>
+                                <span v-for="(msg,index) in JSON.parse(m.material_content)" :key=index :class="{active:play_index == index}" @click="on_hide(index)">{{index+1}}</span>
                             </div>
                         </popup>
                     </div>

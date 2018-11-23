@@ -1,6 +1,6 @@
 <template>
     <div id="FResource">
-        <div class="resource" v-for="(resource,$index) in resources">
+        <div class="resource" v-for="(resource,$index) in resources" :key=$index>
             <span @click="selectStyle(resource,resource.resource_area)" :class="{'f_active':checkresource == resource.resource_area}">
                 {{resource.resource_name}}
             </span>

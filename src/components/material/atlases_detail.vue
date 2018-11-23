@@ -5,14 +5,14 @@
             <div class="author_info" v-show="atlases_content_show">
                 <authorInfo :user=user></authorInfo>
             </div>
-            <div class="atlases_wrapper" v-for="(img,index) in imgs" v-if="index == '0'">
+            <div class="atlases_wrapper" v-for="(img,index) in imgs" :key=index v-if="index == '0'">
                 <p class="content">{{info.title}}</p>
                 <div class="atlases">
                     <preciew :list="imgs" @IndexChange="getIndex" @show="show" @close="close"></preciew>
                     <span>{{imgs.length}}图</span>
                 </div>
                 <div v-show="atlases_content_show">
-                    <p class="atlases_content" v-for="(msg,index) in JSON.parse(info.material_content)" v-show="content_show == (index+1)" v-if="msg.alt">{{msg.alt}}</p>
+                    <p class="atlases_content" v-for="(msg,index) in JSON.parse(info.material_content)" :key=index v-show="content_show == (index+1)" v-if="msg.alt">{{msg.alt}}</p>
                 </div>
                 <p class="author">{{info.author}}
                     <span class="comments">0评论</span>

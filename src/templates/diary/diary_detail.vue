@@ -1,6 +1,6 @@
 <template>
     <div id="diary_detail">
-        <div v-for="(diary,index) in diaryContent" v-if="index == 0">
+        <div v-for="(diary,index) in diaryContent" v-if="index == 0" :key=index>
             <div class="content">
                 <p class="icon_days">
                     <span>第{{getDays(diary.time,diary.course_time)}}天</span>
@@ -8,8 +8,8 @@
                 <p>{{diary.content}}</p>
             </div>
             <div class="media_list">
-                <div v-for="media in mediaList">
-                    <img v-for="url in getMediaUrl(media)" v-if="checkImgType(url)" v-lazy="getImgUrl()+url">
+                <div v-for="(media,index) in mediaList" :key=index>
+                    <img v-for="(url,index) in getMediaUrl(media)" :key=index v-if="checkImgType(url)" v-lazy="getImgUrl()+url">
                     <video controlsList="nodownload" v-else-if="!checkImgType(url)" :src="getImgUrl()+url" controls="controls"></video>
                 </div>
             </div>

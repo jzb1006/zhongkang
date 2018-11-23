@@ -5,22 +5,22 @@
         </p>
         <div class="items">
             <span v-if="choose.length > 0">已选项目：</span>
-            <span v-for="ch in choose" @click="sel_item3(ch.id)">{{ch.name}}</span>
+            <span v-for="(ch,index) in choose" @click="sel_item3(ch.id)" :key=index>{{ch.name}}</span>
             <span v-if="choose.length <= 0">请至少选择一个项目 </span>
         </div>
         <div class="show_sel clearfix ">
             <div class="col_4 show_items">
                 <ul class="sel_item">
-                    <li v-for="item in itemList" v-if="item.parent_id == 0" @click="sel_item1(item.id,item.is_aesthetic_custom)" :class="{item1_selected:item.id == item1}">{{item.name}}</li>
+                    <li v-for="(item,index) in itemList" :key=index v-if="item.parent_id == 0" @click="sel_item1(item.id,item.is_aesthetic_custom)" :class="{item1_selected:item.id == item1}">{{item.name}}</li>
                 </ul>
             </div>
             <div class="col_8 show_items2">
                 <ul class="sel">
-                    <li v-for="item in itemList" v-show="item1 == item.id">
-                        <div v-for="item2 in item.cat_id">
+                    <li v-for="(item,index) in itemList" :key=index v-show="item1 == item.id">
+                        <div v-for="(item2,index) in item.cat_id" :key=index>
                             <p class="md">{{item2.name}}</p>
                             <p class="bottom">
-                                <span v-for="item3 in item2.cat_id" class="detail_btn" :class="{detail_selected:duoxuan(item3.id)}" @click="sel_item3(item3.id,item3.name)">{{item3.name}}</span>
+                                <span v-for="(item3,index) in item2.cat_id" :key=index class="detail_btn" :class="{detail_selected:duoxuan(item3.id)}" @click="sel_item3(item3.id,item3.name)">{{item3.name}}</span>
                             </p>
                         </div>
                     </li>

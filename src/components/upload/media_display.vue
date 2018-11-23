@@ -1,7 +1,7 @@
 <template>
     <div id="media_display">
         <div class="media_wrapper">
-            <div class="media_show" v-for="(file,index) in filelist1" v-if="checkImgType(file.url) == '1'">
+            <div class="media_show" v-for="(file,index) in filelist1" :key=index v-if="checkImgType(file.url) == '1'">
                 <img @click="change_media_browse_status(index)" :src="fileUrl()+file.url" :alt="file.name" class="img_wrapper">
             </div>
             <div class="media_show" v-else-if="checkImgType(file.url) == '2'">

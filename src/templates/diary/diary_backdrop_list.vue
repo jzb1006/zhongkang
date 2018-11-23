@@ -11,13 +11,13 @@
                 </p>
             </div>
             <ul class="backdrop_list">
-                <li class="backdrop" v-for="backdrop in backdropList">
+                <li class="backdrop" v-for="(backdrop,index) in backdropList" :key=index>
                     <router-link :to="{name:'container',query:{id:params.diary_backdrop_id,bid:backdrop.id}}" tag="a">
                         <div class="b_left">
-                            <p class="jisuan" v-for="count in diaryCount[backdrop.id]">{{count}} 篇 / {{backdrop.total_comment}}
+                            <p class="jisuan" v-for="(count,index) in diaryCount[backdrop.id]" :key=index>{{count}} 篇 / {{backdrop.total_comment}}
                                 <i class="zk-icon-xinaixin"></i>
                             </p>
-                            <p class="item" v-for="(cid,index) in formatCid(backdrop.goods_cate_ids)" v-if="index == '0'">{{itemName[cid].cat_name}}</p>
+                            <p class="item" v-for="(cid,index) in formatCid(backdrop.goods_cate_ids)" :key=index v-if="index == '0'">{{itemName[cid].cat_name}}</p>
                             <p class="time" v-if="backdrop.update_time">{{backdrop.update_time.split(" ")[0]}}</p>
                         </div>
                     </router-link>

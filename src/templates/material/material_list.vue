@@ -30,7 +30,7 @@
                             <p class="title">
                                 {{material.title}}
                             </p>
-                            <div class="reha img_wrapper" v-for="(msg,index) in JSON.parse(material.material_content)" v-if="index == 0">
+                            <div class="reha img_wrapper" v-for="(msg,index) in JSON.parse(material.material_content)" :key=index v-if="index == 0">
                                 <img v-if="material.material_cover" :src="material.material_cover" alt="">
                                 <div v-else>
                                     <video :src="fileUrl()+msg.url" id="player"></video>

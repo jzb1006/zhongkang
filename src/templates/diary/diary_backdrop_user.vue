@@ -4,7 +4,7 @@
             <diaryOperate @back=click_back></diaryOperate>
         </keep-alive>
         <div v-else>
-            <div v-for="backhead in backdropList">
+            <div v-for="(backhead,index) in backdropList" :key=index>
                 <div class="up">
                     <div class="img_head">
                         <defaultImg :imgPath="user.headimgurl" :styles="img_style"></defaultImg>
@@ -38,9 +38,9 @@
 
                         </li>
                         <li>
-                            <div class="backdropImage" v-if="backList.length > 0" v-for="(backdrop,index) in backdropList">
+                            <div class="backdropImage" v-if="backList.length > 0" v-for="(backdrop,index) in backdropList" :key=index>
                                 <p v-if="index == '0'" class="title">过去的她</p>
-                                <div class="check_status" v-if="pUid == sUid">
+                                <!-- <div class="check_status" v-if="pUid == sUid">
                                     <div v-if="backdrop.check_status == '0'">
                                         <img src="./../../../static/images/no.png" alt="" />
                                     </div>
@@ -52,7 +52,7 @@
                                     <div v-else="backdrop.check_status == '2'">
                                         <img src="./../../../static/images/nopass.png" alt="" />
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="img">
                                     <mediaDisplay :filelists=backList :upshow1=false></mediaDisplay>
                                 </div>

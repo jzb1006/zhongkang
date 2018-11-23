@@ -3,7 +3,7 @@
         <div class="authorInfo">
             <authorInfo :user=user></authorInfo>
         </div>
-        <div class="contents" v-for="m in material">
+        <div class="contents" v-for="(m,index) in material" :key=index>
             <p class="title">{{m.title}}</p>
             <p class="other">{{m.author}}
                 <span class="time">{{m.time}}</span>

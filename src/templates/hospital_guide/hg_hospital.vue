@@ -2,7 +2,7 @@
     <div id="hospital">
         <p class="title">选择病床类型</p>
         <div class="container2">
-            <div class="border" v-for="bed in bedList" v-if="bed" :class="{f_active:checkhospital == bed.bed_type}" @click="sel_bed(bed,bed.bed_type)">
+            <div class="border" v-for="(bed,index) in bedList" :key=index v-if="bed" :class="{f_active:checkhospital == bed.bed_type}" @click="sel_bed(bed,bed.bed_type)">
                 <p>{{bed.bed_name}}</p>
                 $
                 <span>{{bed.min_price}}</span>~$

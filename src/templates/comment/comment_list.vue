@@ -5,7 +5,7 @@
                 <span class="zk-icon-fanhui fanhui" @click="back()"></span>{{title}}</p>
         </div>
         <div class="list">
-            <div class="comment clearfix" v-for="comment in commentlist" v-if="comment">
+            <div class="comment clearfix" v-for="(comment,index) in commentlist" :key=index v-if="comment">
                 <div class="headimg">
                     <img src="https://tse1-mm.cn.bing.net/th?id=OET.2c876ba3093543feba76d5d2216d86ea&w=135&h=135&c=7&rs=1&o=5&pid=1.9" alt="">
                 </div>
@@ -18,7 +18,7 @@
                     <p class="content">{{comment.comment_content}}</p>
                     <p class="date">{{comment.comment_date}}</p>
                     <div v-if="comment.reply.length" class="replys">
-                        <div class="reply" v-for="(reply,index) in comment.reply" v-if='limitNum(index)'>
+                        <div class="reply" v-for="(reply,index) in comment.reply" :key=index v-if='limitNum(index)'>
                             <span class="name">{{reply.username ? reply.username : ""}}</span>:
                             <span> @{{reply.parent_name}} </span> {{reply.comment_content}}<br/>
                             <p class="date">{{comment.comment_date}}

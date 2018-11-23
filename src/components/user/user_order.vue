@@ -1,12 +1,13 @@
 <template>
     <div id="user_order">
-        <div class="usercontent">
+        <!-- <div class="usercontent"> -->
             <div class="item" @click="toOrder(0)">
-                <span class="zk-icon-icon- icon single"></span>
+                <!-- <span class="zk-icon-icon- icon single"></span>
                 <span class="text">我的订单</span>
-                <span class="zk-icon-fanhui1 icon next"></span>
+                <span class="zk-icon-fanhui1 icon next"></span> -->
+                <userRowTem :params="params"></userRowTem>
             </div>
-            <tabbar class="cat">
+            <!-- <tabbar class="cat">
                 <tabbar-item selected @on-item-click="toOrder(0)">
                     <span slot="icon" class="zk-icon-icon- icon"></span>
                     <span slot="label">全部订单</span>
@@ -19,18 +20,30 @@
                     <span slot="icon" class="zk-icon-yifukuan icon"></span>
                     <span slot="label">已付款</span>
                 </tabbar-item>
-            </tabbar>
-        </div>
+            </tabbar> -->
+        <!-- </div> -->
     </div>
 </template>
 
 <script>
 import { Tabbar, TabbarItem } from 'vux'
+import { login_mixin } from '@/assets/js/mixins.js'
 export default {
     name: 'user_order',
+    mixins:[login_mixin],
+    data(){
+        return {
+            params:{
+                iconClass:"zk-icon-icon-",
+                text:'我的订单',
+                // isShow:true,
+            },
+        }
+    },
     methods:{
         toOrder(type){
-            this.$router.push({name:'container',query:{id:'35'}})
+            // this.$router.push({name:'container',query:{id:'35'}})
+            this.checkLogin({id:'35'})
         }
     },
     components:{
@@ -40,13 +53,9 @@ export default {
 }
 </script>
 <style scoped>
-  #user_order{
-    /* background:#f0f0f0; */
-    /* min-height:100%;
-    height:auto; */
-    /* margin-bottom:.4rem; */
-  }
-  .cat{
+  /* #user_order{
+  } */
+  /* .cat{
     position: relative;
     padding:.15rem 0;
     background: #fff;
@@ -111,8 +120,6 @@ export default {
     box-sizing: border-box;
   }
   .top{
-    /* position: relative;
-    top:1rem; */
     margin-top: .4rem;
   }
   .Setup_icon{
@@ -133,5 +140,5 @@ export default {
   }
   .next{
     display:inline-block;
-  }
+  } */
 </style>
