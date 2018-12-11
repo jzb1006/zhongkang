@@ -1,6 +1,6 @@
 <template>
     <div id="searchHospital">
-        <hospital v-if="hospitalList.length!=0" :list="hospitalList"></hospital>
+        <hospital v-if="hospitalList.length!=0" :list="hospitalList" :container_id="11"></hospital>
         <nosearch v-else v-show="isRequesting" text="(●ˇ∀ˇ●)没有搜索到你的结果<br>要不换个词儿再搜搜~"></nosearch>
         <LoadMore :state='hasMore' :isLoading='isBusy' v-if="hospitalList.length > 0" @loadmore="$_ajax_hospital"></LoadMore>
     </div>

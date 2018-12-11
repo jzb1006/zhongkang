@@ -2,6 +2,7 @@ import Axios from 'axios';
 import router from '@/router'
 //添加QS是post请求的时候前端参数转换，为了解决后端接收不到post数据的问题。
 import Qs from 'qs';
+const timeOut = 400000;
 export const ajax = Axios.create({
   baseURL: 'http://192.168.0.106/m/',
   //增加这个是为了解决后端接收不到post数据的问题。
@@ -9,7 +10,7 @@ export const ajax = Axios.create({
     'content-type': 'application/x-www-form-urlencoded'
   },
   withCredentials: true,
-  timeout: 10000,
+  timeout: timeOut,
 })
 
 export const ajax2 = Axios.create({
@@ -17,7 +18,7 @@ export const ajax2 = Axios.create({
   headers: {
     'Content-Type': 'multipart/form-data'
   },
-  timeout: 10000,
+  timeout: timeOut,
 })
 
 export const ajax3 = Axios.create({
@@ -25,7 +26,7 @@ export const ajax3 = Axios.create({
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },
-  timeout: 10000,
+  timeout: timeOut,
 })
 
 export const ajax4 = Axios.create({
@@ -33,7 +34,7 @@ export const ajax4 = Axios.create({
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },
-  timeout: 10000,
+  timeout: timeOut,
 })
 
 export const ajax5 = Axios.create({
@@ -41,7 +42,7 @@ export const ajax5 = Axios.create({
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },
-  timeout: 5000,
+  timeout: timeOut,
 })
 
 export const ajax6 = Axios.create({
@@ -49,7 +50,7 @@ export const ajax6 = Axios.create({
   headers: {
     'Content-Type': 'multipart/form-data'
   },
-  timeout: 10000,
+  timeout: timeOut,
 })
 
 export const qs = Qs;
