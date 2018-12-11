@@ -1,6 +1,6 @@
 <template>
     <div id="videoDetail">
-        <div v-for="(m,index) in material">
+        <div v-for="(m,index) in material" :key="index">
             <stickyPosition height='5.5rem'>
                 <div class="reha_wrapper" id="media_wrapper">
                     <div class="video" v-for="(msg,index) in JSON.parse(m.material_content)" v-if="index == play_index">
@@ -23,7 +23,7 @@
                         </span>
                     </p>
                     <p class="sel_num">
-                        <span v-for="(msg,index) in JSON.parse(m.material_content)" :class="{active:play_index == index}" @click="changeIndex(index)">{{index+1}}</span>
+                        <span v-for="(msg,index) in JSON.parse(m.material_content)" :key=index :class="{active:play_index == index}" @click="changeIndex(index)">{{index+1}}</span>
                     </p>
                     <div v-transfer-dom>
                         <popup v-model="show" position="bottom" height="50%">
@@ -31,7 +31,7 @@
                                 <x-button @click.native="show = false"> Close Me </x-button>
                             </div>
                             <div class="fenji">
-                                <span v-for="(msg,index) in JSON.parse(m.material_content)" :class="{active:play_index == index}" @click="on_hide(index)">{{index+1}}</span>
+                                <span v-for="(msg,index) in JSON.parse(m.material_content)" :key=index :class="{active:play_index == index}" @click="on_hide(index)">{{index+1}}</span>
                             </div>
                         </popup>
                     </div>

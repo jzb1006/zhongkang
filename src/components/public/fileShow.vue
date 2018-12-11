@@ -1,7 +1,7 @@
 <template>
     <div id="fileShow">
         <div class="media_list">
-            <div class="wrapper" v-for="url in fileUrl" v-if="checkImgType(url)">
+            <div class="wrapper" v-for="(url,index) in fileUrl" :key=index v-if="checkImgType(url)">
                 <span class="del" @click="delFile(url)"><i class="zk-icon-guanbi"></i></span>
                 <img :src="getFileUrl()+url">
             </div>

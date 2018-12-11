@@ -1,7 +1,7 @@
 <template>
     <div id="FItem">
         <ul class="ol_list">
-            <li class="ol_li" v-for="(item, $index) in itemlist" @click="selectStyle (item, item.id) " :class="{'f_active':check_item == item.id}">
+            <li class="ol_li" v-for="(item, $index) in itemlist" :key=$index @click="selectStyle (item, item.id) " :class="{'f_active':check_item == item.id}">
                 <p class="name">{{item.name}}</p>
             </li>
         </ul>

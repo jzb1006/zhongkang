@@ -1,6 +1,6 @@
 <template>
     <div id="diaryList">
-        <div class="diary vux-1px-b" v-for="(backdrop,index) in backdropList">
+        <div class="diary vux-1px-b" v-for="(backdrop,index) in backdropList" :key=index>
             <div class="top">
                 <router-link :to="{name:'container',query:{id:params.diary_page,bid:backdrop.id}}">
                     <div class="headImg">
@@ -36,7 +36,7 @@
             </router-link>
             <div class="bottom">
                 <p class="item">
-                    <span v-for="memu in memuList[backdrop.id]">#{{memu.cat_name}}</span>
+                    <span v-for="(memu,index) in memuList[backdrop.id]" :key=index>#{{memu.cat_name}}</span>
                 </p>
                 <e-meta @click_comment=click_comment(backdrop.id,diaryList[backdrop.id].id,handbookList[backdrop.id].user_id) :info="format_info(diaryList[backdrop.id],diaryList[backdrop.id].course_time,diaryList[backdrop.id].view_count,diaryList[backdrop.id].favor,handbookList[backdrop.id].total_comment)"></e-meta>
             </div>

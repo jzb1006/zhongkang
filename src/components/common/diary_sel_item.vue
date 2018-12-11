@@ -20,7 +20,7 @@
                         <div v-for="(item2,index) in item.cat_id" :key="index">
                             <p class="md">{{item2.name}}</p>
                             <p class="bottom">
-                                <span v-for="item3 in item2.cat_id" :key="index" class="detail_btn" :class="{detail_selected:duoxuan(item3.id)}" @click="sel_item3(item3.id,item3.name)">{{item3.name}}</span>
+                                <span v-for="(item3,index) in item2.cat_id" :key="index" class="detail_btn" :class="{detail_selected:duoxuan(item3.id)}" @click="sel_item3(item3.id,item3.name)">{{item3.name}}</span>
                             </p>
                         </div>
                     </li>

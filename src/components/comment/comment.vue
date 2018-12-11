@@ -5,7 +5,7 @@
                 <span class="zk-icon-fanhui fanhui" @click="back()"></span>{{title}}</p>
         </div>
         <div class="list">
-            <div class="comment clearfix" v-for="comment in commentlist" v-if="comment" :key="index">
+            <div class="comment clearfix" v-for="(comment,index) in commentlist" v-if="comment" :key=index>
                 <div class="headimg">
                     <img src="https://tse1-mm.cn.bing.net/th?id=OET.2c876ba3093543feba76d5d2216d86ea&w=135&h=135&c=7&rs=1&o=5&pid=1.9" alt="">
                 </div>

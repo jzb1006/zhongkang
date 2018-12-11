@@ -1,7 +1,7 @@
 <template>
     <div id="FTreatMethods">
         <ul class="ol_list">
-            <li class="ol_li" v-for="(treat,$index) in treatlist.treat_method" :class="{'f_active':check_treat == treat.treat_id}" @click="selectStyle(treat,treat.treat_id)">
+            <li class="ol_li" v-for="(treat,$index) in treatlist.treat_method" :key=$index :class="{'f_active':check_treat == treat.treat_id}" @click="selectStyle(treat,treat.treat_id)">
                 <p class="name">{{treat.treat_name}}</p>
                 <p class="introduce">
                     {{treat.treat_introduce}}

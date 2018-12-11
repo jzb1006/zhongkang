@@ -1,7 +1,7 @@
 <template>
     <div id="FProduct">
         <div class="row">
-            <div class="img_wrapper" v-for="product in productlist" @click="sel_product(product,product.product_id)" :class="{'f_active':sel_num == product.product_id}">
+            <div class="img_wrapper" v-for="(product,index) in productlist" :key=index @click="sel_product(product,product.product_id)" :class="{'f_active':sel_num == product.product_id}">
                 <div class="img_container">
                     <div class="img">
                         <img :src="getBasicUrl()+product.product_img">

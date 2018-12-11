@@ -5,9 +5,9 @@
             <span class="see_v" @click="seeOnlyVideo">{{videoMessage}}</span>
         </p>
         <div class="list">
-            <div class="list_content" v-for="(diary,index) in diaryList" :class="{hiddenNow:mediaList[diary.id].type == hiddenNum}">
+            <div class="list_content" v-for="(diary,index) in diaryList" :key=index :class="{hiddenNow:mediaList[diary.id].type == hiddenNum}">
                 <div class="check_status" v-if="sUid == pUid">
-                    <div v-if="diary.check_status == '0'">
+                    <!-- <div v-if="diary.check_status == '0'">
                         <img src="./../../../static/images/no.png" alt="" />
                     </div>
 
@@ -20,7 +20,7 @@
                         <p v-model="show" @click="showModule(diary.reject_cause)">点击查看详情</p>
 
                         <p></p>
-                    </div>
+                    </div> -->
                 </div>
                 <p class="time">
                     <i class="zk-icon-shijian"></i> {{diary.course_time.split(" ")[0]}}
@@ -33,7 +33,7 @@
                         </p>
                         <p class="content">{{diary.content}}</p>
                         <ul :class="'pic pic-'+getMediaNum(mediaList[diary.id].origin_urls)" v-if="mediaList[diary.id].type == '1'">
-                            <li v-for="media in getMediaUrl(mediaList[diary.id].origin_urls)">
+                            <li v-for="(media,index) in getMediaUrl(mediaList[diary.id].origin_urls)" :key=index>
                                 <img v-lazy="getImgUrl()+media" alt="">
                             </li>
                         </ul>

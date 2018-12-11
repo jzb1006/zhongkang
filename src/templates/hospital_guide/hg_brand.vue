@@ -1,7 +1,7 @@
 <template>
     <div id="FBrand">
         <div class="row">
-            <div class="img_wrapper" v-for="(brand,$index) in brandlist" @click="selectStyle(brand,brand.brand_id)" :class="{'f_active':checkbrand == brand.brand_id}">
+            <div class="img_wrapper" v-for="(brand,$index) in brandlist" :key=$index @click="selectStyle(brand,brand.brand_id)" :class="{'f_active':checkbrand == brand.brand_id}">
                 <div class="img">
                     <img v-bind:src='getImgUrl()+brand.brand_img'>
                 </div>

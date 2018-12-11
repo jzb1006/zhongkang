@@ -15,7 +15,7 @@
                     <span class="zk-icon-tangguo"></span>
                 </p>
                 <div class="prices clearfix">
-                    <div class="price" v-for="(price1,index) in prices" :key="index" @click="sel_price(price1)" :class="{active:price1 == price}">
+                    <div class="price" v-for="(price1,index) in prices" :key=index @click="sel_price(price1)" :class="{active:price1 == price}">
                         <span class="zk-icon-moneycredit" :class="{active_icon:price1 == price}"></span>
                         {{price1}}
                     </div>

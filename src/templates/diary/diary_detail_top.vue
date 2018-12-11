@@ -1,6 +1,6 @@
 <template>
     <div id="detail_top">
-        <div v-for="backdrop in backdropList">
+        <div v-for="(backdrop,index) in backdropList" :key=index>
             <div class="head">
                 <div class="headImg">
                     <img v-if="user.headimgurl" :src="getImgUrl()+user.headimgurl" alt="" />

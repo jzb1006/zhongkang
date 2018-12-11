@@ -5,7 +5,7 @@
                 <div>
                     请选择项目
                     <span class="a_item">
-                        <i v-for="item in chooseItem">{{item.name}}</i>
+                        <i v-for="(item,index) in chooseItem" :key=index>{{item.name}}</i>
                     </span>
                 </div>
             </li>
@@ -19,7 +19,7 @@
             <li class="sel_institution zk-icon-organization">
                 <div> <input class="text_input" type="text" placeholder="请输入医院" v-model.trim="institution_name" @blur="hidden_institution()" @focus="show_institution()" @keyup="$_ajax_institution()">
                     <div class="show_hospital" v-show="is_show_institution" @mouseout="hidden_institution()">
-                        <div v-for="institution in institutionList" @click="choose_institution(institution.id,institution.name)">
+                        <div v-for="(institution,index) in institutionList" :key=index @click="choose_institution(institution.id,institution.name)">
                             <p>{{institution.name}}</p>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                 <div>
                     <input class="text_input" type="text" placeholder="请输入医生" v-model.trim="doctor_name" @blur="hidden_doctor()" @focus="show_doctor()" @keyup="$_ajax_doctor()">
                     <div class="show_hospital" v-show="is_show_doctor" @mouseout="hidden_doctor()">
-                        <div v-for="doctor in doctorList" @click="choose_doctor(doctor.id,doctor.name)">
+                        <div v-for="(doctor,index) in doctorList" :key=index @click="choose_doctor(doctor.id,doctor.name)">
                             <p>{{doctor.name}}</p>
                         </div>
                     </div>
