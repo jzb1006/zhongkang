@@ -13,6 +13,7 @@
             </div>
         </div>
         <Loading v-show="loadinging"></Loading>
+         <Alert :Show="isShow" :alerttType="'warn'" :alertText="alertText"></Alert>
     </div>
 </template>
 
@@ -27,7 +28,9 @@
                 ins_id: this.$route.query.ins_id,
                 loadinging: true,
                 result: [],
-                keyword:''
+                keyword:'',
+                 alertText: '',
+                isShow:false
             }
         },
         components: {
@@ -40,12 +43,25 @@
                     id: this.id,
                     ins_id: this.ins_id
                 }).then(res => {
-                    if (res.data == '') {
-                        alert('你请求的商品不存啊@！')
-                        this.$router.back(-1)
+                     var errorCode = res.data.error_code;
+                    var msg = res.data.msg;
+                    if(errorCode==1){
+                       self.isShow=true;
+                       self.alertText = msg;
+                       self.$router.back(-1);
+                       return;
                     }
-                    self.result = res.data.goodsinfo;
-                    self.keyword =  self.result['goods_name']+ self.result['cat_name']+self.result['cat_desc']+self.result['sort_desc'];
+                    if (res.data.data == '') {
+                        self.isShow=true;
+                        self.alertText = '你请求的商品不存';
+                        this.$router.back(-1)
+                         return;
+                    }
+                    if(res.data.data.goodsinfo!=''){
+                        self.result = res.data.data.goodsinfo;
+                        self.keyword =  self.result['goods_name']+ self.result['cat_name']+self.result['cat_desc']+self.result['sort_desc'];
+                    }
+                    
                     self.loadinging = false
                 }).catch(error => {
                     self.loadinging = false

@@ -30,7 +30,7 @@ export default {
         goods_total: 0,
         pic: [],
         alertShow: false,
-        num_list:1,
+        num_list:5,
         alerttType: 'wran',
         alertText: '',
         evaluate: [],

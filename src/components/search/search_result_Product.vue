@@ -1,6 +1,6 @@
 <template>
     <div id="searchProduct">
-        <product v-if="productList.length!=0" :list="productList"></product>
+        <product v-if="productList.length!=0" :list="productList" :route_link="'container'" :con_id="25"></product>
         <nosearch v-else v-show="isRequesting"  text="(●ˇ∀ˇ●)没有搜索到你的结果 要不换个词儿再搜搜~"></nosearch>
         <LoadMore :state='hasMore' :isLoading='isBusy' v-if="productList.length > 0" @loadmore="$_ajax_product"></LoadMore>
     </div>

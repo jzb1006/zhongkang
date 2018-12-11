@@ -3,6 +3,7 @@
         <product :list="result" :con_id="params['product_con_id']"></product>
          <Loading v-show="loadinging"></Loading>
         <LoadMore v-if="parseInt(is_more)" :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_index"></LoadMore>
+         <Alert :Show="isShow" :alerttType="'warn'" :alertText="alertText"></Alert>
     </div>
 </template>
 <script>
@@ -24,7 +25,9 @@
                 is_more:this.params['is_more']||1,
                 hasMore: 0,
                 isBusy: false,
-                loadinging:true
+                loadinging:true,
+                 alertText: '获取数据失败',
+                isShow:false
             }
         },
         components: {
@@ -40,7 +43,6 @@
                     page: this.page++,
                     num_list: parseInt(this.num_list)
                 }).then(res => {
-                    // console.log(res)
                     var result = res.data.data;
                     var error_code = res.data.error_code;
                     if (error_code == 0) {
@@ -48,6 +50,8 @@
                         if (result.goods) {
                             self.result = self.result.concat(result.goods);
                         }
+                    }else{
+                        self.isShow = true;
                     }
                     self.loadinging=false
                     this.isBusy = false;

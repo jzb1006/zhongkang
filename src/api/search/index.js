@@ -7,7 +7,7 @@ export default {
         return ajax.get(`search.php?action=${module}`, {params});
     },
 
-    //获取文章：
+    //获取商品
     ajaxProduct(params={}){
         // params = qs.stringify(params);
         return ajax.get(`product.php`,{params});

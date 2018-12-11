@@ -3,7 +3,7 @@ export default {
     //首页
     index(params={}){
         // console.log()hospital.php?action=ins_home&id=0000000012&num_list=1&ins_id=12
-       return ajax.get('index.php',{params})
+       return ajax.get('goods.php?type=get_user_goods_list',{params})
     }, 
     //医生列表
     get_doctor_list(params={}){

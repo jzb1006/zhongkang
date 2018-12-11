@@ -27,7 +27,7 @@
                 isBusy: false,
                 ins_info: [],
                 page: 1,
-                num_list: 5
+                num_list: 10
             }
         },
         components: {

@@ -10,6 +10,7 @@
         :route_params="{id:params['ins_con_id'],ins_id:ins_id}"
         ></insInfo>
         <Loading v-show="loadinging"></Loading>
+         <Alert :Show="isShow" :alerttType="'warn'" :alertText="alertText"></Alert>
     </div>
 </template>
 
@@ -27,7 +28,9 @@
                 id: this.$route.query.goods_id,
                 ins_id: this.$route.query.ins_id,
                 hospital: [],
-                loadinging: true
+                loadinging: true,
+                 alertText: '',
+                isShow:false
             }
         },
         components: {
@@ -41,11 +44,23 @@
                     id: this.id,
                     ins_id: this.ins_id
                 }).then(res => {
-                    if (res.data == '') {
-                        alert('你请求的商品不存啊@！')
-                        this.$router.back(-1)
+                    var errorCode = res.data.error_code;
+                    var msg = res.data.msg;
+                    if(errorCode==1){
+                       self.isShow=true;
+                       self.alertText = msg;
+                       self.$router.back(-1);
+                       return;
                     }
-                    self.hospital = res.data.institution_info[0];
+                    if (res.data.data == '') {
+                        self.isShow=true;
+                        self.alertText = '你请求的商品不存';
+                        this.$router.back(-1)
+                         return;
+                    }
+                    if(res.data.data.institution_info){
+                        self.hospital = res.data.data.institution_info[0];
+                    }
                     self.loadinging = false
                 }).catch(error => {
                     self.loadinging = false
