@@ -6,6 +6,7 @@
             <diaryInfo v-if="diary_show" ref="diary" :info=info></diaryInfo>
             <backdropInfo v-if="backdrop_show" @changeShowBackdrop=changeShowBackdrop ref="backdrop" :showbackdrop1=show_backdrop1 :info=info></backdropInfo>
         </div>
+        <Alert v-bind:Show.sync="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
 </template>
 
@@ -27,7 +28,11 @@ export default {
             bid: this.getBid,
             did: this.getDid,
             info: {},
-            backimg: []
+            backimg: [],
+
+            isShow: false,
+            alerttType: "",
+            alertText: ""
         };
     },
     computed: {
@@ -77,18 +82,17 @@ export default {
         },
         update_backdrop() {
             if (this.getBackInfo()) {
-                api
-                    .ajaxSubmit("ajax_update_basic", this.total_data)
-                    .then(res => {
+                api.ajaxSubmit("ajax_update_basic", this.total_data).then(
+                    res => {
                         if (res.data.error == 0) {
-                            this.$router.push({
-                                name: "diaryBackdrop",
-                                query: { bid: res.data.bid }
-                            });
+                            window.reload();
                         } else {
-                            alert(res.data.message);
+                            this.isShow = true;
+                            this.alerttType = "warn";
+                            this.alertText = res.data.message;
                         }
-                    });
+                    }
+                );
             }
         },
         update_diary() {
@@ -96,45 +100,59 @@ export default {
                 api.ajaxSubmit("updateDiary", this.total_data).then(res => {
                     if (res.data.error == 0) {
                         this.$router.push({
-                            name: "diaryDetail",
-                            query: { bid: res.data.bid, did: res.data.did }
+                            name: "container",
+                            query: {
+                                id: 8,
+                                bid: res.data.bid,
+                                did: res.data.did
+                            }
                         });
                     } else {
-                        alert(res.data.message);
+                        this.isShow = true;
+                        this.alerttType = "warn";
+                        this.alertText = res.data.message;
                     }
                 });
             }
         },
         create_basicdrop() {
             if (this.getBackInfo()) {
-                api
-                    .ajaxSubmit("ajax_create_basic", this.total_data)
-                    .then(res => {
+                api.ajaxSubmit("ajax_create_basic", this.total_data).then(
+                    res => {
                         if (res.data.error == 0) {
                             this.$router.push({
-                                name: "diaryBackdrop",
-                                query: { bid: res.data.bid }
+                                name: "container",
+                                query: { id: 7, bid: res.data.bid }
                             });
                         } else {
-                            alert(res.data.message);
+                            this.isShow = true;
+                            this.alerttType = "warn";
+                            this.alertText = "res.data.message";
                         }
-                    });
+                    }
+                );
             }
         },
         create_diary() {
             if (this.getDInfo()) {
-                api
-                    .ajaxSubmit("ajax_create_diary", this.total_data)
-                    .then(res => {
+                api.ajaxSubmit("ajax_create_diary", this.total_data).then(
+                    res => {
                         if (res.data.error == 0) {
                             this.$router.push({
-                                name: "diaryDetail",
-                                query: { bid: res.data.bid, did: res.data.did }
+                                name: "container",
+                                query: {
+                                    id: 8,
+                                    bid: res.data.bid,
+                                    did: res.data.did
+                                }
                             });
                         } else {
-                            alert(res.data.message);
+                            this.isShow = true;
+                            this.alerttType = "warn";
+                            this.alertText = "res.data.message";
                         }
-                    });
+                    }
+                );
             }
         },
         getBackInfo() {
@@ -164,7 +182,7 @@ export default {
                 );
                 if (this.getBid) {
                     var data = {
-                        bid: this.getBid,
+                        bid: this.getBid
                     };
                 }
 
@@ -174,14 +192,15 @@ export default {
         },
         getBackdropData() {
             var self = this;
-            api
-                .ajaxSearch("diary_update_basic", { bid: self.getBid })
-                .then(res => {
+            api.ajaxSearch("diary_update_basic", { bid: self.getBid }).then(
+                res => {
+                    console.log(res.data);
                     self.info = res.data;
                     if (this.getAestheticStatus) {
                         let data = res.data.backdrop;
                     }
-                });
+                }
+            );
         }
     },
     mounted() {

@@ -31,7 +31,6 @@
                         <video controls controlsList="nodownload" :src="getImgUrl()+mediaList[diaryList[backdrop.id].id].origin_urls"></video>
                     </div>
                     <div v-else>
-
                     </div>
                 </div>
             </router-link>
@@ -39,13 +38,11 @@
                 <p class="item">
                     <span v-for="memu in memuList[backdrop.id]">#{{memu.cat_name}}</span>
                 </p>
-                <e-meta :info="format_info(diaryList[backdrop.id],diaryList[backdrop.id].course_time,diaryList[backdrop.id].view_count,diaryList[backdrop.id].favor,handbookList[backdrop.id].total_comment)"></e-meta>
+                <e-meta @click_comment=click_comment(backdrop.id,diaryList[backdrop.id].id,handbookList[backdrop.id].user_id) :info="format_info(diaryList[backdrop.id],diaryList[backdrop.id].course_time,diaryList[backdrop.id].view_count,diaryList[backdrop.id].favor,handbookList[backdrop.id].total_comment)"></e-meta>
             </div>
         </div>
         <div class="write_diary" v-if="parseInt(is_more)">
-            <router-link :to="{name:'container',query:{id:16}}">
-                <span class="zk-icon-edit" @click="to_diaryBackdropList"></span>
-            </router-link>
+            <span class="zk-icon-edit" @click="checkLogin({id:16})"></span>
         </div>
         <diaryBackdropList v-if="show_backdrop_list" @close=close></diaryBackdropList>
     </div>
@@ -56,7 +53,7 @@ import api from "@/api/diary";
 import apiCom from "@/api/common";
 import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
-
+import { login_mixin } from "@/assets/js/mixins.js";
 export default {
     props: {
         params: {
@@ -70,6 +67,7 @@ export default {
             }
         }
     },
+    mixins: [login_mixin],
     name: "diaryList",
     data() {
         return {
@@ -93,6 +91,22 @@ export default {
         }
     },
     methods: {
+        click_comment(bid, did, uid) {
+            let data = {
+                id: "8",
+                bid: bid,
+                did: did,
+                comment_form_id: did,
+                uid: uid
+            };
+            this.$router.push({ name: "container", query: data });
+        },
+        checkLogin(index) {
+            var self = this;
+            this.checked_login().then(function(data) {
+                self.$router.push({ name: "container", query: index });
+            }).catch(err => {});
+        },
         close() {
             this.show_backdrop_list = false;
         },
@@ -119,7 +133,9 @@ export default {
             let num = parseInt(index);
             return num > 100000000
                 ? Math.floor(num / 100000000) + "亿"
-                : num > 10000 ? Math.floor(num / 10000) + "万" : num;
+                : num > 10000
+                    ? Math.floor(num / 10000) + "万"
+                    : num;
         },
         $_get_diary: function() {
             var self = this;
@@ -135,8 +151,7 @@ export default {
                 query: this.query
             };
 
-            api
-                .ajaxSearch("diary_index", arr)
+            api.ajaxSearch("diary_index", arr)
                 .then(res => {
                     this.hasMore = res.data.hasMore;
                     self.handbookList = Object.assign(
@@ -197,7 +212,7 @@ export default {
 <style scoped>
 #diaryList .write_diary {
     position: fixed;
-    font-size: 0.6rem;
+    font-size: 0.4rem;
     background: -webkit-linear-gradient(
         180deg,
         #fff,
@@ -218,15 +233,15 @@ export default {
     bottom: 2rem;
     right: 0.2rem;
     padding: 0.2rem;
-    border-radius: 1rem;
+    border-radius: 0.3rem;
 }
 #diaryList .write_diary span {
-    font-size: 0.6rem;
+    font-size: 0.4rem;
     color: #fff;
 }
 #diaryList .diary {
     padding: 0.2rem 0;
-    margin: 0 .2rem;
+    margin: 0 0.2rem;
 }
 #diaryList .diary .top {
     position: relative;

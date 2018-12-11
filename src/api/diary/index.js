@@ -13,9 +13,7 @@ export default {
 
     //上传数据
     ajaxSubmit(module = 'index',params={}){
-        console.log(params);
         params = qs.stringify(params);
-        console.log(params);
         return ajax.post(`diary.php?action=${module}`,params)
     }
 }

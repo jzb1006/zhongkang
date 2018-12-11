@@ -1,7 +1,16 @@
 <template>
     <div id="commentInput">
-        <p class="input_show" @click="show_textarea">
-            {{tip}}</p>
+        <div class="input_style">
+            <p class="input_show" @click="show_textarea">{{tip}}</p>
+            <div class="other">
+                <router-link :to="{name:'container',query:{id:73,comment_form:this.info.comment_form,comment_post_ID:this.info.comment_post_ID,comment_form_id: this.$route.query.comment_form_id,
+            parent_id: this.$route.query.uid,}}">
+                    <span class="zk-icon-edit"></span>
+                </router-link>
+                <span class="zk-icon-xinaixin"></span>
+                <span class="zk-icon-ys"></span>
+            </div>
+        </div>
         <div class="shade" v-show="show_input" @click="hidden_input">
 
         </div>
@@ -17,8 +26,10 @@
 import apiCom from "@/api/comment";
 import { mapGetters } from "vuex";
 import bus from "@/assets/bus.js";
+import { login_mixin, mixin } from "@/assets/js/mixins.js";
 export default {
     name: "comment_input",
+    mixins: [login_mixin, mixin],
     props: {
         tip: {
             default: "写评论..."
@@ -26,16 +37,16 @@ export default {
         textareaStatus: {
             default: false
         },
-        info:{
-            default:function(){
-                return {}
+        info: {
+            default: function() {
+                return {};
             }
         }
     },
     data() {
         return {
             show_input: false,
-            comment_content: "",
+            comment_content: ""
         };
     },
     watch: {
@@ -55,13 +66,21 @@ export default {
     methods: {
         comment_tip() {
             if (this.getUserinfo) {
-                this.comment_content = "@" + (this.getUserinfo.nickname ? this.getUserinfo.nickname : "");
+                this.comment_content =
+                    "@" +
+                    (this.getUserinfo.nickname
+                        ? this.getUserinfo.nickname
+                        : "");
             } else {
                 this.comment_content = "";
             }
         },
         show_textarea() {
-            this.show_input = true;
+            this.checked_login()
+                .then(() => {
+                    this.show_input = true;
+                })
+                .catch(err => {});
         },
         submit_comment() {
             this.show_input = false;
@@ -70,7 +89,9 @@ export default {
             let formData = {
                 comment_post_ID: self.info.comment_post_ID, //数据库文章id
                 author: self.getUserinfo ? self.getUserinfo.nickname : "", //评论者名字
-                comment_parent: self.info.comment_parent ? self.info.comment_parent : 0, //父级id
+                comment_parent: self.info.comment_parent
+                    ? self.info.comment_parent
+                    : 0, //父级id
                 comment_form: self.info.comment_form, //类型
                 comment_form_id: self.info.comment_form_id, //评论素材id
                 comment: self.comment_content, //评论内容
@@ -78,12 +99,11 @@ export default {
                 parent_id: self.info.parent_id //被评论者id
             };
 
-            apiCom.addComment(formData).then(res=>{
-                if(res.data.err == '0'){
+            apiCom.addComment(formData).then(res => {
+                if (res.data.err == "0") {
                     this.$emit("commentSuccess");
                 }
-                
-            })
+            });
         },
         hidden_input() {
             this.show_input = false;
@@ -95,7 +115,6 @@ export default {
     },
     mounted() {
         this.show_input = this.textareaStatus;
-        // this.comment_tip();
     }
 };
 </script>
@@ -105,8 +124,23 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 550;
-    background-color: #fff;
+    z-index: 500;
+    background-color: #f6f4f4;
+}
+#commentInput .input_style{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+#commentInput .input_style .other{
+    font-size: .35rem;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    text-align: center;
+    align-content: center;
+}
+#commentInput .input_style .other span{
+    font-size: .4rem;
+    color:#000;
 }
 #commentInput .input_show {
     font-size: 0.3rem;
@@ -114,8 +148,8 @@ export default {
     margin: 0.1rem 0.2rem;
     padding: 0.2rem 0.3rem;
     border: 1px solid #ccc;
-    border-radius: 1rem;
-    background-color: #00000010;
+    border-radius: .2rem;
+    background-color: #fff;
 }
 #commentInput > div.shade {
     position: fixed;

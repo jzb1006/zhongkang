@@ -8,7 +8,6 @@ export default {
     },
 
     addComment(params={}){
-        console.log(params);
         params = qs.stringify(params);
         return ajax5.post('wordpress/wordpress/wp-comments-post.php', params);
     },

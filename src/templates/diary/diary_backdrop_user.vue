@@ -41,15 +41,15 @@
                             <div class="backdropImage" v-if="backList.length > 0" v-for="(backdrop,index) in backdropList">
                                 <p v-if="index == '0'" class="title">过去的她</p>
                                 <div class="check_status" v-if="pUid == sUid">
-                                    <div v-if="backdrop.check_status == '0'">
+                                    <div v-if="backdrop.status == '0'">
                                         <img src="./../../../static/images/no.png" alt="" />
                                     </div>
 
-                                    <div v-else-if="backdrop.check_status == '1'">
+                                    <div v-else-if="backdrop.status == '1'">
                                         <img src="./../../../static/images/pass.png" alt="" />
                                     </div>
 
-                                    <div v-else="backdrop.check_status == '2'">
+                                    <div v-else="backdrop.status == '2'">
                                         <img src="./../../../static/images/nopass.png" alt="" />
                                     </div>
                                 </div>
@@ -71,6 +71,7 @@
                 </div>
             </div>
         </div>
+        <Alert v-bind:Show.sync="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
 </template>
 
@@ -80,6 +81,7 @@ import mediaDisplay from "@/components/upload/media_display";
 import top from "@/components/decorate/top_back_title.vue";
 import defaultImg from "@/components/decorate/default_img.vue";
 import { rejects } from "assert";
+import { setTimeout } from 'timers';
 export default {
     name: "diary_backdrop_user",
     props: {
@@ -95,7 +97,9 @@ export default {
     data() {
         return {
             is_operate: false,
-
+            isShow: false,
+            alerttType: "",
+            alertText: "",
             bid: this.b_id,
             backdropList: [],
             diaryList: [],
@@ -115,6 +119,7 @@ export default {
             this.diaryList = val.diaryList;
             this.backList = val.backList;
             this.memuList = val.memuList;
+            this.diaryNum = val.diaryNum;
             this.user = val.user;
             this.sUid = val.s_uid;
             this.pUid = val.p_uid;
@@ -137,23 +142,36 @@ export default {
         del_backdrop(bid) {
             api.ajaxSubmit("delBasic", { bid: bid }).then(res => {
                 if (res.data.error == 0) {
-                    alert(res.data.message);
-                    this.$router.push({ name: "diaryBackdropList" });
+                    this.isShow = true;
+                    this.alerttType = "success";
+                    this.alertText = res.data.message;
+                    setTimeout(()=>{
+                        this.$router.push({
+                            name: "container",
+                            query: { id: 16 }
+                        });
+                    },2000)
                 } else {
-                    alert(res.data.message);
+                    this.isShow = true;
+                    this.alerttType = "success";
+                    this.alertText = res.data.message;
                 }
             });
         },
         getUserName() {
             return this.user.nickname
                 ? this.user.nickname
-                : this.user.user_name ? this.user.user_name : "";
+                : this.user.user_name
+                    ? this.user.user_name
+                    : "";
         },
         transform_num(index) {
             let num = parseInt(index);
             return num > 100000000
                 ? Math.floor(num / 100000000) + "亿"
-                : num > 10000 ? Math.floor(num / 10000) + "万" : num;
+                : num > 10000
+                    ? Math.floor(num / 10000) + "万"
+                    : num;
         },
         del_show() {
             if (this.is_user() && this.diaryList.length == 0) {

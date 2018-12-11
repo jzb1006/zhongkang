@@ -1,13 +1,13 @@
 <template>
     <div id="comment">
         <div class="list">
-            <div class="comment clearfix" v-for="comment in commentlist" v-if="comment">
+            <div class="comment clearfix" v-for="(comment,index) in commentlist" :key="index" v-if="comment">
                 <div class="headimg">
-                    <img src="https://tse1-mm.cn.bing.net/th?id=OET.2c876ba3093543feba76d5d2216d86ea&w=135&h=135&c=7&rs=1&o=5&pid=1.9" alt="">
+                    <img :src="getImgUrl()+comment.headimgurl" alt="">
                 </div>
                 <div class="other">
                     <p class="name">{{comment.username ? comment.username : ""}}</p>
-                    <p class="time clearfix">
+                    <p v-show="showInput" class="time clearfix">
                         <span class="zk-icon-edit" @click="edit(comment)"> 回复</span>
                         <span class="zk-icon-xinaixin"> 赞</span>
                     </p>
@@ -16,12 +16,12 @@
                     <div v-if="comment.reply.length" class="replys">
                         <div class="reply" v-for="(reply,index) in comment.reply" v-if='limitNum(index)'>
                             <span class="name">{{reply.username ? reply.username : ""}}</span>:
-                            <span> @{{reply.parent_name}} </span> {{reply.comment_content}}<br/>
+                            <span> @{{reply.parent_name}} </span> {{reply.comment_content}}<br />
                             <p class="date">{{comment.comment_date}}
                                 <span @click="edit(reply)">回复</span>
                             </p>
                         </div>
-                        <router-link :to="{name:'commentDetail',query:{comment_form:comment.comment_form,id:comment.id,uid:comment.uid,mid:comment.comment_form_id,comment_post_id:comment_post_id}}">
+                        <router-link :to="{name:'container',query:{id:params.comment_detail_id,comment_form:comment.comment_form,cid:comment.id,uid:comment.uid,comment_form_id:comment.comment_form_id,comment_post_id:comment_post_id}}">
                             <span v-show="replyLength(comment.reply)" class="more">共{{comment.reply.length}}条回复！>></span>
                         </router-link>
                     </div>
@@ -31,10 +31,14 @@
     </div>
 </template>
 <script>
-import bus from "@/assets/bus.js"
+import apiCom from "@/api/comment";
+import { login_mixin } from "@/assets/js/mixins.js";
 export default {
-    name:"comment",
+    name: "comment",
     props: {
+        showInput:{
+            default:true
+        },
         limitnum: {
             default: ""
         },
@@ -42,13 +46,19 @@ export default {
             default: "评论列表"
         },
         commentlist: "",
-        mid: {
+        comment_form_id: {
             default: ""
         },
-        comment_post_id:{
-            default: ''
+        comment_post_id: {
+            default: ""
+        },
+        params: {
+            default: function() {
+                return {};
+            }
         }
     },
+    mixins: [login_mixin],
     watch: {
         commentlist(val, oldVal) {
             if (typeof commentlist == "Object") {
@@ -63,6 +73,9 @@ export default {
         }
     },
     methods: {
+        getImgUrl(){
+            return apiCom.imgUrl();
+        },
         limitNum(index) {
             if (this.limitnum) {
                 if (this.limitnum > index) {
@@ -78,15 +91,18 @@ export default {
         },
         edit(data) {
             let arr = {
-                comment_post_ID: this.comment_post_id,//数据库文章id
-                comment_parent: data.id,//父级id
-                comment_form: data.comment_form,//类型
-                comment_form_id: data.comment_form_id,//评论素材id
-                parent_id: data.uid//被评论者id
-            }
-            this.$emit('getInfo',arr);
-            this.$emit('changeTextareaStatus',true);
-            // this.textareaStatus = true;
+                comment_post_ID: this.comment_post_id, //数据库文章id
+                comment_parent: data.id, //父级id
+                comment_form: data.comment_form, //类型
+                comment_form_id: data.comment_form_id, //评论素材id
+                parent_id: data.uid //被评论者id
+            };
+
+            var self = this;
+            this.checked_login().then(function(data) {
+                self.$emit("getInfo", arr);
+                self.$emit("changeTextareaStatus", true);
+            }).catch(err => {});
         },
         replyLength(data) {
             if (this.limitnum) {
@@ -100,28 +116,7 @@ export default {
 };
 </script>
 <style scoped>
-#comment{
-
-}
-#comment .head {
-    height: 0.9rem;
-}
-#comment .head p {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    font-size: 0.3rem;
-    text-align: center;
-    padding: 0.3rem 0.1rem;
-    background-color: #ccc;
-    z-index: 1;
-}
-#comment .head p span {
-    float: left;
-    /* margin-left: 0.3rem; */
-}
-#comment .list{
+#comment .list {
     margin-bottom: 1.2rem;
 }
 #comment .list .comment {

@@ -1,7 +1,5 @@
 <template>
     <div id="mycard">
-       
-        <top :title="title"></top>
         <div class="order-box clear" v-if="result != ''" :key="index" v-for="(item,index) in result">
             <!-- 产品信息 -->
              

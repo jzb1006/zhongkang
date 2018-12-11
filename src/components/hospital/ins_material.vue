@@ -1,12 +1,14 @@
 <template>
     <div id="insDiary">
-        <material :insId=ins_id :docId=doc_id></material>
+        <material :insId=ins_id :docId=doc_id :params=params></material>
     </div>
 </template>
 <script>
 import top from "@/components/decorate/top_back_title.vue";
 import material from "./../material/material_list";
+import { mixin } from "@/assets/js/mixins";
 export default {
+    mixins:[mixin],
     data(){
         return {
             ins_id:"",

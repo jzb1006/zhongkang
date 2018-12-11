@@ -39,7 +39,7 @@ export default {
                     self.user = {
                         user_id: data.user_id,
                         headimg: data.headimgurl,
-                        name: data.nickname,
+                        name: data.author,
                         view: data.view_count
                     };
                 });
@@ -50,10 +50,10 @@ export default {
             this.healthy_talk_id = this.$route.query.healthy_talk_id;
             this.getData();
         }
-        apiCom.ajaxSubmit("common", "viewCount", {
-            table: "hm_healthy_talk",
-            id: this.$route.query.healthy_talk_id
-        });
+        // apiCom.ajaxSubmit("common", "viewCount", {
+        //     table: "hm_healthy_talk",
+        //     id: this.$route.query.healthy_talk_id
+        // });
     }
 };
 </script>

@@ -1,19 +1,25 @@
 <template>
     <div>
-        <comment @getInfo=getInfo :commentlist=total :comment_post_id=comment_post_id></comment>
+        <comment @getInfo=getInfo :commentlist=total :comment_post_id=comment_post_id @changeTextareaStatus=changeTextareaStatus></comment>
         <div v-if="total.length == 0">
-            没有评论
+            <kong text="没有评论，快来抢沙发"></kong>
         </div>
-        <commentInput :info=info @commentSuccess=comment_success></commentInput>
+        <commentInput :textareaStatus=textareaStatus :info=info @commentSuccess=comment_success @changeTextareaStatus=changeTextareaStatus></commentInput>
+        <Loading v-show="loadinging"></Loading>
+        <LoadMore v-if="parseInt(is_more)" :state='hasMore' :isLoading='isBusy' @loadmore="getComment"></LoadMore>
     </div>
-
 </template>
 <script>
 import apiCom from "@/api/comment";
+import kong from "@/components/nosearch/kong.vue";
 import commentInput from "@/components/comment/comment_input";
 import comment from "@/templates/comment/comment_list";
+import Loading from "@/components/decorate/loading.vue";
+import LoadMore from "@/components/loadMore/index.vue";
+import { mixin } from "@/assets/js/mixins.js";
 export default {
     name: "comment_detail",
+    mixins: [mixin],
     data() {
         return {
             comment_post_id: "",
@@ -22,31 +28,55 @@ export default {
             children: [],
             comment_form: "",
             id: "",
-            info: {}
+            info: {},
+            textareaStatus: false,
+
+            page: 0,
+            is_more: this.params["is_more"] || 1,
+            pageList: this.params.number,
+            isBusy: false,
+            hasMore: 0,
+            loadinging: true,
+            loadmore: true
         };
     },
     components: {
         comment,
-        commentInput
+        commentInput,
+        kong,
+        Loading,
+        LoadMore
     },
     methods: {
+        changeTextareaStatus(data) {
+            this.textareaStatus = data;
+        },
         comment_success() {
             this.getComment();
+            this.total = [];
         },
         getInfo(data) {
-            console.log(data);
+            this.info = data;
         },
         getComment() {
-            let self = this;
+            var self = this;
+            this.isBusy = true;
+            self.page = self.page + 1;
             apiCom
                 .ajaxSearch("getOnce", {
                     comment_form: this.comment_form,
-                    mid: this.mid,
-                    cid: this.id
+                    comment_form_id: this.comment_form_id,
+                    cid: this.id,
+                    page: this.page
                 })
                 .then(res => {
-                    this.total = [];
+                    this.hasMore = res.data.hasMore;
                     this.parseData(res.data.comments);
+                    this.isBusy = false;
+                    self.loadinging = false;
+                })
+                .catch(err => {
+                    self.loadinging = false;
                 });
         },
         //去除重复数据
@@ -71,6 +101,7 @@ export default {
                     id: data[index].id,
                     uid: data[index].uid,
                     username: data[index].username,
+                    headimgurl: data[index].headimgurl,
                     parent_id: data[index].parent_id,
                     parent_name: data[index].parent_name,
                     comment_ID: data[index].comment_ID,
@@ -103,15 +134,15 @@ export default {
     mounted() {
         this.comment_form = this.$route.query.comment_form;
         this.comment_post_id = this.$route.query.comment_post_id;
-        this.id = this.$route.query.id;
-        this.mid = this.$route.query.mid;
+        this.id = this.$route.query.cid;
+        this.comment_form_id = this.$route.query.comment_form_id;
 
         this.info = {
             comment_form: this.$route.query.comment_form,
             comment_post_ID: this.$route.query.comment_post_id,
             parent_id: this.$route.query.uid,
-            comment_parent:this.$route.query.id,
-            comment_form_id: this.$route.query.mid
+            comment_parent: this.$route.query.cid,
+            comment_form_id: this.$route.query.comment_form_id
         };
         this.getComment();
     }

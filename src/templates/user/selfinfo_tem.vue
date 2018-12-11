@@ -36,6 +36,7 @@
                 <input type="button" class="saveBtn" value="保存" @click="saveUserinfo">
             </div>
         </div>
+        <Alert v-bind:Show.sync="alertShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
 </template>
 
@@ -53,7 +54,10 @@ export default {
     name: 'selfinfo_tem',
     data(){
         return {
-            result:{}
+            result:{},
+            alertShow:false,
+			alerttType:'warn',
+			alertText:'',
         }
     },
     watch:{
@@ -126,15 +130,21 @@ export default {
             let realname=this.result.realname;
             let headimgurl=this.result.headimgurl;
             if(nickname==''){
-                alert('昵称不能为空');
+                // alert('昵称不能为空');
+                this.alertShow=true;
+                this.alertText='昵称不能为空';
                 return false;
             }
             if(birthday==''){
-                alert('生日不能为空');
+                // alert('生日不能为空');
+                this.alertShow=true;
+                this.alertText='生日不能为空';
                 return false;
             }
             if(realname==''){
-                alert('真实姓名不能为空');
+                // alert('真实姓名不能为空');
+                this.alertShow=true;
+                this.alertText='真实姓名不能为空';
                 return false;
             }
             let postData={
@@ -158,7 +168,9 @@ export default {
                     this.$store.dispatch('changeUserinfo',this.getUserinfo);
                     this.$router.push({name:'container',query:{id:'34'}});
                 }else{
-                    alert(res.data.message);
+                    // alert(res.data.message);
+                    this.alertShow=true;
+                    this.alertText = res.data.message;
                 }
             }).catch(error=>{
                 console.log(error);

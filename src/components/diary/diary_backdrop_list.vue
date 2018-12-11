@@ -1,7 +1,7 @@
 <template>
     <div>
         <diaryBackdropListC :params=params :diaryBackdropInfo=diaryBackdropInfo></diaryBackdropListC>
-        <!-- <diaryBackdropListC :params=params :diaryCount=diaryCount :itemName=itemName :backdropList=backdropList></diaryBackdropListC> -->
+        <kong v-if="!isShow" text="康复日志为空"></kong>
         <Loading v-show="loadinging"></Loading>
         <LoadMore v-show="loadmore" :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_backdropList"></LoadMore>
     </div>
@@ -9,6 +9,8 @@
 
 <script>
 import api from "@/api/diary";
+import kong from "@/components/nosearch/kong.vue";
+
 import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
 import diaryBackdropListC from "@/templates/diary/diary_backdrop_list";
@@ -17,7 +19,8 @@ export default {
     components: {
         diaryBackdropListC,
         Loading,
-        LoadMore
+        LoadMore,
+        kong
     },
     mixins: [mixin],
     data() {
@@ -31,7 +34,8 @@ export default {
             isBusy: false,
             hasMore: 0,
             loadinging: true,
-            loadmore: true
+            loadmore: true,
+            isShow: false
         };
     },
     methods: {
@@ -42,12 +46,12 @@ export default {
             var self = this;
             this.isBusy = true;
             self.page = self.page + 1;
-            api
-                .ajaxSearch("diary_select_basic", {
-                    page: self.page,
-                    pageList: 3
-                })
+            api.ajaxSearch("diary_select_basic", {
+                page: self.page,
+                pageList: 5
+            })
                 .then(res => {
+                    console.log(res.data);
                     self.hasMore = res.data.hasMore;
                     self.backdropList = self.backdropList.concat(
                         res.data.backdrop
@@ -66,6 +70,10 @@ export default {
                         itemName: this.itemName,
                         diaryCount: this.diaryCount
                     };
+
+                    if (self.backdropList.length > 0) {
+                        self.isShow = true;
+                    }
                     this.isBusy = false;
                     self.loadinging = false;
                 })

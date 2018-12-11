@@ -1,8 +1,7 @@
 <template>
-    <div>
-        <!-- <commentList></commentList> -->
+    <div>   
         <diaryListC v-show="isShow" @changeLoadmore=changeLoadmore :diaryListInfo=diaryListInfo :params=params></diaryListC>
-        <!-- <diaryListC @changeLoadmore=changeLoadmore :params=params :memuList=memuList :diaryList=diaryList :backdropList=backdropList :handbookList=handbookList :mediaList=mediaList></diaryListC> -->
+        <kong v-if="!isShow" text="康复日志为空"></kong>
         <Loading v-show="loadinging"></Loading>
         <LoadMore v-if="parseInt(is_more)" :state='hasMore' :isLoading='isBusy' @loadmore="$_get_diary"></LoadMore>
     </div>
@@ -11,17 +10,20 @@
 <script>
 import api from "@/api/diary";
 import apiCom from "@/api/common";
+import kong from "@/components/nosearch/kong.vue"
 import diaryListC from "@/templates/diary/diaryList";
 import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
 import { mixin } from "@/assets/js/mixins";
+import {commonShare, shareTitle, shareUrl, shareImg, shareDesc} from "@/assets/share.js";
 export default {
     mixins: [mixin],
     props: ["insId", "docId", "cid", "query"],
     components: {
         diaryListC,
         Loading,
-        LoadMore
+        LoadMore,
+        kong
     },
     data() {
         return {
@@ -44,7 +46,7 @@ export default {
             hasMore: 0,
             loadinging: true,
             loadmore: true,
-            isShow: false
+            isShow: true
         };
     },
     methods: {
@@ -92,8 +94,8 @@ export default {
                         backdropList: self.backdropList
                     };
 
-                    if (self.backdropList.length > 0) {
-                        self.isShow = true;
+                    if (self.backdropList.length == 0) {
+                        self.isShow = false;
                     }
 
                     this.isBusy = false;
@@ -109,6 +111,7 @@ export default {
     },
     mounted() {
         this.$_get_diary();
+        // commonShare(this, shareTitle, shareUrl, shareImg, shareDesc);
     }
 };
 </script>

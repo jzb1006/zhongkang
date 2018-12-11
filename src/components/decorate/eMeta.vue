@@ -14,13 +14,14 @@
                 <span class="zk-icon-edit">{{transform_num(parameter.comments)}}</span>
             </div>
         </div>
+        <Alert v-bind:Show.sync="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
 </template>
 
 <script>
 import apiCom from "@/api/common";
 export default {
-    name:"e_meta",
+    name: "e_meta",
     props: {
         info: {
             default: function() {
@@ -30,7 +31,10 @@ export default {
     },
     data() {
         return {
-            parameter: this.get_info()
+            parameter: this.get_info(),
+            isShow: false,
+            alerttType: "",
+            alertText: ""
         };
     },
     methods: {
@@ -41,12 +45,12 @@ export default {
                 likes: this.info.likes,
                 comments: this.info.comments
             };
-        
+
             return this.filter_kong(msg);
         },
-        filter_kong(data){
-            for(let index in data){
-                if(!data[index]){
+        filter_kong(data) {
+            for (let index in data) {
+                if (!data[index]) {
                     delete data[index];
                 }
             }
@@ -60,20 +64,24 @@ export default {
                 })
                 .then(res => {
                     if (res.data.error == "0") {
-                        this.parameter.likes = parseInt(this.info.likes) + 1 +'';
+                        this.isShow = true;
+                        this.alerttType = "text";
+                        this.alertText = res.data.message;
+                        this.parameter.likes =
+                            parseInt(this.info.likes) + 1 + "";
                     }
                 });
         },
         click_comment() {
-            if (this.parameter.comment_id) {
-                this.$emit("click_comment", this.parameter.comment_id);
-            }
+            this.$emit("click_comment");
         },
         transform_num(index) {
             let num = parseInt(index);
             return num > 100000000
                 ? Math.floor(num / 100000000) + "亿"
-                : num > 10000 ? Math.floor(num / 10000) + "万" : num;
+                : num > 10000
+                    ? Math.floor(num / 10000) + "万"
+                    : num;
         },
         transform_date(index) {
             return index.split(" ", 1)[0];

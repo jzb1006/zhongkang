@@ -1,62 +1,64 @@
 import Axios from 'axios';
-import router from './../router'
+import router from '@/router'
 //添加QS是post请求的时候前端参数转换，为了解决后端接收不到post数据的问题。
 import Qs from 'qs';
 export const ajax = Axios.create({
-  baseURL: 'http://192.168.0.107/m/',
+  baseURL: 'http://192.168.0.106/m/',
   //增加这个是为了解决后端接收不到post数据的问题。
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },
   withCredentials: true,
-  timeout: 3000,
+  timeout: 10000,
 })
 
 export const ajax2 = Axios.create({
-  baseURL: '/m/',
+  baseURL: 'http://192.168.0.106/m/',
   headers: {
     'Content-Type': 'multipart/form-data'
   },
-  timeout: 3000,
+  timeout: 10000,
 })
 
 export const ajax3 = Axios.create({
-  baseURL: '/m',
+  baseURL: '/m/',
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },
-  timeout: 3000,
+  timeout: 10000,
 })
 
 export const ajax4 = Axios.create({
-  baseURL: 'http://192.168.0.107/m',
+  baseURL: 'http://192.168.0.106/m',
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },
-  timeout: 3000,
+  timeout: 10000,
 })
 
 export const ajax5 = Axios.create({
-  baseURL: 'http://192.168.0.107/',
+  baseURL: 'http://192.168.0.106/',
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },
-  timeout: 3000,
+  timeout: 5000,
 })
 
 export const ajax6 = Axios.create({
-  baseURL: 'http://192.168.0.107/m',
+  baseURL: 'http://192.168.0.106/m',
   headers: {
     'Content-Type': 'multipart/form-data'
   },
-  timeout: 3000,
+  timeout: 10000,
 })
 
 export const qs = Qs;
 
 //相片网址前缀
 
-export const img_prifix = "http://192.168.0.107/"
+export const img_prifix = "http://192.168.0.106/"
+
+//拦截器
 ajax.interceptors.response.use(function (response) {
   // 对响应数据做点什么
   return response;
@@ -67,6 +69,7 @@ ajax.interceptors.response.use(function (response) {
     // alert('请先登录');
     router.push({name: "container",query:{id:'28'}})
   }
+  // return false;
   return Promise.reject(error);
 });
 

@@ -1,7 +1,6 @@
 <template>
     <div id="diaryBackdropDiary">
         <diaryBackdropContentC :params=params :diaryBackdropContent=diaryBackdropContent></diaryBackdropContentC>
-        <!-- <diaryBackdropContentC :bid=bid :params=params :pUid=p_uid :sUid=s_uid  :memu=memu :backdropList=backdropList  :mediaList=mediaList :diaryList=diaryList></diaryBackdropContentC> -->
         <Loading v-show="loadinging"></Loading>
         <LoadMore :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_getBackdrop"></LoadMore>
     </div>
@@ -81,6 +80,7 @@ export default {
                         diaryList:self.diaryList,
                         mediaList:self.mediaList,
                         memu:self.memu,
+                        diaryNum:self.diaryNum,
                         s_uid:this.s_uid,
                         p_uid:this.p_uid
                     }

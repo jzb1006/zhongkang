@@ -72,12 +72,6 @@ export default {
     methods: {
         getImgUrl() {
             return api.imgUrl();
-        },
-        back() {
-            this.$router.push({
-                name: "diaryBackdrop",
-                query: { bid: this.bid }
-            });
         }
     }
 };
@@ -165,6 +159,9 @@ export default {
 }
 #detail_top .other span {
     display: inline-block;
+}
+#detail_top>div>.info{
+    margin-bottom: .2rem;
 }
 .see_diary {
     display: block;

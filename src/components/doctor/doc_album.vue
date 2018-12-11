@@ -37,7 +37,7 @@
         data() {
             return {
                 doc_id: this.$route.query.doc_id,
-                tab: this.$route.query.tab,
+                tab: parseInt(this.$route.query.tab),
             }
         },
          methods:{

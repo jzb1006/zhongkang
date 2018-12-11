@@ -30,7 +30,8 @@
         <popup v-model="show_item" position="bottom" max-height="50%">
             <diarySelItem></diarySelItem>
         </popup>
-    </div>    
+        <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
+    </div>
 </template>
 
 <script>
@@ -57,12 +58,14 @@
                 result:[],
                 selectedname:[],
                 show_item:false,
-                
+                alertShow:false,
+                alertType:'warn',
+                alertText:'',
             }
         },
         watch:{
             params(newV,oldV){
-                console.log(this.params);
+                console.log('aada',this.params);
                 this.level=newV.level;
                 this.jianjie=newV.jianjie;
                 this.chooseItem=newV.chooseItem;
@@ -100,7 +103,8 @@
                     this.selected.push(element.id);
                 });
                 if(this.selected==""){
-                    alert('请至少选择一个项目');
+                    this.alertShow=true;
+                    this.alertText='请至少选择一个项目';
                     return false;
                 }
                 // if(this.chooseItem==""){
@@ -164,8 +168,8 @@
             // })
             // this.queryAdviserInfo();
             Bus.$on("toItem", res => {
-                this.selectedname=[];
-                this.chooseItem=res;
+                // this.selectedname=[];
+                // this.chooseItem=res;
                 this.hide_items();
                 // this.chooseItem.forEach(element => {
                 //     this.selectedname.push(element.name);
@@ -176,6 +180,7 @@
             Bus.$off("getJianjie");
             Bus.$off("getPrice");
             Bus.$off("getLevel");
+            Bus.$off("toItem");
         },
         components:{
             top,

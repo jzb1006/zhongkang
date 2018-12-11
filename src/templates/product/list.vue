@@ -1,7 +1,7 @@
 <template>
   <div class="product-list">
     <div class="hot_item" :key="index" v-for="(item,index) in list" >
-      <router-link :to="{name:route_link,query:{id:con_id,goods_id:item.goods_id,ins_id:item.institution_id}}" tag="a" class="link-info router-link-exact-active router-link-active">
+      <router-link :to="{name:route_link,query:{id:con_id,goods_id:item.goods_id,ins_id:item.institution_id,comment_form_id:item.goods_id,uid:item.user_id}}" tag="a" class="link-info router-link-exact-active router-link-active">
         <img :src="getImgUrl()+item.goods_thumb" class="hot_pic lazy">
           <div class="hot_text">
             <h3>{{item.goods_name}}</h3>
@@ -16,7 +16,6 @@
               </div>
             </div>
           </div>
-       
         <div class="bar"></div>
       </router-link>
     </div>

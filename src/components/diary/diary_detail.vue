@@ -1,7 +1,6 @@
 <template>
     <div>
         <diaryDetailC :params=params :diaryDetailInfo=diaryDetailInfo></diaryDetailC>
-        <!-- <diaryDetailC :params=params :username=username :mediaList=mediaList :diaryContent=diaryContent></diaryDetailC> -->
         <Loading v-show="loadinging"></Loading>
     </div>
 </template>
@@ -53,10 +52,10 @@ export default {
     mounted() {
         this.$_ajax_getDiaryDetail();
 
-        apiCom.ajaxSubmit("common", "viewCount", {
-            table: "recovery_diary",
-            id: this.$route.query.did
-        });
+        // apiCom.ajaxSubmit("common", "viewCount", {
+        //     table: "recovery_diary",
+        //     id: this.$route.query.did
+        // });
     }
 };
 </script>

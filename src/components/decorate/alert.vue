@@ -46,10 +46,11 @@ export default {
 </script>
 <style>
 .weui-toast {
-  min-height: 1.5rem !important;
-  top: 50% !important;
+  min-height: auto!important;
+  /* min-height: 1.5rem !important; */
+  /* top: 50% !important; */
 }
-.alert_mag {
+/* .alert_mag {
   font-size: 0.3rem;
-}
+} */
 </style>

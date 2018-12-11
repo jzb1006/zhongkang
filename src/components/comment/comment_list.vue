@@ -1,54 +1,64 @@
 <template>
-    <div id="commentList">
-        <comment :limitnum='1' @getInfo=getInfo :commentlist=total :mid=m_id :comment_post_id=this.cInfo.comment_post_ID @changeTextareaStatus=changeTextareaStatus></comment>
-        <div v-if="total.length == 0">
-            没有评论
-        </div>
-        <commentInput :textareaStatus=textareaStatus :info=info @commentSuccess=comment_success @changeTextareaStatus=changeTextareaStatus></commentInput>
+    <div id="commentList" name="commentList">
+        <comment v-if="isShow" :showInput=showInput :params=params :limitnum='1' @getInfo=getInfo :commentlist=total :comment_form_id=this.cInfo.comment_form_id :comment_post_id=this.cInfo.comment_post_ID @changeTextareaStatus=changeTextareaStatus></comment>
+        <kong v-if="!isShow" text="没有评论，快来抢沙发"></kong>
+        <commentInput v-show="showInput" :textareaStatus=textareaStatus :info=info @commentSuccess=comment_success @changeTextareaStatus=changeTextareaStatus></commentInput>
+        <Loading v-show="loadinging"></Loading>
+        <LoadMore v-if="parseInt(is_more)" :state='hasMore' :isLoading='isBusy' @loadmore="getcomment"></LoadMore>
     </div>
 </template>
 <script>
+import kong from "@/components/nosearch/kong.vue";
 import apiCom from "@/api/comment";
 import commentInput from "@/components/comment/comment_input";
 import comment from "@/templates/comment/comment_list";
 import bus from "@/assets/bus.js";
+import Loading from "@/components/decorate/loading.vue";
+import LoadMore from "@/components/loadMore/index.vue";
 import { mixin } from "@/assets/js/mixins.js";
 
 export default {
     name: "comment_list",
     components: {
-        commentInput
+        commentInput,
+        kong,
+        comment,
+        Loading,
+        LoadMore
     },
     mixins: [mixin],
     props: {
         m_id: {
             default: "12"
         },
-        cInfo: {
-            default: function() {
-                return {
-                    comment_post_ID: 19,
-                    comment_form: "diary",
-                    comment_form_id: "12",
-                    parent_id: "3030",
-                    comment_parent: "0"
-                };
-            }
+        showInput: {
+            default: true
         }
     },
     data() {
         return {
+            cInfo: {},
             info: {
-                comment_post_ID: this.cInfo.comment_post_ID, //数据库文章id
-                comment_parent: this.cInfo.comment_parent, //父级id
-                comment_form: this.cInfo.comment_form, //类型
-                comment_form_id: this.cInfo.comment_form_id, //评论素材id
-                parent_id: this.cInfo.parent_id //被评论者id
+                comment_post_ID: "", //数据库文章id
+                comment_parent: "", //父级id
+                comment_form: "", //类型
+                comment_form_id: "", //评论素材id
+                parent_id: "" //被评论者id
             },
             total: [],
             parent: [],
             children: [],
-            textareaStatus: false
+            textareaStatus: false,
+            isShow: true,
+
+            page: 0,
+            is_more: this.params["is_more"] || 1,
+            pageList: this.params.number,
+            isBusy: false,
+            hasMore: 0,
+            loadinging: true,
+            loadmore: true,
+            add_status:false
         };
     },
     watch: {
@@ -58,6 +68,11 @@ export default {
             this.info.comment_form_id = val.comment_form_id;
             this.info.parent_id = val.parent_id;
             this.info.comment_parent = val.comment_parent;
+        },
+        total(val, oldVal) {
+            if (val.length > 0) {
+                this.isShow = true;
+            }
         }
     },
     methods: {
@@ -65,6 +80,8 @@ export default {
             this.textareaStatus = data;
         },
         comment_success() {
+            this.add_status = true;
+            this.page = 0;
             this.getcomment();
         },
         //获取评论
@@ -72,18 +89,28 @@ export default {
             this.info = data;
         },
         getcomment() {
-            let self = this;
+            var self = this;
+            this.isBusy = true;
+            self.page = self.page + 1;
             apiCom
                 .ajaxSearch("index", {
                     comment_form: this.cInfo.comment_form,
-                    id: this.cInfo.comment_form_id
+                    id: this.cInfo.comment_form_id,
+                    page:this.page
                 })
                 .then(res => {
-                    this.total = [];
+                    if(self.add_status){
+                        this.total = [];
+                    }
+                    this.hasMore = res.data.hasMore;
                     this.parseData(res.data.comments);
+                    this.isBusy = false;
+                    self.loadinging = false;
+                    self.add_status = false;
+                })
+                .catch(err => {
+                    self.loadinging = false;
                 });
-
-            bus.$emit("comment_info", this.info);
         },
         //去除重复数据
         remove_duplicate_data(data) {
@@ -107,6 +134,7 @@ export default {
                     id: data[index].id,
                     uid: data[index].uid,
                     username: data[index].username,
+                    headimgurl: data[index].headimgurl,
                     parent_id: data[index].parent_id,
                     parent_name: data[index].parent_name,
                     comment_ID: data[index].comment_ID,
@@ -133,21 +161,25 @@ export default {
                     this.total = this.total.concat(this.parent);
                 }
             }
-            this.total = this.remove_duplicate_data(this.total);
+
+            if (this.total.length == 0) {
+                this.isShow = false;
+            }
+            
+            this.total =  this.remove_duplicate_data(this.total);
         }
     },
-    components: {
-        comment
-    },
     mounted() {
+        this.cInfo = {
+            comment_post_ID: this.params.comment_post_ID,
+            comment_form: this.params.comment_form?this.params.comment_form:this.$route.query.comment_form,
+            comment_form_id: this.$route.query.comment_form_id,
+            parent_id: this.$route.query.uid,
+            comment_parent: "0"
+        };
         this.getcomment();
     }
 };
 </script>
 <style scoped>
-#commentList {
-    position: relative;
-    background-color: #fff;
-    z-index: 550;
-}
 </style>

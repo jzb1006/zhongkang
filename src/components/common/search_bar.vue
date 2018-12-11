@@ -97,7 +97,7 @@
         height: 0.3rem;
         line-height: 0.3rem;
         z-index: 4001;
-        position: fixed;
+        position: absolute;
         text-align: center;
     }
 

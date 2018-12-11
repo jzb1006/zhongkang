@@ -1,17 +1,9 @@
 <template>
     <div id="app">
-        <keep-alive include="requirement,customized,replyOrder,customizedOrder">
+        <keep-alive include="requirement,customized,replyOrder,customizedOrder,materialList">
             <router-view></router-view>
         </keep-alive>
-        <!-- <transition :name="transitionName">
-
-      <keep-alive include="requirement,customized,replyOrder,customizedOrder">
-        <router-view class="child-view"></router-view>
-      </keep-alive>
-    </transition> -->
-    <!-- <commentList></commentList> -->
         <div class="fill" style="heght:1rem"></div>
-        <foot v-show="navbarShow"></foot>
     </div>
 </template>
 

@@ -23,7 +23,6 @@
                 }else{
                     return false;
                 }
-                return false;
             },
             params2(){
                 return {

@@ -73,10 +73,7 @@ export default {
             if (this.getDiaryOperate == "ub") {
                 api.ajaxSubmit("ajax_update_basic", data).then(res => {
                     if (res.data.error == 0) {
-                        this.$router.push({
-                            name: "diaryBackdrop",
-                            query: { bid: res.data.bid }
-                        });
+                        this.$router.go(0);
                     } else {
                         alert(res.data.message);
                     }
@@ -85,8 +82,8 @@ export default {
                 api.ajaxSubmit("ajax_create_basic", data).then(res => {
                     if (res.data.error == 0) {
                         this.$router.push({
-                            name: "diaryBackdrop",
-                            query: { bid: res.data.bid }
+                            name: "container",
+                            query: {id:7, bid: res.data.bid }
                         });
                     } else {
                         alert(res.data.message);

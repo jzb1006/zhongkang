@@ -1,19 +1,19 @@
 <template>
 	<div id="modify_phone">
 		<div class="content_phone">
-			<div class="div1">
+			<div class="div">
 			    <div class="vux-1px include_phone"><input type="text" class="phone" placeholder="新手机号码" v-model="newphone"></div>
 			</div>
-			<div class="div1">
+			<div class="div">
 				<div class="code">
 					<verificationCode :phoneNum="this.newphone" @inputCode="inputCode"></verificationCode>
 				</div>
 			</div>
-			<div class="div1">
+			<div class="div">
 			    <input type="button" value="修改" class="submit" @click="update_mobile">
 			</div>
 		</div>
-		<Alert v-bind:Show.sync="Show" :alerttType="alerttType" :alertText="alertText"></Alert>
+		<Alert v-bind:Show.sync="alertShow" :alerttType="alerttType" :alertText="alertText"></Alert>
 	</div>
 </template>
 
@@ -54,23 +54,24 @@ export default {
         	let code=this.code;
 			let mobileNum=this.newphone;
 			var self=this;
-        	if(!common.checkPhoneNum(mobileNum)){
+        	if(!common.checkPhoneNum(self,mobileNum)){
                 return false;
             }
-        	if(!common.checkVerificationCode(code)){
+        	if(!common.checkVerificationCode(self,code)){
                 return false;
             }
         	api.updatemobile({'new_mobile':mobileNum,'yanzheng':code}).then(res=>{
-                if(res.data.error==3){
-                	alert(res.data.message);
-					this.$router.push({name:'container',query:{id:'28'}});
-				}else if(res.data.error==0){
+                // if(res.data.error==3){
+                // 	alert(res.data.message);
+				// 	this.$router.push({name:'container',query:{id:'28'}});
+				// }else 
+				if(res.data.error==0){
 					this.getUserinfo.mobile_phone=mobileNum;
 					this.$store.dispatch('changeUserinfo',this.getUserinfo);
                     this.$router.push({name:'container',query:{id:'34'}});
 				}else{
-					this.alertShow=true
-					setTimeout(()=>{this.alertShow=false;},2000)
+					this.alertShow=true;
+					// setTimeout(()=>{this.alertShow=false;},2000)
                     this.alertText=res.data.message;
 					// alert(res.data.message);
 				}
@@ -97,9 +98,6 @@ export default {
 		params(){
 			return{title:this.title}
 		},
-		Show(){
-			return this.alertShow;
-		}
 	},
 	components:{
 		top,
@@ -147,7 +145,7 @@ export default {
         margin:0 auto;
 		padding:.15rem .15rem .15rem 0;
 	}
-	.div1{
+	.div{
 		margin-top:0.3rem;
 	}
 	.submit{

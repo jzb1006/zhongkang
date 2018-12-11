@@ -77,18 +77,18 @@ export default {
         },
         update_backdrop() {
             if (this.getBackInfo()) {
-                api
-                    .ajaxSubmit("ajax_update_basic", this.total_data)
-                    .then(res => {
+                api.ajaxSubmit("ajax_update_basic", this.total_data).then(
+                    res => {
                         if (res.data.error == 0) {
                             this.$router.push({
-                                name: "diaryBackdrop",
-                                query: { bid: res.data.bid }
+                                name: "container",
+                                query: { id: "7", bid: res.data.bid }
                             });
                         } else {
                             alert(res.data.message);
                         }
-                    });
+                    }
+                );
             }
         },
         update_diary() {
@@ -96,8 +96,12 @@ export default {
                 api.ajaxSubmit("updateDiary", this.total_data).then(res => {
                     if (res.data.error == 0) {
                         this.$router.push({
-                            name: "diaryDetail",
-                            query: { bid: res.data.bid, did: res.data.did }
+                            name: "container",
+                            query: {
+                                id: 8,
+                                bid: res.data.bid,
+                                did: res.data.did
+                            }
                         });
                     } else {
                         alert(res.data.message);
@@ -106,35 +110,41 @@ export default {
             }
         },
         create_basicdrop() {
+            console.log('cb');
             if (this.getBackInfo()) {
-                api
-                    .ajaxSubmit("ajax_create_basic", this.total_data)
-                    .then(res => {
+                api.ajaxSubmit("ajax_create_basic", this.total_data).then(
+                    res => {
+                        console.log(res);
                         if (res.data.error == 0) {
                             this.$router.push({
-                                name: "diaryBackdrop",
-                                query: { bid: res.data.bid }
+                                name: "container",
+                                query: { id: 7, bid: res.data.bid }
                             });
                         } else {
                             alert(res.data.message);
                         }
-                    });
+                    }
+                );
             }
         },
         create_diary() {
             if (this.getDInfo()) {
-                api
-                    .ajaxSubmit("ajax_create_diary", this.total_data)
-                    .then(res => {
+                api.ajaxSubmit("ajax_create_diary", this.total_data).then(
+                    res => {
                         if (res.data.error == 0) {
                             this.$router.push({
-                                name: "diaryDetail",
-                                query: { bid: res.data.bid, did: res.data.did }
+                                name: "container",
+                                query: {
+                                    id: 8,
+                                    bid: res.data.bid,
+                                    did: res.data.did
+                                }
                             });
                         } else {
                             alert(res.data.message);
                         }
-                    });
+                    }
+                );
             }
         },
         getBackInfo() {
@@ -175,14 +185,14 @@ export default {
         },
         getBackdropData() {
             var self = this;
-            api
-                .ajaxSearch("diary_update_basic", { bid: self.getBid })
-                .then(res => {
+            api.ajaxSearch("diary_update_basic", { bid: self.getBid }).then(
+                res => {
                     self.info = res.data;
                     if (this.getAestheticStatus) {
                         let data = res.data.backdrop;
                     }
-                });
+                }
+            );
         }
     },
     mounted() {

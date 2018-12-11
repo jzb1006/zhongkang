@@ -25,6 +25,7 @@
                       <input type="button" class="submit" @click="update_user_bank" value="确认提交">
                 </div>
         </div>
+        <Alert v-bind:Show.sync="alertShow" :alerttType="alerttType" :alertText="alertText"></Alert>
   	</div>
 </template> 
 
@@ -42,13 +43,19 @@ export default {
             verificationCode:'',
             codeText:'获取验证码',
             flag:true,
+            alertShow:false,
+			alerttType:'warn',
+			alertText:'',
         }
     },
     methods:{
         getVerificationCode(){
             user.ajaxuserPost('yanzhengma').then(res=>{
                 var self=this;
-                alert(`验证码为${res.data},仅作测试用`);
+                // alert(`验证码为${res.data},仅作测试用`);
+                this.alertShow=true;
+				this.alertType='success';
+                this.alertText=`验证码为${res.data},仅作测试用`;
                 var i=60;
                 var timeId=setInterval(()=>{
                     self.flag=false;
@@ -71,36 +78,51 @@ export default {
             let yanzhengma=this.verificationCode;
             let reg_mobile=/^1[3458]\d{9}$/g;
             if(banknames==""){
-                alert('请输入银行单位');
+                // alert('请输入银行单位');
+                this.alertShow=true;
+                this.alertType='warn';
+                this.alertText='请输入银行单位';
                 return false;
             }
             if(unames==""){
-                alert('请输入真实姓名');
+                // alert('请输入真实姓名');
+                this.alertShow=true;
+                this.alertType='warn';
+                this.alertText='请输入真实姓名';
                 return false;
             }
             if(banksns==""){
-                alert('请输入账号');
+                // alert('请输入账号');
+                this.alertShow=true;
+                this.alertType='warn';
+                this.alertText='请输入账号';
                 return false;
             }
             if(yanzhengma==""){
-                alert('请输入验证码');
+                // alert('请输入验证码');
+                this.alertShow=true;
+                this.alertType='warn';
+                this.alertText='请输入验证码';
                 return false;
             }
-            if(confirm('确认修改吗')){
-                api.update_user_bank({'bankname':banknames,'uname':unames,'banksn':banksns,'yanzheng':yanzhengma}).then(res=>{
-                      if(res.data.error==3){
-                          alert(res.data.message);
-                          this.$router.push('/login');
-                      }
-                      if(res.data.error==1){
-                          this.$router.go(-1);
-                      }else{
-                          alert(res.data.message);
-                          return false;
-                      }
-                })
-            }
-            return false;
+            // if(confirm('确认修改吗')){
+            api.update_user_bank({'bankname':banknames,'uname':unames,'banksn':banksns,'yanzheng':yanzhengma}).then(res=>{
+                // if(res.data.error==3){
+                //     alert(res.data.message);
+                //     this.$router.push('/login');
+                // }
+                if(res.data.error==1){
+                    this.$router.go(-1);
+                }else{
+                    this.alertShow = true;
+                    this.alertType = 'warn';
+                    this.alertText = res.data.message;
+                    // alert(res.data.message);
+                    // return false;
+                }
+            })
+            // }
+            // return false;
         },
         inputCode(data){
             this.verificationCode=data;

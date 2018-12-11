@@ -96,6 +96,7 @@ import listHeader from '@/components/decorate/list_header.vue' //头部
 import listFooter from '@/components/decorate/list_footer.vue' // 尾部
 import topHide from '@/components/decorate/top_hide.vue' // 尾部
 import topBackTitle from "@/components/decorate/top_back_title.vue";
+import foot from "@/components/common/foot.vue"
 
 //订单
 // import cardDetail from "@/components/shopping/card_detail.vue";
@@ -330,6 +331,7 @@ export default {
     Vue.component('topHide', topHide);
     Vue.component('Alert',Alert);
     Vue.component('topBackTitle', topBackTitle);
+    Vue.component('foot',foot)
     //diary
     Vue.component('diaryList', diaryList)
     Vue.component('diaryBackdropUser', diaryBackdropUser)

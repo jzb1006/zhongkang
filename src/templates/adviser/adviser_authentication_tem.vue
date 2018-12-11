@@ -3,6 +3,7 @@
         <top :params=params></top>
         <editInfo :params=params1></editInfo>
         <certificate :params=params2></certificate>
+        <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
         <!-- <div class="content vux-1px">
             <div class="item vux-1px-b" @click="show_items">
                 <div class="span">请选择项目:</div>
@@ -81,6 +82,9 @@
                     btnText:'认证',
                     next:this.next,
                 },
+                alertShow:false,
+                alertType:'warn',
+                alertText:'',
             }
         },
         watch:{
@@ -132,7 +136,9 @@
                     this.selected.push(element.id);
                 });
                 if(this.selected==""){
-                    alert('请至少选择一个项目');
+                    this.alertShow=true;
+                    this.alertType='warn';
+                    this.alertText='请至少选择一个项目';
                     return false;
                 }
                 console.log('555:'+this.level);
@@ -148,10 +154,14 @@
                 
                 api.adviserAuthentication(postdata).then(res=>{
                     if(res.data.error_code==1){
-                        alert(res.data.msg);
+                        this.alertShow=true;
+                        this.alertType='warn';
+                        this.alertText=res.data.msg;
                         this.$router.push({name:'container',query:{id:'9'}});
                     }else{
-                        alert(res.data.msg);
+                        this.alertShow=true;
+                        this.alertType='warn';
+                        this.alertText=res.data.msg;
                     }
                 }).catch(err=>{
                     console.log(err);

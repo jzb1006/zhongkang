@@ -1,7 +1,7 @@
 <template>
     <div id="foot">
         <tabbar>
-            <tabbar-item v-for="(menu,index) in menu_footer" :key="index" selected @on-item-click="open($event,menu)" :link="{name:'container',query:{'name':menu.url}}">
+            <tabbar-item v-for="(menu,index) in menu_footer" :key="index" @on-item-click="open($event,menu)">
                 <span slot="icon" class="icon" :class="menu.icon"></span>
                 <span slot="label">{{menu.name}}</span>
             </tabbar-item>
@@ -20,8 +20,10 @@
 import { Tabbar, TabbarItem } from "vux";
 import menuList from "@/components/decorate/menu_list";
 import common from "../../widget/lib/user";
+import { login_mixin } from "@/assets/js/mixins.js";
 export default {
     name: "foot",
+    mixins: [login_mixin],
     data() {
         return {
             menu_show: false,
@@ -56,9 +58,24 @@ export default {
         close() {
             this.menu_show = false;
         },
-        open(index,menu) {
+        open(index, menu) {
             if (index == 1) {
                 this.menu_show = true;
+            } else {
+                if (index == 2) {
+                    var self = this;
+                    this.checked_login().then(function(data) {
+                        self.$router.push({
+                            name: "container",
+                            query: { name: menu.url }
+                        });
+                    }).catch(err => {});
+                } else {
+                    this.$router.push({
+                        name: "container",
+                        query: { name: menu.url }
+                    });
+                }
             }
         }
     }

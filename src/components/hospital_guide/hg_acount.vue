@@ -8,7 +8,7 @@
                 <span>模拟账单</span>
             </p>
             <ul class="list_acount">
-                <li class="li_acount" v-for="acount1 in aountlist">
+                <li class="li_acount" v-for="(acount1,index) in aountlist" :key="index">
                     <p class="name">{{acount1.name}}</p>
                     <p class="price">￥
                         <span>{{acount1.min_price}}</span>~￥

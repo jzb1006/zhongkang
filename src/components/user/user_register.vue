@@ -19,8 +19,8 @@
           <div class="div1">
                 <input type="button" value="同意协议并注册"  @click="submit_register" class="input_register">
           </div>
-    </div>    
-
+    </div>
+    <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
 
   </div>
 </template>
@@ -36,24 +36,29 @@ export default {
     data(){
     	return {
     		username: '',
-            password:'',           
+            password:'',
             verificationCode:'',
+            alertShow:false,
+			alertType:'warn',
+			alertText:'',
     	}
        
 	},
 	methods: {
         submit_register(){
-            if(!common.checkPassword(this.password)){
+            var self=this;
+            if(!common.checkPhoneNum(self,this.username)){
+                return false;
+            }
+            if(!common.checkPassword(self,this.password)){
                 return false;
             }
             let password=md5(this.password);
             let verificationCode=this.verificationCode;
             let username=this.username;
-            if(!common.checkPhoneNum(username)){
-                return false;
-            }
             
-            if(!common.checkVerificationCode(verificationCode)){
+            
+            if(!common.checkVerificationCode(self,verificationCode)){
                 return false;
             }
             let postData = {
@@ -65,9 +70,12 @@ export default {
             api.register(postData).then(res=>{
                 console.log(res);
                 if(res.data.error==0){
-                    this.$router.push({path:'/'});
+                    this.$router.push({name:'container',query:{id:'1'}});
                 }else{
-                    alert(res.data.message);
+                    // alert(res.data.message);
+                    this.alertShow=true;
+                    this.alertType='warn';
+                    this.alertText=res.data.message;
                 }
             }).catch(error=>{
                 console.log(error);
@@ -86,7 +94,7 @@ export default {
 <style scoped>
     .content_register{
         width:90%;
-        margin:2.5rem auto;
+        margin:2rem auto;
         font-size: 0.3rem;
         text-align: center;
     }

@@ -62,8 +62,7 @@ export default {
         getParams() {
             return { number: "1", is_more: "0" };
         }
-    },
-    mounted() {}
+    }
 };
 </script>
 <style scoped>

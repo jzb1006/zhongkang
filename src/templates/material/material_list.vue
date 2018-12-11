@@ -5,9 +5,9 @@
             <div v-for="(material,index) in materiallist" :key="index">
                 <div class="material vux-1px-b" v-if="material.material_type == '1'" v-show="article_show">
                     <div class="article clearfix">
-                        <router-link :to="{name:'container',query:{id:params.article_id,healthy_talk_id:material.hid}}">
+                        <router-link :to="{name:'container',query:{id:params.article_id,healthy_talk_id:material.hid,comment_form_id:material.hid,uid:material.user_id}}">
                             <div class="img_wrapper">
-                                <img :src="material.material_cover" alt="">
+                                <img :src="fileUrl()+material.material_cover" alt="">
                             </div>
                         </router-link>
                         <p class="content">
@@ -21,17 +21,32 @@
                 </div>
                 <!-- 图集 -->
                 <div class="material vux-1px-b" v-else-if="material.material_type == '3'" v-show="atlases_show">
-                    <atlasesdetail :info=material :healthyTalkId=material.hid></atlasesdetail>
+                    <!-- <atlasesdetail :info=material :healthyTalkId=material.hid></atlasesdetail> -->
+                    <div class="atlases_wrapper">
+                        <router-link :to="{name:'container',query:{id:params.atlases_id,healthy_talk_id:material.hid,comment_form_id:material.hid,uid:material.user_id}}">
+                            <p class="title">
+                                {{material.title}}
+                            </p>
+                            <div class="atlases img_wrapper" v-for="(msg,index) in JSON.parse(material.material_content)" v-if="index == 0">
+                                <img :src="fileUrl()+material.material_cover" alt="">
+                            </div>
+                        </router-link>
+                        <div class="other">
+                            <p>
+                                <span class="name">{{material.author}}</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <!-- 视频 -->
                 <div class="material vux-1px-b" v-else-if="material.material_type == '2'" v-show="video_show">
                     <div class="RehaList_wrapper">
-                        <router-link :to="{name:'container',query:{id:params.video_id,healthy_talk_id:material.hid}}">
+                        <router-link :to="{name:'container',query:{id:params.video_id,healthy_talk_id:material.hid,comment_form_id:material.hid,uid:material.user_id}}">
                             <p class="title">
                                 {{material.title}}
                             </p>
                             <div class="reha img_wrapper" v-for="(msg,index) in JSON.parse(material.material_content)" v-if="index == 0">
-                                <img v-if="material.material_cover" :src="material.material_cover" alt="">
+                                <img v-if="material.material_cover" :src="fileUrl()+material.material_cover" alt="">
                                 <div v-else>
                                     <video :src="fileUrl()+msg.url" id="player"></video>
                                     <span class="time">{{get_time()}}</span>
@@ -52,6 +67,7 @@
 </template>
 
 <script>
+import apiM from "@/api/material/index.js";
 import top from "@/components/decorate/top_back_title.vue";
 import atlasesdetail from "@/components/material/atlases_detail";
 import preciew from "@/components/decorate/preciew.vue";
@@ -153,6 +169,29 @@ export default {
 #materialList .list .material {
     margin: 0 0.2rem;
     padding: 0.1rem 0 0.4rem 0;
+}
+#materialList .list .material .atlases_wrapper p.title {
+    font-size: 0.3rem;
+    padding: 0.1rem 0 0.2rem;
+    line-height: 0.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+#materialList .list .material .atlases_wrapper .img_wrapper {
+    display: flex;
+    position: relative;
+    height: 4rem;
+    text-align: center;
+    background-color: #00000080;
+    align-items: center;
+}
+#materialList .list .material .atlases_wrapper div.other p {
+    font-size: 0.25rem;
+    padding: 0.1rem 0;
+    color: #7d7d7d;
 }
 #materialList .list .article .img_wrapper {
     float: left;
@@ -280,32 +319,9 @@ export default {
     border-radius: 1rem;
     background-color: #00000085;
 }
-#materialList .list .RehaList_wrapper div.other {
-    position: relative;
-}
-#materialList .list .RehaList_wrapper div.other .headimg {
-    float: left;
-    width: 0.8rem;
-    height: 0.8rem;
-    border: 2px solid #fff;
-    border-radius: 1rem;
-    overflow: hidden;
-}
-#materialList .list .RehaList_wrapper div.other .headimg img {
-    max-width: 100%;
-    min-height: 100%;
-}
 #materialList .list .RehaList_wrapper div.other p {
     font-size: 0.25rem;
-    /* margin: 0.1rem 0 0.1rem 0.8rem; */
     padding: 0.1rem 0;
     color: #7d7d7d;
-}
-#materialList .list .RehaList_wrapper div.other p span.follow,
-span.comments,
-span.favor {
-    font-size: 0.3rem;
-    margin: 0 0.3rem;
-    float: right;
 }
 </style>

@@ -14,7 +14,7 @@
             title="操作提示"
             @on-cancel="onCancel"
             @on-confirm="onConfirm">
-            <p style="text-align:center;">确定吗</p>
+            <p style="text-align:center;">确定解除吗</p>
         </confirm>
   	</div>
 </template> 

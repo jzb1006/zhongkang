@@ -621,28 +621,27 @@ const router = new Router({
   // }
 })
 
-router.beforeEach((to, from, next) => {
-  if(to.name=='container'){
-      // console.log(to.query.name);
-      if(to.query.name==='person_container'){
-        api.checkLogin('checkLogin').then(res=>{
-            // console.log(res.data);
-            if(res.data.error==0){
-              // router.push({name:'container',query:{id:'28'}});
-              next({name:'container',query:{id:'28'}});
-            }else{
-              next();
-            }
-        }).catch(error=>{
-            console.log(error);
-        })
-      }else{
-        next();
-      }
-  }else{
-    next();
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if(to.name=='container'){
+//       console.log(to.query.name);
+//       if(to.query.name==='person_container'){
+//         api.checkLogin('checkLogin').then(res=>{
+//             console.log(res.data);
+//             if(res.data.error==0){
+//               next({name:'container',query:{id:'28'}});
+//             }else{
+//               next();
+//             }
+//         }).catch(error=>{
+//             console.log(error);
+//         })
+//       }else{
+//         next();
+//       }
+//   }else{
+//     next();
+//   }
+// })
 router.beforeEach((to, from, next) => {
   if(to.name=='productDetail' || to.name=='mycart' || to.name=='orderDetail' ||to.name=='confirmOrder'||
   to.name=='bill' || to.name=="customizedOrderDetail" || to.name=='receiptDetail' || to.name=='ask' ||

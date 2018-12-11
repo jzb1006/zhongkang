@@ -7,6 +7,7 @@
 		<div class="div2">
 		     <input type="button" class="save" value="保存" @click="editEmail">
 		</div>
+		<Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
 	</div>
 </template>
 
@@ -18,7 +19,10 @@ export default {
 	name:'modify_email',
 	data(){
 		return{
-			email:''
+			email:'',
+			alertShow:false,
+			alertType:'warn',
+			alertText:'',
 		}
 	},
 	computed:{
@@ -38,23 +42,27 @@ export default {
 			let email=this.email;
 			let reg_email=/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 			if(email==''){
-				alert('邮箱不能为空');
+				this.alertShow=true;
+                this.alertText='邮箱不能为空';
 				return false;
 			}
 	     	if(!reg_email.test(email)){
-	     		alert('邮箱格式不正确');
+				this.alertShow=true;
+                this.alertText='邮箱格式不正确';
 	     		return false;
 	     	}
 			api.edit_email({'Email':email}).then(res=>{
-	     		if(res.data.error==3){
-	     			alert(res.data.message);
-	     			this.$router.push({name:'container',query:{id:'28'}});
-	     		}else if(res.data.error==0){
+	     		// if(res.data.error==3){
+	     		// 	alert(res.data.message);
+	     		// 	this.$router.push({name:'container',query:{id:'28'}});
+				//  }else 
+				 if(res.data.error==0){
 	     			this.getUserinfo.email=email;
 	                this.$store.dispatch('changeUserinfo',this.getUserinfo);
 	                this.$router.push({name:'container',query:{id:'34'}});
 	     		}else{
-	     			alert(res.data.message);
+					this.alertShow=true;
+					this.alertText=res.data.message;
 	     		}
 	     		
 	     	}).catch(error=>{

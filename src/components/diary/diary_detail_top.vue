@@ -1,7 +1,6 @@
 <template>
     <div>
         <diaryDetailTopC :params=params :diaryDetailTopInfo=diaryDetailTopInfo></diaryDetailTopC>
-        <!-- <diaryDetailTopC :params=params :pUid=p_uid :sUid=s_uid :user=user :memuList=memuList :backdropList=backdropList></diaryDetailTopC> -->
     </div>
 </template>
 
@@ -18,7 +17,6 @@ export default {
     data() {
         return {
             diaryDetailTopInfo:{},
-
             backdropList: [],
             memuList: [],
             user: [],
@@ -36,13 +34,6 @@ export default {
                 bid = this.bid;
             }
             api.ajaxSearch("diary_detail_basic", { bid: bid }).then(res => {
-                // self.backdropList = res.data.backdrop;
-                // self.memuList = res.data.item_name;
-                // self.user = res.data.user;
-                // self.diaryNum = res.data.tt;
-                // self.s_uid = res.data.s_uid;
-                // self.p_uid = res.data.b_uid;
-
                 self.diaryDetailTopInfo = {
                     backdropList:res.data.backdrop,
                     memuList:res.data.item_name,

@@ -53,7 +53,6 @@ export default {
         Popup,
         PopupRadio,
         mediaDisplay
-        // Alert
     },
     data() {
         return {
@@ -67,7 +66,8 @@ export default {
             show_type_id: "",
             info1: this.info,
             bid: "",
-            did: ""
+            did: "",
+            admin_check_id:""
         };
     },
     watch: {
@@ -79,7 +79,7 @@ export default {
                 this.info1 = val;
                 this.diary_content = val.diary.content;
                 this.diary_show_status =
-                    val.show_type.show_type_name == "show" ? "公开" : "私密";
+                    val.diary.show_type_id == "1" ? "公开" : "私密";
                 for (let index in val.diary_media) {
                     let data = val.diary_media[index].origin_urls.split(",");
                     for (let ind in data) {
@@ -91,6 +91,7 @@ export default {
         diaryInfo(val, oldVal) {
             this.bid = val.bid;
             this.did = val.did;
+            this.admin_check_id = val.admin_check_id;
             this.diary_content = val.diary_content;
             this.show_type_id = val.show_type_id;
             this.diary_show_status = val.diary_show_status;
@@ -144,6 +145,7 @@ export default {
                 let data = {
                     did: this.did,
                     bid: this.bid,
+                    admin_check_id: this.admin_check_id,
                     show_type_id: this.show_type_id,
                     content: this.diary_content,
                     show_type_name: show_type,

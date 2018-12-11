@@ -1,14 +1,16 @@
 <template>
     <div id="videoDetail">
         <div v-for="(m,index) in material">
-            <div class="reha_wrapper" id="media_wrapper" v-bind:class="{reha_wrapper_fixed1:reha_wrapper_fixed}">
-                <div class="video" v-for="(msg,index) in JSON.parse(m.material_content)" v-if="index == play_index">
-                    <video controls controlsList="nodownload" @ended="videoFinish(JSON.parse(m.material_content).length)" :src="fileUrl()+msg.url"></video>
+            <stickyPosition height='5.5rem'>
+                <div class="reha_wrapper" id="media_wrapper">
+                    <div class="video" v-for="(msg,index) in JSON.parse(m.material_content)" v-if="index == play_index">
+                        <video controls controlsList="nodownload" @ended="videoFinish(JSON.parse(m.material_content).length)" :src="fileUrl()+msg.url"></video>
+                    </div>
+                    <div class="authorInfo">
+                        <authorInfo :user=user></authorInfo>
+                    </div>
                 </div>
-                <div class="authorInfo">
-                    <authorInfo :user=user></authorInfo>
-                </div>
-            </div>
+            </stickyPosition>
             <div class="summary">
                 <p class="title">{{m.title}}</p>
             </div>
@@ -36,11 +38,11 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 <script>
 import { TransferDom, Popup, Group, Cell, XButton } from "vux";
+import stickyPosition from "@/components/decorate/sticky_position";
 import { Scroller } from "vux";
 import apiM from "@/api/material/index.js";
 import top from "@/components/decorate/top_back_title.vue";
@@ -65,12 +67,9 @@ export default {
     },
     data() {
         return {
-            // healthy_talk_id: this.healthyTalkId,
-            // material: [],
             play_index: 0,
             show: false,
-            reha_wrapper_fixed: false,
-            // user: {}
+            fixed_status: false
         };
     },
     components: {
@@ -81,7 +80,8 @@ export default {
         Group,
         Cell,
         XButton,
-        reward
+        reward,
+        stickyPosition
     },
     methods: {
         on_show() {
@@ -99,44 +99,10 @@ export default {
         changeIndex(index) {
             this.play_index = index;
         },
-        // getData() {
-        //     var self = this;
-        //     apiM
-        //         .act_material("material_once", {
-        //             healthy_talk_id: this.healthy_talk_id
-        //         })
-        //         .then(res => {
-        //             self.material = res.data.material_once;
-
-        //             self.user = {
-        //                 user_id: res.data.material_once[0].user_id,
-        //                 headimg: res.data.material_once[0].headimgurl,
-        //                 name: res.data.material_once[0].nickname,
-        //                 view: res.data.material_once[0].view_count
-        //             };
-        //         });
-        // },
         fileUrl() {
             return apiM.fileUrl();
-        },
-        handleScroll() {
-            var self = this;
-            var navH = document.getElementById("media_wrapper").offsetTop;
-            var scroH =
-                document.documentElement.scrollTop || document.body.scrollTop;
-            if (scroH > navH) {
-                self.reha_wrapper_fixed = true;
-            } else {
-                self.reha_wrapper_fixed = false;
-            }
         }
-    },
-    // mounted() {
-    //     if (this.$route.query.healthy_talk_id) {
-    //         this.healthy_talk_id = this.$route.query.healthy_talk_id;
-    //         this.getData();
-    //     }
-    // }
+    }
 };
 </script>
  <style scoped>
@@ -220,18 +186,18 @@ export default {
     right: 0;
 }
 #videoDetail .reha_wrapper {
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     left: 0;
     right: 0;
     width: 100%;
     z-index: 500;
 }
-#videoDetail .reha_wrapper_fixed1 {
+/* #videoDetail .reha_wrapper_fixed1 {
     position: fixed;
     top: 0;
     z-index: 501;
-}
+} */
 #videoDetail .reha_wrapper div.video {
     height: 4.16rem;
     background-color: #000000;

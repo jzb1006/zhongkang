@@ -11,7 +11,7 @@
                 {{goods_desc}}
             </div>
             <div id="comment" v-show="surrentTab==1">
-                <p>暂时没有评论哦</p>
+                <commentList :params=getParams() :showInput=false></commentList>
             </div>
             <div id="diary" v-show="surrentTab==2">
                 <!-- 商家日记 -->
@@ -30,94 +30,97 @@
 </template>
 
 <script>
-    import diary from '@/components/diary/diary_list'
+import diary from "@/components/diary/diary_list";
 
- import {
-        Tab,
-        TabItem
-    } from 'vux'
-    export default {
-        props: {
-            goods_desc: {
-                type: '',
-                default: ''
-            },
-            route_link: {
-                type: '',
-                default: ''
-            },
-            cid: {
-                type: [Number,String],
-                default: -0
-            },
-            route_params: {
-                type: Object,
-                default: {
-                    cid: 0
-                }
-            },
-            number: {
-                type: Number,
-                default: -0
+import { Tab, TabItem } from "vux";
+export default {
+    props: {
+        goods_desc: {
+            type: "",
+            default: ""
+        },
+        route_link: {
+            type: "",
+            default: ""
+        },
+        cid: {
+            type: [Number, String],
+            default: -0
+        },
+        route_params: {
+            type: Object,
+            default: {
+                cid: 0
             }
         },
-        data() {
-            return {
-                surrentTab: 0,
-            };
-        },
-        components: {
-             Tab,
+        number: {
+            type: Number,
+            default: -0
+        }
+    },
+    data() {
+        return {
+            surrentTab: 0
+        };
+    },
+    components: {
+        Tab,
         TabItem,
         diary
+    },
+    methods: {
+        getParams() {
+            let data = {
+                comment_form: "product",
+                comment_post_ID: "19",
+                comment_detail_id: "71"
+            };
+            return data;
         },
-        methods: {
-             onItemClick(index) {
-                this.surrentTab = index;
-            },
-        },
-        mounted() {},
-    }
+        onItemClick(index) {
+            this.surrentTab = index;
+        }
+    },
+    mounted() {}
+};
 </script>
 <style>
-    .vux-tab .vux-tab-item {
-        font-size: 0.3rem!important;
-    }
-    .vux-tab-wrap {
-        padding: 0.5rem 0!important;
-    }
-    .vux-tab .vux-tab-item.vux-tab-selected {
-        color: #ff5370!important;
-    }
-    .vux-tab-bar-inner {
-        background-color: #ff5370!important;
-    }
+.vux-tab .vux-tab-item {
+    font-size: 0.3rem !important;
+}
+.vux-tab-wrap {
+    padding: 0.5rem 0 !important;
+}
+.vux-tab .vux-tab-item.vux-tab-selected {
+    color: #ff5370 !important;
+}
+.vux-tab-bar-inner {
+    background-color: #ff5370 !important;
+}
 </style>
 <style scoped>
-
- .shrink {
-        padding: 0 0.2rem;
-    }
- .main  {
-        background: #fff;
-        margin-bottom: 0.20rem;
-        font-size: 0.36rem;
-    }
-    .main  .title {
-        height: 1.00rem;
-        line-height: 1.00rem;
-        font-size: 0.36rem;
-        color: #333;
-        padding: 0 0.30rem;
-    }
-    .main  .title .right {
-        display: inline-block;
-        float: right;
-        font-size: 0.24rem;
-        color: #777;
-    }
-     .fr {
-        float: right;
-    }
-    
+.shrink {
+    padding: 0 0.2rem;
+}
+.main {
+    background: #fff;
+    margin-bottom: 0.2rem;
+    font-size: 0.36rem;
+}
+.main .title {
+    height: 1rem;
+    line-height: 1rem;
+    font-size: 0.36rem;
+    color: #333;
+    padding: 0 0.3rem;
+}
+.main .title .right {
+    display: inline-block;
+    float: right;
+    font-size: 0.24rem;
+    color: #777;
+}
+.fr {
+    float: right;
+}
 </style>

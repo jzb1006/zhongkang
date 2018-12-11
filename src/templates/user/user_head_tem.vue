@@ -62,8 +62,8 @@ export default {
     display: block;
     float: right;
     position: absolute;
-    top:.1rem;
-    right:.1rem;
+    top:.7rem;
+    right:.7rem;
     width:.7rem;
     height:.7rem;
   }

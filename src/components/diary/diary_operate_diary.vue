@@ -61,6 +61,7 @@ export default {
                         this.diary_info = {
                             bid: diary[index].bid,
                             did:this.getDid,
+                            admin_check_id:diary[index].admin_check_id,
                             diary_content: diary[index].content,
                             show_type_id: diary[index].show_type_id,
                             diary_show_status:

@@ -60,22 +60,22 @@ export default {
                     // Good guide on how to get element coordinates:
                     // http://javascript.info/tutorial/coordinates
                 }
-            },
+            }
         };
     },
     methods: {
         logIndexChange(arg) {
-            this.$emit('IndexChange',arg.currentIndex+1);
+            this.$emit("IndexChange", arg.currentIndex + 1);
         },
         show(index) {
             this.$refs.previewer.show(index);
-            this.$emit('show');
+            this.$emit("show");
         },
         loadAlbum() {
             this.bus.$emit("LoadMore");
         },
-        close(){
-             this.$emit('close');
+        close() {
+            this.$emit("close");
         }
     },
     computed: {

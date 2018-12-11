@@ -18,7 +18,7 @@
                                 <i class="zk-icon-xinaixin"></i>
                             </p>
                             <p class="item" v-for="(cid,index) in formatCid(backdrop.goods_cate_ids)" v-if="index == '0'">{{itemName[cid].cat_name}}</p>
-                            <p class="time" v-if="backdrop.update_time">{{backdrop.update_time.split(" ")[0]}}</p>
+                            <p class="time" v-if="backdrop.update_time">{{backdrop.update_time.split(" ")[0]}}</p>  
                         </div>
                     </router-link>
                     <div class="b_right">
@@ -197,6 +197,7 @@ export default {
     float: left;
     width: 3.5rem;
     height: 5rem;
+    text-align: center;
 }
 .backdrop_list .backdrop .b_right .setting {
     margin-left: 2.8rem;
@@ -204,8 +205,8 @@ export default {
 }
 .backdrop_list .backdrop .b_right .writeDiary {
     display: inline-block;
-    width: 1rem;
-    margin: 2.1rem 0 0 0.5rem;
+    width: auto;
+    margin-top: 2.1rem;
     padding: 0.1rem 0.8rem;
     border-radius: 1rem;
     font-size: 0.3rem;

@@ -35,7 +35,7 @@ export default {
     height: 0.5rem;
     position: sticky;
     top: 0rem;
-    z-index: 501;
+    z-index: 500;
 }
 #material_tab .vux-button-group {
     width: 3rem;

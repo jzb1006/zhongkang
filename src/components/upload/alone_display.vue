@@ -63,6 +63,9 @@ export default {
         },
         delshow1(val, oldval) {
             this.del_show = val;
+        },
+        filelist1(val,oldVal){
+            this.filelist1 = val;
         }
     },
     data() {
@@ -123,7 +126,6 @@ export default {
             this.sel_index = index;
             this.media_browse_status = !this.media_browse_status;
             this.$emit("changemediabrowsestatus", index);
-            // this.$router.push({name:'mediaDisplay',params:{filelist1:JSON.stringify(this.filelist1)}});
         },
         checkImgType(fileURL) {
             let fan = "";
@@ -156,9 +158,7 @@ export default {
         }
     },
     mounted() {
-        // this.filelist1 = JSON.parse(this.$route.params.filelistss);
-        // this.sel_index = this.$route.params.selindex1;
-        // this.del_show = this.$route.params.delshow1;
+        console.log(this.filelistss);
     }
 };
 </script>

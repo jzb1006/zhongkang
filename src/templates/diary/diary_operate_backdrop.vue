@@ -94,6 +94,7 @@ export default {
             doctor_id: 0,
             institution_name: "",
             institution_id: 0,
+            admin_check_id:"",//审核id
 
             chooseItem: [], //选择的项目
             show_item: false, //打开项目
@@ -113,6 +114,7 @@ export default {
         },
         info(val, oldVal) {
             let data = val.backdrop;
+            this.admin_check_id = data.admin_check_id;
             this.doctor_name = data.doctor_name;
             this.doctor_id = data.doctor_id;
             this.institution_name = data.institution_name;
@@ -154,7 +156,8 @@ export default {
                     institution_name: this.institution_name,
                     institution_id: this.institution_id,
                     doctor_name: this.doctor_name,
-                    doctor_id: this.doctor_id
+                    doctor_id: this.doctor_id,
+                    admin_check_id:this.admin_check_id
                 };
 
                 return data;

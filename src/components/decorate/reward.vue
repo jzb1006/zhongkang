@@ -15,7 +15,7 @@
                     <span class="zk-icon-tangguo"></span>
                 </p>
                 <div class="prices clearfix">
-                    <div class="price" v-for="(price1,index) in prices" @click="sel_price(price1)" :class="{active:price1 == price}">
+                    <div class="price" v-for="(price1,index) in prices" :key="index" @click="sel_price(price1)" :class="{active:price1 == price}">
                         <span class="zk-icon-moneycredit" :class="{active_icon:price1 == price}"></span>
                         {{price1}}
                     </div>
@@ -39,19 +39,25 @@
                 <span>登录</span>
             </p>
         </div>
+        <pay :params=pay_params></pay>
     </div>
 </template>
 
 <script>
+import pay from "@/components/common/pay"
 export default {
     name:"reward",
+    components:{
+        pay
+    },
     props: {
         getprice: {
             default: "2"
         },
         paytype: {
             default: "pay_btn" //pay_player and  pay_btn
-        }
+        },
+        pay_params:{}
     },
     data() {
         return {
@@ -82,7 +88,13 @@ export default {
             this.payalert = false;
         },
         pay_loading() {
-            alert("购买中。。。。。。");
+            this.pay_params = {
+                show_pay_page:true,
+                order_sn:11,
+                order_amount:this.price,
+                jump_url:window.location.hash,
+                subject:"4",
+            };
         }
     }
 };

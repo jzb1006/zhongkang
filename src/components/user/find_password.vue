@@ -7,7 +7,8 @@
          <div class="div1">
                <input type="button" class="complete" value="完成" @click="findpass">
          </div>      
-    </div>  
+    </div>
+    <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
   </div>
 </template>
 
@@ -19,7 +20,10 @@ export default {
     name: 'find_password',
     data(){
     	return {
-    		newpass:''
+            newpass:'',
+            alertShow:false,
+			alertType:'warn',
+			alertText:'',
     	}
        
 	},
@@ -28,20 +32,35 @@ export default {
             let password=this.newpass;
             let reg=/^[0-9a-zA-Z]{6,12}$/;
             if(password==''){
-                alert('新密码不能为空');
+                // alert('新密码不能为空');
+                this.alertShow=true;
+                this.alertType='warn';
+                this.alertText='新密码不能为空';
                 return false;
             }   
             if(!reg.test(password)){
-                alert('密码应为6-12位的字母或数字');
+                // alert('密码应为6-12位的字母或数字');
+                this.alertShow=true;
+                this.alertType='warn';
+                this.alertText='密码应为6-12位的字母或数字';
                 return false;
             }
             api.findPass({new_password:md5(password)}).then(res=>{
                 if(res.data.error==0){
-                    alert(res.data.message+'请重新登录');
-                    this.$router.push({name:'container',query:{id:'28'}});
-                    this.$store.dispatch('changeIsBackToPrevious',false);
+                    // alert(res.data.message+'请重新登录');
+                    this.alertShow=true;
+                    this.alertType='success';
+                    this.alertText=`${res.data.message}请重新登录`;
+                    setTimeout(()=>{
+                        this.$router.push({name:'container',query:{id:'28'}});
+                        this.$store.dispatch('changeIsBackToPrevious',false);
+                    },2000)
+                    
                 }else{
-                    alert(res.data.message);
+                    this.alertShow=true;
+                    this.alertType='success';
+                    this.alertText=res.data.message;
+                    // alert(res.data.message);
                 }
             }).catch(error=>{
                 console.log(error);
@@ -57,7 +76,7 @@ export default {
 
 <style scoped>
     .content{
-        margin-top:2.5rem;
+        margin-top:2rem;
         font-size: 0.3rem;
         text-align: center;
     }

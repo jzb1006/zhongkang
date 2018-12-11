@@ -1,12 +1,14 @@
 <template>
     <div id="insDiary">
-        <diary :insId=ins_id :docId=doc_id :query=true></diary>
+        <diary :insId=ins_id :docId=doc_id :query=true :params=params></diary>
     </div>
 </template>
 <script>
 import top from "@/components/decorate/top_back_title.vue";
 import diary from "./../diary/diary_list";
+import { mixin } from "@/assets/js/mixins";
 export default {
+    mixins:[mixin],
     data(){
         return {
             ins_id:"",

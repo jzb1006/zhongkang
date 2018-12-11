@@ -17,7 +17,7 @@
                 <uploadC @getFileList=getFileList :filelist1=filelist1 :acceptTypeNum=acceptTypeNum></uploadC>
             </div>
         </div>
-        <div v-if="this.$store.state.media_display.open_image_mode">
+        <div v-if="Open_Image_Mode">
             <aloneDisplay @changemediabrowsestatus=change_media_browse_status_in :filelistss=filelist1 :selindex1=sel_index :delshow1=del_show></aloneDisplay>
         </div>
     </div>
@@ -28,7 +28,6 @@ import bus from "@/assets/bus.js";
 import aloneDisplay from "./alone_display";
 import apiUp from "@/api/upload";
 import uploadC from "./upload";
-import { mapGetters } from "vuex"   
 export default {
     name:"media_display",
     props: {
@@ -47,12 +46,6 @@ export default {
             default:0
         }
     },
-    computed:{
-        ...mapGetters([
-            'getOpenImageModeStatus',
-            'getCloseImageBrowseStatus'
-        ])
-    },
     components: {
         uploadC,
         aloneDisplay
@@ -64,7 +57,9 @@ export default {
             btnStatus: true,
             filelist1: this.filelists,
             sel_index: 0,
-            limitnum: this.limitnum1
+            limitnum: this.limitnum1,
+            Open_Image_Mode:false,
+            Close_Image_Browse:true,
         };
     },
     watch: {
@@ -92,26 +87,13 @@ export default {
         },
         change_media_browse_status(index) {
             this.sel_index = index;
-            // this.media_browse_status = !this.media_browse_status;
-            this.$store.dispatch('Open_Image_Mode',true);
-            this.$store.dispatch('Close_Image_Browse',false);
-            // this.go_media_browse(index);
+            this.Open_Image_Mode = true;
+            this.Close_Image_Browse = false;
         },
         change_media_browse_status_in(index){
             this.sel_index = index;
-            // this.media_browse_status = !this.media_browse_status;
-            this.$store.dispatch('Open_Image_Mode',false);
-            this.$store.dispatch('Close_Image_Browse',true);
-        },
-        go_media_browse(index) {
-            this.$router.push({
-                name: "aloneDisplay",
-                params: {
-                    filelistss: JSON.stringify(this.filelist1),
-                    selindex1: index,
-                    delshow1: this.del_show
-                }
-            });
+            this.Open_Image_Mode = false;
+            this.Close_Image_Browse = true;
         },
         checkImgType(fileURL) {
             let fan = "";
@@ -146,18 +128,6 @@ export default {
             this.filelist1 = data;
             this.changeFileList();
         }
-    },
-    mounted() {
-        // if(this.$route.params.filelist1){
-        //     this.filelist1 = JSON.parse(this.$route.params.filelist1);
-        // }
-        
-        // this.bus.$on("adgetFileList", ()=>{
-        //     console.log(123);
-        // });
-        // this.bus.$on("adgetFileList", () => {
-        //     this.$_ajax_licence(this.defaultItem);
-        // });
     }
 };
 </script>

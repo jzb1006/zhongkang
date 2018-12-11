@@ -54,8 +54,9 @@
                 </div>
             </div> -->
         </div>
+        <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
         <!-- </div> -->
-        <div id="fill"></div>
+        <!-- <div id="fill"></div> -->
     </div>
 </template>
 <script>
@@ -66,7 +67,7 @@
   import {mapGetters} from 'vuex'
 
   import { XTextarea, Popup, PopupRadio } from "vux";
- import mediaDisplay from "@/components/upload/media_display";
+  import mediaDisplay from "@/components/upload/media_display";
   export default {
     name: 'edit_programme_tem',
     data(){
@@ -79,6 +80,9 @@
             programme:[],
             oldProgrammePhoto:[],
             oldPhoto:[],
+            alertShow:false,
+			alertType:'warn',
+			alertText:'',
         }
     },
     watch:{
@@ -107,6 +111,7 @@
             this.programme=this.programme.concat(this.programmePhoto);
             // console.log(this.programme);
             // console.log(this.text);
+            // if(this.programme)
             let postdata={
                 'order_sn':this.getOrderSn,
                 'oldProgramme':this.oldProgramme,

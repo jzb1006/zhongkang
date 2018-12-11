@@ -1,7 +1,6 @@
 <template>
     <div id="diary_backdrop_userC">
         <diaryBackdropUserC :diaryBackdropUserInfo=diaryBackdropUserInfo></diaryBackdropUserC>
-        <!-- <diaryBackdropUserC :backList=backList :pUid=p_uid :sUid=s_uid :user=user :memuList=memuList :diaryList=diaryList :backdropList=backdropList></diaryBackdropUserC> -->
     </div>
 </template>
 
@@ -43,7 +42,7 @@ export default {
                     self.s_uid = res.data.s_uid;
                     self.p_uid = res.data.b_uid;
 
-                    if (res.data.backdrop[0].img1) {
+                    if (res.data.backdrop[0].img1.length != 0) {
                         let arrImg = [];
                         arrImg.push({
                             url: res.data.backdrop[0].img1,
@@ -64,6 +63,7 @@ export default {
                         diaryList:this.diaryList,
                         backdropList:this.backdropList,
                         memuList:this.memuList,
+                        diaryNum:this.diaryNum,
                         user:this.user,
                         backList:this.backList,
                         s_uid:this.s_uid,

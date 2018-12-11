@@ -43,7 +43,7 @@ export default {
     overflow: hidden;
 }
 #Fmain .content {
-    height: 12rem;
+    height: 10rem;
     overflow-x: hidden;
 }
 .f_active {

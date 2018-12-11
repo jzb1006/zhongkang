@@ -9,7 +9,7 @@
     import product from '@/templates/product/list.vue'
     import Loading from "@/components/decorate/loading.vue";
     import LoadMore from '@/components/loadMore/index.vue'
-    import api from "../../api/home";
+    import api from "@/api/home";
    import { mixin } from "@/assets/js/mixins";
 
     export default {
@@ -40,7 +40,6 @@
                     page: this.page++,
                     num_list: parseInt(this.num_list)
                 }).then(res => {
-                    // console.log(res)
                     var result = res.data.data;
                     var error_code = res.data.error_code;
                     if (error_code == 0) {
@@ -52,7 +51,6 @@
                     self.loadinging=false
                     this.isBusy = false;
                 }).catch(error => {
-                    console.log(error)
                     self.loadinging=false
                 })
             }

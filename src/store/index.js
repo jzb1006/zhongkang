@@ -8,6 +8,7 @@ import commont from './modules/commont'
 import diary from './modules/diary'
 import media_display from './modules/media_display'
 import customized from './modules/customized'
+import comment from './modules/comment'
 
 Vue.use(Vuex);
 const store = new Vuex.Store({
@@ -20,6 +21,7 @@ const store = new Vuex.Store({
         diary,
         media_display,
         customized,
+        comment
     }
    
 })

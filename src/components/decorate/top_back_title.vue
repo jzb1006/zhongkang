@@ -45,7 +45,7 @@ export default {
         top: 50%;
         left: 0;
         transform: translateY(-50%);
-        z-index: 1000;
+        z-index: 500;
         font-size: 0.4rem;
     }
 </style>

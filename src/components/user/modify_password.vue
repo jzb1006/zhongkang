@@ -12,8 +12,9 @@
 			</div>
 			<div class="div1">
 		        <input type="button" value="修改" @click="update_pass" class="submit">
-			</div>		
+			</div>
 		</div>
+		<Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
 	</div>
 </template>
 
@@ -26,7 +27,10 @@ export default {
 		return {
 			oldPassword:'',
 			newPassword:'',
-			confirmPassword:''
+			confirmPassword:'',
+			alertShow:false,
+			alertType:'warn',
+			alertText:'',
 		}
 	},
 	methods:{
@@ -34,40 +38,58 @@ export default {
 			let oldPassword=this.oldPassword;
 			let newPassword=this.newPassword;
 			let confirmPassword=this.confirmPassword;
+			var self=this;
             if(oldPassword==''){
-				alert('原密码不能为空');
+				this.alertShow=true;
+                this.alertType='warn';
+                this.alertText='原密码不能为空';
 				return false;
 			}
-			if(!common.checkPassword(newPassword)){
+			if(!this.checkPassword(self,newPassword)){
 				return false;
 			}
 		    if(newPassword==oldPassword){
-			   alert('新旧密码不能相同');
+			    this.alertShow=true;
+                this.alertType='warn';
+                this.alertText='新旧密码不能相同';
 				return false;
 		    }
 		    if(confirmPassword==''){
-				alert('请确认密码');
+				this.alertShow=true;
+                this.alertType='warn';
+                this.alertText='请确认密码';
 				return false;
 			}
 		    if(confirmPassword!=newPassword){
-			    alert('新密码与确认密码不相同');
+				this.alertShow=true;
+                this.alertType='warn';
+                this.alertText='新密码与确认密码不相同';
 				return false;
 		    }
 			api.update_pass({'oldpass':oldPassword,'newpass':newPassword,'rp_pass':confirmPassword}).then(res=>{
-		    	if(res.data.error==3){
-		    		alert("请先登录！");
-					this.$router.push({name:'container',query:{id:'28'}});
-				}else if(res.data.error==0){
-					alert("密码修改成功,请重新登录");
-					this.$router.push({name:'container',query:{id:'28'}});
-					this.$store.dispatch('changeIsBackToPrevious',false);
+		    	// if(res.data.error==3){
+		    	// 	alert("请先登录！");
+				// 	this.$router.push({name:'container',query:{id:'28'}});
+				// }else 
+				if(res.data.error==0){
+					this.alertShow=true;
+					this.alertType='success';
+					this.alertText='密码修改成功,请重新登录';
+					setTimeout(()=>{
+						this.$router.push({name:'container',query:{id:'28'}});
+						this.$store.dispatch('changeIsBackToPrevious',false);
+					},2000)
+					
 				}else{
-					alert(res.data.message);
+					// alert(res.data.message);
+					this.alertShow=true;
+					this.alertType='warn';
+					this.alertText=res.data.message;
 				}
 		    }).catch(error=>{
 		    	console.log(error);
 			})
-		}
+		},
 	},
 	components:{
 		top,

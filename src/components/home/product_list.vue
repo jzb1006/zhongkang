@@ -46,7 +46,6 @@
                     page: this.page++,
                     num_list: this.num_list
                 }).then(res => {
-                    console.log(res)
                     var result = res.data.data;
                     var error_code = res.data.error_code;
                     if (error_code == 0) {
@@ -58,7 +57,6 @@
                     self.loadinging=false
                     this.isBusy = false;
                 }).catch(error => {
-                    console.log(error)
                     self.loadinging=false
                 })
             }

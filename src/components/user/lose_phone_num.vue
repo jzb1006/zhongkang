@@ -8,6 +8,7 @@
                <input type="button" class="complete" value="找回密码"  id="submit" @click="email_verification">
          </div>           
     </div>
+    <Alert v-bind:Show.sync="alertShow" :alerttType="alertType" :alertText="alertText"></Alert>
   </div>
 </template>
 
@@ -18,7 +19,10 @@ export default {
     name: 'lose_phone_num',
     data(){
     	return {
-    		email: ''
+            email: '',
+            alertShow:false,
+			alertType:'warn',
+			alertText:'',
     	}
        
 	},
@@ -28,23 +32,33 @@ export default {
             let url=api.imgUrl()+"m/dist/#/retrievePassword";
             const reg_email=/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
             if(Email==''){
-                alert('邮箱不能为空');
+                this.alertShow=true;
+                this.alertType='warn';
+                this.alertText='邮箱不能为空';
                 return false;
             }
             if(!reg_email.test(Email)){
-                alert('邮箱格式不正确');
+                this.alertShow=true;
+                this.alertType='warn';
+                this.alertText='邮箱格式不正确';
                 return false;
             }
             api.email_verification({email:Email,url:url}).then(res=>{
                 if(res.data==''){
-                    alert('发送失败');
+                    this.alertShow=true;
+                    this.alertType='warn';
+                    this.alertText='发送失败';
                     return false;
                 }
                 if(res.data.error==1){
-                    alert(res.data.message);
+                    this.alertShow=true;
+                    this.alertType='success';
+                    this.alertText=res.data.message;
                     // this.$router.push('/retrievePassword');
                 }else{
-                    alert(res.data.message);
+                    this.alertShow=true;
+                    this.alertType='warn';
+                    this.alertText=res.data.message;
                 }
             }).catch(error=>{
                 console.log(error);
@@ -59,7 +73,7 @@ export default {
 
 <style scoped>
     .content{
-        margin-top:2.5rem;
+        margin-top:2rem;
         font-size: 0.3rem;
         text-align:center;
     }

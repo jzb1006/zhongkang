@@ -27,8 +27,7 @@
                     <em>第{{transform_num(diaryNum - index)}}篇日记</em>
                 </p>
                 <div class="timeLine">
-                    <router-link :to="{name:'container',query:{id:params.id,bid:bid,did:diary.id}}" tag="a">
-                        <!-- <router-link :to="{name:'diaryDetail',query:{bid:bid,did:diary.id}}" tag="a">    -->
+                    <router-link :to="{name:'container',query:{id:params.id,bid:bid,did:diary.id,comment_form_id:diary.id,uid:diary.user_id}}" tag="a">
                         <p class="title">{{memu}}
                             <span class="time">第{{getDays(backdropList.time,diary.course_time)}}天</span>
                         </p>
@@ -57,6 +56,7 @@
                 </div>
             </div>
         </div>
+        <Alert v-bind:Show.sync="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
         <diaryOperate v-if="is_operate" @back=click_back></diaryOperate>
         <p class="write_diary" v-if="sUid == pUid" @click="create_diary()">继续写日记</p>
     </div>
@@ -65,7 +65,6 @@
 import api from "@/api/diary";
 import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
-import { Alert, AlertModule } from "vux";
 export default {
     name: "diary_backdrop_content",
     props: {
@@ -79,36 +78,12 @@ export default {
                 return {};
             }
         }
-        // bid: {
-        //     default: ""
-        // },
-        // memu: {
-        //     default: ""
-        // },
-        // pUid: {
-        //     default: 0
-        // },
-        // sUid: {
-        //     default: 0
-        // },
-        // diaryList: {
-        //     default: function() {
-        //         return [];
-        //     }
-        // },
-        // backdropList: {
-        //     default: function() {
-        //         return [];
-        //     }
-        // },
-        // mediaList: {
-        //     default: function() {
-        //         return [];
-        //     }
-        // }
     },
     data() {
         return {
+            isShow: false,
+            alerttType: "",
+            alertText: "",
             bid: "",
             diaryList: [],
             mediaList: [],
@@ -137,12 +112,12 @@ export default {
             this.memu = val.memu;
             this.sUid = val.s_uid;
             this.pUid = val.p_uid;
+            this.diaryNum = val.diaryNum;
         }
     },
     components: {
         LoadMore,
-        Loading,
-        Alert
+        Loading
     },
     methods: {
         click_back() {
@@ -171,10 +146,18 @@ export default {
         delDiary(did, index) {
             api.ajaxSubmit("delDiary", { did: did }).then(res => {
                 if (res.data.error == 0) {
-                    alert(res.data.message);
                     this.diaryList.splice(index, 1);
+                    this.isShow = true;
+                    this.alerttType = "success";
+                    this.alertText = res.data.message;
+
+                    if(this.diaryList.length == 0){
+                        this.$router.go(0);
+                    }
                 } else {
-                    alert(res.data.message);
+                    this.isShow = true;
+                    this.alerttType = "warn";
+                    this.alertText = res.data.message;
                 }
             });
         },
@@ -182,7 +165,9 @@ export default {
             let num = parseInt(index);
             return num > 100000000
                 ? Math.floor(num / 100000000) + "亿"
-                : num > 10000 ? Math.floor(num / 10000) + "万" : num;
+                : num > 10000
+                    ? Math.floor(num / 10000) + "万"
+                    : num;
         },
         getImgUrl() {
             return api.imgUrl();
@@ -232,21 +217,13 @@ export default {
             }
             return scrollTop;
         },
-        showModule(content) {
-            AlertModule.show({
-                title: "拒绝理由",
-                content: content,
-                onShow() {
-                    console.log("Module: I'm showing");
-                },
-                onHide() {
-                    console.log("Module: I'm hiding now");
-                }
-            });
-        },
+        showModule(content) {},
         favor(did) {
+            var self = this;
             api.ajaxSubmit("add_favor", { did: did }).then(res => {
-                alert(res.data.message);
+                self.isShow = true;
+                self.alerttType = "success";
+                self.alertText = res.data.message;
             });
         }
     }
@@ -290,6 +267,7 @@ div.check_status > div > p {
     font-size: 0.25rem;
     font-weight: 550;
     padding: 0.2rem;
+    margin-top: .2rem;
     background-color: rgb(255, 83, 112);
     display: flex;
     justify-content: space-between;
@@ -360,7 +338,7 @@ div.check_status > div > p {
 
 #backdrop_content p.write_diary {
     position: fixed;
-    bottom: 1.13rem;
+    bottom: 0.1rem;
     left: 0.4rem;
     right: 0.4rem;
     text-align: center;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <TMaterialBox :doc_id="parseInt(doc_id)" title="医生素材" :links="{'router':'container','query':{id:params['material_id'],docId:doc_id}}" :isMore=is_more :number="params['number']"></TMaterialBox>
+        <TMaterialBox :doc_id="parseInt(doc_id)" title="医生素材" :links="{'router':'container','query':{id:params['container_id'],doc_id:doc_id}}" :isMore=is_more :number="params['number']"></TMaterialBox>
     </div>
 </template>
 
