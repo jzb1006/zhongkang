@@ -3,8 +3,9 @@ import router from '@/router'
 //添加QS是post请求的时候前端参数转换，为了解决后端接收不到post数据的问题。
 import Qs from 'qs';
 const timeOut = 400000;
+const url = 'localhost'
 export const ajax = Axios.create({
-  baseURL: 'http://192.168.0.106/m/',
+  baseURL: 'http://'+url+'/m/',
   //增加这个是为了解决后端接收不到post数据的问题。
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
@@ -14,7 +15,7 @@ export const ajax = Axios.create({
 })
 
 export const ajax2 = Axios.create({
-  baseURL: 'http://192.168.0.106/m/',
+  baseURL: 'http://'+url+'/m/',
   headers: {
     'Content-Type': 'multipart/form-data'
   },
@@ -30,7 +31,7 @@ export const ajax3 = Axios.create({
 })
 
 export const ajax4 = Axios.create({
-  baseURL: 'http://192.168.0.106/m',
+  baseURL: 'http://'+url+'/m',
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },
@@ -38,7 +39,7 @@ export const ajax4 = Axios.create({
 })
 
 export const ajax5 = Axios.create({
-  baseURL: 'http://192.168.0.106/',
+  baseURL: 'http://'+url+'/',
   headers: {
     'content-type': 'application/x-www-form-urlencoded'
   },
@@ -46,7 +47,7 @@ export const ajax5 = Axios.create({
 })
 
 export const ajax6 = Axios.create({
-  baseURL: 'http://192.168.0.106/m',
+  baseURL: 'http://'+url+'/m',
   headers: {
     'Content-Type': 'multipart/form-data'
   },
@@ -57,7 +58,7 @@ export const qs = Qs;
 
 //相片网址前缀
 
-export const img_prifix = "http://192.168.0.106/"
+export const img_prifix = "http://"+url+"/"
 
 //拦截器
 ajax.interceptors.response.use(function (response) {
