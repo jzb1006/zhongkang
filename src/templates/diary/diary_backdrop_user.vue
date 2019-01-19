@@ -23,6 +23,7 @@
                         <li>
                             <div class="institution">
                                 <span>医院：</span>{{backhead.institution_name}}
+                                <p v-html="backhead.institution_name"></p>
                             </div>
                         </li>
                         <li>

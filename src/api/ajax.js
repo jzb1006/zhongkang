@@ -2,8 +2,9 @@ import Axios from 'axios';
 import router from '@/router'
 //添加QS是post请求的时候前端参数转换，为了解决后端接收不到post数据的问题。
 import Qs from 'qs';
-const timeOut = 400000;
+const timeOut = 3000;
 const url = 'localhost'
+const photoUrl = '192.168.0.116'
 export const ajax = Axios.create({
   baseURL: 'http://'+url+'/m/',
   //增加这个是为了解决后端接收不到post数据的问题。
@@ -58,7 +59,7 @@ export const qs = Qs;
 
 //相片网址前缀
 
-export const img_prifix = "http://"+url+"/"
+export const img_prifix = "http://"+photoUrl+"/zhongkang/"
 
 //拦截器
 ajax.interceptors.response.use(function (response) {

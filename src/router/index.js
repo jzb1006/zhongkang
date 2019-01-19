@@ -117,6 +117,10 @@ import eMeta from '@/components/decorate/eMeta.vue'
 import authorInfo from '@/components/decorate/author_info.vue'
 
 import hospitalGuide from '@/components/hospital_guide/hospital_guide.vue'
+
+
+//投诉模块
+import complaint from '@/components/complaint/complaint.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -610,6 +614,11 @@ const router = new Router({
       path: '/retrievePassword',
       name: 'retrievePassword',
       component: retrievePassword
+    },
+    {
+      path: '/complaint',
+      name: 'complaint',
+      component: complaint
     },
     
   ],

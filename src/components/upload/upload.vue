@@ -1,7 +1,8 @@
 <template>
     <div id="upload">
         <div class="upload_wrapper">
-            <el-upload class="upload-demo" action="/m/upload4.php" name="sf_upfile" :accept="accept_type[acceptTypeNum]" :on-success="handleSuccess" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" multiple :on-exceed="handleExceed" :file-list="fileList">
+            <el-upload class="upload-demo" action="http://192.168.0.116:8080/upload" name="sf_upfile" :accept="accept_type[acceptTypeNum]" :on-success="handleSuccess" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" multiple :on-exceed="handleExceed" :file-list="fileList">
+     <!--        <el-upload class="upload-demo" action="/m/upload4.php" name="sf_upfile" :accept="accept_type[acceptTypeNum]" :on-success="handleSuccess" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" multiple :on-exceed="handleExceed" :file-list="fileList"> -->
                 <span class="el-icon-plus plus"></span>
             </el-upload>
         </div>
@@ -48,15 +49,19 @@ export default {
             );
         },
         handleSuccess(response, file, fileList) {
-            if (this.checkImgType) {
-                this.fileList.push({ alt: file.name, url: file.response });
+            if(response.code == 0){
+                if (this.checkImgType) {
+                this.fileList.push({ alt: file.name, url: file.response.picName });
                 this.$emit("getFileList", this.fileList);
             }
+            }
+            
         },
         beforeRemove(file, fileList) {
             return this.$confirm(`确定移除 ${file.name}？`);
         },
         checkImgType(fileURL) {
+            console.log(fileURL);
             let fan = "";
 
             var right_type = new Array(".jpg", ".png", ".jpeg", ".mp4", ".gif");

@@ -2,7 +2,7 @@
 <template>
     <div>
         <div class="shrink">
-            <router-link :to="{name:route_link,query:route_params}" class="little-hospital-title border-1px">
+            <a  class="little-hospital-title border-1px" @click="doc_home">
                 <span class="title">
                                         <span>医生 :{{doc_name}} </span>
                 <span style="font-size:0.2rem; color: #999">
@@ -10,7 +10,7 @@
                 </span>
                 </span>
                 <span class="zk-icon-jiantou arrow"></span>
-            </router-link>
+            </a>
         </div>
     </div>
 </template>
@@ -39,16 +39,43 @@
             expert_project: {
                 type: String,
                 default: ''
+            },
+            is_check:{
+                type:String,
+                default:''
             }
         },
         data() {
-            return {};
+            return {
+                link:this.route_link,
+                params:this.route_params,
+                check:parseInt(this.is_check),
+            }
         },
         components: {
             productItem
         },
-        methods: {},
+         methods: {
+            doc_home(){
+                if(this.check==1){
+                   this.$router.push({name:this.link,query:this.params})
+                }else{
+                    return false
+                }
+            }
+        },
         mounted() {},
+        watch:{
+            is_check(newVal,oldVal){
+                this.check = newVal
+            },
+            route_link(newVal,oldVal){
+                this.link = newVal
+            },
+            route_params(newVal,oldVal){
+                this.params = newVal
+            }
+        }
     }
 </script>
 <style scoped>

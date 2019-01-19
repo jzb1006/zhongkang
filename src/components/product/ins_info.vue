@@ -8,6 +8,7 @@
         :institution_type="hospital.institution_type_id"
         :address="hospital.address"
         :route_params="{id:params['ins_con_id'],ins_id:ins_id}"
+        :is_check="hospital.is_check"
         ></insInfo>
         <Loading v-show="loadinging"></Loading>
          <Alert :Show="isShow" :alerttType="'warn'" :alertText="alertText"></Alert>

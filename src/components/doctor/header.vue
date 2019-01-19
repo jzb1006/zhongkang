@@ -1,5 +1,5 @@
 <!--  -->
-<template>
+<template> 
     <div>
         <detaileHead :imgPath="doc_info['avatar']" :title="doc_info['name']" :star="evaluate['total_evaluate']" :serial_number="'执业资格证编号:'+doc_info['serial_number']" :boxOne='{
                         link:"container",
