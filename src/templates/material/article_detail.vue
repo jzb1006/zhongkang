@@ -41,7 +41,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 body {
     padding-bottom: 1rem;
 }

@@ -1,7 +1,7 @@
 <template>
-    <div id="diary_operate">
+    <div id="diary_operate1">
         <div class="operate_wrapper">
-            <topHide v-if="getAestheticStatus" @hide=to_back :params="{hasBtn:true,btnText:'下一步',next:this.next_step}"></topHide>
+            <topHide v-if="getAestheticStatus == '1'" @hide=to_back :params="{hasBtn:true,btnText:'下一步',next:this.next_step}"></topHide>
             <topHide v-else @hide=to_back :params="{hasBtn:true,btnText:'发表',next:this.submit}"></topHide>
             <diaryInfo v-show="diary_show" ref="diary" :info=info></diaryInfo>
             <backdropInfo v-show="backdrop_show" @changeShowBackdrop=changeShowBackdrop ref="backdrop" :showbackdrop1=show_backdrop1 :info=info></backdropInfo>
@@ -110,11 +110,9 @@ export default {
             }
         },
         create_basicdrop() {
-            console.log('cb');
             if (this.getBackInfo()) {
                 api.ajaxSubmit("ajax_create_basic", this.total_data).then(
                     res => {
-                        console.log(res);
                         if (res.data.error == 0) {
                             this.$router.push({
                                 name: "container",

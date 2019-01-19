@@ -19,8 +19,7 @@ export default {
             memuList: [],
             backList:[],
             user: "",
-            s_uid: 0,
-            p_uid: 0,
+            self_diary:false,
             bid:"",
         };
     },
@@ -36,11 +35,10 @@ export default {
                 .then(res => {
                     self.diaryList = res.data.diary;
                     self.backdropList = res.data.backdrop;
-                    self.memuList = res.data.item_name;
+                    // self.memuList = res.data.item_name;
                     self.user = res.data.user;
-                    self.diaryNum = res.data.tt;
-                    self.s_uid = res.data.s_uid;
-                    self.p_uid = res.data.b_uid;
+                    self.diaryNum = res.data.diary_count;
+                    self.self_diary = res.data.self_diary;
 
                     if (res.data.backdrop[0].img1.length != 0) {
                         let arrImg = [];
@@ -62,12 +60,10 @@ export default {
                     this.diaryBackdropUserInfo = {
                         diaryList:this.diaryList,
                         backdropList:this.backdropList,
-                        memuList:this.memuList,
                         diaryNum:this.diaryNum,
                         user:this.user,
                         backList:this.backList,
-                        s_uid:this.s_uid,
-                        p_uid:this.p_uid
+                        self_diary:this.self_diary
                     }
                 });
         }

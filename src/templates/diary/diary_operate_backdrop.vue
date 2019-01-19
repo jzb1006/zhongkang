@@ -1,14 +1,6 @@
 <template>
     <div id="backdrop_info">
         <ul class="info clearfix">
-            <li class="sel_item zk-icon-material" @click="show_items">
-                <div>
-                    请选择项目
-                    <span class="a_item">
-                        <i v-for="(item,index) in chooseItem" :key=index>{{item.name}}</i>
-                    </span>
-                </div>
-            </li>
             <li class="sel_time zk-icon-youpinwangtubiao-">
                 <div>
                     <group>
@@ -16,22 +8,32 @@
                     </group>
                 </div>
             </li>
+            <li class="sel_time zk-icon-tupian"> 
+                <div>
+                    <group>
+                        <x-switch title="是否添加术前图片" :value-map="[0,1]" v-model="is_aesthetic_custom"></x-switch>
+                    </group>
+                </div>
+            </li>
             <li class="sel_institution zk-icon-organization">
-                <div> <input class="text_input" type="text" placeholder="请输入医院" v-model.trim="institution_name" @blur="hidden_institution()" @focus="show_institution()" @keyup="$_ajax_institution()">
-                    <div class="show_hospital" v-show="is_show_institution" @mouseout="hidden_institution()">
+                <div> 
+                    <input class="text_input" type="text" placeholder="请输入医院" v-model.trim="institution_name" @blur="hidden_institution()" @focus="show_institution()" @keyup="$_ajax_institution()">
+                    <div class="show_hospital" id="show_hospital" v-show="is_show_institution" @mouseout="hidden_institution()">
                         <div v-for="(institution,index) in institutionList" :key=index @click="choose_institution(institution.id,institution.name)">
                             <p>{{institution.name}}</p>
                         </div>
+                        <LoadMore v-if="parseInt(is_more)" :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_institution()"></LoadMore>
                     </div>
                 </div>
             </li>
             <li class="sel_doctor zk-icon-yisheng">
                 <div>
                     <input class="text_input" type="text" placeholder="请输入医生" v-model.trim="doctor_name" @blur="hidden_doctor()" @focus="show_doctor()" @keyup="$_ajax_doctor()">
-                    <div class="show_hospital" v-show="is_show_doctor" @mouseout="hidden_doctor()">
+                    <div class="show_hospital" id="show_doctor" v-show="is_show_doctor" @mouseout="hidden_doctor()">
                         <div v-for="(doctor,index) in doctorList" :key=index @click="choose_doctor(doctor.id,doctor.name)">
                             <p>{{doctor.name}}</p>
                         </div>
+                        <LoadMore v-if="parseInt(is_more)" :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_doctor()"></LoadMore>
                     </div>
                 </div>
             </li>
@@ -41,11 +43,6 @@
         <div v-show="show_backdrop">
             <backdrop @closeBackdrop=close_backdrop @getBackUrl=getBackUrl :backimg=backdrop_img></backdrop>
         </div>
-        <div v-transfer-dom>
-            <popup v-model="show_item" position="bottom" max-height="50%">
-                <diarySelItem ref="items" :itemList1=chooseItem></diarySelItem>
-            </popup>
-        </div>
         <Alert v-bind:Show.sync="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
 </template>
@@ -54,7 +51,8 @@
 import Bus from "@/assets/bus.js";
 import apiH from "@/api/hospital";
 import backdrop from "@/components/diary/diary_operate_back";
-import { TransferDom, Group, Calendar, Popup, Cell, XButton } from "vux";
+import LoadMore from "@/components/loadMore/index.vue";
+import { TransferDom, Group, Calendar, Popup, Cell, XButton ,XSwitch } from "vux";
 import diarySelItem from "@/components/diary//diary_sel_item";
 export default {
     name: "diary_operate_backdrop",
@@ -68,7 +66,9 @@ export default {
         backdrop,
         diarySelItem,
         Cell,
-        XButton
+        XButton,
+        LoadMore,
+        XSwitch
     },
     props: {
         showbackdrop1: {
@@ -78,6 +78,9 @@ export default {
             default: function() {
                 return {};
             }
+        },
+        operate:{
+            default:''
         }
     },
     data() {
@@ -96,21 +99,38 @@ export default {
             institution_id: 0,
             admin_check_id:"",//审核id
 
-            chooseItem: [], //选择的项目
-            show_item: false, //打开项目
-
             day: "TODAY", //日期
             backdrop_img: [], //背景文件地址
             show_backdrop: this.showbackdrop1,
-            is_aesthetic_custom: 0
+            is_aesthetic_custom: 0,
+
+            //机构，医生
+            doctor_page:1,
+            doctor_list:5,
+            institution_page:1,
+            institution_list:5,
+            is_more:1,
+            isBusy: false,
+            hasMore: 0,
         };
     },
     watch: {
+        is_aesthetic_custom(val,oldVal){
+            this.$store.dispatch("Save_Aesthetic_Status", val);
+        },
         chooseItem(val, oldval) {
             this.is_aesthetic(val);
         },
         showbackdrop1(val, oldval) {
             this.show_backdrop = val;
+        },
+        institution_name(val,oldVal){
+            this.institution_page = 0;
+            this.institutionList = [];
+        },
+        doctor_name(val,oldVal){
+            this.doctor_page = 0;
+            this.doctorList = [];
         },
         info(val, oldVal) {
             let data = val.backdrop;
@@ -121,18 +141,10 @@ export default {
             this.institution_id = data.institution_id;
 
             if (data.img1) {
+                this.is_aesthetic_custom = 1;
                 this.backdrop_img.push({ url: data.img1, alt: "" });
                 this.backdrop_img.push({ url: data.img2, alt: "" });
                 this.backdrop_img.push({ url: data.img3, alt: "" });
-            }
-
-            let item = val.item_name;
-            for (let index in item) {
-                this.chooseItem.push({
-                    id: item[index].cat_id,
-                    name: item[index].cat_name,
-                    is_aesthetic_custom: item[index].is_aesthetic_custom
-                });
             }
         }
     },
@@ -141,18 +153,8 @@ export default {
         getBackdrop() {
             let pd = this.examination();
             if (pd) {
-                //所选的项目
-                let goods_cate_ids = "";
-                for (let index in this.chooseItem) {
-                    goods_cate_ids += this.chooseItem[index].id + ";";
-                }
-
                 let data = {
                     time: this.day,
-                    goods_cate_ids: goods_cate_ids.substring(
-                        0,
-                        goods_cate_ids.length - 1
-                    ),
                     institution_name: this.institution_name,
                     institution_id: this.institution_id,
                     doctor_name: this.doctor_name,
@@ -166,13 +168,6 @@ export default {
             }
         },
         examination() {
-            if (this.chooseItem.length <= 0) {
-                this.isShow = true;
-                this.alerttType = "warn";
-                this.alertText = "请选择项目！！";
-                return false;
-            }
-
             if (this.institution_name.length <= 0) {
                 this.isShow = true;
                 this.alerttType = "warn";
@@ -189,13 +184,6 @@ export default {
 
             return true;
         },
-        show_items() {
-            this.show_item = true;
-            Bus.$emit("changeSelItem", true);
-        },
-        hide_items() {
-            this.show_item = false;
-        },
         close_backdrop() {
             this.show_backdrop = false;
             this.is_aesthetic_custom = true;
@@ -206,18 +194,22 @@ export default {
         },
         $_ajax_institution() {
             var self = this;
+            self.institution_page = self.institution_page + 1;
             apiH
-                .ajaxSearch("search_hospital", { q: this.institution_name })
+                .ajaxSearch("search_hospital", { q: self.institution_name,page:self.institution_page,pageList:self.institution_list })
                 .then(res => {
-                    self.institutionList = res.data.data;
+                    self.hasMore = res.data.has_more;
+                    self.institutionList = self.institutionList.concat(res.data.data);
                 });
         },
         $_ajax_doctor() {
             var self = this;
+            self.doctor_page = self.doctor_page + 1;
             apiH
-                .ajaxSearch("search_doctor", { q: this.doctor_name })
+                .ajaxSearch("search_doctor", { q: this.doctor_name,page:this.doctor_page,pageList:this.doctor_list })
                 .then(res => {
-                    self.doctorList = res.data.data;
+                    self.hasMore = res.data.has_more;
+                    self.doctorList = self.doctorList.concat(res.data.data);
                 });
         },
         hidden_institution() {
@@ -261,6 +253,23 @@ export default {
             this.chooseItem = res;
             this.hide_items();
             this.is_aesthetic(res);
+        });
+
+        var self = this;
+        let institution_scroll = document.getElementById('show_hospital');
+        institution_scroll.addEventListener("scroll", () => {
+            if(institution_scroll.scrollTop + 150 >= institution_scroll.scrollHeight ){
+                self.$_ajax_institution();
+            }
+            
+        });
+
+        let doctor_scroll = document.getElementById('show_doctor');
+        doctor_scroll.addEventListener("scroll", () => {
+            if(doctor_scroll.scrollTop + 150 >= doctor_scroll.scrollHeight ){
+                self.$_ajax_institution();
+            }
+            
         });
     }
 };
@@ -326,6 +335,9 @@ export default {
 #backdrop_info .info li.sel_time {
     position: relative;
     padding-top: 0.3rem;
+}
+#backdrop_info .info li.sel_aesthetic_custom{
+    position: relative;
 }
 input {
     width: 100%;

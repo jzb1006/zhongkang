@@ -4,6 +4,7 @@
         <diary 
         :doc_id="parseInt(doc_id)" 
         :title="'医生日志'" :number="params['number']" 
+        :params = params
         :links="{'router':'container','query':{id:params['diary_con_id'],doc_id:doc_id}}"></diary>
         <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>

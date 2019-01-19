@@ -25,10 +25,10 @@ export default {
     mixins: [mixin],
     data() {
         return {
+            diaryList:[],
             diaryBackdropInfo: {},
             is_operate: false,
             backdropList: [],
-            itemName: [],
             diaryCount: [],
             page: 0,
             isBusy: false,
@@ -46,33 +46,25 @@ export default {
             var self = this;
             this.isBusy = true;
             self.page = self.page + 1;
-            api.ajaxSearch("diary_select_basic", {
+            api.ajaxSearch("diary_index", {
+                persional:1,
                 page: self.page,
                 pageList: 5
             })
                 .then(res => {
-                    console.log(res.data);
                     self.hasMore = res.data.hasMore;
-                    self.backdropList = self.backdropList.concat(
-                        res.data.backdrop
-                    );
-                    self.itemName = Object.assign(
-                        {},
-                        self.itemName,
-                        res.data.item_name
-                    );
-                    self.diaryCount = Object.assign(
-                        self.diaryCount,
-                        res.data.diary_count
-                    );
+                    self.diaryList = self.diaryList.concat(res.data.diaryList);
+                    self.diaryCount = Object.assign({},self.diaryCount,res.data.diaryNum);
+
                     self.diaryBackdropInfo = {
-                        backdropList: this.backdropList,
-                        itemName: this.itemName,
+                        diaryList: this.diaryList,
                         diaryCount: this.diaryCount
                     };
 
-                    if (self.backdropList.length > 0) {
+                    if (self.diaryList.length > 0) {
                         self.isShow = true;
+                    }else{
+                        self.isShow = false;
                     }
                     this.isBusy = false;
                     self.loadinging = false;

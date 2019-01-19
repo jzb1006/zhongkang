@@ -50,20 +50,20 @@ export default {
     data() {
         return {
             backdropList: [],
-            memuList: [],
+            // memuList: [],
             user: [],
             diaryNum: 0,
-            s_uid: 0,
-            p_uid: 0
+            // s_uid: 0,
+            // p_uid: 0
         };
     },
     watch:{
         diaryDetailTopInfo(val,oldVal){
             this.backdropList = val.backdropList;
-            this.memuList = val.memuList;
+            // this.memuList = val.memuList;
             this.user = val.user;
-            this.s_uid = val.s_uid;
-            this.p_uid = val.p_uid;
+            // this.s_uid = val.s_uid;
+            // this.p_uid = val.p_uid;
         }
     },
     components: {
@@ -102,7 +102,7 @@ export default {
     left: 0.3rem;
     top: 0.5rem;
     border-radius: 50%;
-    background-color: #ddd;
+    background-color: #ff5370;
     z-index: 1;
     display: flex;
     align-items: center;
@@ -135,7 +135,7 @@ export default {
     font-size: 0.3rem;
     padding: 0.2rem;
     overflow: hidden;
-    box-shadow: 5px 5px 5px #eeeeeef3;
+    box-shadow: 0px 5px 5px 3px #eeeeeef3;
 }
 #detail_top .other .info a {
     display: flex;

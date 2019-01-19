@@ -21,7 +21,7 @@
             </div>
             <v-touch v-on:swipeleft="swiperleft" v-on:swiperight="swiperright" class="media_show">
                 <transition-group name="slide-fade" mode="out-in">
-                    <div class="media" :class="{www_media:www}" v-for="(file,index) in filelist1" :key="index" v-if="checkImgType(file.url) == '1'" v-show="sel_index == index">
+                    <div class="media" :class="{www_media:www}" v-for="(file,index) in filelist1" :key="'z'+index" v-if="checkImgType(file.url) == '1'" v-show="sel_index == index">
                         <img :src="fileUrl()+file.url" :alt="file.name">
                     </div>
                     <div class="media" v-else-if="checkImgType(file.url) == '2'" :key="index" v-show="sel_index == index">
@@ -94,14 +94,15 @@ export default {
             }
         },
 
-        del(index) {
-            this.change_operate_more_status();
+        del() {
             if (this.sel_index + 1 == this.filelist1.length) {
+                this.filelist1.splice(this.sel_index, 1);
                 this.sel_index = 0;
             } else {
+                this.filelist1.splice(this.sel_index, 1);
                 this.sel_index + 1;
             }
-            this.filelist1.splice(this.sel_index, 1);
+            this.change_operate_more_status();
             this.changeFileList();
             this.limitnums(this.filelist1.length);
         },

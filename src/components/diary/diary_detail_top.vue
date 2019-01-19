@@ -18,11 +18,11 @@ export default {
         return {
             diaryDetailTopInfo:{},
             backdropList: [],
-            memuList: [],
+            // memuList: [],
             user: [],
             diaryNum: 0,
-            s_uid: 0,
-            p_uid: 0
+            // s_uid: 0,
+            // p_uid: 0
         };
     },
     methods: {
@@ -36,10 +36,10 @@ export default {
             api.ajaxSearch("diary_detail_basic", { bid: bid }).then(res => {
                 self.diaryDetailTopInfo = {
                     backdropList:res.data.backdrop,
-                    memuList:res.data.item_name,
+                    // memuList:res.data.item_name,
                     user:res.data.user,
-                    s_uid:res.data.s_uid,
-                    p_uid:res.data.b_uid
+                    // s_uid:res.data.s_uid,
+                    // p_uid:res.data.b_uid
                 }
             });
         }

@@ -1,11 +1,12 @@
 <template>
     <div id="diary_operate">
         <div class="operate_wrapper">
-            <topHide v-if="getAestheticStatus" @hide=to_back :params="{hasBtn:true,btnText:'下一步',next:this.next_step}"></topHide>
+            <topHide v-if="getAestheticStatus == '1'" @hide=to_back :params="{hasBtn:true,btnText:'下一步',next:this.next_step}"></topHide>
             <topHide v-else @hide=to_back :params="{hasBtn:true,btnText:'发表',next:this.submit}"></topHide>
             <diaryInfo v-if="diary_show" ref="diary" :info=info></diaryInfo>
-            <backdropInfo v-if="backdrop_show" @changeShowBackdrop=changeShowBackdrop ref="backdrop" :showbackdrop1=show_backdrop1 :info=info></backdropInfo>
+            <backdropInfo v-if="backdrop_show" @changeShowBackdrop=changeShowBackdrop ref="backdrop" :showbackdrop1=show_backdrop1 :info=info :operate=this.getDiaryOperate></backdropInfo>
         </div>
+        <p>{{getAestheticStatus}}</p>
         <Alert v-bind:Show.sync="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
 </template>
@@ -18,6 +19,7 @@ import diaryInfo from "./diary_operate_diary";
 import backdropInfo from "@/templates/diary/diary_operate_backdrop";
 import { mapGetters } from "vuex";
 export default {
+    inject:['reload'],
     name: "diary_operate",
     data() {
         return {
@@ -29,7 +31,6 @@ export default {
             did: this.getDid,
             info: {},
             backimg: [],
-
             isShow: false,
             alerttType: "",
             alertText: ""
@@ -40,7 +41,8 @@ export default {
             "getDiaryOperate",
             "getAestheticStatus",
             "getBid",
-            "getDid"
+            "getDid",
+            "getToken"
         ])
     },
     components: {
@@ -69,9 +71,6 @@ export default {
                 case "ub":
                     this.update_backdrop();
                     break;
-                default:
-                    alert("404");
-                    break;
             }
         },
         next_step() {
@@ -85,7 +84,7 @@ export default {
                 api.ajaxSubmit("ajax_update_basic", this.total_data).then(
                     res => {
                         if (res.data.error == 0) {
-                            window.reload();
+                            this.reload();
                         } else {
                             this.isShow = true;
                             this.alerttType = "warn";
@@ -127,7 +126,7 @@ export default {
                         } else {
                             this.isShow = true;
                             this.alerttType = "warn";
-                            this.alertText = "res.data.message";
+                            this.alertText = res.data.message;
                         }
                     }
                 );
@@ -149,31 +148,33 @@ export default {
                         } else {
                             this.isShow = true;
                             this.alerttType = "warn";
-                            this.alertText = "res.data.message";
+                            this.alertText = res.data.message;
                         }
                     }
                 );
             }
         },
         getBackInfo() {
+            var self = this;
             if (this.$refs.diary.getDiary()) {
                 this.total_data = Object.assign(
                     {},
                     this.total_data,
-                    this.$refs.diary.getDiary()
+                    this.$refs.diary.getDiary(),
+                    {token:this.getToken}
                 );
                 if (this.$refs.backdrop.getBackdrop()) {
                     this.total_data = Object.assign(
                         {},
                         this.total_data,
-                        this.$refs.backdrop.getBackdrop()
+                        this.$refs.backdrop.getBackdrop(),
                     );
-
                     return true;
                 }
             }
         },
         getDInfo() {
+            var self = this;
             if (this.$refs.diary.getDiary()) {
                 this.total_data = Object.assign(
                     {},
@@ -185,8 +186,7 @@ export default {
                         bid: this.getBid
                     };
                 }
-
-                this.total_data = Object.assign({}, this.total_data, data);
+                this.total_data = Object.assign({}, this.total_data, data,{token:this.getToken});
                 return true;
             }
         },
@@ -194,11 +194,14 @@ export default {
             var self = this;
             api.ajaxSearch("diary_update_basic", { bid: self.getBid }).then(
                 res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     self.info = res.data;
-                    if (this.getAestheticStatus) {
-                        let data = res.data.backdrop;
+                    if(res.data.backdrop.img1){
+                        this.$store.dispatch('Save_Aesthetic_Status',1);
                     }
+                    // if (this.getAestheticStatus) {
+                    //     let data = res.data.backdrop;
+                    // }
                 }
             );
         }
@@ -222,6 +225,9 @@ export default {
         Bus.$on("changeAestheticStatus", res => {
             this.getAestheticStatus = res;
         });
+    },
+    created(){
+        this.$store.dispatch('Save_Aesthetic_Status',0);
     }
 };
 </script>

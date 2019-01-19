@@ -63,7 +63,7 @@ export default {
             diary_show_status: "公开",
             diaryFileList: [], //媒体文件地址
             diary_content: "", //康复日志内容
-            show_type_id: "",
+            is_show: "",
             info1: this.info,
             bid: "",
             did: "",
@@ -75,11 +75,11 @@ export default {
             if (val.diary) {
                 this.bid = val.backdrop.id;
                 this.did = val.diary.id;
-                this.show_type_id = val.diary.show_type_id;
+                this.is_show = val.diary.is_show;
                 this.info1 = val;
                 this.diary_content = val.diary.content;
                 this.diary_show_status =
-                    val.diary.show_type_id == "1" ? "公开" : "私密";
+                    val.diary.is_show == "1" ? "公开" : "私密";
                 for (let index in val.diary_media) {
                     let data = val.diary_media[index].origin_urls.split(",");
                     for (let ind in data) {
@@ -93,7 +93,7 @@ export default {
             this.did = val.did;
             this.admin_check_id = val.admin_check_id;
             this.diary_content = val.diary_content;
-            this.show_type_id = val.show_type_id;
+            this.is_show = val.is_show;
             this.diary_show_status = val.diary_show_status;
             this.diaryFileList = val.diaryFileList;
         }
@@ -116,12 +116,6 @@ export default {
             let pd = this.examination();
 
             if (pd) {
-                //是否公开
-                let show_type = "show";
-                if (this.diary_show_status == "私密") {
-                    show_type = "hidden";
-                }
-
                 //组织康复日志的视频和图片
                 let origin_urls = "";
                 let video_urls = "";
@@ -139,6 +133,9 @@ export default {
                     }
                 }
 
+                this.is_show =
+                    this.diary_show_status == "公开" ? "1" : "0";
+
                 origin_urls = origin_urls.substring(0, origin_urls.length - 1);
                 video_urls = video_urls.substring(0, video_urls.length - 1);
 
@@ -146,9 +143,8 @@ export default {
                     did: this.did,
                     bid: this.bid,
                     admin_check_id: this.admin_check_id,
-                    show_type_id: this.show_type_id,
+                    is_show: this.is_show,
                     content: this.diary_content,
-                    show_type_name: show_type,
                     origin_urls: origin_urls,
                     video_urls: video_urls
                 };
@@ -230,9 +226,15 @@ export default {
 </script>
 <style lang="less">
 @calendar-selected-bg-color: #000;
-@import url("./../../assets/css/calandar.css");
+// @import url("./../../assets/css/calandar.css");
 </style>
 <style scoped>
+.vux-popup-dialog p{
+    padding:0px;
+}
+.weui-cell_radio{
+    padding: 0px!important;
+}
 #diary_info p.top {
     margin-bottom: 0.1rem;
 }
@@ -246,10 +248,10 @@ export default {
 }
 #diary_info .upFile {
     min-height: 4rem;
-    padding: 0 0.3rem;
+    padding: 0 0.3rem .3rem;
 }
 #diary_info .text {
-    margin: 0 0.3rem 0;
+    margin: .2rem 0.3rem;
     font-size: 0.3rem;
     line-height: 0.4rem;
     /* font-weight: 550; */

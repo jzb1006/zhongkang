@@ -49,6 +49,11 @@
                 type: Number,
                 default: -0
             },
+            params:{
+                default:function(){
+                    return {}
+                }
+            }
         },
         data() {
             return {};
@@ -58,7 +63,7 @@
         },
         methods: {
             getParams(){
-                return {number:"1",is_more:"0"};
+                return {number:this.params.number,is_more:this.params.is_more,diary_page:this.params.diary_page};
             }
             
         },

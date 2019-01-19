@@ -6,8 +6,12 @@ const state={
     otherId:'',
     order_sn:'',
     isBackToPrevious:true,
+    token:''
 }
 const getters={
+    getToken(state){
+        return state.token;
+    },
     getBank(state){
         if(state.bank==''){
             let bank=sessionStorage.getItem('userBank');
@@ -46,6 +50,9 @@ const getters={
     },
 }
 const actions = {
+    saveToken({commit},data){
+        commit('SAVE_TOKEN',data);
+    },
     changeBank({commit},viewName){
         commit('CHANGE_BANK',viewName);
     },
@@ -53,20 +60,20 @@ const actions = {
         commit('CHANGE_USERINFO',viewName);
     },
     changeOtherId({commit},viewName){
-        console.log(viewName);
         commit('CHANGE_OTHER_ID',viewName);
     },
     changeOrderSn({commit},viewName){
-        console.log(viewName);
         commit('CHANGE_ORDER_SN',viewName);
     },
     changeIsBackToPrevious({commit},viewName){
-        console.log(viewName);
         commit('CHANGE_IS_BACK_TO_PREVIOUS',viewName);
     },
 }
 
 const mutations = {
+    SAVE_TOKEN(state,data){
+        state.token = data;
+    },
     CHANGE_BANK(state,viewName){
         sessionStorage.setItem('userBank',JSON.stringify(viewName));
         state.bank = viewName

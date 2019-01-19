@@ -31,10 +31,9 @@ export default {
         return {
             diary_show_status: "公开",
             diaryFileList: [], //媒体文件地址
-            diary_content: "", //康复日志内容F
+            diary_content: "", //康复日志内容
             did: "",
             bid: "",
-            show_type_id: "",
             diary_info: {}
         };
     },
@@ -46,7 +45,7 @@ export default {
             var self = this;
             this.did = this.getDid;
             api
-                .ajaxSearch("diary_detail_diary", { did: this.getDid })
+                .ajaxSearch("diary_update_diary", { did: this.getDid })
                 .then(res => {
                     let diary = res.data.diary;
                     for (let index in diary) {
@@ -63,9 +62,8 @@ export default {
                             did:this.getDid,
                             admin_check_id:diary[index].admin_check_id,
                             diary_content: diary[index].content,
-                            show_type_id: diary[index].show_type_id,
                             diary_show_status:
-                                diary[index].show_type_name == "show"
+                                diary[index].is_show == 1
                                     ? "公开"
                                     : "私密",
                             diaryFileList:this.diaryFileList

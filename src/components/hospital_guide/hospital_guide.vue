@@ -1,7 +1,7 @@
 <template>
     <div id="Fmain">
         <hgHeader></hgHeader>
-        <div class="content">
+        <div class="content" :style="{height:w_height+'px'}">
             <hgItem v-if="page == '1'"></hgItem>
             <hgTreatMethods v-if="page == '2'"></hgTreatMethods>
             <hgResource v-if="page == '3'"></hgResource>
@@ -21,7 +21,8 @@ export default {
     name: "FMain",
     data() {
         return {
-            page: "1"
+            page: "1",
+            w_height:500
         };
     },
     methods: {
@@ -33,17 +34,18 @@ export default {
         Bus.$on("Content_Type", res => {
             this.page = res;
         });
+    },
+    created(){
+        let html_size = document.getElementsByTagName('html')[0].style.fontSize;
+        this.w_height = window.screen.height - parseInt(html_size)*2.3;
     }
 };
 </script>
 <style>
 #Fmain {
     position: relative;
-    height: 13rem;
-    overflow: hidden;
 }
 #Fmain .content {
-    height: 10rem;
     overflow-x: hidden;
 }
 .f_active {

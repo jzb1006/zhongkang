@@ -16,6 +16,7 @@ import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
 import { mixin } from "@/assets/js/mixins";
 import {commonShare, shareTitle, shareUrl, shareImg, shareDesc} from "@/assets/share.js";
+import { isArray } from 'util';
 export default {
     mixins: [mixin],
     props: ["insId", "docId", "cid", "query"],
@@ -29,16 +30,11 @@ export default {
         return {
             show_backdrop_list: false,
             backdropList: [],
-            handbookList: [],
+            user_info: [],
             mediaList: [],
             diaryList: [],
-            memuList: [],
-
             diaryListInfo: {},
-
             doctor_id: this.docId,
-
-            pd: "",
             page: 0,
             is_more:this.params['is_more']||1,
             pageList:this.params.number,
@@ -57,7 +53,7 @@ export default {
             let arr = {
                 page: self.page,
                 pageList: this.pageList,
-                pd: this.pd,
+                persional: 0,
                 doctor_id: self.docId,
                 institution_id: self.insId,
                 cid: self.cid,
@@ -68,33 +64,12 @@ export default {
                 .ajaxSearch("diary_index", arr)
                 .then(res => {
                     this.hasMore = res.data.hasMore;
-
-                    self.handbookList = Object.assign(
-                        self.handbookList,
-                        res.data.handbook
-                    );
-                    self.mediaList = Object.assign(
-                        self.mediaList,
-                        res.data.media_diary
-                    );
-                    self.diaryList = Object.assign(
-                        self.diaryList,
-                        res.data.diary
-                    );
-                    self.memuList = Object.assign(self.memuList, res.data.memu);
-                    self.backdropList = self.backdropList.concat(
-                        res.data.backdrop
-                    );
-
+                    self.diaryList = self.diaryList.concat(res.data.diaryList);
                     self.diaryListInfo = {
-                        handbookList: self.handbookList,
-                        mediaList: self.mediaList,
                         diaryList: self.diaryList,
-                        memuList: self.memuList,
-                        backdropList: self.backdropList
                     };
 
-                    if (self.backdropList.length == 0) {
+                    if (self.diaryList.length == 0 || self.diaryList == false || res.data.diaryList == false) {
                         self.isShow = false;
                     }
 
@@ -111,7 +86,6 @@ export default {
     },
     mounted() {
         this.$_get_diary();
-        // commonShare(this, shareTitle, shareUrl, shareImg, shareDesc);
     }
 };
 </script>

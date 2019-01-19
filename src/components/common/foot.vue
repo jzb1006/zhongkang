@@ -36,7 +36,7 @@ export default {
                 },
                 {
                     id: "2",
-                    name: "more",
+                    name: "更多",
                     icon: "zk-icon-gengduo",
                     url: ""
                 },
@@ -112,10 +112,8 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    /* background-color: #cccc; */
     border-top: 1px solid #ccc;
     z-index: 502;
-    /* font-size: 1.4rem; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -153,7 +151,6 @@ export default {
     height: 0.9rem !important;
 }
 .menu .weui-tabbar__icon .icon {
-    /* font-size: 0.6rem !important; */
     padding: 0.1rem 0.1rem 0.08rem 0.1rem;
     border: 1px solid #ff5370;
     border-radius: 0.2rem;

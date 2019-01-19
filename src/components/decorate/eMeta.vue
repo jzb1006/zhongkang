@@ -8,7 +8,7 @@
                 <span class="zk-icon-liulan">{{transform_num(parameter.browses)}}</span>
             </div>
             <div v-if="parameter.likes" class="demo likes" @click="click_like">
-                <span class="zk-icon-xinaixin">{{transform_num(parameter.likes)}}</span>
+                <span class="zk-icon-xinaixin"> {{transform_num(parameter.likes)}}</span>
             </div>
             <div v-if="parameter.comments" class="demo comments" @click="click_comment">
                 <span class="zk-icon-edit">{{transform_num(parameter.comments)}}</span>
@@ -114,5 +114,8 @@ export default {
 }
 #meta .meta_list .demo {
     padding: 0.1rem 0;
+}
+#meta .meta_list .time{
+    text-align: left;
 }
 </style>

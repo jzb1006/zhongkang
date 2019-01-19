@@ -211,6 +211,15 @@ import hgHospital from "@/components/hospital_guide/hg_hospital.vue";
 import hgExpert from "@/components/hospital_guide/hg_expert.vue";
 
 
+//疾病百科
+import mass from "@/components/encyclopedia_disease/mass.vue"
+import symptom from "@/components/encyclopedia_disease/symptom.vue"
+import matchDesease from "@/components/encyclopedia_disease/match_disease.vue"
+import diseaseList from "@/components/encyclopedia_disease/disease_list.vue"
+import diseaseDetail from "@/components/encyclopedia_disease/disease_detail.vue"
+import symptomAbout from "@/components/encyclopedia_disease/symptom_about.vue"
+import diseaseDb from "@/components/encyclopedia_disease/disease_db.vue";
+
 /*   模板     */
 //个人中心
 import userHeadTem from "@/templates/user/user_head_tem.vue"
@@ -238,6 +247,15 @@ import detailItemTem from "@/templates/customized/detail_item_tem.vue"
 export default {
     
   install(Vue, options) {
+    Vue.component('mass',mass);
+    Vue.component('symptom',symptom);
+    Vue.component('matchDesease',matchDesease);
+    Vue.component('diseaseList',diseaseList);
+    Vue.component('diseaseDetail',diseaseDetail);
+    Vue.component('symptomAbout',symptomAbout);
+    Vue.component('diseaseDb',diseaseDb);
+
+
     Vue.component('orderList',orderList)
     Vue.component('orderDetail',orderDetail)
 

@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import bus from "@/assets/bus.js"
 import apiM from "@/api/material/index.js";
 import materialTab from "./material_tab";
 import kong from "@/components/nosearch/kong.vue"
@@ -85,7 +86,7 @@ export default {
                     self.materiallist = self.materiallist.concat(
                         res.data.material_list
                     );
-                    if (self.materiallist.length == 0) {
+                    if (self.materiallist.length == 0 || self.materiallist == false || res.data.diaryList == false) {
                         self.isShow = false;
                     }else{
                         self.isShow = true;
@@ -100,6 +101,11 @@ export default {
     },
     mounted() {
         this.getData();
+        var self = this;
+        bus.$on('index_data_material_updata',res=>{
+            self.materiallist = [];
+            self.getData();
+        })
     }
 };
 </script>

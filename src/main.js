@@ -37,8 +37,8 @@ Vue.use(VueTextareaAutosize)
 Vue.prototype.behavior = behavior
 Vue.use(VueLazyload, {
   preLoad: 1.3,
-  error: 'http://pic.qiantucdn.com/58pic/28/21/33/80c58PICx96_1024.jpg!/fw/1024/watermark/url/L2ltYWdlcy93YXRlcm1hcmsveGlhb3R1LnBuZw==/align/center',
-  loading: 'http://pic.qiantucdn.com/58pic/13/15/64/54D58PIC5BF_1024.jpg!/fw/1024/watermark/url/L2ltYWdlcy93YXRlcm1hcmsveGlhb3R1LnBuZw==/align/center',
+  error: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1545468235751&di=22543bdd1855da587efde12af4889af8&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Fa8014c086e061d95ef3c374d7df40ad162d9ca49.jpg',
+  loading: './../static/images/loading.gif',
 })
 
 Vue.config.productionTip = false

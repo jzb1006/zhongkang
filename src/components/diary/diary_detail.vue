@@ -51,11 +51,6 @@ export default {
     },
     mounted() {
         this.$_ajax_getDiaryDetail();
-
-        // apiCom.ajaxSubmit("common", "viewCount", {
-        //     table: "recovery_diary",
-        //     id: this.$route.query.did
-        // });
     }
 };
 </script>

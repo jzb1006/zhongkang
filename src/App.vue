@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <keep-alive include="requirement,customized,replyOrder,customizedOrder,materialList">
-            <router-view></router-view>
+            <router-view v-if="isRouterAlive"></router-view>
         </keep-alive>
         <div class="fill" style="heght:1rem"></div>
     </div>
@@ -12,9 +12,16 @@ import foot from "@/components/common/foot.vue";
 import { mapState } from "vuex";
 
 export default {
+    //刷新当前页面
+    provide (){
+        return {
+            reload:this.reload
+        }
+    },
     data() {
         return {
-            transitionName: "slide-left"
+            transitionName: "slide-left",
+            isRouterAlive:true
         };
     },
     components: {
@@ -45,6 +52,14 @@ export default {
             }
             sessionStorage.setItem("routers", routersArr.join(","));
         }
+    },
+    methods:{
+        reload(){
+            this.isRouterAlive = false;
+            this.$nextTick(function(){
+                this.isRouterAlive = true;
+            })
+        }
     }
 };
 </script>
@@ -58,7 +73,7 @@ export default {
 }
 
 body {
-    /* padding-bottom: 1rem; */
+   overflow-x: hidden;
 }
 </style>
 <style lang="less">

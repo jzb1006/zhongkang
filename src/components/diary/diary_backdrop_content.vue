@@ -22,14 +22,12 @@ export default {
     data() {
         return {
             diaryBackdropContent:{},
-
             bid: "",
             diaryList: [],
             mediaList: [],
             backdropList: [],
             memu: "",
-            s_uid: 0,
-            p_uid: 0,
+            self_diary:false,
             page: 0,
             isBusy: false,
             hasMore: 0,
@@ -47,7 +45,7 @@ export default {
 
             self.page = self.page + 1;
             let arr = {
-                num_list: 3,
+                pageList: 3,
                 page: self.page,
                 bid: this.bid
             };
@@ -56,6 +54,7 @@ export default {
                 .ajaxSearch("diary_detail_basic", arr)
                 .then(res => {
                     this.hasMore = res.data.hasMore;
+                    self.self_diary = res.data.self_diary;
                     self.backdropList = Object.assign(
                         self.backdropList,
                         res.data.backdrop[0]
@@ -65,14 +64,14 @@ export default {
                         self.mediaList,
                         res.data.diary_media
                     );
-                    self.diaryNum = res.data.total_tt;
+                    self.diaryNum = res.data.diary_count;
 
-                    for (let index in res.data.item_name) {
-                        self.memu = res.data.item_name[index].cat_name;
-                        break;
-                    }
-                    self.s_uid = res.data.s_uid;
-                    self.p_uid = res.data.b_uid;
+                    // for (let index in res.data.item_name) {
+                    //     self.memu = res.data.item_name[index].cat_name;
+                    //     break;
+                    // }
+                    // self.s_uid = res.data.s_uid;
+                    // self.p_uid = res.data.b_uid;
 
                     self.diaryBackdropContent = {
                         bid:self.bid,
@@ -81,8 +80,7 @@ export default {
                         mediaList:self.mediaList,
                         memu:self.memu,
                         diaryNum:self.diaryNum,
-                        s_uid:this.s_uid,
-                        p_uid:this.p_uid
+                        self_diary:this.self_diary
                     }
 
                     self.isBusy = false;

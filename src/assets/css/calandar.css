@@ -57,3 +57,18 @@
 .weui-cell_radio{
     padding: .2rem!important;
 }
+.vux-popup-dialog p{
+    padding: .3rem;
+}
+.vux-x-switch{
+    height: 0px!important;
+}
+.weui-switch, .weui-switch-cp__box{
+    height: 15px!important;
+}
+.weui-switch:after, .weui-switch-cp__box:after{
+    top: -3px!important;
+    left: 1px!important;
+    width: 30px!important;
+    height: 20px!important;
+}

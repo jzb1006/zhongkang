@@ -18,6 +18,7 @@ import { mapGetters } from "vuex";
 import mediaDisplay from "@/components/upload/media_display";
 import api from "@/api/diary";
 export default {
+    inject:['reload'],
     name: "diary_operate_back",
     props: {
         backdropFirst: {
@@ -40,7 +41,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["getCreateInfo", "getDiaryOperate"])
+        ...mapGetters(["getCreateInfo", "getDiaryOperate","getToken"])
     },
     components: {
         mediaDisplay,
@@ -67,13 +68,12 @@ export default {
                 let infoLen = this.getCreateInfo.length;
                 this.$set(data, "img1", this.backList[0].url);
                 this.$set(data, "img2", this.backList[1].url);
-                this.$set(data, "img3", this.backList[2].url);
-            }
+                this.$set(data, "img3", this.backList[2].url);            }
 
             if (this.getDiaryOperate == "ub") {
                 api.ajaxSubmit("ajax_update_basic", data).then(res => {
                     if (res.data.error == 0) {
-                        this.$router.go(0);
+                        this.reload();
                     } else {
                         alert(res.data.message);
                     }

@@ -7,7 +7,7 @@
             <div v-for="(backhead,index) in backdropList" :key=index>
                 <div class="up">
                     <div class="img_head">
-                        <defaultImg :imgPath="user.headimgurl" :styles="img_style"></defaultImg>
+                        <defaultImg v-if="user.headimgurl" :imgPath="user.headimgurl" :styles="img_style"></defaultImg>
                     </div>
                     <div class="name">
                         <span class="name">{{user.nickname ? user.nickname : ""}}</span>
@@ -15,11 +15,11 @@
                 </div>
                 <div class="down">
                     <ul class="info">
-                        <li>
+                        <!-- <li>
                             <div class="item" ref="keyword">
                                 <span class="item" :key="index" v-for="(memu,index) in memuList">{{memu.cat_name}}</span>
                             </div>
-                        </li>
+                        </li> -->
                         <li>
                             <div class="institution">
                                 <span>医院：</span>{{backhead.institution_name}}
@@ -40,7 +40,7 @@
                         <li>
                             <div class="backdropImage" v-if="backList.length > 0" v-for="(backdrop,index) in backdropList" :key=index>
                                 <p v-if="index == '0'" class="title">过去的她</p>
-                                <div class="check_status" v-if="pUid == sUid">
+                                <div class="check_status" v-if="self_diary">
                                     <div v-if="backdrop.status == '0'">
                                         <img src="./../../../static/images/no.png" alt="" />
                                     </div>
@@ -52,7 +52,7 @@
                                     <div v-else="backdrop.status == '2'">
                                         <img src="./../../../static/images/nopass.png" alt="" />
                                     </div>
-                                </div> -->
+                                </div>
                                 <div class="img">
                                     <mediaDisplay :filelists=backList :upshow1=false></mediaDisplay>
                                 </div>
@@ -60,7 +60,7 @@
                         </li>
                         <li>
                             <div class="operate">
-                                <span class="operate_btn" v-if="is_user()" @click="update_backdrop(backhead.id)">
+                                <span class="operate_btn" v-if="self_diary" @click="update_backdrop(backhead.id)">
                                     编辑
                                 </span>
                                 <span class="operate_btn" v-else>关注</span>
@@ -104,11 +104,9 @@ export default {
             backdropList: [],
             diaryList: [],
             backList: [],
-            memuList: [],
             user: {},
             diaryNum: 0,
-            sUid: 0,
-            pUid: 0,
+            self_diary:false,
             img_style: "width:100%;min-height:100%",
             keyword: this.$refs.keyword
         };
@@ -118,11 +116,12 @@ export default {
             this.backdropList = val.backdropList;
             this.diaryList = val.diaryList;
             this.backList = val.backList;
-            this.memuList = val.memuList;
+            // this.self_diary = val.self_diary;
             this.diaryNum = val.diaryNum;
             this.user = val.user;
-            this.sUid = val.s_uid;
-            this.pUid = val.p_uid;
+            // this.sUid = val.s_uid;
+            // this.pUid = val.p_uid;
+            this.self_diary = val.self_diary;
         }
     },
     components: {
@@ -174,26 +173,26 @@ export default {
                     : num;
         },
         del_show() {
-            if (this.is_user() && this.diaryList.length == 0) {
+            if (this.self_diary && this.diaryList.length == 0) {
                 return true;
             }
             return false;
         },
-        is_user() {
-            if (this.sUid == this.pUid) {
-                return true;
-            } else {
-                return false;
-            }
-        },
-        is_edit() {
-            for (let index in this.memuList) {
-                if (this.memuList[index].is_aesthetic_custom == "1") {
-                    return false;
-                }
-            }
-            return true;
-        },
+        // is_user() {
+        //     if (this.sUid == this.pUid) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // },
+        // is_edit() {
+        //     for (let index in this.memuList) {
+        //         if (this.memuList[index].is_aesthetic_custom == "1") {
+        //             return false;
+        //         }
+        //     }
+        //     return true;
+        // },
         back() {
             this.$router.push({ path: "/" });
         },
@@ -267,6 +266,7 @@ export default {
     border: 3px solid #fff;
     border-radius: 50%;
     overflow: hidden;
+    background-color: rgb(255, 83, 112);
 }
 #diary_backdrop_user .up .img_head img {
     width: 100% !important;

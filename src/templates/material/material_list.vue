@@ -14,14 +14,15 @@
                             {{material.title}}
                         </p>
                         <div class="other">
-                            <span class="author">{{material.author}}</span>
+                            <router-link :to="{name:'container',query:getParams(material)}" tag="a">
+                                <span class="author">{{material.author}}</span>
+                            </router-link>
                             <span class="comment">{{material.comments_count}}评论</span>
                         </div>
                     </div>
                 </div>
                 <!-- 图集 -->
                 <div class="material vux-1px-b" v-else-if="material.material_type == '3'" v-show="atlases_show">
-                    <!-- <atlasesdetail :info=material :healthyTalkId=material.hid></atlasesdetail> -->
                     <div class="atlases_wrapper">
                         <router-link :to="{name:'container',query:{id:params.atlases_id,healthy_talk_id:material.hid,comment_form_id:material.hid,uid:material.user_id}}">
                             <p class="title">
@@ -33,7 +34,9 @@
                         </router-link>
                         <div class="other">
                             <p>
-                                <span class="name">{{material.author}}</span>
+                                <router-link :to="{name:'container',query:getParams(material)}" tag="a">
+                                    <span class="name">{{material.author}}</span>
+                                </router-link>
                             </p>
                         </div>
                     </div>
@@ -49,13 +52,15 @@
                                 <img v-if="material.material_cover" :src="fileUrl()+material.material_cover" alt="">
                                 <div v-else>
                                     <video :src="fileUrl()+msg.url" id="player"></video>
-                                    <span class="time">{{get_time()}}</span>
+                                    <!-- <span class="time">{{get_time()}}</span> -->
                                 </div>
                             </div>
                         </router-link>
                         <div class="other">
                             <p>
-                                <span class="name">{{material.author}}</span>
+                                <router-link :to="{name:'container',query:getParams(material)}" tag="a">
+                                    <span class="name">{{material.author}}</span>
+                                </router-link>
                             </p>
                         </div>
                     </div>
@@ -101,29 +106,29 @@ export default {
         atlasesdetail
     },
     methods: {
-        has_limit(index) {
-            if (this.params.number == "") {
-                return true;
-            } else {
-                this.loadmore = false;
-                if (index + 1 <= this.params.number) {
-                    return true;
-                } else {
-                    return false;
+        //获取医生或机构的链接参数
+        getParams(data){
+            let doc_ins = {};
+            if(data.doc_id){
+                doc_ins = {
+                    id:this.params.doc_id,
+                    doc_id:data.doc_id,
+                    ins_id:data.ins_id
+                }
+            }else{
+                doc_ins = {
+                    id:this.params.ins_id,
+                    ins_id:data.ins_id
                 }
             }
+            return doc_ins;
         },
         get_time() {
             var pl = document.getElementById("player");
-
-            return pl.duration;
+            return '4:00';
         },
         fileUrl() {
             return apiM.fileUrl();
-        },
-        toJson: function(str) {
-            let _str = new Function("", "return " + str)();
-            return _str;
         },
         show() {
             var t;
@@ -167,12 +172,12 @@ export default {
     float: right;
 }
 #materialList .list .material {
-    margin: 0 0.2rem;
-    padding: 0.1rem 0 0.4rem 0;
+    margin: 0.1rem 0.2rem 0;
+    padding: 0.1rem 0 0.2rem 0;
 }
 #materialList .list .material .atlases_wrapper p.title {
     font-size: 0.3rem;
-    padding: 0.1rem 0 0.2rem;
+    margin-bottom: .1rem;
     line-height: 0.4rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -183,7 +188,7 @@ export default {
 #materialList .list .material .atlases_wrapper .img_wrapper {
     display: flex;
     position: relative;
-    height: 4rem;
+    height: 3.5rem;
     text-align: center;
     background-color: #00000080;
     align-items: center;
@@ -194,6 +199,8 @@ export default {
     color: #7d7d7d;
 }
 #materialList .list .article .img_wrapper {
+    display: flex;
+    align-items: center;
     float: left;
     width: 2.7rem;
     height: 1.7rem;
@@ -279,7 +286,7 @@ export default {
 }
 #materialList .list .RehaList_wrapper p.title {
     font-size: 0.3rem;
-    padding: 0.1rem 0 0.2rem;
+    margin-bottom: .1rem;
     line-height: 0.4rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -288,14 +295,15 @@ export default {
     -webkit-box-orient: vertical;
 }
 #materialList .list .RehaList_wrapper .img_wrapper {
-    position: relative;
+    display:flex;
+    align-items:center;
     width: 100%;
     height: 4rem;
     text-align: center;
     background-color: #00000080;
 }
 #materialList .list .RehaList_wrapper .img_wrapper img {
-    height: 100%;
+    width: 100%;
 }
 #materialList .list .RehaList_wrapper .reha {
     position: relative;

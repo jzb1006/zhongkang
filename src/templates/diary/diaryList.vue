@@ -1,44 +1,46 @@
 <template>
-    <div id="diaryList">
-        <div class="diary vux-1px-b" v-for="(backdrop,index) in backdropList" :key=index>
+    <div id="diaryList"> 
+        <div class="diary vux-1px-b" v-for="(diary,index) in diaryList" :key=index>
             <div class="top">
-                <router-link :to="{name:'container',query:{id:params.diary_page,bid:backdrop.id}}">
+                <router-link :to="{name:'container',query:{id:params.diary_page,bid:diary.bid}}">
                     <div class="headImg">
-                        <img v-if="handbookList[backdrop.id].headimgurl" :src="getImgUrl()+handbookList[backdrop.id].headimgurl" alt="" />
+                        <img v-if="diary.headimgurl" :src="getImgUrl()+diary.headimgurl" alt="" />
                     </div>
                 </router-link>
-                <span class="user_name">{{handbookList[backdrop.id].nickname?handbookList[backdrop.id].nickname:""}}</span>
-                <p class="content">{{diaryList[backdrop.id].content}}</p>
+                <span class="user_name">{{diary.nickname?diary.nickname:""}}</span>
+                <p class="content">{{diary.content}}</p>
             </div>
-            <router-link :to="{name:'container',query:{id:params.diary_page,bid:backdrop.id}}" tag="div">
+            <router-link :to="{name:'container',query:{id:params.diary_page,bid:diary.bid}}" tag="div">
                 <div class="middle clearfix">
-                    <div class="avg" v-if="mediaList[diaryList[backdrop.id].id].type == '1'">
-                        <div class="one_img" v-if="backdrop.img1.length == 0">
-                            <img v-lazy="getImgUrl()+getMediaImg(mediaList[diaryList[backdrop.id].id].origin_urls)">
+                    <div class="avg" v-if="diary.type == '1'">
+                        <div class="one_img" v-if="diary.img1.length == 0">
+                            <img v-lazy="getImgUrl()+getMediaImg(diary.origin_urls)">
                         </div>
                         <div class="lr_avg" v-else>
                             <div class="b_left contrast_img">
-                                <img v-lazy="getImgUrl()+backdrop.img1">
+                                <img v-lazy="getImgUrl()+diary.img1">
                                 <span class="img_tip before">Before</span>
                             </div>
                             <div class="a_right contrast_img">
-                                <img v-lazy="getImgUrl()+getMediaImg(mediaList[diaryList[backdrop.id].id].origin_urls)">
+                                <img v-lazy="getImgUrl()+getMediaImg(diary.origin_urls)">
                                 <span class="img_tip">After</span>
                             </div>
                         </div>
                     </div>
-                    <div class="show_video" v-else-if="mediaList[diaryList[backdrop.id].id].type == '2'">
-                        <video controls controlsList="nodownload" :src="getImgUrl()+mediaList[diaryList[backdrop.id].id].origin_urls"></video>
+                    <div class="show_video" v-else-if="diary.type == '2'">
+                        <video controls controlsList="nodownload" :src="getImgUrl()+diary.origin_urls"></video>
                     </div>
                     <div v-else>
                     </div>
                 </div>
             </router-link>
             <div class="bottom">
-                <p class="item">
-                    <span v-for="(memu,index) in memuList[backdrop.id]" :key=index>#{{memu.cat_name}}</span>
-                </p>
-                <e-meta @click_comment=click_comment(backdrop.id,diaryList[backdrop.id].id,handbookList[backdrop.id].user_id) :info="format_info(diaryList[backdrop.id],diaryList[backdrop.id].course_time,diaryList[backdrop.id].view_count,diaryList[backdrop.id].favor,handbookList[backdrop.id].total_comment)"></e-meta>
+                <!-- <p class="item">
+                    <span v-for="(num,index) in getcates(diary.goods_cate_ids)" :key="index">
+                           <i v-if="num in cateList">{{cateList[num].cat_name}}</i>
+                    </span>
+                </p> -->
+                <e-meta @click_comment=click_comment(parseInt(diary.bid),diary.did,diary.user_id) :info="format_info(diary,diary.course_time,diary.view_count,diary.favor,0)"></e-meta>
             </div>
         </div>
         <div class="write_diary" v-if="parseInt(is_more)">
@@ -72,25 +74,27 @@ export default {
     data() {
         return {
             is_more: this.params["is_more"] || 1,
-
             show_backdrop_list: false,
             backdropList: [],
-            handbookList: [],
+            user_info: [],
             mediaList: [],
             diaryList: [],
-            memuList: []
+            // cateList: []
         };
     },
     watch: {
         diaryListInfo(val, oldVal) {
-            this.backdropList = val.backdropList;
-            this.handbookList = val.handbookList;
-            this.mediaList = val.mediaList;
             this.diaryList = val.diaryList;
-            this.memuList = val.memuList;
+            // this.cateList = val.cateList;
         }
     },
     methods: {
+        getcates(data){
+            if(data){
+                return data.split(";");
+            }
+            return false;
+        },
         click_comment(bid, did, uid) {
             let data = {
                 id: "8",
@@ -136,46 +140,6 @@ export default {
                 : num > 10000
                     ? Math.floor(num / 10000) + "万"
                     : num;
-        },
-        $_get_diary: function() {
-            var self = this;
-            this.isBusy = true;
-            self.page = self.page + 1;
-            let arr = {
-                page: self.page,
-                pageList: 3,
-                pd: this.pd,
-                doctor_id: self.docId,
-                institution_id: self.insId,
-                cid: self.cid,
-                query: this.query
-            };
-
-            api.ajaxSearch("diary_index", arr)
-                .then(res => {
-                    this.hasMore = res.data.hasMore;
-                    self.handbookList = Object.assign(
-                        self.handbookList,
-                        res.data.handbook
-                    );
-                    self.mediaList = Object.assign(
-                        self.mediaList,
-                        res.data.media_diary
-                    );
-                    self.diaryList = Object.assign(
-                        self.diaryList,
-                        res.data.diary
-                    );
-                    self.memuList = Object.assign(self.memuList, res.data.memu);
-                    self.backdropList = self.backdropList.concat(
-                        res.data.backdrop
-                    );
-                    this.isBusy = false;
-                    self.loadinging = false;
-                })
-                .catch(error => {
-                    self.loadinging = false;
-                });
         },
         getImgUrl() {
             return api.imgUrl();
@@ -250,6 +214,7 @@ export default {
     margin-left: 1rem;
     font-size: 0.28rem;
     line-height: 0.4rem;
+    max-height: .8rem;
     color: #643232;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -276,6 +241,8 @@ export default {
     left: 1rem;
     top: 0.1rem;
     width: 3rem;
+    height: 0.4rem;
+    line-height: 0.4rem;
     font-size: 0.3rem;
     overflow: hidden;
 }
@@ -287,8 +254,7 @@ export default {
     color: #ccc;
 }
 #diaryList .diary .middle {
-    margin-left: 1rem;
-    margin-top: 0.2rem;
+    margin:.2rem .5rem 0 1rem;
 }
 #diaryList .diary .middle .avg .one_img {
     width: 100%;
@@ -320,7 +286,7 @@ export default {
 #diaryList .diary .middle .avg .contrast_img {
     position: relative;
     width: 100%;
-    height: 3.5rem;
+    height: 3rem;
     border-top-right-radius: 0.1rem;
     border-top-left-radius: 0.1rem;
     overflow: hidden;

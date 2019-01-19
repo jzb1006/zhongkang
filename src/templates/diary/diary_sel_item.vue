@@ -5,7 +5,7 @@
         </p>
         <div class="items">
             <span v-if="choose.length > 0">已选项目：</span>
-            <span v-for="(ch,index) in choose" :key="index" @click="sel_item3(ch.id)">{{ch.name}}</span>
+            <span v-for="(ch,index) in choose" :key="index" @click="sel_item3(ch.id)">{{ch.name}}<i class="zk-icon-guanbi1"></i></span>
             <span v-if="choose.length <= 0">请至少选择一个项目 </span>
         </div>
         <div class="show_sel clearfix ">
@@ -123,7 +123,7 @@ export default {
         $_ajax_getItem() {
             var self = this;
             api.ajaxSearch("diary_create_basic").then(res => {
-                self.itemList = res.data;
+                self.itemList = res.data.memu;
             });
         },
         sel_item1(data, is_aesthetic_custom) {
@@ -191,18 +191,19 @@ export default {
     display: inline-block;
     font-size: 0.3rem;
     padding: 0.1rem 0.2rem;
-    margin-right: 0.2rem;
-    color: #aaa;
-    border-right: 1px solid #ccc;
+    margin: .1rem;
+    color: #4a4a4a;
+    border-radius: 0.3rem;
+    background-color: #ccc;
 }
 
 .detail_selected {
     display: inline-block;
-    font-size: 0.3rem;
+    font-size: .27rem;
     padding: 0.1rem 0.2rem;
     border-radius: 1rem;
-    font-size: 0.3rem;
-    color: #17a2b8;
+    background-color: #17a2b8;
+    color: #fff;
 }
 
 #diarySelItem {
@@ -221,7 +222,7 @@ export default {
     color: #000;
     font-size: 0.35rem;
     text-align: center;
-    padding: 0.3rem;
+    padding: .2rem 0.3rem 0;
 }
 #diarySelItem .sel_ok .badge_l {
     float: left;
@@ -241,21 +242,19 @@ export default {
     color: #fff;
 }
 #diarySelItem .items {
-    padding: 0 0.2rem;
+    padding: 0 0.2rem .2rem;
     font-size: 0.3rem;
     height: 0.4rem;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+    border-bottom: .3rem solid #e7faea;
 }
 #diarySelItem .items span {
     display: inline-block;
     margin-right: 0.3rem;
     padding: 0.1rem 0;
     color: #17a2b8;
-}
-#diarySelItem .show_sel {
-    margin-top: 0.3rem;
 }
 #diarySelItem .show_items {
     float: left;
@@ -280,6 +279,8 @@ export default {
     background-color: #f0f0f0;
 }
 #diarySelItem ul.sel_item > li.item1_selected {
+    color: #17a2b8;
+    border-left: .1rem solid #17a2b8;
     background-color: #fff;
 }
 #diarySelItem ul.sel {
@@ -295,9 +296,12 @@ ul.sel > li > div {
     padding: 0 15px;
 }
 p.md {
-    font-size: 0.25rem;
+    font-size: 0.3rem;
     font-weight: 550;
     padding: 0.2rem 0.1rem 0;
     margin-bottom: 0.2rem;
+}
+p.bottom{
+    padding: 0 0.1rem;
 }
 </style>

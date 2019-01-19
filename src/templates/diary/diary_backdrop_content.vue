@@ -6,8 +6,8 @@
         </p>
         <div class="list">
             <div class="list_content" v-for="(diary,index) in diaryList" :key=index :class="{hiddenNow:mediaList[diary.id].type == hiddenNum}">
-                <div class="check_status" v-if="sUid == pUid">
-                    <!-- <div v-if="diary.check_status == '0'">
+                <div class="check_status" v-if="self_diary">
+                    <div v-if="diary.check_status == '0'">
                         <img src="./../../../static/images/no.png" alt="" />
                     </div>
 
@@ -17,10 +17,10 @@
 
                     <div v-else="diary.check_status == '2'">
                         <img src="./../../../static/images/nopass.png" alt="" />
-                        <p v-model="show" @click="showModule(diary.reject_cause)">点击查看详情</p>
+ <!--                        <p v-model="show" @click="showModule(diary.reject_cause)">点击查看详情</p>
 
-                        <p></p>
-                    </div> -->
+                        <p></p> -->
+                    </div>
                 </div>
                 <p class="time">
                     <i class="zk-icon-shijian"></i> {{diary.course_time.split(" ")[0]}}
@@ -28,8 +28,9 @@
                 </p>
                 <div class="timeLine">
                     <router-link :to="{name:'container',query:{id:params.id,bid:bid,did:diary.id,comment_form_id:diary.id,uid:diary.user_id}}" tag="a">
-                        <p class="title">{{memu}}
-                            <span class="time">第{{getDays(backdropList.time,diary.course_time)}}天</span>
+                        <p class="title">
+                            <span v-if="getDays(backdropList.time,diary.course_time)" class="time">第{{getDays(backdropList.time,diary.course_time)}}天</span>
+                            <span v-else class="time">当天</span>
                         </p>
                         <p class="content">{{diary.content}}</p>
                         <ul :class="'pic pic-'+getMediaNum(mediaList[diary.id].origin_urls)" v-if="mediaList[diary.id].type == '1'">
@@ -38,14 +39,14 @@
                             </li>
                         </ul>
                         <ul class="video-1" v-else-if="mediaList[diary.id].type == '2'">
-                            <li>
-                                <video controls controlsList="nodownload" :src="getImgUrl()+mediaList[diary.id].origin_urls"></video>
+                            <li v-for="(media,index) in getMediaUrl(mediaList[diary.id].origin_urls)" :key=index v-if="index == 0">
+                                <video controls controlsList="nodownload" :src="getImgUrl()+media"></video>
                             </li>
                         </ul>
-                        <p v-else>媒体类型错误！！！无法显示</p>
+                        <p v-else></p>
                     </router-link>
                     <e-meta :info="format_info(diary,diary.view_count,diary.favor)"></e-meta>
-                    <div v-if="sUid == pUid" class="operate_list">
+                    <div v-if="self_diary" class="operate_list">
                         <div class="operate_btn" @click="update_diary(diary.id)">
                             <i class="zk-icon-xiugai"></i>
                         </div>
@@ -58,7 +59,7 @@
         </div>
         <Alert v-bind:Show.sync="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
         <diaryOperate v-if="is_operate" @back=click_back></diaryOperate>
-        <p class="write_diary" v-if="sUid == pUid" @click="create_diary()">继续写日记</p>
+        <p class="write_diary" v-if="self_diary" @click="create_diary()">继续写日记</p>
     </div>
 </template>
 <script>
@@ -66,6 +67,7 @@ import api from "@/api/diary";
 import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
 export default {
+    inject:['reload'],
     name: "diary_backdrop_content",
     props: {
         params: {
@@ -88,9 +90,8 @@ export default {
             diaryList: [],
             mediaList: [],
             backdropList: [],
-            memu: "",
-            sUid: 0,
-            pUid: 0,
+            // memu: "",
+            self_diary:false,
             is_operate: false,
             diaryNum: 0,
             onlyVideo: true,
@@ -109,10 +110,11 @@ export default {
             this.diaryList = val.diaryList;
             this.mediaList = val.mediaList;
             this.backdropList = val.backdropList;
-            this.memu = val.memu;
-            this.sUid = val.s_uid;
-            this.pUid = val.p_uid;
+            // this.memu = val.memu;
+            // this.sUid = val.s_uid;
+            // this.pUid = val.p_uid;
             this.diaryNum = val.diaryNum;
+            this.self_diary = val.self_diary;
         }
     },
     components: {
@@ -152,7 +154,7 @@ export default {
                     this.alertText = res.data.message;
 
                     if(this.diaryList.length == 0){
-                        this.$router.go(0);
+                        this.reload();
                     }
                 } else {
                     this.isShow = true;
@@ -178,7 +180,7 @@ export default {
         },
         getMediaNum(data) {
             let arr = this.getMediaUrl(data);
-            return arr.length;
+            return arr.length > 9 ? 9 :arr.length;
         },
         getDays: function(day1, day2) {
             let arr1 = day1.split(" ");
@@ -230,6 +232,7 @@ export default {
 };
 </script>
 <style scoped>
+
 .hiddenNow {
     display: none;
 }

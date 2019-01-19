@@ -1,7 +1,7 @@
 <!--  -->
 <template>
     <div>
-        <TDiary :ins_id="parseInt(ins_id)" :title="'商家日志'" :links="{'router':'container','query':{id:params['diary_con_id'],ins_id:ins_id}}" :number="params['number']"></TDiary>
+        <TDiary :ins_id="parseInt(ins_id)" :title="'商家日志'" :params = params :links="{'router':'container','query':{id:params['diary_con_id'],ins_id:ins_id}}" :number="params['number']"></TDiary>
         <Alert :Show="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
 
     </div>

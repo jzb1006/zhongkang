@@ -28,7 +28,7 @@ export default {
         $_ajax_getItem() {
             var self = this;
             api.ajaxSearch("diary_create_basic").then(res => {
-                self.itemList = res.data;
+                self.itemList = res.data.cate;
             });
         }
     },

@@ -11,21 +11,20 @@
                 </p>
             </div>
             <ul class="backdrop_list">
-                <li class="backdrop" v-for="(backdrop,index) in backdropList" :key=index>
-                    <router-link :to="{name:'container',query:{id:params.diary_backdrop_id,bid:backdrop.id}}" tag="a">
+                <li class="backdrop" v-for="(diary,index) in diaryList" :key=index>
+                    <router-link :to="{name:'container',query:{id:params.diary_backdrop_id,bid:diary.bid}}" tag="a">
                         <div class="b_left">
-                            <p class="jisuan" v-for="(count,index) in diaryCount[backdrop.id]" :key=index>{{count}} 篇 / {{backdrop.total_comment}}
+                            <p class="jisuan">{{diaryCount[parseInt(diary.bid)] ? diaryCount[parseInt(diary.bid)].diaryNum : 0}} 篇 / {{diary.favor}}
                                 <i class="zk-icon-xinaixin"></i>
-                            </p>
-                            <p class="item" v-for="(cid,index) in formatCid(backdrop.goods_cate_ids)" v-if="index == '0'">{{itemName[cid].cat_name}}</p>
-                            <p class="time" v-if="backdrop.update_time">{{backdrop.update_time.split(" ")[0]}}</p>  
+                            </p> 
+                            <p class="time" v-if="diary.update_time">{{diary.update_time.split(" ")[0]}}</p>  
                         </div>
                     </router-link>
                     <div class="b_right">
-                        <span class="setting" @click="update_backdrop(backdrop.id)">
+                        <span class="setting" @click="update_backdrop(diary.bid)">
                             <i class="zk-icon-shezhi"></i>
                         </span>
-                        <span class="writeDiary" @click="create_diary(backdrop.id)">
+                        <span class="writeDiary" @click="create_diary(diary.bid)">
                             写日记
                         </span>
                     </div>
@@ -59,17 +58,15 @@ export default {
     },
     data() {
         return {
-            backdropList:[],
-            itemName:[],
-            diaryCount:[],
+            diaryList:[],
+            diaryCount:{},
             is_operate: false,
-            loadinging: true
+            loadinging: true,
         };
     },
     watch:{
         diaryBackdropInfo(val,oldVal){
-            this.backdropList = val.backdropList;
-            this.itemName = val.itemName;
+            this.diaryList = val.diaryList;
             this.diaryCount = val.diaryCount;
         }
     },
@@ -107,11 +104,8 @@ export default {
             this.$store.dispatch("Save_Diary_Operate", "cb");
             this.is_operate = true;
         },
-        formatCid(data) {
-            if (data) {
-                let arr = data.split(";");
-                return arr;
-            }
+        getcates(data) {
+            return data.split(";");
         }
     }
 };
@@ -149,15 +143,15 @@ export default {
 }
 #diary_backdrop_list .top p.create_backdrop {
     text-align: center;
-    padding: 0.4rem;
+    padding: 0.3rem;
     font-size: 0.35rem;
     font-weight: 550;
-    box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 0px 2px 2px 1px #eeeeee;
     background-color: #faebd778;
 }
 
 #diary_backdrop_list .backdrop_list {
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     padding: 0 15px;
 }
 .backdrop_list .backdrop {
@@ -185,7 +179,7 @@ export default {
     color: #fff;
 }
 .backdrop_list .backdrop .b_left p.jisuan {
-    margin-top: 1rem;
+    margin: 1rem 0 .3rem 0;
     font-size: 0.3rem;
 }
 .backdrop_list .backdrop .b_left p.item {
@@ -200,7 +194,7 @@ export default {
     text-align: center;
 }
 .backdrop_list .backdrop .b_right .setting {
-    margin-left: 2.8rem;
+    margin-left: 2rem;    
     font-size: 0.4rem;
 }
 .backdrop_list .backdrop .b_right .writeDiary {
