@@ -6,6 +6,7 @@
         :route_params="{id:params['doc_con_id'],doc_id:doctor_info.id,ins_id:ins_id}" 
         :doc_name="doctor_info.name" 
         :expert_project="doctor_info.expert_project_classify3_id"
+        :is_check="doctor_info.is_check"
         ></insInfo>
         <Loading v-show="loadinging"></Loading>
          <Alert :Show="isShow" :alerttType="'warn'" :alertText="alertText"></Alert>

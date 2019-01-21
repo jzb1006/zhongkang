@@ -2,7 +2,7 @@
 <template>
     <div>
         <div class="hospital shrink">
-            <router-link :to="{name:route_link,query:route_params}">
+            <a @click="ins_home">
                 <div class="hospital_icon">
                     <defaultImg :imgPath="img_url"></defaultImg>
                 </div>
@@ -14,7 +14,7 @@
                     <p>资质：{{institution_type==1?'公立':'民营'}}</p>
                     <p>地址：{{address}}</p>
                 </div>
-            </router-link>
+            </a>
         </div>
     </div>
 </template>
@@ -49,15 +49,42 @@
                 type: String,
                 default: ''
             },
+             is_check:{
+                type:String,
+                default:'1'
+            }
         },
-        data() {
-            return {};
+         data() {
+            return {
+                link:this.route_link,
+                params:this.route_params,
+                check:parseInt(this.is_check),
+            }
         },
         components: {
             defaultImg
         },
-        methods: {},
+         methods: {
+            ins_home(){
+                if(this.check==1){
+                   this.$router.push({name:this.link,query:this.params})
+                }else{
+                    return false
+                }
+            }
+        },
         mounted() {},
+         watch:{
+            is_check(newVal,oldVal){
+                this.check = newVal
+            },
+            route_link(newVal,oldVal){
+                this.link = newVal
+            },
+            route_params(newVal,oldVal){
+                this.params = newVal
+            }
+        }
     }
 </script>
 <style scoped>

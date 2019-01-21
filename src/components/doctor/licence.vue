@@ -29,13 +29,15 @@ import api from "../../api/doctor";
            }
        },
        methods:{
-           $_ajax_licence(){
+           $_ajax_licence(name){
                var self = this;
-               api.doc_home({
-                   id:this.doc_id
-               }).then(res=>{
+                api.doc_img({
+                    id: this.doc_id,
+                    name: name,
+                    page: this.page++,
+                    num_list: 5
+                }).then(res=>{
                    var result = res.data.data;
-                   console.log(result.doc_info);
                    var errcode = res.data.error_code;
                    var msg = res.data.msg;
                    if(errcode==0){
@@ -65,7 +67,7 @@ import api from "../../api/doctor";
            }
        },
        mounted(){
-           this.$_ajax_licence();
+           this.$_ajax_licence('职业证书');
        }
     }
 </script>

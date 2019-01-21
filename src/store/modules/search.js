@@ -40,6 +40,7 @@ const mutations = {
     },
     CHANGE_TAB_INDEX(state,tabIndex){
         state.tabIndex = tabIndex
+        console.log(tabIndex);
     }
 }
 export default {

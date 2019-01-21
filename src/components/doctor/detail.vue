@@ -1,7 +1,7 @@
 <template>
     <div id="doctor_info">
         <!-- 头部 -->
-        <top title="医生详情"></top>
+        <top title="医生详情" :scene_name="'医生'" :scene_id="doc_info[id]"></top>
         <!-- 医生详情头部 -->
         <article class="hospital-detail">
             <section class="sec-info">

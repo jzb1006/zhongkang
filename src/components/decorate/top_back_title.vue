@@ -1,28 +1,55 @@
 <template>
     <!--头部返回-->
-      <div id="title_back">
-          <div class="navbar">
+    <div id="title_back">
+        <div class="navbar">
             <span class="title">{{params.title}}</span>
-            <span class="zk-icon-fanhui fanhui" @click="back()"></span>
-          </div>
-      </div>
+            <span v-if="scene_name!=='' && scene_id!==''" class="zk-icon-gengduo1 right" @click="more()"></span>
+            <span class="zk-icon-fanhui fanhui"  @click="back()"></span>
+            <Actionsheet  v-model="is_show" :menus="menus" @on-click-menu-complain="complain(scene_name,scene_id)">
+            </Actionsheet>
+        </div>
+    </div>
 </template>
 <script>
-export default {
-    props:{
-        params:{
-            type:Object,
-            default(){
-                return {}
+    import {
+        Actionsheet
+    } from 'vux'
+    export default {
+        data() {
+            return {
+                is_show: false,
+                menus: {
+                    complain: '投诉'
+                },
+                scene_name:this.$route.query.scene_name || '',
+                scene_id:this.$route.query.scene_id ||'',
+            }
+        },
+        components: {
+            Actionsheet
+        },
+        props: {
+            params: {
+                type: Object,
+                default () {
+                    return {}
+                }
+            },
+        },
+        methods: {
+            back() {
+                this.$router.back(-1);
+            },
+            more() {
+                // console.log("sdf");
+                this.is_show = true
+            },
+            complain(scene_name,scene_id){
+                // console.log("投诉")
+                this.$router.push({path:'/complaint',query:{scene_name:scene_name,scene_id:scene_id}})
             }
         }
-    },
-    methods:{
-        back(){
-            this.$router.back(-1);
-        }
     }
-}
 </script>
 <style scoped>
     .navbar {
@@ -44,6 +71,16 @@ export default {
         position: absolute;
         top: 50%;
         left: 0;
+        transform: translateY(-50%);
+        z-index: 500;
+        font-size: 0.4rem;
+    }
+    .right {
+        color: #fff;
+        padding: 0.111rem;
+        position: absolute;
+        top: 50%;
+        right: 0;
         transform: translateY(-50%);
         z-index: 500;
         font-size: 0.4rem;
