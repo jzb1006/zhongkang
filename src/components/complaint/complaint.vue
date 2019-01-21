@@ -59,8 +59,9 @@ import { setTimeout } from 'timers';
                 isAlert:false,
                 alerttType: 'warn',
                 alertText: '',
-                scene_name:this.$route.query.scene_name,
-                scene_id:this.$route.query.scene_id,
+                scene_name:this.$route.query.scene_name||'',
+                scene_id:this.$route.query.scene_id||'',
+                scene_type:this.$route.query.scene_type ||'',
             };
         },
         components: {
@@ -89,7 +90,7 @@ import { setTimeout } from 'timers';
             },
             getComplaintOptions(){
                api.get_complaint_options({
-                   scene:1
+                   scene:this.scene_type
                }).then((res)=>{
                    if(res.data.error_code==0){
                        this.complain_option = res.data.data.map((item)=>{
