@@ -224,6 +224,7 @@ export default {
         },
         show_doctor() {
             this.is_show_doctor = true;
+            this.$_ajax_doctor();
         },
         choose_institution(id, name) {
             this.hidden_institution();
@@ -268,7 +269,7 @@ export default {
         let doctor_scroll = document.getElementById('show_doctor');
         doctor_scroll.addEventListener("scroll", () => {
             if(doctor_scroll.scrollTop + 150 >= doctor_scroll.scrollHeight ){
-                self.$_ajax_institution();
+                self.$_ajax_doctor();
             }
             
         });
