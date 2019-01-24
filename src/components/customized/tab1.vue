@@ -46,24 +46,24 @@
 </style>
 <style>
 
-    .vux-tab .vux-tab-item {
+    #ordertab .vux-tab .vux-tab-item {
         font-size: 0.3rem!important;
     }
-    .vux-tab-container,
-    .vux-tab,
-    .vux-tab-wrap {
+    #ordertab .vux-tab-container,
+    #ordertab .vux-tab,
+    #ordertab .vux-tab-wrap {
         height: 1rem!important;
     }
-    .vux-tab-wrap {
+    #ordertab .vux-tab-wrap {
         padding-top: 0.2rem!important;
     }
-    .vux-tab .vux-tab-item.vux-tab-selected {
+    #ordertab .vux-tab .vux-tab-item.vux-tab-selected {
         color: #ff5370!important;
     }
-    .vux-tab-ink-bar {
+    #ordertab .vux-tab-ink-bar {
         background-color: #ff5370!important;
     }
-    .route {
+    #ordertab .route {
         height: 1rem;
         line-height: 1rem;
     }

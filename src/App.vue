@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import pay from "@/components/decorate/pay_material.vue";
 import foot from "@/components/common/foot.vue";
 import { mapState } from "vuex";
 
@@ -25,7 +26,8 @@ export default {
         };
     },
     components: {
-        foot
+        foot,
+        pay
     },
     computed: {
         ...mapState({

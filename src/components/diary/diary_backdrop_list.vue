@@ -1,7 +1,7 @@
 <template>
     <div>
-        <diaryBackdropListC :params=params :diaryBackdropInfo=diaryBackdropInfo></diaryBackdropListC>
-        <kong v-if="!isShow" text="康复日志为空"></kong>
+        <diaryBackdropListC :params=params :diaryBackdropInfo=diaryBackdropInfo :isShow=isShow></diaryBackdropListC>
+        <kong v-if="isShow" text="康复日志为空"></kong>
         <Loading v-show="loadinging"></Loading>
         <LoadMore v-show="loadmore" :state='hasMore' :isLoading='isBusy' @loadmore="$_ajax_backdropList"></LoadMore>
     </div>
@@ -10,7 +10,6 @@
 <script>
 import api from "@/api/diary";
 import kong from "@/components/nosearch/kong.vue";
-
 import Loading from "@/components/decorate/loading.vue";
 import LoadMore from "@/components/loadMore/index.vue";
 import diaryBackdropListC from "@/templates/diary/diary_backdrop_list";
@@ -53,20 +52,22 @@ export default {
             })
                 .then(res => {
                     self.hasMore = res.data.hasMore;
-                    self.diaryList = self.diaryList.concat(res.data.diaryList);
-                    self.diaryCount = Object.assign({},self.diaryCount,res.data.diaryNum);
+                    if(res.data.diaryList.length > 0){
+                        self.diaryList = self.diaryList.concat(res.data.diaryList);
+                        self.diaryCount = Object.assign({},self.diaryCount,res.data.diaryNum);
+                        self.diaryBackdropInfo = {
+                            diaryList: this.diaryList,
+                            diaryCount: this.diaryCount
+                        };
+                    }
 
-                    self.diaryBackdropInfo = {
-                        diaryList: this.diaryList,
-                        diaryCount: this.diaryCount
-                    };
-
-                    if (self.diaryList.length > 0) {
+                    if (self.diaryList.length > 0 && self.diaryList == false || res.data.diaryList == false) {
                         self.isShow = true;
                     }else{
                         self.isShow = false;
                     }
-                    this.isBusy = false;
+
+                    self.isBusy = false;
                     self.loadinging = false;
                 })
                 .catch(error => {

@@ -15,15 +15,9 @@
                 </div>
                 <div class="down">
                     <ul class="info">
-                        <!-- <li>
-                            <div class="item" ref="keyword">
-                                <span class="item" :key="index" v-for="(memu,index) in memuList">{{memu.cat_name}}</span>
-                            </div>
-                        </li> -->
                         <li>
                             <div class="institution">
                                 <span>医院：</span>{{backhead.institution_name}}
-                                <p v-html="backhead.institution_name"></p>
                             </div>
                         </li>
                         <li>

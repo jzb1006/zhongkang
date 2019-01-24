@@ -157,8 +157,8 @@ export default {
 }
 </script>
 <style>
-@import url("./../../assets/css/calandar.css");
-.weui-cells {
+/* @import url("./../../assets/css/calandar.css"); */
+#bill_list_tem .weui-cells {
     padding: .4rem .2rem!important;
 }
 </style>

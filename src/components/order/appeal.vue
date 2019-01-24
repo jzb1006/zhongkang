@@ -104,37 +104,37 @@ import Alert from "@/components/decorate/alert.vue";
     }
 </script>
 <style>
-    .weui-cells__title{
-        font-size: 0.3rem!important;
-    }
-    .weui-cell__bd {
+#appeal .weui-cells__title{
     font-size: 0.3rem!important;
 }
-.weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before {
+#appeal .weui-cell__bd {
+font-size: 0.3rem!important;
+}
+#appeal .weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before {
     color: #ff5370!important;
 }
-.weui-btn{
+#appeal .weui-btn{
     font-size: 0.3rem!important;
 }
-.weui-btn_primary {
+#appeal .weui-btn_primary {
     background-color: #ff5370!important;
 }
-.weui-dialog__hd{
+#appeal .weui-dialog__hd{
     padding:0rem 0rem 0rem 0rem!important;
 }
-.weui-dialog__title {
+#appeal .weui-dialog__title {
     font-weight: 300!important;
     font-size: 0.4rem!important;
         line-height: 1rem!important;
 }
-.weui-dialog__bd{
+#appeal .weui-dialog__bd{
     font-size: 0.4rem!important;
 }
-.weui-dialog__ft {
+#appeal .weui-dialog__ft {
     font-size: 0.3rem!important;
     padding: 0.3rem 0!important;
 }
-.weui-dialog{
+#appeal .weui-dialog{
     max-width:90%!important;
 }
 </style>

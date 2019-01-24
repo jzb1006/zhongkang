@@ -42,8 +42,7 @@ export default {
     },
     methods:{
         toOrder(type){
-            // this.$router.push({name:'container',query:{id:'35'}})
-            this.checkLogin({id:'35'})
+            this.$router.push({name:'container',query:{id:'35'}})
         }
     },
     components:{

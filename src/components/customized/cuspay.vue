@@ -83,7 +83,7 @@ export default {
 };
 </script>
 <style scoped>
-.weui-toast {
+#cuspay .weui-toast {
   min-height: 1.5rem !important;
 }
 

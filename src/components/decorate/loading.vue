@@ -20,7 +20,7 @@
         left: 3.5rem;
         z-index: 99999;
     }
-    .vux-spinner {
+    #loding .vux-spinner {
         stroke: #ff5370!important;
     }
 </style>

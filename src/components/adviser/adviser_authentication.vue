@@ -270,9 +270,28 @@
     }
 </script>
 <style>
-@import url("./../../assets/css/calandar.css");
-.weui-cells {
+/* @import url("./../../assets/css/calandar.css"); */
+#adviser_authentication .weui-cells {
     padding: .4rem .2rem!important;
+}
+#adviser_authentication .vux-no-group-title{
+    margin-top: 0!important;
+}
+#adviser_authentication .weui-cells{
+    margin-top:0!important;
+    line-height:.32rem!important;
+    font-size: .32rem!important;
+}
+#adviser_authentication .weui-cells:before{
+    height: 0px!important;
+    border: 0px!important;
+}
+#adviser_authentication .weui-cell{
+    padding: 0!important;
+}
+#adviser_authentication .vux-calendar:before{
+    height: 0px!important;
+    border: 0px!important;
 }
 </style>
 <style scoped>

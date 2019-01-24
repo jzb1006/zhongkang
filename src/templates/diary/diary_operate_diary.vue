@@ -224,11 +224,10 @@ export default {
     }
 };
 </script>
-<style lang="less">
-@calendar-selected-bg-color: #000;
-// @import url("./../../assets/css/calandar.css");
-</style>
 <style scoped>
+#diary_info .weui-cell{
+    padding:0!important;
+}
 .vux-popup-dialog p{
     padding:0px;
 }

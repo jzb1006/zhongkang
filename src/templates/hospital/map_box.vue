@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-    <div>
+    <div id="map_box">
         <group>
             <cell :title="title" :value="value" is-link :link="link">
             </cell>
@@ -45,7 +45,7 @@
     }
 </script>
 <style>
-    .weui-cells {
+    #map_box .weui-cells {
         font-size: 0.3rem!important;
         padding: 0 0.2rem!important;
     }

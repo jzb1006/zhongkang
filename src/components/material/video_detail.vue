@@ -1,6 +1,6 @@
 <template>
     <div id="Cvideo_detail">
-        <videoDetailc :material=material :user=user></videoDetailc>
+        <videoDetailc :material=material :user=user :user_id=user_id :is_pay=is_pay></videoDetailc>
     </div>
 </template>
 
@@ -20,7 +20,9 @@ export default {
         return {
             material: [],
             healthy_talk_id: this.healthyTalkId,
-            user: {}
+            user: {},
+            user_id:'',
+            is_pay:false
         };
     },
     components: {
@@ -35,6 +37,8 @@ export default {
                 })
                 .then(res => {
                     self.material = res.data.material_once;
+                    self.user_id = res.data.user_id;
+                    self.is_pay = res.data.is_pay;
                     let data = res.data.material_once[0];
                     self.user = {
                         user_id: data.user_id,

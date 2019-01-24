@@ -2,14 +2,16 @@
     <div id="videoDetail">
         <div v-for="(m,index) in material" :key="index">
             <stickyPosition height='5.5rem'>
-                <div class="reha_wrapper" id="media_wrapper">
-                    <div class="video" v-for="(msg,index) in JSON.parse(m.material_content)" v-if="index == play_index">
-                        <video controls controlsList="nodownload" @ended="videoFinish(JSON.parse(m.material_content).length)" :src="fileUrl()+msg.url"></video>
+                    <div class="reha_wrapper" id="media_wrapper">
+                        <payMaterial :is_pay=is_pay :user_id=user_id :user_type=m.user_type :price_vip=m.amount_or_level :cover=fileUrl()+m.material_cover>
+                            <div class="video" v-for="(msg,index) in JSON.parse(m.material_content)" v-if="index == play_index">
+                                <video controls controlsList="nodownload" @ended="videoFinish(JSON.parse(m.material_content).length)" :src="fileUrl()+msg.url"></video>
+                            </div>
+                        </payMaterial>
+                        <div class="authorInfo">
+                            <authorInfo :user=user></authorInfo>
+                        </div>
                     </div>
-                    <div class="authorInfo">
-                        <authorInfo :user=user></authorInfo>
-                    </div>
-                </div>
             </stickyPosition>
             <div class="summary">
                 <p class="title">{{m.title}}</p>
@@ -49,6 +51,7 @@ import top from "@/components/decorate/top_back_title.vue";
 import commentList from "@/components/comment/comment_list";
 import reward from "@/components/decorate/reward";
 export default {
+    inject:['reload'],
     name: "video_detail",
     directives: {
         TransferDom
@@ -63,6 +66,12 @@ export default {
             default: function() {
                 return {};
             }
+        },
+        user_id: {
+            default:''
+        },
+        is_pay:{
+            default:false
         }
     },
     data() {

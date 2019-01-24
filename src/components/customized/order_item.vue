@@ -174,24 +174,24 @@
 </style>
 <style>
 
-    .vux-tab .vux-tab-item {
+    #order_item .vux-tab .vux-tab-item {
         font-size: 0.3rem!important;
     }
-    .vux-tab-container,
-    .vux-tab,
-    .vux-tab-wrap {
+    #order_item .vux-tab-container,
+    #order_item .vux-tab,
+    #order_item .vux-tab-wrap {
         height: 1rem!important;
     }
-    .vux-tab-wrap {
+    #order_item .vux-tab-wrap {
         padding-top: 0.2rem!important;
     }
-    .vux-tab .vux-tab-item.vux-tab-selected {
+    #order_item .vux-tab .vux-tab-item.vux-tab-selected {
         color: #ff5370!important;
     }
-    .vux-tab-ink-bar {
+    #order_item .vux-tab-ink-bar {
         background-color: #ff5370!important;
     }
-    .route {
+    #order_item .route {
         height: 1rem;
         line-height: 1rem;
     }

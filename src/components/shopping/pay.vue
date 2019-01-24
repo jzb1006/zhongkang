@@ -129,7 +129,7 @@ import { setInterval, setTimeout } from 'timers';
   };
 </script>
 <style lang="less">
-.weui-toast{
+#pay .weui-toast{
     min-height: 1.5rem!important;
   }
   

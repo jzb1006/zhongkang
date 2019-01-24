@@ -61,7 +61,6 @@ export default {
             return this.$confirm(`确定移除 ${file.name}？`);
         },
         checkImgType(fileURL) {
-            console.log(fileURL);
             let fan = "";
 
             var right_type = new Array(".jpg", ".png", ".jpeg", ".mp4", ".gif");
@@ -102,7 +101,6 @@ export default {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    /* border: 1px dashed #d9d9d9; */
     border-radius: 0.1rem;
     cursor: pointer;
     background-color: #e6e6e6;
@@ -117,9 +115,5 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    /* left: 50%;
-    top: 50%;
-    margin-top: -0.4rem;
-    margin-left: -0.4rem; */
 }
 </style>

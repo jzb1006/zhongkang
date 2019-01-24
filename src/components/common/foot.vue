@@ -81,7 +81,7 @@ export default {
     }
 };
 </script>
-<style>
+<style scope>
 #foot {
     position: fixed;
     width: 100%;
@@ -123,26 +123,26 @@ export default {
     font-size: 0.4rem;
     padding: 0.2rem;
 }
-.weui-tabbar__icon {
+#foot .weui-tabbar__icon {
     width: 0.5rem !important;
     height: 0.5rem !important;
 }
 #foot .icon {
     font-size: 0.5rem;
 }
-.weui-tabbar__label {
+#foot .weui-tabbar__label {
     font-size: 0.3rem !important;
     line-height: 1.8 !important;
 }
-.weui-bar__item_on {
+#foot .weui-bar__item_on {
     color: red !important;
 }
-.weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon,
-.weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon > i,
-.weui-tabbar__item.weui-bar__item_on .weui-tabbar__label {
+#foot .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon,
+#foot .weui-tabbar__item.weui-bar__item_on .weui-tabbar__icon > i,
+#foot .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label {
     color: #ff5370 !important;
 }
-.menu .weui-tabbar__icon {
+#foot .menu .weui-tabbar__icon {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -150,7 +150,7 @@ export default {
     width: 0.9rem !important;
     height: 0.9rem !important;
 }
-.menu .weui-tabbar__icon .icon {
+#foot .menu .weui-tabbar__icon .icon {
     padding: 0.1rem 0.1rem 0.08rem 0.1rem;
     border: 1px solid #ff5370;
     border-radius: 0.2rem;

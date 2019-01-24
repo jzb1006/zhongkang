@@ -96,6 +96,7 @@ import listHeader from '@/components/decorate/list_header.vue' //头部
 import listFooter from '@/components/decorate/list_footer.vue' // 尾部
 import topHide from '@/components/decorate/top_hide.vue' // 尾部
 import topBackTitle from "@/components/decorate/top_back_title.vue";
+import payMaterial from "@/components/decorate/pay_material.vue";
 import foot from "@/components/common/foot.vue"
 
 //订单
@@ -350,6 +351,7 @@ export default {
     Vue.component('Alert',Alert);
     Vue.component('topBackTitle', topBackTitle);
     Vue.component('foot',foot)
+    Vue.component('payMaterial',payMaterial)
     //diary
     Vue.component('diaryList', diaryList)
     Vue.component('diaryBackdropUser', diaryBackdropUser)

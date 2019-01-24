@@ -4,27 +4,27 @@
             <!-- 文章 -->
             <div v-for="(material,index) in materiallist" :key="index">
                 <div class="material vux-1px-b" v-if="material.material_type == '1'" v-show="article_show">
-                    <div class="article clearfix">
-                        <router-link :to="{name:'container',query:{id:params.article_id,healthy_talk_id:material.hid,comment_form_id:material.hid,uid:material.user_id}}">
-                            <div class="img_wrapper">
-                                <img :src="fileUrl()+material.material_cover" alt="">
-                            </div>
-                        </router-link>
-                        <p class="content">
-                            {{material.title}}
-                        </p>
-                        <div class="other">
-                            <router-link :to="{name:'container',query:getParams(material)}" tag="a">
-                                <span class="author">{{material.author}}</span>
+                        <div class="article clearfix">
+                            <router-link :to="{name:'container',query:{id:params.article_id,healthy_talk_id:material.hid,comment_form_id:material.hid,uid:material.user_id,scene_name:'material',scene_id:material['hid'],scene_type:5}}">
+                                <div class="img_wrapper">
+                                    <img :src="fileUrl()+material.material_cover" alt="">
+                                </div>
                             </router-link>
-                            <span class="comment">{{material.comments_count}}评论</span>
+                            <p class="content">
+                                {{material.title}}
+                            </p>
+                            <div class="other">
+                                <router-link :to="{name:'container',query:getParams(material)}" tag="a">
+                                    <span class="author">{{material.author}}</span>
+                                </router-link>
+                                <span class="comment">{{material.comments_count}}评论</span>
+                            </div>
                         </div>
-                    </div>
                 </div>
                 <!-- 图集 -->
                 <div class="material vux-1px-b" v-else-if="material.material_type == '3'" v-show="atlases_show">
                     <div class="atlases_wrapper">
-                        <router-link :to="{name:'container',query:{id:params.atlases_id,healthy_talk_id:material.hid,comment_form_id:material.hid,uid:material.user_id}}">
+                        <router-link :to="{name:'container',query:{id:params.atlases_id,healthy_talk_id:material.hid,comment_form_id:material.hid,uid:material.user_id,scene_name:'material',scene_id:material['hid'],scene_type:5}}">
                             <p class="title">
                                 {{material.title}}
                             </p>
@@ -35,7 +35,9 @@
                         <div class="other">
                             <p>
                                 <router-link :to="{name:'container',query:getParams(material)}" tag="a">
-                                    <span class="name">{{material.author}}</span>
+                                    <span class="name">{{material.author}}</span> 
+                                    <span class="comment">{{material.comments_count}}评论</span>
+                                    <span>{{material.update_time.split(" ")[0]}}</span>
                                 </router-link>
                             </p>
                         </div>
@@ -44,22 +46,28 @@
                 <!-- 视频 -->
                 <div class="material vux-1px-b" v-else-if="material.material_type == '2'" v-show="video_show">
                     <div class="RehaList_wrapper">
-                        <router-link :to="{name:'container',query:{id:params.video_id,healthy_talk_id:material.hid,comment_form_id:material.hid,uid:material.user_id}}">
+                        <router-link :to="{name:'container',query:{id:params.video_id,healthy_talk_id:material.hid,comment_form_id:material.hid,uid:material.user_id,scene_name:'material',scene_id:material['hid'],scene_type:5}}">
                             <p class="title">
                                 {{material.title}}
                             </p>
                             <div class="reha img_wrapper" v-for="(msg,index) in JSON.parse(material.material_content)" v-if="index == 0">
-                                <img v-if="material.material_cover" :src="fileUrl()+material.material_cover" alt="">
+                                <div v-if="material.material_cover">
+                                    <img :src="fileUrl()+material.material_cover" alt="">
+                                    <span class="play_btn zk-icon-bofang1"></span>
+                                </div>
+                                
                                 <div v-else>
                                     <video :src="fileUrl()+msg.url" id="player"></video>
-                                    <!-- <span class="time">{{get_time()}}</span> -->
                                 </div>
+                                
                             </div>
                         </router-link>
                         <div class="other">
                             <p>
                                 <router-link :to="{name:'container',query:getParams(material)}" tag="a">
                                     <span class="name">{{material.author}}</span>
+                                    <span class="comment">{{material.comments_count}}评论</span>
+                                    <span>{{material.update_time.split(" ")[0]}}</span>
                                 </router-link>
                             </p>
                         </div>
@@ -149,9 +157,9 @@ export default {
 };
 </script>
 <style>
-.vux-button-group > a.vux-button-tab-item-last,
-.vux-button-group > a.vux-button-group-current,
-.vux-button-group > a.vux-button-tab-item-last:after {
+#materialList .vux-button-group > a.vux-button-tab-item-last,
+#materialList .vux-button-group > a.vux-button-group-current,
+#materialList .vux-button-group > a.vux-button-tab-item-last:after {
     border-radius: 0 !important;
 }
 </style>
@@ -197,6 +205,9 @@ export default {
     font-size: 0.25rem;
     padding: 0.1rem 0;
     color: #7d7d7d;
+}
+#materialList .list .material .atlases_wrapper div.other p span{
+    margin-right:.2rem;
 }
 #materialList .list .article .img_wrapper {
     display: flex;
@@ -312,6 +323,16 @@ export default {
     overflow: hidden;
     background-color: #00000080;
 }
+#materialList .list .RehaList_wrapper .reha .play_btn{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -.5rem;
+    margin-left: -.5rem;
+    z-index: 1;
+    font-size: 1rem;
+    color: #00000090;
+}
 #materialList .list .RehaList_wrapper .reha video {
     width: 100%;
     height: 100%;
@@ -331,5 +352,8 @@ export default {
     font-size: 0.25rem;
     padding: 0.1rem 0;
     color: #7d7d7d;
+}
+#materialList .list .RehaList_wrapper div.other p span{
+    margin-right:.2rem;
 }
 </style>

@@ -45,7 +45,7 @@ export default {
 };
 </script>
 <style>
-.weui-toast {
+#alert .weui-toast {
   min-height: auto!important;
   /* min-height: 1.5rem !important; */
   /* top: 50% !important; */

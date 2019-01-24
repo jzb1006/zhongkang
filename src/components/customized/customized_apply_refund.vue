@@ -102,37 +102,37 @@ import { setTimeout } from 'timers';
     }
 </script>
 <style>
-    .weui-cells__title{
-        font-size: 0.3rem!important;
-    }
-    .weui-cell__bd {
+#customized_apply_refund .weui-cells__title{
     font-size: 0.3rem!important;
 }
-.weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before {
+#customized_apply_refund .weui-cell__bd {
+font-size: 0.3rem!important;
+}
+#customized_apply_refund .weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before {
     color: #ff5370!important;
 }
-.weui-btn{
+#customized_apply_refund .weui-btn{
     font-size: 0.3rem!important;
 }
-.weui-btn_primary {
+#customized_apply_refund .weui-btn_primary {
     background-color: #ff5370!important;
 }
-.weui-dialog__hd{
+#customized_apply_refund .weui-dialog__hd{
     padding:0rem 0rem 0rem 0rem!important;
 }
-.weui-dialog__title {
+#customized_apply_refund .weui-dialog__title {
     font-weight: 300!important;
     font-size: 0.4rem!important;
         line-height: 1rem!important;
 }
-.weui-dialog__bd{
+#customized_apply_refund .weui-dialog__bd{
     font-size: 0.4rem!important;
 }
-.weui-dialog__ft {
+#customized_apply_refund .weui-dialog__ft {
     font-size: 0.3rem!important;
     padding: 0.3rem 0!important;
 }
-.weui-dialog{
+#customized_apply_refund .weui-dialog{
     max-width:90%!important;
 }
 </style>

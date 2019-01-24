@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-    <div>
+    <div id="product_content">
         <div class="main on shrink" style="margin-top: 0.5rem;">
             <tab :line-width="1" custom-bar-width="60px">
                 <tab-item selected @on-item-click="onItemClick">详情</tab-item>
@@ -85,16 +85,16 @@ export default {
 };
 </script>
 <style>
-.vux-tab .vux-tab-item {
+#product_content .vux-tab .vux-tab-item {
     font-size: 0.3rem !important;
 }
-.vux-tab-wrap {
+#product_content .vux-tab-wrap {
     padding: 0.5rem 0 !important;
 }
-.vux-tab .vux-tab-item.vux-tab-selected {
+#product_content .vux-tab .vux-tab-item.vux-tab-selected {
     color: #ff5370 !important;
 }
-.vux-tab-bar-inner {
+#product_content .vux-tab-bar-inner {
     background-color: #ff5370 !important;
 }
 </style>

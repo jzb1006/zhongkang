@@ -6,7 +6,6 @@
             <diaryInfo v-if="diary_show" ref="diary" :info=info></diaryInfo>
             <backdropInfo v-if="backdrop_show" @changeShowBackdrop=changeShowBackdrop ref="backdrop" :showbackdrop1=show_backdrop1 :info=info :operate=this.getDiaryOperate></backdropInfo>
         </div>
-        <p>{{getAestheticStatus}}</p>
         <Alert v-bind:Show.sync="isShow" :alerttType="alerttType" :alertText="alertText"></Alert>
     </div>
 </template>

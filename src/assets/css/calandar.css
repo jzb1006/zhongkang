@@ -1,4 +1,4 @@
-.weui-cells:before{
+/* .weui-cells:before{
     border-top: 0px!important;
 }
 .weui-cells {
@@ -19,10 +19,7 @@
 }
 
 .inline-calendar td > span.vux-calendar-each-date {
-    /* width: auto!important; */
-    /* height: auto!important; */
     font-size: 0.2rem!important;
-    /* line-height: .4rem!important; */
 }
 
 .vux-prev-icon, .vux-next-icon {
@@ -47,9 +44,6 @@
 .vux-calendar:before{
     border: 0px!important;
 }
-.vux-popup-mask{
-    /* z-index: 500!important; */
-}
 
  .v-transfer-dom{
     font-size: .3rem!important;
@@ -72,3 +66,6 @@
     width: 30px!important;
     height: 20px!important;
 }
+.weui-switch:before, .weui-switch-cp__box:before{
+    height: 15px!important;
+} */

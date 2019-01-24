@@ -189,19 +189,19 @@
 </script>
 <style>
   
-    .weui-cell {
+    #scan .weui-cell {
         padding-top: 0.2rem!important;
         padding-bottom: 0.2rem!important;
     }
-    .weui-cells {
+    #scan .weui-cells {
         margin-top: 0!important;
         line-height: 0.3rem!important;
         font-size: 0.3rem!important;
     }
-    .weui-btn {
+    #scan .weui-btn {
         font-size: 0.3rem!important;
     }
-    .weui-btn_primary {
+    #scan .weui-btn_primary {
         background-color: #ff5370!important;
     }
 </style>

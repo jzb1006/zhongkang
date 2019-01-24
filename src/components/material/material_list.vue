@@ -100,12 +100,13 @@ export default {
         }
     },
     mounted() {
+        this.healthy_talk_id = "";
         this.getData();
         var self = this;
-        bus.$on('index_data_material_updata',res=>{
-            self.materiallist = [];
-            self.getData();
-        })
+        // bus.$on('index_data_material_updata',res=>{
+        //     self.materiallist = [];
+        //     self.getData();
+        // })
     }
 };
 </script>

@@ -120,21 +120,21 @@ import api from "../../api/hospital";
    #img_list{
            padding: 0.3rem 0.2rem;
    }
-    .vux-tab .vux-tab-item {
+    #img_list .vux-tab .vux-tab-item {
         font-size: 0.3rem!important;
     }
-    .vux-tab-container,
-    .vux-tab,
-    .vux-tab-wrap {
+    #img_list .vux-tab-container,
+    #img_list .vux-tab,
+    #img_list .vux-tab-wrap {
         height: 0.7rem!important;
     }
-    .vux-tab-wrap {
+    #img_list .vux-tab-wrap {
         padding-top: 0.2rem!important;
     }
-    .vux-tab .vux-tab-item.vux-tab-selected {
+    #img_list .vux-tab .vux-tab-item.vux-tab-selected {
         color: #ff5370!important;
     }
-    .vux-tab-ink-bar {
+    #img_list .vux-tab-ink-bar {
         background-color: #ff5370!important;
     }
     #container {

@@ -20,12 +20,12 @@
                 </p>
             </div>
             <v-touch v-on:swipeleft="swiperleft" v-on:swiperight="swiperright" class="media_show">
-                <transition-group name="slide-fade" mode="out-in">
-                    <div v-for="(file,index) in filelist1" :key="'a'+index">
-                        <div class="media" :class="{www_media:www}"   v-if="checkImgType(file.url) == '1'" v-show="sel_index == index">
+                <transition-group name="slide-fade" mode="out-in" tag="a">
+                    <div v-for="(file,index) in filelist1" :key="'a'+index" v-show="sel_index == index">
+                        <div class="media" :class="{www_media:www}"   v-if="checkImgType(file.url) == '1'">
                             <img :src="fileUrl()+file.url" :alt="file.name">
                         </div>
-                        <div class="media" v-else-if="checkImgType(file.url) == '2'"  v-show="sel_index == index">
+                        <div class="media" v-else-if="checkImgType(file.url) == '2'">
                             <video autoplay loop :src="fileUrl()+file.url"></video>
                         </div>
                     </div>
@@ -323,11 +323,15 @@ export default {
     width: 100%;
     height: 100%;
 }
-#aloneDisplay .media_browse .media_show div{
+#aloneDisplay .media_browse .media_show a{
+    display: block;
+    height: 100%;
+}
+#aloneDisplay .media_browse .media_show>a>div{
     width: 100%;
     height: 100%;
 }
-#aloneDisplay .media_browse .media_show div.media {
+#aloneDisplay .media_browse .media_show div .media {
     /* display: none; */
     width: 100%;
     height: 100%;

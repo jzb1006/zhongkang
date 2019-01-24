@@ -106,37 +106,37 @@ import Alert from "@/components/decorate/alert.vue";
     }
 </script>
 <style>
-    .weui-cells__title{
-        font-size: 0.3rem!important;
-    }
-    .weui-cell__bd {
+#appeal_confirm_consumption .weui-cells__title{
     font-size: 0.3rem!important;
 }
-.weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before {
+#appeal_confirm_consumption .weui-cell__bd {
+font-size: 0.3rem!important;
+}
+#appeal_confirm_consumption .weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before {
     color: #ff5370!important;
 }
-.weui-btn{
+#appeal_confirm_consumption .weui-btn{
     font-size: 0.3rem!important;
 }
-.weui-btn_primary {
+#appeal_confirm_consumption .weui-btn_primary {
     background-color: #ff5370!important;
 }
-.weui-dialog__hd{
+#appeal_confirm_consumption .weui-dialog__hd{
     padding:0rem 0rem 0rem 0rem!important;
 }
-.weui-dialog__title {
+#appeal_confirm_consumption .weui-dialog__title {
     font-weight: 300!important;
     font-size: 0.4rem!important;
         line-height: 1rem!important;
 }
-.weui-dialog__bd{
+#appeal_confirm_consumption .weui-dialog__bd{
     font-size: 0.4rem!important;
 }
-.weui-dialog__ft {
+#appeal_confirm_consumption .weui-dialog__ft {
     font-size: 0.3rem!important;
     padding: 0.3rem 0!important;
 }
-.weui-dialog{
+#appeal_confirm_consumption .weui-dialog{
     max-width:90%!important;
 }
 </style>

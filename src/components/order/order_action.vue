@@ -74,7 +74,7 @@
     }
 </script>
 <style>
-.vux-divider{
+#order_action .vux-divider{
  font-size: 0.3rem!important;
 }
 </style>

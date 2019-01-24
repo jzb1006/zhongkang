@@ -217,6 +217,7 @@ export default {
         },
         show_institution() {
             this.is_show_institution = true;
+            this.$_ajax_institution();
         },
         hidden_doctor() {
             this.is_show_doctor = false;
@@ -275,11 +276,73 @@ export default {
 };
 </script>
 <style lang="less">
-@calendar-selected-bg-color: #000;
-@import url("./../../assets/css/calandar.css");
+#backdrop_info .vux-no-group-title{
+    margin-top: 0!important;
+}
+#backdrop_info .weui-cells{
+    margin-top:0!important;
+    line-height:.32rem!important;
+    font-size: .32rem!important;
+}
+#backdrop_info .weui-cells:before{
+    height: 0px!important;
+    border: 0px!important;
+}
+#backdrop_info .weui-cell{
+    padding: 0!important;
+}
+#backdrop_info .vux-calendar:before{
+    height: 0px!important;
+    border: 0px!important;
+}
+#backdrop_info .weui-switch{
+    height: 15px!important;
+    border: 0px!important;
+}
+#backdrop_info .weui-switch:before{
+    height: 15px!important;
+}
+#backdrop_info .weui-switch:after{
+    height: 15px!important;
+}
+.inline-calendar th {
+    font-size: .35rem !important;
+}
+
+.inline-calendar td > span.vux-calendar-each-date {
+    font-size: 0.2rem!important;
+}
+
+.vux-prev-icon, .vux-next-icon {
+    width: .2rem!important;
+    height: .2rem!important;
+}
+
+.inline-calendar a {
+    font-size: .4rem!important;
+}
+.inline-calendar a {
+    top: 0.4rem!important;
+}
+.vux-next-icon {
+    top: 0.3rem!important;
+}
+
+.calendar-header {
+    line-height: .9rem !important;
+    font-size: .6rem !important;
+}
+.vux-calendar:before{
+    border: 0px!important;
+}
+.weui-cell{
+    font-size: .35rem;
+    padding: .2rem 0!important;
+
+}
 </style>
 <style scoped>
-.show_hospital {
+#backdrop_info .show_hospital {
     position: absolute;
     font-size: 0.3rem;
     width: 77%;
@@ -287,13 +350,13 @@ export default {
     overflow-x: hidden;
     border: 1px dotted #000;
     background-color: #fff;
-    z-index: 222;
+    z-index: 400;
 }
 
-.show_hospital > div {
+#backdrop_info .show_hospital > div {
     border-bottom: 1px solid #ccc;
 }
-.show_hospital > div p {
+#backdrop_info .show_hospital > div p {
     margin: 0;
     padding: 0.3rem 0.4rem;
 }
@@ -303,6 +366,7 @@ export default {
     /* margin-bottom: 1.5rem; */
 }
 #backdrop_info .info li {
+    position: relative;
     font-size: 0.32rem;
     padding: 0.3rem 0.2rem;
     border-top: 1px solid #ccc;
@@ -311,35 +375,18 @@ export default {
     float: right;
     width: 87%;
 }
-#backdrop_info .info li.sel_item .a_item {
-    display: inline-block;
-    width: 3rem;
-    height: 0.3rem;
-    margin-left: 0.5rem;
-    text-align: right;
-    word-wrap: break-word;
-    word-break: break-all;
-    overflow: hidden;
-}
-#backdrop_info .info li.sel_item .a_item i {
-    padding: 0.1rem;
-    border: 1px solid #ccc;
-}
-#backdrop_info .info li.sel_item .badge_r {
-    float: right;
-}
-#backdrop_info .info li.sel_time {
+#backdrop_info .info li .sel_time {
     position: relative;
     padding-top: 0.3rem;
 }
-#backdrop_info .info li.sel_time {
+#backdrop_info .info li .sel_time {
     position: relative;
     padding-top: 0.3rem;
 }
-#backdrop_info .info li.sel_aesthetic_custom{
+#backdrop_info .info li .sel_aesthetic_custom{
     position: relative;
 }
-input {
+#backdrop_info input {
     width: 100%;
     font-size: 0.3rem;
 }

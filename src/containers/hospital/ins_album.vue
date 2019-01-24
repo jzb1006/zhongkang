@@ -62,28 +62,28 @@
         margin: 0.1rem 0;
         padding: 0 0.5rem;
     }
-    .vux-button-group>a {
+    #album .vux-button-group>a {
         height: 0.7rem!important;
         font-size: 0.3rem!important;
         line-height: 0.7rem!important;
     }
-    .vux-button-group>a.vux-button-tab-item-last {
+    #album .vux-button-group>a.vux-button-tab-item-last {
         border-top-right-radius: 0.1rem!important;
         border-bottom-right-radius: 0.1rem!important;
     }
-    .vux-button-group>a.vux-button-tab-item-first {
+    #album .vux-button-group>a.vux-button-tab-item-first {
         border-top-left-radius: 0.1rem!important;
         border-bottom-left-radius: 0.1rem!important;
     }
-    .vux-button-group > a.vux-button-tab-item-last:after{
+    #album .vux-button-group > a.vux-button-tab-item-last:after{
         border-right: 1px solid #444!important;
     border-top: 1px solid #444!important;
     border-bottom: 1px solid #444!important;
     }
-    .vux-button-group>a.vux-button-tab-item-first:after {
+    #album .vux-button-group>a.vux-button-tab-item-first:after {
         border: 1px solid #444!important;
     }
-    .vux-button-group>a.vux-button-group-current {
+    #album .vux-button-group>a.vux-button-group-current {
         background:#444!important
     }
 </style>

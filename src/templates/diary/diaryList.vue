@@ -10,7 +10,7 @@
                 <span class="user_name">{{diary.nickname?diary.nickname:""}}</span>
                 <p class="content">{{diary.content}}</p>
             </div>
-            <router-link :to="{name:'container',query:{id:params.diary_page,bid:diary.bid}}" tag="div">
+            <router-link :to="{name:'container',query:{id:params.diary_page,bid:diary.bid,scene_name:'diary',scene_id:diary['bid'],scene_type:4}}" tag="div">
                 <div class="middle clearfix">
                     <div class="avg" v-if="diary.type == '1'">
                         <div class="one_img" v-if="diary.img1.length == 0">

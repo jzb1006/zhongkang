@@ -270,19 +270,19 @@ export default {
 <style lang="less">
 @import "~vux/src/styles/close";
 
-.weui-switch:before,
-.weui-switch-cp__box:before {
+#order_detail .weui-switch:before,
+#order_detail .weui-switch-cp__box:before {
     background-color: #ff5370 !important;
 }
-.weui-cell {
+#order_detail .weui-cell {
     padding-top: 0.2rem !important;
     padding-bottom: 0.2rem !important;
 }
-.QRcode canvas {
+#order_detail .QRcode canvas {
     width: 4rem !important;
     height: 4rem !important;
 }
-.weui-cells {
+#order_detail .weui-cells {
     margin-top: 0 !important;
     line-height: 0.3rem !important;
     font-size: 0.3rem !important;

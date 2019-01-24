@@ -101,37 +101,37 @@ import { setTimeout } from 'timers';
     }
 </script>
 <style>
-    .weui-cells__title{
-        font-size: 0.3rem!important;
-    }
-    .weui-cell__bd {
+#appli_tk .weui-cells__title{
     font-size: 0.3rem!important;
 }
-.weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before {
+#appli_tk .weui-cell__bd {
+font-size: 0.3rem!important;
+}
+#appli_tk .weui-cells_checkbox .weui-check:checked + .vux-checklist-icon-checked:before {
     color: #ff5370!important;
 }
-.weui-btn{
+#appli_tk .weui-btn{
     font-size: 0.3rem!important;
 }
-.weui-btn_primary {
+#appli_tk .weui-btn_primary {
     background-color: #ff5370!important;
 }
-.weui-dialog__hd{
+#appli_tk .weui-dialog__hd{
     padding:0rem 0rem 0rem 0rem!important;
 }
-.weui-dialog__title {
+#appli_tk .weui-dialog__title {
     font-weight: 300!important;
     font-size: 0.4rem!important;
         line-height: 1rem!important;
 }
-.weui-dialog__bd{
+#appli_tk .weui-dialog__bd{
     font-size: 0.4rem!important;
 }
-.weui-dialog__ft {
+#appli_tk .weui-dialog__ft {
     font-size: 0.3rem!important;
     padding: 0.3rem 0!important;
 }
-.weui-dialog{
+#appli_tk .weui-dialog{
     max-width:90%!important;
 }
 </style>

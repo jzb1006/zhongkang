@@ -54,6 +54,9 @@ export default {
             default: function() {
                 return {};
             }
+        },
+        isShow:{
+            default:false
         }
     },
     data() {
@@ -68,6 +71,9 @@ export default {
         diaryBackdropInfo(val,oldVal){
             this.diaryList = val.diaryList;
             this.diaryCount = val.diaryCount;
+        },
+        isShow(val,oldVal){
+            this.is_operate = val;
         }
     },
     computed: {
