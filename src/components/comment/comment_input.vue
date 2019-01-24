@@ -100,6 +100,7 @@ export default {
             };
 
             apiCom.addComment(formData).then(res => {
+                console.log(res);
                 if (res.data.err == "0") {
                     this.$emit("commentSuccess");
                 }

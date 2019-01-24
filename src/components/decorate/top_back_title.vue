@@ -42,7 +42,6 @@
                 this.$router.back(-1);
             },
             more() {
-                // console.log("sdf");
                 this.is_show = true
             },
             complain(scene_name,scene_id,scene_type){

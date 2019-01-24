@@ -63,6 +63,7 @@ export default {
 
                     if (self.diaryList.length > 0 && self.diaryList == false || res.data.diaryList == false) {
                         self.isShow = true;
+                        this.$store.dispatch("Save_Diary_Operate", "cb");
                     }else{
                         self.isShow = false;
                     }
